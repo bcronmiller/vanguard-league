@@ -38,7 +38,7 @@ async def sync_players():
                 print("❌ Failed to fetch players from Rankade")
                 break
 
-            players = players_data["success"].get("players", [])
+            players = players_data["success"].get("data", [])
 
             if not players:
                 print("✅ No more players to sync")
@@ -46,7 +46,7 @@ async def sync_players():
 
             for rankade_player in players:
                 rankade_id = rankade_player.get("id")
-                name = rankade_player.get("name")
+                name = rankade_player.get("displayName")
 
                 if not rankade_id:
                     continue
@@ -58,11 +58,10 @@ async def sync_players():
 
                 if not player:
                     # Create new player
-                    ghost_data = rankade_player.get("ghost", {})
                     player = Player(
                         rankade_id=rankade_id,
                         name=name,
-                        photo_url=ghost_data.get("picture"),
+                        photo_url=rankade_player.get("icon") or None,
                         active=True
                     )
                     db.add(player)
@@ -72,8 +71,8 @@ async def sync_players():
                     # Update existing player
                     player.name = name
                     player.active = True
-                    if rankade_player.get("ghost", {}).get("picture"):
-                        player.photo_url = rankade_player["ghost"]["picture"]
+                    if rankade_player.get("icon"):
+                        player.photo_url = rankade_player["icon"]
                     print(f"  ♻️ Updated player: {name}")
 
                 total_synced += 1
