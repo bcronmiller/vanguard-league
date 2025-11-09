@@ -11,7 +11,7 @@ from app.core.config import settings
 class RankadeService:
     """Service for interacting with Rankade API"""
 
-    BASE_URL = "https://api.rankade.com"
+    BASE_URL = "https://api.rankade.com/public/api/1"
 
     def __init__(self):
         self.api_key = settings.RANKADE_API_KEY
