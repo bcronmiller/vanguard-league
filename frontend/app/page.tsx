@@ -285,33 +285,7 @@ export default function Home() {
           <h2 className="text-3xl font-heading font-bold text-center mb-8 text-gray-900 dark:text-white">
             CURRENT #1 RANKED FIGHTERS
           </h2>
-          <div className="grid md:grid-cols-4 gap-6 max-w-7xl mx-auto">
-            {/* Pound-for-Pound */}
-            <a href="/ladder/p4p" className="bg-white dark:bg-gray-800 rounded-lg shadow-lg border-t-4 border-yellow-500 overflow-hidden hover:shadow-2xl transition group">
-              <div className="bg-gradient-to-r from-yellow-500 to-yellow-600 text-white p-4">
-                <h3 className="font-heading font-bold text-xl text-center">POUND-FOR-POUND</h3>
-                <p className="text-center text-xs">All Weight Classes</p>
-              </div>
-              <div className="p-6">
-                {ladderData.overall.length > 0 ? (
-                  <div className="text-center">
-                    <div className="text-6xl mb-4">👑</div>
-                    <div className="font-heading font-bold text-xl text-gray-900 dark:text-white group-hover:text-yellow-600">
-                      {ladderData.overall[0]?.player.name.replace('*', '')}
-                    </div>
-                    <div className="text-sm text-gray-600 dark:text-gray-400 mt-2">
-                      {ladderData.overall[0]?.wins}-{ladderData.overall[0]?.losses}-{ladderData.overall[0]?.draws}{!readOnly && ` • ELO: ${Math.round(ladderData.overall[0]?.player.elo_rating || 0)}`}
-                    </div>
-                    <div className="mt-4 text-mbjj-blue font-heading font-bold group-hover:underline">
-                      VIEW FULL LADDER →
-                    </div>
-                  </div>
-                ) : (
-                  <p className="text-center text-gray-500 py-4">No fighters yet</p>
-                )}
-              </div>
-            </a>
-
+          <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
             {/* Lightweight */}
             <a href="/ladder/lightweight" className="bg-white dark:bg-gray-800 rounded-lg shadow-lg border-t-4 border-mbjj-red overflow-hidden hover:shadow-2xl transition group">
               <div className="bg-mbjj-red text-white p-4">
