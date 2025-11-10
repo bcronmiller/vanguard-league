@@ -36,18 +36,15 @@ export default function Home() {
       for (const event of events) {
         try {
           const matchEndpoint = isStatic
-            ? `/data/ladder-event-${event.id}.json`
+            ? `/data/matches-event-${event.id}.json`
             : `${apiUrl}/api/events/${event.id}/matches`;
           const matchRes = await fetch(matchEndpoint, {
             cache: 'no-store'
           });
           if (matchRes.ok) {
             const data = await matchRes.json();
-            // Handle both API response (array) and static data (ladder object)
-            if (isStatic && data.standings) {
-              // Estimate matches from ladder standings (approximate)
-              totalMatches += data.standings.length > 0 ? data.standings.length * 2 : 0;
-            } else if (Array.isArray(data)) {
+            // Count actual matches from the array
+            if (Array.isArray(data)) {
               totalMatches += data.length;
             }
           }

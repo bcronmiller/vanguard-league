@@ -56,6 +56,7 @@ async function exportData() {
   if (events && events.length > 0) {
     for (const event of events) {
       await fetchAndSave(`/api/events/${event.id}`, `event-${event.id}.json`);
+      await fetchAndSave(`/api/events/${event.id}/matches`, `matches-event-${event.id}.json`);
       await fetchAndSave(`/api/ladder/${event.id}`, `ladder-event-${event.id}.json`);
 
       // Weight class ladders per event
