@@ -1,20 +1,29 @@
+'use client';
+
+import { useState, useEffect } from 'react';
 import { config } from '@/lib/config';
 
-export default async function Home() {
+export default function Home() {
   const apiUrl = config.apiUrl;
   const readOnly = config.readOnly;
   const isStatic = process.env.NEXT_PUBLIC_STATIC_MODE === 'true';
 
-  let stats = { players: 0, matches: 0 };
-  let ladderData: any = {
+  const [stats, setStats] = useState({ players: 0, matches: 0 });
+  const [ladderData, setLadderData] = useState<any>({
     overall: [],
     lightweight: [],
     middleweight: [],
     heavyweight: []
-  };
+  });
+  const [loading, setLoading] = useState(true);
 
-  // Fetch match count
-  try {
+  useEffect(() => {
+    loadData();
+  }, []);
+
+  const loadData = async () => {
+    // Fetch match count
+    try {
     const eventsEndpoint = isStatic ? '/data/events.json' : `${apiUrl}/api/events`;
     const eventsRes = await fetch(eventsEndpoint, {
       cache: 'no-store'
@@ -47,7 +56,7 @@ export default async function Home() {
         }
       }
 
-      stats.matches = totalMatches;
+      setStats(prev => ({ ...prev, matches: totalMatches }));
     }
   } catch (e) {
     // Continue with default stats if API fails
@@ -62,27 +71,38 @@ export default async function Home() {
     if (ladderRes.ok) {
       const allLadder = await ladderRes.json();
 
-      // Store overall ladder for P4P
-      ladderData.overall = allLadder;
-
-      // Count active competitors (only fighters who have competed)
-      stats.players = allLadder.length;
+      const lightweight: any[] = [];
+      const middleweight: any[] = [];
+      const heavyweight: any[] = [];
 
       // Separate by weight class based on player weight
       for (const standing of allLadder) {
         const weight = standing.player.weight;
         if (weight && weight < 170) {
-          ladderData.lightweight.push(standing);
+          lightweight.push(standing);
         } else if (weight && weight >= 170 && weight < 185) {
-          ladderData.middleweight.push(standing);
+          middleweight.push(standing);
         } else if (weight && weight >= 185) {
-          ladderData.heavyweight.push(standing);
+          heavyweight.push(standing);
         }
       }
+
+      setLadderData({
+        overall: allLadder,
+        lightweight,
+        middleweight,
+        heavyweight
+      });
+
+      // Count active competitors (only fighters who have competed)
+      setStats(prev => ({ ...prev, players: allLadder.length }));
     }
   } catch (e) {
     // Ladder optional
   }
+
+    setLoading(false);
+  };
 
   return (
     <div className="min-h-screen flex flex-col bg-white dark:bg-mbjj-dark">
