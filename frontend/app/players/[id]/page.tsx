@@ -1,6 +1,6 @@
 'use client';
 
-import { use, useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { config } from '@/lib/config';
 
 interface Player {
@@ -33,9 +33,8 @@ interface MatchHistory {
   weight_class: string | null;
 }
 
-export default function PlayerProfilePage({ params }: { params: Promise<{ id: string }> }) {
-  const resolvedParams = use(params);
-  const playerId = resolvedParams.id;
+export default function PlayerProfilePage({ params }: { params: { id: string } }) {
+  const playerId = params.id;
   const readOnly = config.readOnly;
 
   const [player, setPlayer] = useState<Player | null>(null);
