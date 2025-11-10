@@ -60,14 +60,14 @@ export default function PoundForPoundPage() {
   const getWeightClass = (weight: number | null) => {
     if (!weight) return 'N/A';
     if (weight < 170) return 'Lightweight';
-    if (weight < 185) return 'Middleweight';
+    if (weight <= 200) return 'Middleweight';
     return 'Heavyweight';
   };
 
   const getWeightClassColor = (weight: number | null) => {
     if (!weight) return 'bg-gray-500';
     if (weight < 170) return 'bg-mbjj-red';
-    if (weight < 185) return 'bg-mbjj-blue';
+    if (weight <= 200) return 'bg-mbjj-blue';
     return 'bg-mbjj-red';
   };
 

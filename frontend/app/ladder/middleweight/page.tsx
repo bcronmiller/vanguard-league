@@ -34,8 +34,8 @@ export default function MiddleweightPage() {
       const res = await fetch(endpoint);
       if (res.ok) {
         const data = await res.json();
-        // Filter for middleweight only (170-185 lbs)
-        const middleweight = data.filter((f: Fighter) => f.player.weight && f.player.weight >= 170 && f.player.weight < 185);
+        // Filter for middleweight only (170-200 lbs)
+        const middleweight = data.filter((f: Fighter) => f.player.weight && f.player.weight >= 170 && f.player.weight <= 200);
 
         // Sort by ELO gain (performance vs. expectations) for rankings
         const sorted = middleweight.sort((a: Fighter, b: Fighter) => {
@@ -107,7 +107,7 @@ export default function MiddleweightPage() {
               LADDER RANKINGS
             </p>
             <p className="text-lg text-gray-200 mt-2">
-              170-185 lbs
+              170-200 lbs
             </p>
           </div>
         </div>

@@ -34,8 +34,8 @@ export default function HeavyweightPage() {
       const res = await fetch(endpoint);
       if (res.ok) {
         const data = await res.json();
-        // Filter for heavyweight only (>=185 lbs)
-        const heavyweight = data.filter((f: Fighter) => f.player.weight && f.player.weight >= 185);
+        // Filter for heavyweight only (>200 lbs)
+        const heavyweight = data.filter((f: Fighter) => f.player.weight && f.player.weight > 200);
 
         // Sort by ELO gain (performance vs. expectations) for rankings
         const sorted = heavyweight.sort((a: Fighter, b: Fighter) => {
@@ -107,7 +107,7 @@ export default function HeavyweightPage() {
               LADDER RANKINGS
             </p>
             <p className="text-lg text-gray-200 mt-2">
-              185 lbs and above
+              Over 200 lbs
             </p>
           </div>
         </div>

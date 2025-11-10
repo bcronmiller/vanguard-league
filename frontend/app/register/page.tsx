@@ -174,7 +174,7 @@ export default function RegisterFighter() {
                 placeholder="165.5"
               />
               <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
-                Weight classes: Lightweight (&lt;170), Middleweight (170-185), Heavyweight (&gt;185)
+                Weight classes: Lightweight (&lt;170), Middleweight (170-200), Heavyweight (&gt;200)
               </p>
             </div>
 

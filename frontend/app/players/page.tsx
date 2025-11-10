@@ -57,8 +57,8 @@ export default function PlayersPage() {
 
   const groupByWeightClass = () => {
     const lightweight = players.filter(p => p.weight && p.weight < 170);
-    const middleweight = players.filter(p => p.weight && p.weight >= 170 && p.weight < 185);
-    const heavyweight = players.filter(p => p.weight && p.weight >= 185);
+    const middleweight = players.filter(p => p.weight && p.weight >= 170 && p.weight <= 200);
+    const heavyweight = players.filter(p => p.weight && p.weight > 200);
     return { lightweight, middleweight, heavyweight };
   };
 
@@ -150,7 +150,7 @@ export default function PlayersPage() {
           <section className="mb-16">
             <div className="flex items-center gap-4 mb-8">
               <h2 className="text-4xl font-heading font-bold text-mbjj-blue">MIDDLEWEIGHT</h2>
-              <span className="text-xl text-gray-600 dark:text-gray-400">170-185 lbs</span>
+              <span className="text-xl text-gray-600 dark:text-gray-400">170-200 lbs</span>
             </div>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {groups.middleweight.map((player) => (
@@ -200,7 +200,7 @@ export default function PlayersPage() {
           <section className="mb-16">
             <div className="flex items-center gap-4 mb-8">
               <h2 className="text-4xl font-heading font-bold text-mbjj-red">HEAVYWEIGHT</h2>
-              <span className="text-xl text-gray-600 dark:text-gray-400">Over 185 lbs</span>
+              <span className="text-xl text-gray-600 dark:text-gray-400">Over 200 lbs</span>
             </div>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {groups.heavyweight.map((player) => (

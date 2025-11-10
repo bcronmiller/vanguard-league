@@ -77,9 +77,9 @@ export default function Home() {
         const weight = standing.player.weight;
         if (weight && weight < 170) {
           lightweight.push(standing);
-        } else if (weight && weight < 185) {
+        } else if (weight && weight <= 200) {
           middleweight.push(standing);
-        } else if (weight && weight >= 185) {
+        } else if (weight && weight > 200) {
           heavyweight.push(standing);
         }
       }
@@ -334,7 +334,7 @@ export default function Home() {
             <a href="/ladder/middleweight" className="bg-white dark:bg-gray-800 rounded-lg shadow-lg border-t-4 border-mbjj-blue overflow-hidden hover:shadow-2xl transition group">
               <div className="bg-mbjj-blue text-white p-4">
                 <h3 className="font-heading font-bold text-xl text-center">MIDDLEWEIGHT</h3>
-                <p className="text-center text-xs">170-185 lbs</p>
+                <p className="text-center text-xs">170-200 lbs</p>
               </div>
               <div className="p-6">
                 {ladderData.middleweight.length > 0 ? (
@@ -360,7 +360,7 @@ export default function Home() {
             <a href="/ladder/heavyweight" className="bg-white dark:bg-gray-800 rounded-lg shadow-lg border-t-4 border-mbjj-red overflow-hidden hover:shadow-2xl transition group">
               <div className="bg-mbjj-red text-white p-4">
                 <h3 className="font-heading font-bold text-xl text-center">HEAVYWEIGHT</h3>
-                <p className="text-center text-xs">185 lbs and over</p>
+                <p className="text-center text-xs">Over 200 lbs</p>
               </div>
               <div className="p-6">
                 {ladderData.heavyweight.length > 0 ? (

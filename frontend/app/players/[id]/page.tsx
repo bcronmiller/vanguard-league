@@ -111,12 +111,12 @@ export default function PlayerProfilePage({ params }: { params: Promise<{ id: st
           if (weight < 170) {
             weightClass = 'Lightweight';
             classLadder = validLadder.filter((s: any) => s.player.weight && s.player.weight < 170);
-          } else if (weight >= 170 && weight < 185) {
+          } else if (weight >= 170 && weight <= 200) {
             weightClass = 'Middleweight';
-            classLadder = validLadder.filter((s: any) => s.player.weight && s.player.weight >= 170 && s.player.weight < 185);
+            classLadder = validLadder.filter((s: any) => s.player.weight && s.player.weight >= 170 && s.player.weight <= 200);
           } else {
             weightClass = 'Heavyweight';
-            classLadder = validLadder.filter((s: any) => s.player.weight && s.player.weight >= 185);
+            classLadder = validLadder.filter((s: any) => s.player.weight && s.player.weight > 200);
           }
 
           const rank = classLadder.findIndex((s: any) => s.player.id === parseInt(playerId)) + 1;
