@@ -1,0 +1,127 @@
+{
+  "event_id": 1,
+  "event_name": "VGL 1",
+  "event_date": "2025-11-07T19:00:00",
+  "standings": [
+    {
+      "rank": 1,
+      "player_id": 11,
+      "player_name": "*Christian Banghart",
+      "photo_url": null,
+      "belt_rank": "Black",
+      "wins": 3,
+      "losses": 0,
+      "draws": 1,
+      "win_rate": 0.75,
+      "elo_rating": 2004.5397762344307
+    },
+    {
+      "rank": 2,
+      "player_id": 10,
+      "player_name": "*Troy Wittman",
+      "photo_url": null,
+      "belt_rank": "Black",
+      "wins": 3,
+      "losses": 1,
+      "draws": 0,
+      "win_rate": 0.75,
+      "elo_rating": 1987.69956212777
+    },
+    {
+      "rank": 3,
+      "player_id": 2,
+      "player_name": "*Alex Stewart",
+      "photo_url": null,
+      "belt_rank": "Purple",
+      "wins": 2,
+      "losses": 0,
+      "draws": 0,
+      "win_rate": 1,
+      "elo_rating": 1486.9270982828134
+    },
+    {
+      "rank": 4,
+      "player_id": 5,
+      "player_name": "*Nick Newbold",
+      "photo_url": null,
+      "belt_rank": "Blue",
+      "wins": 3,
+      "losses": 1,
+      "draws": 0,
+      "win_rate": 0.75,
+      "elo_rating": 1387.2022580830655
+    },
+    {
+      "rank": 5,
+      "player_id": 8,
+      "player_name": "*John Michael El Mapache Rodriguez Uhweta",
+      "photo_url": null,
+      "belt_rank": "Blue",
+      "wins": 2,
+      "losses": 0,
+      "draws": 0,
+      "win_rate": 1,
+      "elo_rating": 1364.5077055614356
+    },
+    {
+      "rank": 6,
+      "player_id": 3,
+      "player_name": "*Hussain Samir",
+      "photo_url": null,
+      "belt_rank": "Blue",
+      "wins": 2,
+      "losses": 2,
+      "draws": 0,
+      "win_rate": 0.5,
+      "elo_rating": 1336.6514655466822
+    },
+    {
+      "rank": 7,
+      "player_id": 7,
+      "player_name": "*Matt Crawford",
+      "photo_url": null,
+      "belt_rank": "Brown",
+      "wins": 1,
+      "losses": 2,
+      "draws": 1,
+      "win_rate": 0.25,
+      "elo_rating": 1590.1194183870175
+    },
+    {
+      "rank": 8,
+      "player_id": 9,
+      "player_name": "*Edrees Saifi",
+      "photo_url": null,
+      "belt_rank": "Blue",
+      "wins": 0,
+      "losses": 3,
+      "draws": 1,
+      "win_rate": 0,
+      "elo_rating": 1302.3171809060275
+    },
+    {
+      "rank": 9,
+      "player_id": 6,
+      "player_name": "*Josh Rivera",
+      "photo_url": null,
+      "belt_rank": "Blue",
+      "wins": 0,
+      "losses": 3,
+      "draws": 0,
+      "win_rate": 0,
+      "elo_rating": 1293.9137306090688
+    },
+    {
+      "rank": 10,
+      "player_id": 4,
+      "player_name": "*Josue Chevaz",
+      "photo_url": null,
+      "belt_rank": "Blue",
+      "wins": 0,
+      "losses": 4,
+      "draws": 1,
+      "win_rate": 0,
+      "elo_rating": 1311.1218042616888
+    }
+  ]
+}

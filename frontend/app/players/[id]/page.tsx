@@ -1,0 +1,342 @@
+'use client';
+
+import { use, useState, useEffect } from 'react';
+import { config } from '@/lib/config';
+
+interface Player {
+  id: number;
+  name: string;
+  photo_url: string | null;
+  bjj_belt_rank: string | null;
+  age: number | null;
+  weight: number | null;
+  weight_class: { name: string } | null;
+}
+
+interface MatchHistory {
+  match_id: number;
+  event_id: number;
+  event_name: string;
+  event_date: string;
+  opponent: {
+    id: number;
+    name: string;
+    photo_url: string | null;
+  };
+  result: string;
+  method: string | null;
+  duration_seconds: number | null;
+  match_number: number;
+  belt_rank: string | null;
+  weight: number | null;
+  weight_class: string | null;
+}
+
+export default function PlayerProfilePage({ params }: { params: Promise<{ id: string }> }) {
+  const resolvedParams = use(params);
+  const playerId = resolvedParams.id;
+  const readOnly = config.readOnly;
+
+  const [player, setPlayer] = useState<Player | null>(null);
+  const [matches, setMatches] = useState<MatchHistory[]>([]);
+  const [ranking, setRanking] = useState<{ rank: number; total: number; weightClass: string } | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    loadPlayer();
+    loadMatches();
+    loadRanking();
+  }, [playerId]);
+
+  const loadPlayer = async () => {
+    try {
+      const res = await fetch(`http://192.168.1.246:8000/api/players/${playerId}`);
+      if (res.ok) {
+        const data = await res.json();
+        setPlayer(data);
+      }
+    } catch (error) {
+      console.error('Failed to load player:', error);
+    }
+  };
+
+  const loadMatches = async () => {
+    try {
+      const res = await fetch(`http://192.168.1.246:8000/api/players/${playerId}/matches`);
+      if (res.ok) {
+        const data = await res.json();
+        setMatches(data);
+      }
+    } catch (error) {
+      console.error('Failed to load matches:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const loadRanking = async () => {
+    try {
+      const res = await fetch(`http://192.168.1.246:8000/api/ladder`);
+      if (res.ok) {
+        const ladder = await res.json();
+
+        // Find player's ranking in their weight class
+        const playerStanding = ladder.find((s: any) => s.player.id === parseInt(playerId));
+
+        if (playerStanding && playerStanding.player.weight) {
+          const weight = playerStanding.player.weight;
+          let weightClass = '';
+          let classLadder = [];
+
+          if (weight < 170) {
+            weightClass = 'Lightweight';
+            classLadder = ladder.filter((s: any) => s.player.weight && s.player.weight < 170);
+          } else if (weight >= 170 && weight < 185) {
+            weightClass = 'Middleweight';
+            classLadder = ladder.filter((s: any) => s.player.weight && s.player.weight >= 170 && s.player.weight < 185);
+          } else {
+            weightClass = 'Heavyweight';
+            classLadder = ladder.filter((s: any) => s.player.weight && s.player.weight >= 185);
+          }
+
+          const rank = classLadder.findIndex((s: any) => s.player.id === parseInt(playerId)) + 1;
+          setRanking({ rank, total: classLadder.length, weightClass });
+        }
+      }
+    } catch (error) {
+      console.error('Failed to load ranking:', error);
+    }
+  };
+
+  const formatTime = (seconds: number | null) => {
+    if (!seconds) return 'N/A';
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${mins}:${secs.toString().padStart(2, '0')}`;
+  };
+
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('en-US', {
+      month: 'short',
+      day: 'numeric',
+      year: 'numeric'
+    });
+  };
+
+  const getRecord = () => {
+    const wins = matches.filter(m => m.result === 'win').length;
+    const losses = matches.filter(m => m.result === 'loss').length;
+    const draws = matches.filter(m => m.result === 'draw').length;
+    return { wins, losses, draws };
+  };
+
+  if (loading || !player) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-white dark:bg-mbjj-dark">
+        <div className="text-2xl font-heading text-gray-600 dark:text-gray-400">LOADING...</div>
+      </div>
+    );
+  }
+
+  const record = getRecord();
+  const cleanName = player.name.replace('*', '');
+
+  return (
+    <div className="min-h-screen bg-white dark:bg-mbjj-dark">
+      <header className="bg-mbjj-dark text-white py-6">
+        <div className="container mx-auto px-4">
+          <div className="flex gap-4 mb-3">
+            <a href="/" className="text-mbjj-red hover:text-mbjj-accent-light">
+              ← Home
+            </a>
+            <span className="text-gray-600">|</span>
+            <a href="/players" className="text-mbjj-red hover:text-mbjj-accent-light">
+              ← Players
+            </a>
+          </div>
+          <h1 className="text-4xl font-heading font-bold">FIGHTER PROFILE</h1>
+        </div>
+      </header>
+
+      <main className="container mx-auto px-4 py-8 max-w-6xl">
+        {/* Profile Header */}
+        <div className="bg-white dark:bg-gray-800 rounded-lg p-8 mb-8">
+          <div className="flex items-start gap-8">
+            {/* Profile Photo */}
+            <div className="flex-shrink-0">
+              <img
+                src={player.photo_url || '/default-fighter.svg'}
+                alt={cleanName}
+                className="w-48 h-48 rounded-lg object-cover border-4 border-mbjj-red"
+              />
+            </div>
+
+            {/* Stats */}
+            <div className="flex-1">
+              <h2 className="text-5xl font-heading font-bold mb-4 text-gray-900 dark:text-white">
+                {cleanName}
+              </h2>
+
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-6">
+                {/* Record */}
+                <div>
+                  <div className="text-sm text-gray-600 dark:text-gray-400 mb-1">RECORD</div>
+                  <div className="text-3xl font-heading font-bold text-mbjj-red">
+                    {record.wins}-{record.losses}-{record.draws}
+                  </div>
+                </div>
+
+                {/* Ranking */}
+                {ranking && (
+                  <div>
+                    <div className="text-sm text-gray-600 dark:text-gray-400 mb-1">
+                      {ranking.weightClass.toUpperCase()} RANK
+                    </div>
+                    <div className="text-3xl font-heading font-bold text-mbjj-blue">
+                      #{ranking.rank} <span className="text-lg text-gray-500">of {ranking.total}</span>
+                    </div>
+                  </div>
+                )}
+
+                {/* Belt Rank */}
+                <div>
+                  <div className="text-sm text-gray-600 dark:text-gray-400 mb-1">BELT RANK</div>
+                  <div className="text-2xl font-heading font-bold">
+                    {player.bjj_belt_rank || 'Unknown'}
+                  </div>
+                </div>
+
+                {/* Current Weight */}
+                <div>
+                  <div className="text-sm text-gray-600 dark:text-gray-400 mb-1">CURRENT WEIGHT</div>
+                  <div className="text-2xl font-heading font-bold">
+                    {player.weight ? `${player.weight} lbs` : 'N/A'}
+                  </div>
+                </div>
+              </div>
+
+              {/* Age if available */}
+              {player.age && (
+                <div className="text-gray-600 dark:text-gray-400">
+                  Age: <span className="font-bold">{player.age}</span>
+                </div>
+              )}
+
+              {/* Edit Profile Button - Hidden in read-only mode */}
+              {!readOnly && (
+                <div className="mt-6">
+                  <a
+                    href={`/players/${player.id}/edit`}
+                    className="inline-block bg-mbjj-red hover:bg-mbjj-accent-light text-white font-heading font-bold py-3 px-8 rounded-lg transition"
+                  >
+                    EDIT PROFILE
+                  </a>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+
+        {/* Match History */}
+        <div className="bg-white dark:bg-gray-800 rounded-lg p-8">
+          <h3 className="text-3xl font-heading font-bold mb-6 text-gray-900 dark:text-white">
+            FIGHT HISTORY ({matches.length} {matches.length === 1 ? 'Match' : 'Matches'})
+          </h3>
+
+          {matches.length === 0 ? (
+            <p className="text-center text-gray-600 dark:text-gray-400 py-12">
+              No matches recorded yet
+            </p>
+          ) : (
+            <div className="space-y-4">
+              {matches.map((match) => (
+                <div
+                  key={match.match_id}
+                  className={`border-l-4 p-6 rounded-lg ${
+                    match.result === 'win'
+                      ? 'border-green-500 bg-green-50 dark:bg-green-900/20'
+                      : match.result === 'loss'
+                      ? 'border-red-500 bg-red-50 dark:bg-red-900/20'
+                      : 'border-gray-500 bg-gray-50 dark:bg-gray-700/20'
+                  }`}
+                >
+                  <div className="flex items-center justify-between gap-4">
+                    {/* Result Badge */}
+                    <div className="flex-shrink-0">
+                      <div
+                        className={`text-2xl font-heading font-bold px-4 py-2 rounded-lg ${
+                          match.result === 'win'
+                            ? 'bg-green-600 text-white'
+                            : match.result === 'loss'
+                            ? 'bg-red-600 text-white'
+                            : 'bg-gray-600 text-white'
+                        }`}
+                      >
+                        {match.result.toUpperCase()}
+                      </div>
+                    </div>
+
+                    {/* Match Details */}
+                    <div className="flex-1">
+                      <div className="flex items-center gap-3 mb-2">
+                        <h4 className="text-2xl font-heading font-bold">
+                          vs {match.opponent.name.replace('*', '')}
+                        </h4>
+                      </div>
+
+                      <div className="flex flex-wrap gap-6 text-sm text-gray-700 dark:text-gray-300">
+                        <div>
+                          <span className="font-bold">Event:</span> {match.event_name}
+                        </div>
+                        <div>
+                          <span className="font-bold">Date:</span> {formatDate(match.event_date)}
+                        </div>
+                        {match.belt_rank && (
+                          <div>
+                            <span className="font-bold">Belt:</span> {match.belt_rank}
+                          </div>
+                        )}
+                        {match.weight && (
+                          <div>
+                            <span className="font-bold">Weight:</span> {match.weight} lbs
+                          </div>
+                        )}
+                        {match.weight_class && (
+                          <div>
+                            <span className="font-bold">Class:</span> {match.weight_class}
+                          </div>
+                        )}
+                        {match.method && (
+                          <div>
+                            <span className="font-bold">Method:</span> {match.method}
+                          </div>
+                        )}
+                        {match.duration_seconds && (
+                          <div>
+                            <span className="font-bold">Time:</span> {formatTime(match.duration_seconds)}
+                          </div>
+                        )}
+                      </div>
+                    </div>
+
+                    {/* Opponent Photo */}
+                    {match.opponent.photo_url && (
+                      <a href={`/players/${match.opponent.id}`} className="flex-shrink-0">
+                        <img
+                          src={match.opponent.photo_url}
+                          alt={match.opponent.name}
+                          className="w-16 h-16 rounded-full border-2 border-gray-300 hover:border-mbjj-red transition"
+                        />
+                      </a>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      </main>
+    </div>
+  );
+}

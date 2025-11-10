@@ -1,6 +1,6 @@
-from sqlalchemy import Column, Integer, String, DateTime, Enum as SQLEnum
+from sqlalchemy import Column, Integer, String, DateTime, Time, Enum as SQLEnum
 from sqlalchemy.orm import relationship
-from datetime import datetime
+from datetime import datetime, time
 import enum
 from app.core.database import Base
 
@@ -22,6 +22,8 @@ class Event(Base):
     date = Column(DateTime, nullable=False)
     venue = Column(String, nullable=False, default="VGI Trench")
     status = Column(SQLEnum(EventStatus), default=EventStatus.UPCOMING)
+    fighter_arrival_time = Column(Time, nullable=True, default=time(19, 30))  # 7:30 PM
+    event_start_time = Column(Time, nullable=True, default=time(20, 0))  # 8:00 PM
     created_at = Column(DateTime, default=datetime.utcnow)
 
     # Relationships

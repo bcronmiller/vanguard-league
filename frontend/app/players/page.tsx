@@ -1,115 +1,257 @@
-export default async function PlayersPage() {
-  const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+'use client';
 
-  let players = [];
-  let error = null;
+import { useState, useEffect } from 'react';
 
-  try {
-    const res = await fetch(`${apiUrl}/api/players`, {
-      cache: 'no-store' // Always get fresh data
-    });
+interface Player {
+  id: number;
+  name: string;
+  photo_url: string | null;
+  bjj_belt_rank: string | null;
+  weight: number | null;
+  weight_class: { name: string } | null;
+}
 
-    if (res.ok) {
-      players = await res.json();
-    } else {
-      error = 'Failed to fetch players';
+export default function PlayersPage() {
+  const [players, setPlayers] = useState<Player[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    loadPlayers();
+  }, []);
+
+  const loadPlayers = async () => {
+    try {
+      // Fetch only active competitors from the ladder
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://192.168.1.246:8000';
+      const isStatic = process.env.NEXT_PUBLIC_STATIC_MODE === 'true';
+      const endpoint = isStatic ? '/data/ladder-overall.json' : `${apiUrl}/api/ladder/overall`;
+
+      const res = await fetch(endpoint);
+      if (res.ok) {
+        const ladderData = await res.json();
+        // Extract player data from ladder standings
+        const activePlayers = ladderData.map((standing: any) => ({
+          id: standing.player.id,
+          name: standing.player.name,
+          photo_url: standing.player.photo_url,
+          bjj_belt_rank: standing.player.bjj_belt_rank,
+          weight: standing.player.weight,
+          weight_class: null
+        }));
+        // Sort by weight
+        activePlayers.sort((a: Player, b: Player) => {
+          if (!a.weight) return 1;
+          if (!b.weight) return -1;
+          return a.weight - b.weight;
+        });
+        setPlayers(activePlayers);
+      }
+    } catch (error) {
+      console.error('Failed to load players:', error);
+    } finally {
+      setLoading(false);
     }
-  } catch (e) {
-    error = 'Could not connect to API';
+  };
+
+  const groupByWeightClass = () => {
+    const lightweight = players.filter(p => p.weight && p.weight < 170);
+    const middleweight = players.filter(p => p.weight && p.weight >= 170 && p.weight < 185);
+    const heavyweight = players.filter(p => p.weight && p.weight >= 185);
+    return { lightweight, middleweight, heavyweight };
+  };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-white dark:bg-mbjj-dark">
+        <div className="text-2xl font-heading text-gray-600 dark:text-gray-400">LOADING...</div>
+      </div>
+    );
   }
 
+  const groups = groupByWeightClass();
+
   return (
-    <div className="min-h-screen flex flex-col">
-      <header className="bg-gray-900 text-white p-6">
-        <div className="container mx-auto">
-          <h1 className="text-4xl font-bold">Vanguard League</h1>
-          <p className="text-xl mt-2">Players Roster</p>
+    <div className="min-h-screen bg-white dark:bg-mbjj-dark">
+      <header className="bg-mbjj-dark text-white py-8">
+        <div className="container mx-auto px-4">
+          <a href="/" className="text-mbjj-red hover:text-mbjj-accent-light inline-block mb-4">
+            ← Home
+          </a>
+          <div className="text-center">
+            <h1 className="text-5xl md:text-6xl font-heading font-bold text-white mb-2">
+              FIGHTERS
+            </h1>
+            <div className="h-1 w-32 bg-mbjj-red mx-auto mb-4"></div>
+            <p className="text-xl md:text-2xl font-heading text-gray-300">
+              VGI TRENCH ROSTER
+            </p>
+            <p className="text-lg text-gray-400 mt-2">
+              at Manassas Brazilian Jiu-Jitsu
+            </p>
+          </div>
         </div>
       </header>
 
-      <main className="flex-1 container mx-auto px-4 py-8">
-        <div className="mb-6">
-          <a href="/" className="text-blue-600 hover:underline">← Back to Home</a>
-        </div>
-
-        {error && (
-          <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
-            {error}
-          </div>
+      <main className="container mx-auto px-4 py-12">
+        {/* Lightweight */}
+        {groups.lightweight.length > 0 && (
+          <section className="mb-16">
+            <div className="flex items-center gap-4 mb-8">
+              <h2 className="text-4xl font-heading font-bold text-mbjj-red">LIGHTWEIGHT</h2>
+              <span className="text-xl text-gray-600 dark:text-gray-400">Under 170 lbs</span>
+            </div>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {groups.lightweight.map((player) => (
+                <a
+                  key={player.id}
+                  href={`/players/${player.id}`}
+                  className="bg-white dark:bg-gray-800 rounded-lg p-6 border-2 border-transparent hover:border-mbjj-red transition shadow-lg hover:shadow-2xl"
+                >
+                  <div className="flex items-center gap-4 mb-4">
+                    {player.photo_url ? (
+                      <img
+                        src={player.photo_url}
+                        alt={player.name}
+                        className="w-20 h-20 rounded-full border-4 border-mbjj-red object-cover"
+                      />
+                    ) : (
+                      <div className="w-20 h-20 rounded-full bg-gray-300 dark:bg-gray-700 flex items-center justify-center border-4 border-mbjj-red">
+                        <span className="text-3xl">👤</span>
+                      </div>
+                    )}
+                    <div className="flex-1">
+                      <h3 className="text-xl font-heading font-bold text-gray-900 dark:text-white">
+                        {player.name.replace('*', '')}
+                      </h3>
+                      <div className="text-sm text-gray-600 dark:text-gray-400">
+                        {player.bjj_belt_rank || 'Unknown'} Belt
+                      </div>
+                    </div>
+                  </div>
+                  <div className="flex justify-between text-sm border-t border-gray-200 dark:border-gray-700 pt-3">
+                    <span className="text-gray-600 dark:text-gray-400">Weight:</span>
+                    <span className="font-bold text-mbjj-red">{player.weight} lbs</span>
+                  </div>
+                </a>
+              ))}
+            </div>
+          </section>
         )}
 
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden">
-          <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-            <thead className="bg-gray-50 dark:bg-gray-900">
-              <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
-                  #
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
-                  Name
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
-                  Belt
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
-                  Team
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
-                  Rankade ID
-                </th>
-              </tr>
-            </thead>
-            <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
-              {players.length === 0 && !error ? (
-                <tr>
-                  <td colSpan={5} className="px-6 py-4 text-center text-gray-500 dark:text-gray-400">
-                    No players found
-                  </td>
-                </tr>
-              ) : (
-                players.map((player: any, index: number) => (
-                  <tr key={player.id} className="hover:bg-gray-50 dark:hover:bg-gray-700">
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">
-                      {index + 1}
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="flex items-center">
-                        {player.photo_url && (
-                          <img
-                            src={player.photo_url}
-                            alt={player.name}
-                            className="h-10 w-10 rounded-full mr-3"
-                          />
-                        )}
-                        <div className="text-sm font-medium text-gray-900 dark:text-gray-100">
-                          {player.name}
-                        </div>
+        {/* Middleweight */}
+        {groups.middleweight.length > 0 && (
+          <section className="mb-16">
+            <div className="flex items-center gap-4 mb-8">
+              <h2 className="text-4xl font-heading font-bold text-mbjj-blue">MIDDLEWEIGHT</h2>
+              <span className="text-xl text-gray-600 dark:text-gray-400">170-185 lbs</span>
+            </div>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {groups.middleweight.map((player) => (
+                <a
+                  key={player.id}
+                  href={`/players/${player.id}`}
+                  className="bg-white dark:bg-gray-800 rounded-lg p-6 border-2 border-transparent hover:border-mbjj-blue transition shadow-lg hover:shadow-2xl"
+                >
+                  <div className="flex items-center gap-4 mb-4">
+                    {player.photo_url ? (
+                      <img
+                        src={player.photo_url}
+                        alt={player.name}
+                        className="w-20 h-20 rounded-full border-4 border-mbjj-blue object-cover"
+                      />
+                    ) : (
+                      <div className="w-20 h-20 rounded-full bg-gray-300 dark:bg-gray-700 flex items-center justify-center border-4 border-mbjj-blue">
+                        <span className="text-3xl">👤</span>
                       </div>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
-                      {player.belt || '-'}
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
-                      {player.team || '-'}
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400 font-mono">
-                      {player.rankade_id}
-                    </td>
-                  </tr>
-                ))
-              )}
-            </tbody>
-          </table>
-        </div>
+                    )}
+                    <div className="flex-1">
+                      <h3 className="text-xl font-heading font-bold text-gray-900 dark:text-white">
+                        {player.name.replace('*', '')}
+                      </h3>
+                      <div className="text-sm text-gray-600 dark:text-gray-400">
+                        {player.bjj_belt_rank || 'Unknown'} Belt
+                      </div>
+                    </div>
+                  </div>
+                  <div className="flex justify-between text-sm border-t border-gray-200 dark:border-gray-700 pt-3">
+                    <span className="text-gray-600 dark:text-gray-400">Weight:</span>
+                    <span className="font-bold text-mbjj-blue">{player.weight} lbs</span>
+                  </div>
+                </a>
+              ))}
+            </div>
+          </section>
+        )}
 
-        <div className="mt-6 text-sm text-gray-600 dark:text-gray-400">
-          Total Players: {players.length}
+        {/* Heavyweight */}
+        {groups.heavyweight.length > 0 && (
+          <section className="mb-16">
+            <div className="flex items-center gap-4 mb-8">
+              <h2 className="text-4xl font-heading font-bold text-mbjj-red">HEAVYWEIGHT</h2>
+              <span className="text-xl text-gray-600 dark:text-gray-400">Over 185 lbs</span>
+            </div>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {groups.heavyweight.map((player) => (
+                <a
+                  key={player.id}
+                  href={`/players/${player.id}`}
+                  className="bg-white dark:bg-gray-800 rounded-lg p-6 border-2 border-transparent hover:border-mbjj-red transition shadow-lg hover:shadow-2xl"
+                >
+                  <div className="flex items-center gap-4 mb-4">
+                    {player.photo_url ? (
+                      <img
+                        src={player.photo_url}
+                        alt={player.name}
+                        className="w-20 h-20 rounded-full border-4 border-mbjj-red object-cover"
+                      />
+                    ) : (
+                      <div className="w-20 h-20 rounded-full bg-gray-300 dark:bg-gray-700 flex items-center justify-center border-4 border-mbjj-red">
+                        <span className="text-3xl">👤</span>
+                      </div>
+                    )}
+                    <div className="flex-1">
+                      <h3 className="text-xl font-heading font-bold text-gray-900 dark:text-white">
+                        {player.name.replace('*', '')}
+                      </h3>
+                      <div className="text-sm text-gray-600 dark:text-gray-400">
+                        {player.bjj_belt_rank || 'Unknown'} Belt
+                      </div>
+                    </div>
+                  </div>
+                  <div className="flex justify-between text-sm border-t border-gray-200 dark:border-gray-700 pt-3">
+                    <span className="text-gray-600 dark:text-gray-400">Weight:</span>
+                    <span className="font-bold text-mbjj-red">{player.weight} lbs</span>
+                  </div>
+                </a>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {/* Summary */}
+        <div className="mt-12 p-8 bg-mbjj-dark rounded-lg text-white text-center">
+          <p className="text-3xl font-heading font-bold">
+            TOTAL FIGHTERS: <span className="text-mbjj-red">{players.length}</span>
+          </p>
+          <div className="mt-4 flex justify-center gap-8 text-lg">
+            <div>
+              <span className="text-gray-400">Lightweight:</span> <span className="font-bold">{groups.lightweight.length}</span>
+            </div>
+            <div>
+              <span className="text-gray-400">Middleweight:</span> <span className="font-bold">{groups.middleweight.length}</span>
+            </div>
+            <div>
+              <span className="text-gray-400">Heavyweight:</span> <span className="font-bold">{groups.heavyweight.length}</span>
+            </div>
+          </div>
         </div>
       </main>
 
-      <footer className="bg-gray-900 text-white p-6 mt-8">
-        <div className="container mx-auto text-center">
-          <p>&copy; 2025 Vanguard Grappling Institute. All rights reserved.</p>
+      <footer className="bg-mbjj-dark text-white py-8 mt-16">
+        <div className="container mx-auto px-4 text-center">
+          <p className="font-heading text-lg mb-2">VANGUARD LEAGUE</p>
+          <p className="text-gray-400">Hosted at Manassas Brazilian Jiu-Jitsu</p>
+          <p className="text-gray-500 text-sm mt-4">&copy; 2025 Vanguard Grappling Institute. All rights reserved.</p>
         </div>
       </footer>
     </div>

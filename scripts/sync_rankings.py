@@ -58,6 +58,12 @@ async def sync_rankings(subset_id: str = None):
                     player.name = player_data.get("name", player.name)
                     if player_data.get("ghost", {}).get("picture"):
                         player.photo_url = player_data["ghost"]["picture"]
+
+                    # Store Rankade REE score for reference (not used in ladder rankings)
+                    ree = rank_entry.get("ree")
+                    if ree is not None:
+                        player.rankade_ree_score = float(ree)
+
                     updated += 1
 
             db.commit()

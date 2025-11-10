@@ -1,87 +1,352 @@
+import { config } from '@/lib/config';
+
 export default async function Home() {
-  const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+  const apiUrl = config.apiUrl;
+  const readOnly = config.readOnly;
 
-  let stats = { players: 0, matches: 17 };
+  let stats = { players: 0, matches: 0 };
+  let ladderData: any = {
+    overall: [],
+    lightweight: [],
+    middleweight: [],
+    heavyweight: []
+  };
 
+  // Fetch match count
   try {
-    const res = await fetch(`${apiUrl}/api/players`, {
+    const eventsRes = await fetch(`${apiUrl}/api/events`, {
       cache: 'no-store'
     });
-    if (res.ok) {
-      const players = await res.json();
-      stats.players = players.length;
+    if (eventsRes.ok) {
+      const events = await eventsRes.json();
+      let totalMatches = 0;
+
+      // Sum up matches from all events
+      for (const event of events) {
+        try {
+          const matchRes = await fetch(`${apiUrl}/api/events/${event.id}/matches`, {
+            cache: 'no-store'
+          });
+          if (matchRes.ok) {
+            const matches = await matchRes.json();
+            totalMatches += matches.length;
+          }
+        } catch (e) {
+          // Skip this event if matches fail to load
+        }
+      }
+
+      stats.matches = totalMatches;
     }
   } catch (e) {
     // Continue with default stats if API fails
   }
 
+  // Fetch overall ladder standings
+  try {
+    const ladderRes = await fetch(`${apiUrl}/api/ladder/overall`, {
+      cache: 'no-store'
+    });
+    if (ladderRes.ok) {
+      const allLadder = await ladderRes.json();
+
+      // Store overall ladder for P4P
+      ladderData.overall = allLadder;
+
+      // Count active competitors (only fighters who have competed)
+      stats.players = allLadder.length;
+
+      // Separate by weight class based on player weight
+      for (const standing of allLadder) {
+        const weight = standing.player.weight;
+        if (weight && weight < 170) {
+          ladderData.lightweight.push(standing);
+        } else if (weight && weight >= 170 && weight < 185) {
+          ladderData.middleweight.push(standing);
+        } else if (weight && weight >= 185) {
+          ladderData.heavyweight.push(standing);
+        }
+      }
+    }
+  } catch (e) {
+    // Ladder optional
+  }
+
   return (
-    <div className="min-h-screen flex flex-col">
-      <header className="bg-gray-900 text-white p-6">
-        <div className="container mx-auto">
-          <h1 className="text-4xl font-bold">Vanguard League</h1>
-          <p className="text-xl mt-2">VGI Trench — Submission-Only Ladder</p>
+    <div className="min-h-screen flex flex-col bg-white dark:bg-mbjj-dark">
+      {/* Header with VanGuard Gym branding */}
+      <header className="bg-mbjj-dark text-white py-8">
+        <div className="container mx-auto px-4">
+          <div className="text-center">
+            {/* VGG Logo */}
+            <div className="flex justify-center mb-4">
+              <img
+                src="/vgg-logo.png"
+                alt="VanGuard Gym"
+                className="h-24 md:h-32 w-auto"
+              />
+            </div>
+            <h1 className="text-5xl md:text-6xl font-heading font-bold text-white mb-2">
+              VANGUARD LEAGUE
+            </h1>
+            <div className="h-1 w-32 bg-mbjj-red mx-auto mb-4"></div>
+            <p className="text-xl md:text-2xl font-heading text-gray-300">
+              VGI TRENCH — SUBMISSION-ONLY LADDER
+            </p>
+            <p className="text-lg text-gray-400 mt-2">
+              at VanGuard Gym
+            </p>
+          </div>
         </div>
       </header>
 
-      <main className="flex-1 container mx-auto px-4 py-8">
-        <section className="mb-12">
-          <h2 className="text-3xl font-bold mb-4">Welcome to the Vanguard League</h2>
-          <p className="text-lg mb-4">
-            A recurring submission-only competition series held in the VGI Trench.
-          </p>
-
-          <div className="grid md:grid-cols-3 gap-6 mt-8">
-            <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
-              <h3 className="text-xl font-bold mb-2">No Judges</h3>
-              <p>Pure submission-only competition. Tap or draw.</p>
-            </div>
-            <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
-              <h3 className="text-xl font-bold mb-2">Weight Classes</h3>
-              <p>Automatic ladder rankings by weight class and belt rank.</p>
-            </div>
-            <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
-              <h3 className="text-xl font-bold mb-2">Season Prizes</h3>
-              <p>Top-ranked competitors earn from the prize pool.</p>
-            </div>
-          </div>
-        </section>
-
-        <section className="mb-12">
-          <h2 className="text-2xl font-bold mb-4">Current Stats</h2>
-          <div className="grid md:grid-cols-2 gap-6">
-            <div className="bg-blue-50 dark:bg-blue-900 p-6 rounded-lg">
-              <div className="text-3xl font-bold text-blue-600 dark:text-blue-300">{stats.players}</div>
-              <div className="text-gray-600 dark:text-gray-300 mt-2">Active Players</div>
-              <a href="/players" className="text-blue-600 dark:text-blue-400 hover:underline mt-2 inline-block">
-                View Roster →
+      {/* Hero Stats Section */}
+      <section className="bg-gradient-to-r from-mbjj-red to-mbjj-accent-light text-white py-12">
+        <div className="container mx-auto px-4">
+          <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            <div className="text-center p-6 bg-black/20 rounded-lg backdrop-blur">
+              <div className="text-6xl font-heading font-bold mb-2">{stats.players}</div>
+              <div className="text-xl font-heading uppercase tracking-wide">Active Fighters</div>
+              <a href="/players" className="inline-block mt-4 px-6 py-2 bg-white text-mbjj-red font-heading font-bold rounded hover:bg-gray-100 transition">
+                VIEW ROSTER →
               </a>
             </div>
-            <div className="bg-green-50 dark:bg-green-900 p-6 rounded-lg">
-              <div className="text-3xl font-bold text-green-600 dark:text-green-300">{stats.matches}</div>
-              <div className="text-gray-600 dark:text-gray-300 mt-2">Matches Recorded</div>
+            <div className="text-center p-6 bg-black/20 rounded-lg backdrop-blur">
+              <div className="text-6xl font-heading font-bold mb-2">{stats.matches}</div>
+              <div className="text-xl font-heading uppercase tracking-wide">Matches Recorded</div>
+              <div className="mt-4 text-gray-200">
+                Since November 2025
+              </div>
+            </div>
+            <div className="text-center p-6 bg-black/20 rounded-lg backdrop-blur">
+              <div className="text-6xl font-heading font-bold mb-2">📹</div>
+              <div className="text-xl font-heading uppercase tracking-wide">Events</div>
+              <a href="/schedule" className="inline-block mt-4 px-6 py-2 bg-white text-mbjj-red font-heading font-bold rounded hover:bg-gray-100 transition">
+                VIEW SCHEDULE →
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <main className="flex-1 container mx-auto px-4 py-12">
+        {/* About Section */}
+        <section className="mb-16">
+          <h2 className="text-4xl font-heading font-bold text-center mb-8 text-gray-900 dark:text-white">
+            COMPETITION FORMAT
+          </h2>
+          <div className="h-1 w-24 bg-mbjj-red mx-auto mb-12"></div>
+
+          <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+            <div className="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-lg border-t-4 border-mbjj-red">
+              <div className="text-4xl text-mbjj-red mb-4 text-center">👨‍⚖️</div>
+              <h3 className="text-2xl font-heading font-bold mb-3 text-center">NO JUDGES</h3>
+              <p className="text-gray-700 dark:text-gray-300 text-center">
+                Pure submission-only competition. Tap or draw. No points, no decisions.
+              </p>
+            </div>
+            <div className="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-lg border-t-4 border-mbjj-blue">
+              <div className="text-4xl text-mbjj-blue mb-4 text-center">⚖️</div>
+              <h3 className="text-2xl font-heading font-bold mb-3 text-center">WEIGHT CLASSES</h3>
+              <p className="text-gray-700 dark:text-gray-300 text-center">
+                Automatic ladder rankings by weight class.
+              </p>
+            </div>
+            <div className="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-lg border-t-4 border-mbjj-red">
+              <div className="text-4xl text-mbjj-red mb-4 text-center">💰</div>
+              <h3 className="text-2xl font-heading font-bold mb-3 text-center">SEASON PRIZES</h3>
+              <p className="text-gray-700 dark:text-gray-300 text-center">
+                Top-ranked fighters earn from the season prize pool.
+              </p>
             </div>
           </div>
         </section>
 
+        {/* Event Management Navigation - Hidden in read-only mode */}
+        {!readOnly && (
+          <section className="bg-mbjj-dark text-white rounded-lg p-12 mb-16">
+            <div className="max-w-4xl mx-auto">
+              <h2 className="text-4xl font-heading font-bold mb-2 text-center">
+                EVENT MANAGEMENT
+              </h2>
+              <p className="text-center text-gray-400 mb-8">
+                VGI Trench Submission-Only Competition Series
+              </p>
+
+              <div className="grid md:grid-cols-3 gap-6">
+                {/* Events */}
+                <a href="/events" className="bg-white/10 hover:bg-white/20 border-2 border-mbjj-red rounded-lg p-8 text-center transition group">
+                  <div className="text-5xl mb-4">📅</div>
+                  <h3 className="text-2xl font-heading font-bold mb-2 group-hover:text-mbjj-accent-light">
+                    EVENTS
+                  </h3>
+                  <p className="text-gray-300 text-sm">
+                    Create and manage competition events
+                  </p>
+                </a>
+
+                {/* Players */}
+                <a href="/players" className="bg-white/10 hover:bg-white/20 border-2 border-mbjj-blue rounded-lg p-8 text-center transition group">
+                  <div className="text-5xl mb-4">👥</div>
+                  <h3 className="text-2xl font-heading font-bold mb-2 group-hover:text-mbjj-accent-light">
+                    PLAYERS
+                  </h3>
+                  <p className="text-gray-300 text-sm">
+                    View complete roster and rankings
+                  </p>
+                </a>
+
+                {/* Register Fighter */}
+                <a href="/register" className="bg-white/10 hover:bg-white/20 border-2 border-mbjj-accent-light rounded-lg p-8 text-center transition group">
+                  <div className="text-5xl mb-4">➕</div>
+                  <h3 className="text-2xl font-heading font-bold mb-2 group-hover:text-mbjj-accent-light">
+                    REGISTER
+                  </h3>
+                  <p className="text-gray-300 text-sm">
+                    Add new fighter to the roster
+                  </p>
+                </a>
+
+                {/* Quick Access */}
+                <a href="/events/2/checkin" className="bg-white/10 hover:bg-white/20 border-2 border-mbjj-red rounded-lg p-8 text-center transition group">
+                  <div className="text-5xl mb-4">⚡</div>
+                  <h3 className="text-2xl font-heading font-bold mb-2 group-hover:text-mbjj-accent-light">
+                    VGL 2
+                  </h3>
+                  <p className="text-gray-300 text-sm">
+                    Quick access to Friday's event
+                  </p>
+                </a>
+              </div>
+
+              <div className="mt-8 text-center">
+                <p className="text-gray-400 text-sm">
+                  $20 entry • 2-4 matches per fighter • Single mat at the VGI Trench
+                </p>
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* Current Champions */}
         <section>
-          <h2 className="text-2xl font-bold mb-4">Quick Links</h2>
-          <div className="grid md:grid-cols-2 gap-4">
-            <a href="/players" className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md hover:shadow-lg transition">
-              <h3 className="font-bold text-lg">Players Roster</h3>
-              <p className="text-gray-600 dark:text-gray-400 text-sm">View all active competitors</p>
+          <h2 className="text-3xl font-heading font-bold text-center mb-8 text-gray-900 dark:text-white">
+            CURRENT #1 RANKED FIGHTERS
+          </h2>
+          <div className="grid md:grid-cols-4 gap-6 max-w-7xl mx-auto">
+            {/* Pound-for-Pound */}
+            <a href="/ladder/p4p" className="bg-white dark:bg-gray-800 rounded-lg shadow-lg border-t-4 border-yellow-500 overflow-hidden hover:shadow-2xl transition group">
+              <div className="bg-gradient-to-r from-yellow-500 to-yellow-600 text-white p-4">
+                <h3 className="font-heading font-bold text-xl text-center">POUND-FOR-POUND</h3>
+                <p className="text-center text-xs">All Weight Classes</p>
+              </div>
+              <div className="p-6">
+                {ladderData.overall.length > 0 ? (
+                  <div className="text-center">
+                    <div className="text-6xl mb-4">👑</div>
+                    <div className="font-heading font-bold text-xl text-gray-900 dark:text-white group-hover:text-yellow-600">
+                      {ladderData.overall[0]?.player.name.replace('*', '')}
+                    </div>
+                    <div className="text-sm text-gray-600 dark:text-gray-400 mt-2">
+                      {ladderData.overall[0]?.wins}-{ladderData.overall[0]?.losses}-{ladderData.overall[0]?.draws}{!readOnly && ` • ELO: ${Math.round(ladderData.overall[0]?.player.elo_rating || 0)}`}
+                    </div>
+                    <div className="mt-4 text-mbjj-blue font-heading font-bold group-hover:underline">
+                      VIEW FULL LADDER →
+                    </div>
+                  </div>
+                ) : (
+                  <p className="text-center text-gray-500 py-4">No fighters yet</p>
+                )}
+              </div>
             </a>
-            <a href={`${apiUrl}/docs`} target="_blank" rel="noopener noreferrer" className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md hover:shadow-lg transition">
-              <h3 className="font-bold text-lg">API Documentation</h3>
-              <p className="text-gray-600 dark:text-gray-400 text-sm">Explore API endpoints</p>
+
+            {/* Lightweight */}
+            <a href="/ladder/lightweight" className="bg-white dark:bg-gray-800 rounded-lg shadow-lg border-t-4 border-mbjj-red overflow-hidden hover:shadow-2xl transition group">
+              <div className="bg-mbjj-red text-white p-4">
+                <h3 className="font-heading font-bold text-xl text-center">LIGHTWEIGHT</h3>
+                <p className="text-center text-xs">Under 170 lbs</p>
+              </div>
+              <div className="p-6">
+                {ladderData.lightweight.length > 0 ? (
+                  <div className="text-center">
+                    <div className="text-6xl mb-4">🥇</div>
+                    <div className="font-heading font-bold text-xl text-gray-900 dark:text-white group-hover:text-mbjj-red">
+                      {ladderData.lightweight[0].player.name.replace('*', '')}
+                    </div>
+                    <div className="text-sm text-gray-600 dark:text-gray-400 mt-2">
+                      {ladderData.lightweight[0].wins}-{ladderData.lightweight[0].losses}-{ladderData.lightweight[0].draws}{!readOnly && ` • ELO: ${Math.round(ladderData.lightweight[0].player.elo_rating || 0)}`}
+                    </div>
+                    <div className="mt-4 text-mbjj-blue font-heading font-bold group-hover:underline">
+                      VIEW FULL LADDER →
+                    </div>
+                  </div>
+                ) : (
+                  <p className="text-center text-gray-500 py-4">No fighters yet</p>
+                )}
+              </div>
+            </a>
+
+            {/* Middleweight */}
+            <a href="/ladder/middleweight" className="bg-white dark:bg-gray-800 rounded-lg shadow-lg border-t-4 border-mbjj-blue overflow-hidden hover:shadow-2xl transition group">
+              <div className="bg-mbjj-blue text-white p-4">
+                <h3 className="font-heading font-bold text-xl text-center">MIDDLEWEIGHT</h3>
+                <p className="text-center text-xs">170-185 lbs</p>
+              </div>
+              <div className="p-6">
+                {ladderData.middleweight.length > 0 ? (
+                  <div className="text-center">
+                    <div className="text-6xl mb-4">🥇</div>
+                    <div className="font-heading font-bold text-xl text-gray-900 dark:text-white group-hover:text-mbjj-blue">
+                      {ladderData.middleweight[0].player.name.replace('*', '')}
+                    </div>
+                    <div className="text-sm text-gray-600 dark:text-gray-400 mt-2">
+                      {ladderData.middleweight[0].wins}-{ladderData.middleweight[0].losses}-{ladderData.middleweight[0].draws}{!readOnly && ` • ELO: ${Math.round(ladderData.middleweight[0].player.elo_rating || 0)}`}
+                    </div>
+                    <div className="mt-4 text-mbjj-blue font-heading font-bold group-hover:underline">
+                      VIEW FULL LADDER →
+                    </div>
+                  </div>
+                ) : (
+                  <p className="text-center text-gray-500 py-4">No fighters yet</p>
+                )}
+              </div>
+            </a>
+
+            {/* Heavyweight */}
+            <a href="/ladder/heavyweight" className="bg-white dark:bg-gray-800 rounded-lg shadow-lg border-t-4 border-mbjj-red overflow-hidden hover:shadow-2xl transition group">
+              <div className="bg-mbjj-red text-white p-4">
+                <h3 className="font-heading font-bold text-xl text-center">HEAVYWEIGHT</h3>
+                <p className="text-center text-xs">Over 185 lbs</p>
+              </div>
+              <div className="p-6">
+                {ladderData.heavyweight.length > 0 ? (
+                  <div className="text-center">
+                    <div className="text-6xl mb-4">🥇</div>
+                    <div className="font-heading font-bold text-xl text-gray-900 dark:text-white group-hover:text-mbjj-red">
+                      {ladderData.heavyweight[0].player.name.replace('*', '')}
+                    </div>
+                    <div className="text-sm text-gray-600 dark:text-gray-400 mt-2">
+                      {ladderData.heavyweight[0].wins}-{ladderData.heavyweight[0].losses}-{ladderData.heavyweight[0].draws}{!readOnly && ` • ELO: ${Math.round(ladderData.heavyweight[0].player.elo_rating || 0)}`}
+                    </div>
+                    <div className="mt-4 text-mbjj-blue font-heading font-bold group-hover:underline">
+                      VIEW FULL LADDER →
+                    </div>
+                  </div>
+                ) : (
+                  <p className="text-center text-gray-500 py-4">No fighters yet</p>
+                )}
+              </div>
             </a>
           </div>
         </section>
+
       </main>
 
-      <footer className="bg-gray-900 text-white p-6 mt-8">
-        <div className="container mx-auto text-center">
-          <p>&copy; 2025 Vanguard Grappling Institute. All rights reserved.</p>
+      <footer className="bg-mbjj-dark text-white py-8 mt-16">
+        <div className="container mx-auto px-4 text-center">
+          <p className="font-heading text-lg mb-2">VANGUARD LEAGUE</p>
+          <p className="text-gray-400">Hosted at VanGuard Gym</p>
+          <p className="text-gray-500 text-sm mt-4">&copy; 2025 Vanguard Grappling Institute. All rights reserved.</p>
         </div>
       </footer>
     </div>

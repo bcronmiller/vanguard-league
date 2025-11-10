@@ -1,0 +1,132 @@
+[
+  {
+    "player": {
+      "id": 11,
+      "name": "*Christian Banghart",
+      "bjj_belt_rank": "Black",
+      "weight": 203,
+      "elo_rating": 2004.5397762344307,
+      "photo_url": null
+    },
+    "wins": 3,
+    "losses": 0,
+    "draws": 1
+  },
+  {
+    "player": {
+      "id": 10,
+      "name": "*Troy Wittman",
+      "bjj_belt_rank": "Black",
+      "weight": 215,
+      "elo_rating": 1987.69956212777,
+      "photo_url": null
+    },
+    "wins": 3,
+    "losses": 1,
+    "draws": 0
+  },
+  {
+    "player": {
+      "id": 2,
+      "name": "*Alex Stewart",
+      "bjj_belt_rank": "Purple",
+      "weight": 149.7,
+      "elo_rating": 1486.9270982828134,
+      "photo_url": null
+    },
+    "wins": 2,
+    "losses": 0,
+    "draws": 0
+  },
+  {
+    "player": {
+      "id": 5,
+      "name": "*Nick Newbold",
+      "bjj_belt_rank": "Blue",
+      "weight": 206.6,
+      "elo_rating": 1387.2022580830655,
+      "photo_url": null
+    },
+    "wins": 3,
+    "losses": 1,
+    "draws": 0
+  },
+  {
+    "player": {
+      "id": 8,
+      "name": "*John Michael El Mapache Rodriguez Uhweta",
+      "bjj_belt_rank": "Blue",
+      "weight": 156,
+      "elo_rating": 1364.5077055614356,
+      "photo_url": null
+    },
+    "wins": 2,
+    "losses": 0,
+    "draws": 0
+  },
+  {
+    "player": {
+      "id": 7,
+      "name": "*Matt Crawford",
+      "bjj_belt_rank": "Brown",
+      "weight": 259,
+      "elo_rating": 1590.1194183870175,
+      "photo_url": null
+    },
+    "wins": 1,
+    "losses": 2,
+    "draws": 1
+  },
+  {
+    "player": {
+      "id": 3,
+      "name": "*Hussain Samir",
+      "bjj_belt_rank": "Blue",
+      "weight": 167.8,
+      "elo_rating": 1336.6514655466822,
+      "photo_url": null
+    },
+    "wins": 1,
+    "losses": 2,
+    "draws": 0
+  },
+  {
+    "player": {
+      "id": 9,
+      "name": "*Edrees Saifi",
+      "bjj_belt_rank": "Blue",
+      "weight": 207,
+      "elo_rating": 1302.3171809060275,
+      "photo_url": null
+    },
+    "wins": 0,
+    "losses": 2,
+    "draws": 1
+  },
+  {
+    "player": {
+      "id": 6,
+      "name": "*Josh Rivera",
+      "bjj_belt_rank": "Blue",
+      "weight": 156.1,
+      "elo_rating": 1293.9137306090688,
+      "photo_url": null
+    },
+    "wins": 0,
+    "losses": 3,
+    "draws": 0
+  },
+  {
+    "player": {
+      "id": 4,
+      "name": "*Josue Chevaz",
+      "bjj_belt_rank": "Blue",
+      "weight": 194.9,
+      "elo_rating": 1311.1218042616888,
+      "photo_url": null
+    },
+    "wins": 0,
+    "losses": 4,
+    "draws": 1
+  }
+]

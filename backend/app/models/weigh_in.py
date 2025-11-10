@@ -10,7 +10,8 @@ class WeighIn(Base):
     id = Column(Integer, primary_key=True, index=True)
     player_id = Column(Integer, ForeignKey("players.id"), nullable=False)
     event_id = Column(Integer, ForeignKey("events.id"), nullable=False)
-    weight_kg = Column(Float, nullable=False)
+    weight = Column(Float, nullable=False)  # Weight in lbs
+    weighed_at = Column(DateTime, default=datetime.utcnow)  # When weigh-in occurred
     created_at = Column(DateTime, default=datetime.utcnow)
 
     # Relationships

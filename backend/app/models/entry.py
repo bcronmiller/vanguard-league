@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, ForeignKey, Boolean, DateTime
+from sqlalchemy import Column, Integer, ForeignKey, Boolean, DateTime, String, Float
 from sqlalchemy.orm import relationship
 from datetime import datetime
 from app.core.database import Base
@@ -12,6 +12,11 @@ class Entry(Base):
     player_id = Column(Integer, ForeignKey("players.id"), nullable=False)
     weight_class_id = Column(Integer, ForeignKey("weight_classes.id"), nullable=True)
     checked_in = Column(Boolean, default=False)
+
+    # Snapshot of player stats at this event (captured during check-in)
+    belt_rank = Column(String, nullable=True)  # Belt rank at time of event
+    weight = Column(Float, nullable=True)  # Weight at time of event (lbs)
+
     created_at = Column(DateTime, default=datetime.utcnow)
 
     # Relationships

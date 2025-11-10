@@ -7,7 +7,14 @@ class PlayerBase(BaseModel):
     name: str
     belt: Optional[str] = None
     team: Optional[str] = None
+    academy: Optional[str] = None  # Gym/academy affiliation
     photo_url: Optional[str] = None
+    age: Optional[int] = None
+    bjj_belt_rank: Optional[str] = None
+    weight: Optional[float] = None
+    weight_class_id: Optional[int] = None
+    elo_rating: Optional[float] = None  # Our custom ELO (used in ladder rankings)
+    rankade_ree_score: Optional[float] = None  # Rankade's REE score (reference only)
 
 
 class PlayerCreate(PlayerBase):
@@ -18,7 +25,14 @@ class PlayerUpdate(BaseModel):
     name: Optional[str] = None
     belt: Optional[str] = None
     team: Optional[str] = None
+    academy: Optional[str] = None  # Gym/academy affiliation
     photo_url: Optional[str] = None
+    age: Optional[int] = None
+    bjj_belt_rank: Optional[str] = None
+    weight: Optional[float] = None
+    weight_class_id: Optional[int] = None
+    elo_rating: Optional[float] = None  # Our custom ELO (used in ladder rankings)
+    rankade_ree_score: Optional[float] = None  # Rankade's REE score (reference only)
     active: Optional[bool] = None
 
 
