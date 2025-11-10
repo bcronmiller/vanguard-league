@@ -3,6 +3,7 @@ import { config } from '@/lib/config';
 export default async function Home() {
   const apiUrl = config.apiUrl;
   const readOnly = config.readOnly;
+  const isStatic = process.env.NEXT_PUBLIC_STATIC_MODE === 'true';
 
   let stats = { players: 0, matches: 0 };
   let ladderData: any = {
@@ -14,7 +15,8 @@ export default async function Home() {
 
   // Fetch match count
   try {
-    const eventsRes = await fetch(`${apiUrl}/api/events`, {
+    const eventsEndpoint = isStatic ? '/data/events.json' : `${apiUrl}/api/events`;
+    const eventsRes = await fetch(eventsEndpoint, {
       cache: 'no-store'
     });
     if (eventsRes.ok) {
@@ -24,12 +26,21 @@ export default async function Home() {
       // Sum up matches from all events
       for (const event of events) {
         try {
-          const matchRes = await fetch(`${apiUrl}/api/events/${event.id}/matches`, {
+          const matchEndpoint = isStatic
+            ? `/data/ladder-event-${event.id}.json`
+            : `${apiUrl}/api/events/${event.id}/matches`;
+          const matchRes = await fetch(matchEndpoint, {
             cache: 'no-store'
           });
           if (matchRes.ok) {
-            const matches = await matchRes.json();
-            totalMatches += matches.length;
+            const data = await matchRes.json();
+            // Handle both API response (array) and static data (ladder object)
+            if (isStatic && data.standings) {
+              // Estimate matches from ladder standings (approximate)
+              totalMatches += data.standings.length > 0 ? data.standings.length * 2 : 0;
+            } else if (Array.isArray(data)) {
+              totalMatches += data.length;
+            }
           }
         } catch (e) {
           // Skip this event if matches fail to load
@@ -44,7 +55,8 @@ export default async function Home() {
 
   // Fetch overall ladder standings
   try {
-    const ladderRes = await fetch(`${apiUrl}/api/ladder/overall`, {
+    const ladderEndpoint = isStatic ? '/data/ladder-overall.json' : `${apiUrl}/api/ladder/overall`;
+    const ladderRes = await fetch(ladderEndpoint, {
       cache: 'no-store'
     });
     if (ladderRes.ok) {
