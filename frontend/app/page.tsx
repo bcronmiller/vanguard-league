@@ -132,6 +132,65 @@ export default function Home() {
         </div>
       </header>
 
+      {/* Pre-Registration Banner */}
+      <section className="bg-gradient-to-r from-mbjj-blue to-blue-700 text-white py-10">
+        <div className="container mx-auto px-4">
+          <div className="max-w-5xl mx-auto">
+            <div className="text-center mb-6">
+              <h2 className="text-3xl md:text-4xl font-heading font-bold mb-3">
+                PRE-REGISTER FOR UPCOMING EVENTS
+              </h2>
+              <p className="text-lg md:text-xl text-gray-100">
+                Sign up now to secure your spot in the next VGI Trench competition
+              </p>
+            </div>
+
+            {/* Event Details Grid */}
+            <div className="grid md:grid-cols-2 gap-6 mb-8 max-w-3xl mx-auto">
+              <div className="bg-white/10 backdrop-blur rounded-lg p-5">
+                <div className="flex items-start gap-3">
+                  <div className="text-3xl">💵</div>
+                  <div>
+                    <h3 className="font-heading font-bold text-lg mb-1">Buy-In & Prizes</h3>
+                    <p className="text-sm text-gray-100">
+                      $20 per event. A portion contributes to the end-of-season prize pool for top-ranked fighters.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-white/10 backdrop-blur rounded-lg p-5">
+                <div className="flex items-start gap-3">
+                  <div className="text-3xl">🥊</div>
+                  <div>
+                    <h3 className="font-heading font-bold text-lg mb-1">Competition Format</h3>
+                    <p className="text-sm text-gray-100">
+                      Each competitor gets 2-4 matches per night. Compete regularly for a chance to win the season.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* CTA Button */}
+            <div className="text-center">
+              <a
+                href="https://forms.gle/2HzZfk8VuGBVNfnx5"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block bg-white text-mbjj-blue font-heading font-bold text-xl px-10 py-4 rounded-lg hover:bg-gray-100 transition shadow-lg transform hover:scale-105"
+              >
+                REGISTER NOW →
+              </a>
+              <p className="text-sm text-gray-200 mt-4 max-w-2xl mx-auto">
+                <strong>Note:</strong> This form is for pre-registration only and is not a firm commitment.
+                We'll contact you with event details and confirmation.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Hero Stats Section */}
       <section className="bg-gradient-to-r from-mbjj-red to-mbjj-accent-light text-white py-12">
         <div className="container mx-auto px-4">
