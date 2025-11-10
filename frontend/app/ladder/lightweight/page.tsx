@@ -30,7 +30,7 @@ export default function LightweightPage() {
   const loadLadder = async () => {
     try {
       const isStatic = process.env.NEXT_PUBLIC_STATIC_MODE === 'true';
-      const endpoint = isStatic ? '/data/ladder-overall.json' : `${config.apiUrl}/api/ladder/overall';
+      const endpoint = isStatic ? '/data/ladder-overall.json' : `${config.apiUrl}/api/ladder/overall`;
       const res = await fetch(endpoint);
       if (res.ok) {
         const data = await res.json();
