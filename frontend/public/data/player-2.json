@@ -14,5 +14,43 @@
   "rankade_id": "5K10Z3DljGp",
   "active": true,
   "created_at": "2025-11-09T18:57:19.336246",
-  "updated_at": "2025-11-10T02:01:47.913423"
+  "updated_at": "2025-11-10T02:01:47.913423",
+  "matches": [
+    {
+      "match_id": 15,
+      "event_id": 1,
+      "event_name": "VGL 1",
+      "event_date": "2025-11-07T19:00:00",
+      "opponent": {
+        "id": 6,
+        "name": "*Josh Rivera",
+        "photo_url": null
+      },
+      "result": "win",
+      "method": "Rear Naked Choke",
+      "duration_seconds": 210,
+      "match_number": 15,
+      "belt_rank": "Blue",
+      "weight": 149.7,
+      "weight_class": "Lightweight"
+    },
+    {
+      "match_id": 11,
+      "event_id": 1,
+      "event_name": "VGL 1",
+      "event_date": "2025-11-07T19:00:00",
+      "opponent": {
+        "id": 3,
+        "name": "*Hussain Samir",
+        "photo_url": null
+      },
+      "result": "win",
+      "method": "Guillotine",
+      "duration_seconds": 30,
+      "match_number": 11,
+      "belt_rank": "Blue",
+      "weight": 149.7,
+      "weight_class": "Lightweight"
+    }
+  ]
 }

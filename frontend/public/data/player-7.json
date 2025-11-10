@@ -14,5 +14,79 @@
   "rankade_id": "MLjykZrJ14k",
   "active": true,
   "created_at": "2025-11-09T18:57:19.336255",
-  "updated_at": "2025-11-10T02:01:47.913432"
+  "updated_at": "2025-11-10T02:01:47.913432",
+  "matches": [
+    {
+      "match_id": 13,
+      "event_id": 1,
+      "event_name": "VGL 1",
+      "event_date": "2025-11-07T19:00:00",
+      "opponent": {
+        "id": 11,
+        "name": "*Christian Banghart",
+        "photo_url": null
+      },
+      "result": "draw",
+      "method": "Triangle",
+      "duration_seconds": 90,
+      "match_number": 13,
+      "belt_rank": "Brown",
+      "weight": 259,
+      "weight_class": "Heavyweight"
+    },
+    {
+      "match_id": 7,
+      "event_id": 1,
+      "event_name": "VGL 1",
+      "event_date": "2025-11-07T19:00:00",
+      "opponent": {
+        "id": 5,
+        "name": "Nick Newbold",
+        "photo_url": null
+      },
+      "result": "loss",
+      "method": "Kneebar",
+      "duration_seconds": 90,
+      "match_number": 7,
+      "belt_rank": "Brown",
+      "weight": 259,
+      "weight_class": "Heavyweight"
+    },
+    {
+      "match_id": 5,
+      "event_id": 1,
+      "event_name": "VGL 1",
+      "event_date": "2025-11-07T19:00:00",
+      "opponent": {
+        "id": 10,
+        "name": "*Troy Wittman",
+        "photo_url": null
+      },
+      "result": "loss",
+      "method": "Darce",
+      "duration_seconds": null,
+      "match_number": 5,
+      "belt_rank": "Brown",
+      "weight": 259,
+      "weight_class": "Heavyweight"
+    },
+    {
+      "match_id": 2,
+      "event_id": 1,
+      "event_name": "VGL 1",
+      "event_date": "2025-11-07T19:00:00",
+      "opponent": {
+        "id": 4,
+        "name": "*Josue Chevaz",
+        "photo_url": null
+      },
+      "result": "win",
+      "method": null,
+      "duration_seconds": null,
+      "match_number": 2,
+      "belt_rank": "Brown",
+      "weight": 259,
+      "weight_class": "Heavyweight"
+    }
+  ]
 }

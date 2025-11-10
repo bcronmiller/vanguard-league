@@ -14,5 +14,97 @@
   "rankade_id": "BMgevY5x18Y",
   "active": true,
   "created_at": "2025-11-09T18:57:19.336249",
-  "updated_at": "2025-11-10T02:01:47.913428"
+  "updated_at": "2025-11-10T02:01:47.913428",
+  "matches": [
+    {
+      "match_id": 74,
+      "event_id": 1,
+      "event_name": "VGL 1",
+      "event_date": "2025-11-07T19:00:00",
+      "opponent": {
+        "id": 5,
+        "name": "Nick Newbold",
+        "photo_url": null
+      },
+      "result": "loss",
+      "method": "Americana",
+      "duration_seconds": 300,
+      "match_number": 74,
+      "belt_rank": "Blue",
+      "weight": 194.9,
+      "weight_class": "Heavyweight"
+    },
+    {
+      "match_id": 14,
+      "event_id": 1,
+      "event_name": "VGL 1",
+      "event_date": "2025-11-07T19:00:00",
+      "opponent": {
+        "id": 9,
+        "name": "*Edrees Saifi",
+        "photo_url": null
+      },
+      "result": "draw",
+      "method": "Darce",
+      "duration_seconds": 120,
+      "match_number": 14,
+      "belt_rank": "Blue",
+      "weight": 194.9,
+      "weight_class": "Heavyweight"
+    },
+    {
+      "match_id": 8,
+      "event_id": 1,
+      "event_name": "VGL 1",
+      "event_date": "2025-11-07T19:00:00",
+      "opponent": {
+        "id": 10,
+        "name": "*Troy Wittman",
+        "photo_url": null
+      },
+      "result": "loss",
+      "method": "Darce",
+      "duration_seconds": 90,
+      "match_number": 8,
+      "belt_rank": "Blue",
+      "weight": 194.9,
+      "weight_class": "Heavyweight"
+    },
+    {
+      "match_id": 4,
+      "event_id": 1,
+      "event_name": "VGL 1",
+      "event_date": "2025-11-07T19:00:00",
+      "opponent": {
+        "id": 11,
+        "name": "*Christian Banghart",
+        "photo_url": null
+      },
+      "result": "loss",
+      "method": null,
+      "duration_seconds": null,
+      "match_number": 4,
+      "belt_rank": "Blue",
+      "weight": 194.9,
+      "weight_class": "Heavyweight"
+    },
+    {
+      "match_id": 2,
+      "event_id": 1,
+      "event_name": "VGL 1",
+      "event_date": "2025-11-07T19:00:00",
+      "opponent": {
+        "id": 7,
+        "name": "*Matt Crawford",
+        "photo_url": null
+      },
+      "result": "loss",
+      "method": null,
+      "duration_seconds": null,
+      "match_number": 2,
+      "belt_rank": "Blue",
+      "weight": 194.9,
+      "weight_class": "Heavyweight"
+    }
+  ]
 }

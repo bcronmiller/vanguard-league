@@ -56,21 +56,32 @@ export default function PlayerProfilePage({ params }: { params: Promise<{ id: st
       if (res.ok) {
         const data = await res.json();
         setPlayer(data);
+
+        // In static mode, player data includes matches
+        if (isStatic && data.matches) {
+          setMatches(data.matches);
+          setLoading(false); // Set loading false here in static mode since we have all data
+        }
       }
     } catch (error) {
       console.error('Failed to load player:', error);
+      setLoading(false);
     }
   };
 
   const loadMatches = async () => {
+    // In static mode, matches are loaded with player data
+    const isStatic = process.env.NEXT_PUBLIC_STATIC_MODE === 'true';
+    if (isStatic) {
+      return; // Matches already loaded in loadPlayer
+    }
+
     try {
-      const isStatic = process.env.NEXT_PUBLIC_STATIC_MODE === 'true';
-      const endpoint = isStatic ? `/data/player-${playerId}.json` : `http://192.168.1.246:8000/api/players/${playerId}/matches`;
+      const endpoint = `http://192.168.1.246:8000/api/players/${playerId}/matches`;
       const res = await fetch(endpoint);
       if (res.ok) {
         const data = await res.json();
-        // In static mode, player data includes matches array
-        setMatches(isStatic && data.matches ? data.matches : data);
+        setMatches(data);
       }
     } catch (error) {
       console.error('Failed to load matches:', error);
