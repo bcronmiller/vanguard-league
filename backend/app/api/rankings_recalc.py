@@ -105,6 +105,10 @@ def recalculate_all_elo(db: Session = Depends(get_db)):
             match_counts[player_b.id]
         )
 
+        # Store ELO changes in match record
+        match.a_elo_change = round(change_a)
+        match.b_elo_change = round(change_b)
+
         # Update ratings
         player_a.elo_rating = rating_a + change_a
         player_b.elo_rating = rating_b + change_b

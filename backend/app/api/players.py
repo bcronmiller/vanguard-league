@@ -38,6 +38,7 @@ class MatchHistoryItem(BaseModel):
     belt_rank: str | None  # Player's belt rank at this event
     weight: float | None  # Player's weight at this event
     weight_class: str | None  # Weight class at this event
+    elo_change: int | None  # ELO rating change from this match
 
     class Config:
         from_attributes = True
@@ -152,6 +153,13 @@ async def get_player_match_history(player_id: int, db: Session = Depends(get_db)
             match_weight_class = entry.weight_class.name
 
         if opponent:  # Only include if opponent exists
+            # Get the ELO change for this player
+            elo_change = None
+            if match.a_player_id == player_id:
+                elo_change = match.a_elo_change
+            else:
+                elo_change = match.b_elo_change
+
             history.append(MatchHistoryItem(
                 match_id=match.id,
                 event_id=match.event_id,
@@ -168,7 +176,8 @@ async def get_player_match_history(player_id: int, db: Session = Depends(get_db)
                 match_number=getattr(match, 'match_number', match.id),
                 belt_rank=entry.belt_rank if entry else player.bjj_belt_rank,
                 weight=entry.weight if entry else player.weight,
-                weight_class=match_weight_class
+                weight_class=match_weight_class,
+                elo_change=elo_change
             ))
 
     return history

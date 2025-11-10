@@ -185,6 +185,95 @@ export default function RankingsExplainedPage() {
             <strong>Coming Soon:</strong> Separate ELO ratings per weight class for fighters who compete in multiple divisions.
           </p>
         </section>
+
+        {/* Badge System */}
+        <section className="bg-gradient-to-r from-purple-600 to-purple-800 text-white rounded-lg p-8 mb-8 shadow-lg">
+          <h2 className="text-3xl font-heading font-bold mb-6">
+            🏅 ACHIEVEMENT BADGE SYSTEM
+          </h2>
+          <p className="text-lg mb-6">
+            Fighters earn badges for accomplishments and submission variety. Badges appear on fighter profiles and showcase your unique fighting style.
+          </p>
+
+          {/* Streak Badges */}
+          <div className="mb-8">
+            <h3 className="text-2xl font-heading font-bold mb-4 border-b border-white/30 pb-2">
+              STREAK BADGES
+            </h3>
+            <div className="grid md:grid-cols-2 gap-4">
+              <div className="bg-white/10 backdrop-blur rounded-lg p-4">
+                <div className="text-3xl mb-2">🔥</div>
+                <div className="text-xl font-heading font-bold mb-1">ON FIRE</div>
+                <p className="text-white/90">Win 3+ matches in a row. Shows your current winning streak!</p>
+              </div>
+              <div className="bg-white/10 backdrop-blur rounded-lg p-4">
+                <div className="text-3xl mb-2">💪</div>
+                <div className="text-xl font-heading font-bold mb-1">COMEBACK KID</div>
+                <p className="text-white/90">Win after losing 2+ matches. Proves you never give up!</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Submission Badges */}
+          <div className="mb-8">
+            <h3 className="text-2xl font-heading font-bold mb-4 border-b border-white/30 pb-2">
+              SUBMISSION BADGES
+            </h3>
+            <p className="text-white/90 mb-4">
+              Earn these by successfully executing each submission type at least once:
+            </p>
+            <div className="grid md:grid-cols-3 gap-3">
+              <div className="bg-white/10 backdrop-blur rounded-lg p-3">
+                <div className="text-2xl mb-1">🦶</div>
+                <div className="text-lg font-heading font-bold">FOOTSIE</div>
+                <p className="text-sm text-white/80">Leg locks (heel hook, ankle lock, kneebar, toe hold)</p>
+              </div>
+              <div className="bg-white/10 backdrop-blur rounded-lg p-3">
+                <div className="text-2xl mb-1">🔺</div>
+                <div className="text-lg font-heading font-bold">TRIANGLE</div>
+                <p className="text-sm text-white/80">Triangle choke variations</p>
+              </div>
+              <div className="bg-white/10 backdrop-blur rounded-lg p-3">
+                <div className="text-2xl mb-1">🛡️</div>
+                <div className="text-lg font-heading font-bold">DARCE</div>
+                <p className="text-sm text-white/80">Darce choke submission</p>
+              </div>
+              <div className="bg-white/10 backdrop-blur rounded-lg p-3">
+                <div className="text-2xl mb-1">⚔️</div>
+                <div className="text-lg font-heading font-bold">GUILLOTINE</div>
+                <p className="text-sm text-white/80">Guillotine choke</p>
+              </div>
+              <div className="bg-white/10 backdrop-blur rounded-lg p-3">
+                <div className="text-2xl mb-1">😴</div>
+                <div className="text-lg font-heading font-bold">CHOKEOUT</div>
+                <p className="text-sm text-white/80">Rear naked choke</p>
+              </div>
+              <div className="bg-white/10 backdrop-blur rounded-lg p-3">
+                <div className="text-2xl mb-1">🦴</div>
+                <div className="text-lg font-heading font-bold">ARMBAR</div>
+                <p className="text-sm text-white/80">Armbar submission</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Other Badges */}
+          <div>
+            <h3 className="text-2xl font-heading font-bold mb-4 border-b border-white/30 pb-2">
+              SPECIAL BADGES
+            </h3>
+            <div className="bg-white/10 backdrop-blur rounded-lg p-4">
+              <div className="text-3xl mb-2">⚖️</div>
+              <div className="text-xl font-heading font-bold mb-1">MULTI-DIVISION</div>
+              <p className="text-white/90">Compete in multiple weight classes. Shows your versatility!</p>
+            </div>
+          </div>
+
+          <div className="mt-6 bg-white/10 backdrop-blur rounded-lg p-4">
+            <p className="text-white/90">
+              💡 <strong>Pro Tip:</strong> Collect all submission badges by diversifying your techniques. Show you're a complete grappler!
+            </p>
+          </div>
+        </section>
       </main>
 
       <footer className="bg-mbjj-dark text-white py-8 mt-16">

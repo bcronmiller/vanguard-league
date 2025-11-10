@@ -23,6 +23,10 @@ class Match(Base):
     method = Column(String, nullable=True)  # submission type or "draw"
     duration_seconds = Column(Integer, nullable=True)
 
+    # ELO tracking - stores the rating change for each player from this match
+    a_elo_change = Column(Integer, nullable=True)  # Player A's ELO change (+/-)
+    b_elo_change = Column(Integer, nullable=True)  # Player B's ELO change (+/-)
+
     # Rankade sync tracking
     rankade_match_id = Column(String, unique=True, nullable=True, index=True)  # Rankade's match ID
     synced_to_rankade = Column(Boolean, default=False)  # Whether this match has been sent to Rankade

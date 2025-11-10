@@ -33,6 +33,7 @@ interface MatchHistory {
   belt_rank: string | null;
   weight: number | null;
   weight_class: string | null;
+  elo_change: number | null;
 }
 
 interface Badge {
@@ -414,6 +415,18 @@ export default function PlayerProfilePage({ params }: { params: { id: string } }
                         {match.duration_seconds && (
                           <div>
                             <span className="font-bold">Time:</span> {formatTime(match.duration_seconds)}
+                          </div>
+                        )}
+                        {match.elo_change !== null && match.elo_change !== undefined && (
+                          <div>
+                            <span className="font-bold">ELO:</span>{' '}
+                            <span className={`font-bold ${
+                              match.elo_change >= 0
+                                ? 'text-green-600 dark:text-green-400'
+                                : 'text-red-600 dark:text-red-400'
+                            }`}>
+                              {match.elo_change >= 0 ? '+' : ''}{match.elo_change}
+                            </span>
                           </div>
                         )}
                       </div>
