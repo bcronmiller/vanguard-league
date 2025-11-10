@@ -236,7 +236,7 @@ export default function MiddleweightPage() {
           <p className="font-heading text-lg mb-2">VANGUARD LEAGUE</p>
           <p className="text-gray-400">
             <a
-              href="https://maps.google.com/?q=9341+Center+St,+Manassas,+VA+20110"
+              href="https://maps.google.com/?q=9414+Center+Point+Ln,+Manassas,+VA+20110"
               target="_blank"
               rel="noopener noreferrer"
               className="hover:text-mbjj-red transition inline-flex items-center gap-1"
