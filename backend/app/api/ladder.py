@@ -192,7 +192,8 @@ def get_overall_ladder(db: Session = Depends(get_db)):
                     "bjj_belt_rank": player.bjj_belt_rank,
                     "weight": player.weight,
                     "elo_rating": player.elo_rating,
-                    "photo_url": player.photo_url
+                    "photo_url": player.photo_url,
+                    "academy": player.academy
                 },
                 "wins": wins,
                 "losses": losses,

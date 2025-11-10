@@ -11,6 +11,7 @@ interface Player {
   age: number | null;
   weight: number | null;
   weight_class: { name: string } | null;
+  academy: string | null;
 }
 
 interface MatchHistory {
@@ -235,12 +236,19 @@ export default function PlayerProfilePage({ params }: { params: Promise<{ id: st
                 </div>
               </div>
 
-              {/* Age if available */}
-              {player.age && (
-                <div className="text-gray-600 dark:text-gray-400">
-                  Age: <span className="font-bold">{player.age}</span>
-                </div>
-              )}
+              {/* Age and Academy */}
+              <div className="space-y-1">
+                {player.age && (
+                  <div className="text-gray-600 dark:text-gray-400">
+                    Age: <span className="font-bold">{player.age}</span>
+                  </div>
+                )}
+                {player.academy && (
+                  <div className="text-gray-600 dark:text-gray-400">
+                    Academy: <span className="font-bold">{player.academy}</span>
+                  </div>
+                )}
+              </div>
 
               {/* Edit Profile Button - Hidden in read-only mode */}
               {!readOnly && (
