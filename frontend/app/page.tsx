@@ -193,7 +193,7 @@ export default function Home() {
               <div className="text-4xl text-mbjj-blue mb-4 text-center">⚖️</div>
               <h3 className="text-2xl font-heading font-bold mb-3 text-center">WEIGHT CLASSES</h3>
               <p className="text-gray-700 dark:text-gray-300 text-center">
-                Automatic ladder rankings by weight class.
+                Automatic ladder rankings by weight class. Rankings are handicapped by belt rank.
               </p>
             </div>
             <div className="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-lg border-t-4 border-mbjj-red">
