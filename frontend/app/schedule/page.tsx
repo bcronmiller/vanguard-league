@@ -265,7 +265,7 @@ export default function EventsPage() {
         <div className="container mx-auto px-4 text-center">
           <p className="font-heading text-lg mb-2">VANGUARD LEAGUE</p>
           <p className="text-gray-400">Hosted at VanGuard Gym</p>
-          <p className="text-gray-500 text-sm mt-4">&copy; 2025 Vanguard Grappling Institute. All rights reserved.</p>
+          <p className="text-gray-500 text-sm mt-4">&copy; 2025 Vanguard League. All rights reserved.</p>
         </div>
       </footer>
     </div>

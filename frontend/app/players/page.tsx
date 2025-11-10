@@ -9,6 +9,7 @@ interface Player {
   bjj_belt_rank: string | null;
   weight: number | null;
   weight_class: { name: string } | null;
+  academy: string | null;
 }
 
 export default function PlayersPage() {
@@ -35,7 +36,8 @@ export default function PlayersPage() {
           photo_url: standing.player.photo_url,
           bjj_belt_rank: standing.player.bjj_belt_rank,
           weight: standing.player.weight,
-          weight_class: null
+          weight_class: null,
+          academy: standing.player.academy
         }));
         // Sort by weight
         activePlayers.sort((a: Player, b: Player) => {
@@ -125,6 +127,11 @@ export default function PlayersPage() {
                       <div className="text-sm text-gray-600 dark:text-gray-400">
                         {player.bjj_belt_rank || 'Unknown'} Belt
                       </div>
+                      {player.academy && (
+                        <div className="text-xs text-gray-500 dark:text-gray-500">
+                          {player.academy}
+                        </div>
+                      )}
                     </div>
                   </div>
                   <div className="flex justify-between text-sm border-t border-gray-200 dark:border-gray-700 pt-3">
@@ -170,6 +177,11 @@ export default function PlayersPage() {
                       <div className="text-sm text-gray-600 dark:text-gray-400">
                         {player.bjj_belt_rank || 'Unknown'} Belt
                       </div>
+                      {player.academy && (
+                        <div className="text-xs text-gray-500 dark:text-gray-500">
+                          {player.academy}
+                        </div>
+                      )}
                     </div>
                   </div>
                   <div className="flex justify-between text-sm border-t border-gray-200 dark:border-gray-700 pt-3">
@@ -215,6 +227,11 @@ export default function PlayersPage() {
                       <div className="text-sm text-gray-600 dark:text-gray-400">
                         {player.bjj_belt_rank || 'Unknown'} Belt
                       </div>
+                      {player.academy && (
+                        <div className="text-xs text-gray-500 dark:text-gray-500">
+                          {player.academy}
+                        </div>
+                      )}
                     </div>
                   </div>
                   <div className="flex justify-between text-sm border-t border-gray-200 dark:border-gray-700 pt-3">
@@ -250,7 +267,7 @@ export default function PlayersPage() {
         <div className="container mx-auto px-4 text-center">
           <p className="font-heading text-lg mb-2">VANGUARD LEAGUE</p>
           <p className="text-gray-400">Hosted at Manassas Brazilian Jiu-Jitsu</p>
-          <p className="text-gray-500 text-sm mt-4">&copy; 2025 Vanguard Grappling Institute. All rights reserved.</p>
+          <p className="text-gray-500 text-sm mt-4">&copy; 2025 Vanguard League. All rights reserved.</p>
         </div>
       </footer>
     </div>

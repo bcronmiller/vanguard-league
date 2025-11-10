@@ -11,6 +11,7 @@ interface Fighter {
     weight: number | null;
     elo_rating: number;
     photo_url: string | null;
+    academy: string | null;
   };
   wins: number;
   losses: number;
@@ -131,9 +132,16 @@ export default function LightweightPage() {
                             className="w-12 h-12 rounded-full border-2 border-mbjj-red object-cover"
                           />
                         )}
-                        <span className="font-heading font-bold text-lg text-gray-900 dark:text-white">
-                          {fighter.player.name.replace('*', '')}
-                        </span>
+                        <div className="flex flex-col">
+                          <span className="font-heading font-bold text-lg text-gray-900 dark:text-white">
+                            {fighter.player.name.replace('*', '')}
+                          </span>
+                          {fighter.player.academy && (
+                            <span className="text-xs text-gray-500 dark:text-gray-500 mt-0.5">
+                              {fighter.player.academy}
+                            </span>
+                          )}
+                        </div>
                       </a>
                     </td>
                     <td className="px-6 py-4 text-center font-heading text-gray-600 dark:text-gray-400">
@@ -183,7 +191,7 @@ export default function LightweightPage() {
         <div className="container mx-auto px-4 text-center">
           <p className="font-heading text-lg mb-2">VANGUARD LEAGUE</p>
           <p className="text-gray-400">Hosted at VanGuard Gym</p>
-          <p className="text-gray-500 text-sm mt-4">&copy; 2025 Vanguard Grappling Institute. All rights reserved.</p>
+          <p className="text-gray-500 text-sm mt-4">&copy; 2025 Vanguard League. All rights reserved.</p>
         </div>
       </footer>
     </div>
