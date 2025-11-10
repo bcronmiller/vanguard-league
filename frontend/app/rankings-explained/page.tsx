@@ -31,27 +31,29 @@ export default function RankingsExplainedPage() {
         {/* Ranking by Improvement */}
         <section className="bg-gradient-to-r from-mbjj-red to-red-700 text-white rounded-lg p-8 mb-8 shadow-lg">
           <h2 className="text-3xl font-heading font-bold mb-6">
-            🏆 RANKED BY IMPROVEMENT
+            🏆 RANKED BY IMPROVEMENT, NOT WIN-LOSS RECORD
           </h2>
           <p className="text-lg mb-4">
-            Rankings show your <strong>ELO gain or loss</strong> from your starting rating, not your absolute ELO.
+            Rankings are <strong>NOT based on your win-loss record</strong>. Instead, they show your <strong>ELO change from your initial rating</strong> at the beginning of the season.
           </p>
           <div className="bg-white/10 backdrop-blur rounded-lg p-6 mb-4">
             <h3 className="text-xl font-heading font-bold mb-3">Example:</h3>
             <ul className="space-y-2">
               <li className="flex justify-between">
-                <span>Blue Belt Fighter: 1333 → 1500 ELO</span>
+                <span>Blue Belt Fighter: 1333 → 1500 ELO (2-1 record)</span>
                 <span className="font-bold">Rank #1 (+167)</span>
               </li>
               <li className="flex justify-between">
-                <span>Black Belt Fighter: 2000 → 2000 ELO</span>
+                <span>Black Belt Fighter: 2000 → 2000 ELO (3-0 record)</span>
                 <span className="font-bold">Rank #2 (0)</span>
               </li>
             </ul>
           </div>
+          <p className="text-lg mb-3">
+            The blue belt ranks higher despite having one loss because they improved their ELO more (+167 vs 0). This rewards <strong>quality wins over quantity</strong> and makes improvement the primary measure of success.
+          </p>
           <p className="text-lg">
-            This rewards <strong>improvement and activity</strong> over starting skill level. A blue belt climbing
-            the rankings is just as impressive as a black belt doing the same.
+            A blue belt climbing the rankings by beating higher-rated opponents is just as impressive as a black belt doing the same.
           </p>
         </section>
 
@@ -120,10 +122,11 @@ export default function RankingsExplainedPage() {
               <h3 className="text-xl font-heading font-bold mb-3 text-gray-600 dark:text-gray-400">
                 🤝 When You Draw:
               </h3>
-              <p className="text-gray-700 dark:text-gray-300">
-                Both fighters' ratings change slightly based on the expected outcome. If you were favored,
-                you lose a few points. If you were the underdog, you gain a few points.
-              </p>
+              <ul className="list-disc list-inside text-gray-700 dark:text-gray-300 space-y-2">
+                <li><strong>Draw with a higher-rated opponent:</strong> Small gain (you exceeded expectations)</li>
+                <li><strong>Draw with an equal-rated opponent:</strong> No change (expected outcome)</li>
+                <li><strong>Draw with a lower-rated opponent:</strong> Small loss (you underperformed)</li>
+              </ul>
             </div>
           </div>
         </section>
