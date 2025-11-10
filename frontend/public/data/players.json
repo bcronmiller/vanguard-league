@@ -144,24 +144,6 @@
     "updated_at": "2025-11-10T02:01:47.913432"
   },
   {
-    "name": "*John Michael El Mapache Rodriguez Uhweta",
-    "belt": null,
-    "team": null,
-    "academy": "Kaizen MMA",
-    "photo_url": null,
-    "age": null,
-    "bjj_belt_rank": "Blue",
-    "weight": 156,
-    "weight_class_id": 1,
-    "elo_rating": 1364.5077055614356,
-    "rankade_ree_score": null,
-    "id": 8,
-    "rankade_id": "5lW7md3XgaZ",
-    "active": true,
-    "created_at": "2025-11-09T18:57:19.336257",
-    "updated_at": "2025-11-10T02:01:47.913433"
-  },
-  {
     "name": "Nick Newbold",
     "belt": null,
     "team": null,
@@ -178,6 +160,24 @@
     "active": true,
     "created_at": "2025-11-09T18:57:19.336251",
     "updated_at": "2025-11-10T04:46:02.381712"
+  },
+  {
+    "name": "*John Michael El Mapache Rodriguez Uhweta",
+    "belt": null,
+    "team": null,
+    "academy": "Kaizen MMA",
+    "photo_url": null,
+    "age": null,
+    "bjj_belt_rank": "Purple",
+    "weight": 156,
+    "weight_class_id": 1,
+    "elo_rating": 1364.5077055614356,
+    "rankade_ree_score": null,
+    "id": 8,
+    "rankade_id": "5lW7md3XgaZ",
+    "active": true,
+    "created_at": "2025-11-09T18:57:19.336257",
+    "updated_at": "2025-11-10T02:01:47.913433"
   },
   {
     "name": "Brian Cronmiller",
