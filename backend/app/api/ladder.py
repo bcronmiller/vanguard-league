@@ -168,18 +168,13 @@ def get_overall_ladder(db: Session = Depends(get_db)):
         ).all()
 
         for match in a_matches:
-            # Get opponent
-            opponent = db.query(Player).filter_by(id=match.b_player_id).first()
-            opponent_weight_class = get_weight_class(opponent.weight) if opponent else None
-
-            # Only count if both fighters in same weight class
-            if player_weight_class == opponent_weight_class:
-                if match.result == MatchResult.PLAYER_A_WIN:
-                    wins += 1
-                elif match.result == MatchResult.PLAYER_B_WIN:
-                    losses += 1
-                elif match.result == MatchResult.DRAW:
-                    draws += 1
+            # Count all matches (cross-weight-class matches allowed)
+            if match.result == MatchResult.PLAYER_A_WIN:
+                wins += 1
+            elif match.result == MatchResult.PLAYER_B_WIN:
+                losses += 1
+            elif match.result == MatchResult.DRAW:
+                draws += 1
 
         # Matches where player is player_b
         b_matches = db.query(Match).filter(
@@ -188,18 +183,13 @@ def get_overall_ladder(db: Session = Depends(get_db)):
         ).all()
 
         for match in b_matches:
-            # Get opponent
-            opponent = db.query(Player).filter_by(id=match.a_player_id).first()
-            opponent_weight_class = get_weight_class(opponent.weight) if opponent else None
-
-            # Only count if both fighters in same weight class
-            if player_weight_class == opponent_weight_class:
-                if match.result == MatchResult.PLAYER_B_WIN:
-                    wins += 1
-                elif match.result == MatchResult.PLAYER_A_WIN:
-                    losses += 1
-                elif match.result == MatchResult.DRAW:
-                    draws += 1
+            # Count all matches (cross-weight-class matches allowed)
+            if match.result == MatchResult.PLAYER_B_WIN:
+                wins += 1
+            elif match.result == MatchResult.PLAYER_A_WIN:
+                losses += 1
+            elif match.result == MatchResult.DRAW:
+                draws += 1
 
         # Only include fighters with at least one in-class match
         if wins + losses + draws > 0:
