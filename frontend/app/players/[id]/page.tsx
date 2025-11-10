@@ -98,8 +98,9 @@ export default function PlayerProfilePage({ params }: { params: Promise<{ id: st
       if (res.ok) {
         const ladder = await res.json();
 
-        // Find player's ranking in their weight class
-        const playerStanding = ladder.find((s: any) => s.player.id === parseInt(playerId));
+        // Filter out any invalid entries and find player's ranking
+        const validLadder = ladder.filter((s: any) => s && s.player && s.player.id);
+        const playerStanding = validLadder.find((s: any) => s.player.id === parseInt(playerId));
 
         if (playerStanding && playerStanding.player.weight) {
           const weight = playerStanding.player.weight;
@@ -108,13 +109,13 @@ export default function PlayerProfilePage({ params }: { params: Promise<{ id: st
 
           if (weight < 170) {
             weightClass = 'Lightweight';
-            classLadder = ladder.filter((s: any) => s.player.weight && s.player.weight < 170);
+            classLadder = validLadder.filter((s: any) => s.player.weight && s.player.weight < 170);
           } else if (weight >= 170 && weight < 185) {
             weightClass = 'Middleweight';
-            classLadder = ladder.filter((s: any) => s.player.weight && s.player.weight >= 170 && s.player.weight < 185);
+            classLadder = validLadder.filter((s: any) => s.player.weight && s.player.weight >= 170 && s.player.weight < 185);
           } else {
             weightClass = 'Heavyweight';
-            classLadder = ladder.filter((s: any) => s.player.weight && s.player.weight >= 185);
+            classLadder = validLadder.filter((s: any) => s.player.weight && s.player.weight >= 185);
           }
 
           const rank = classLadder.findIndex((s: any) => s.player.id === parseInt(playerId)) + 1;
