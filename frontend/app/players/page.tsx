@@ -88,7 +88,14 @@ export default function PlayersPage() {
               VGI TRENCH ROSTER
             </p>
             <p className="text-lg text-gray-400 mt-2">
-              at Manassas Brazilian Jiu-Jitsu
+              <a
+                href="https://maps.google.com/?q=9341+Center+St,+Manassas,+VA+20110"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-mbjj-red transition inline-flex items-center gap-1 justify-center"
+              >
+                <span>📍</span> at VanGuard Gym
+              </a>
             </p>
           </div>
         </div>
@@ -267,7 +274,16 @@ export default function PlayersPage() {
       <footer className="bg-mbjj-dark text-white py-8 mt-16">
         <div className="container mx-auto px-4 text-center">
           <p className="font-heading text-lg mb-2">VANGUARD LEAGUE</p>
-          <p className="text-gray-400">Hosted at Manassas Brazilian Jiu-Jitsu</p>
+          <p className="text-gray-400">
+            <a
+              href="https://maps.google.com/?q=9341+Center+St,+Manassas,+VA+20110"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-mbjj-red transition inline-flex items-center gap-1"
+            >
+              <span>📍</span> Hosted at VanGuard Gym
+            </a>
+          </p>
           <p className="text-gray-500 text-sm mt-4">&copy; 2025 Vanguard League. All rights reserved.</p>
         </div>
       </footer>

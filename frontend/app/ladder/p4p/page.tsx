@@ -273,7 +273,16 @@ export default function PoundForPoundPage() {
       <footer className="bg-mbjj-dark text-white py-8 mt-16">
         <div className="container mx-auto px-4 text-center">
           <p className="font-heading text-lg mb-2">VANGUARD LEAGUE</p>
-          <p className="text-gray-400">Hosted at VanGuard Gym</p>
+          <p className="text-gray-400">
+            <a
+              href="https://maps.google.com/?q=9341+Center+St,+Manassas,+VA+20110"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-mbjj-red transition inline-flex items-center gap-1"
+            >
+              <span>📍</span> Hosted at VanGuard Gym
+            </a>
+          </p>
           <p className="text-gray-500 text-sm mt-4">&copy; 2025 Vanguard League. All rights reserved.</p>
         </div>
       </footer>
