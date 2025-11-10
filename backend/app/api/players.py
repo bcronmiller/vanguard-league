@@ -212,3 +212,29 @@ async def sync_players_from_rankade(db: Session = Depends(get_db)):
 
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Rankade sync failed: {str(e)}")
+
+
+@router.get("/players/{player_id}/badges")
+async def get_player_badges(player_id: int, db: Session = Depends(get_db)):
+    """
+    Get all achievement badges earned by a player.
+
+    Badges include:
+    - Win streaks (3+, 5+)
+    - Undefeated record
+    - Fastest finishes (<60s, <120s)
+    - Win rate achievements (70%+, 80%+)
+    - Experience levels (10+, 15+ matches)
+    - Total victories (5+, 10+)
+    - Submission variety (3+, 5+ different subs)
+    - Multi-division fighter
+    - Iron Man (total fight time)
+    """
+    from app.services.badges import get_badge_dict
+
+    # Check player exists
+    player = db.query(Player).filter(Player.id == player_id).first()
+    if not player:
+        raise HTTPException(status_code=404, detail="Player not found")
+
+    return get_badge_dict(player_id, db)
