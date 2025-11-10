@@ -35,7 +35,7 @@ export default function NewEventPage() {
 
     setSaving(true);
     try {
-      const res = await fetch('http://192.168.1.246:8000/api/events', {
+      const res = await fetch('${config.apiUrl}/api/events', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

@@ -29,9 +29,8 @@ export default function EventsPage() {
 
   const loadEvents = async () => {
     try {
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://192.168.1.246:8000';
       const isStatic = process.env.NEXT_PUBLIC_STATIC_MODE === 'true';
-      const endpoint = isStatic ? '/data/events.json' : `${apiUrl}/api/events`;
+      const endpoint = isStatic ? '/data/events.json' : 'http://192.168.1.246:8000/api/events';
 
       const res = await fetch(endpoint);
       if (res.ok) {

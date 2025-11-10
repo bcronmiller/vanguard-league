@@ -39,7 +39,7 @@ export default function EventCheckinPage({ params }: { params: Promise<{ id: str
 
   const loadCheckinStatus = async () => {
     try {
-      const res = await fetch(`http://192.168.1.246:8000/api/events/${eventId}/checkin-status`);
+      const res = await fetch(`${config.apiUrl}/api/events/${eventId}/checkin-status`);
       if (res.ok) {
         const data = await res.json();
         setPlayers(data);
@@ -69,7 +69,7 @@ export default function EventCheckinPage({ params }: { params: Promise<{ id: str
 
     setCheckingIn(playerId);
     try {
-      const res = await fetch(`http://192.168.1.246:8000/api/events/${eventId}/checkin`, {
+      const res = await fetch(`${config.apiUrl}/api/events/${eventId}/checkin`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -95,7 +95,7 @@ export default function EventCheckinPage({ params }: { params: Promise<{ id: str
     if (!confirm('Undo check-in for this fighter?')) return;
 
     try {
-      const res = await fetch(`http://192.168.1.246:8000/api/events/${eventId}/checkin/${playerId}`, {
+      const res = await fetch(`${config.apiUrl}/api/events/${eventId}/checkin/${playerId}`, {
         method: 'DELETE'
       });
 
@@ -112,7 +112,7 @@ export default function EventCheckinPage({ params }: { params: Promise<{ id: str
 
     setUndoingAll(true);
     try {
-      const res = await fetch(`http://192.168.1.246:8000/api/events/${eventId}/checkin-all`, {
+      const res = await fetch(`${config.apiUrl}/api/events/${eventId}/checkin-all`, {
         method: 'DELETE'
       });
 

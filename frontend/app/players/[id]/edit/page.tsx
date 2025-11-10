@@ -45,7 +45,7 @@ export default function EditPlayerPage({ params }: { params: Promise<{ id: strin
 
   const loadPlayer = async () => {
     try {
-      const res = await fetch(`http://192.168.1.246:8000/api/players/${playerId}`);
+      const res = await fetch(`${config.apiUrl}/api/players/${playerId}`);
       if (res.ok) {
         const player: Player = await res.json();
         setFormData({
@@ -83,7 +83,7 @@ export default function EditPlayerPage({ params }: { params: Promise<{ id: strin
         photo_url: formData.photo_url || null
       };
 
-      const response = await fetch(`http://192.168.1.246:8000/api/players/${playerId}`, {
+      const response = await fetch(`${config.apiUrl}/api/players/${playerId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

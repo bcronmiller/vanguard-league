@@ -38,7 +38,7 @@ export default function BracketsPage({ params }: { params: Promise<{ id: string 
 
   const loadMatches = async () => {
     try {
-      const res = await fetch(`http://192.168.1.246:8000/api/events/${eventId}/matches`);
+      const res = await fetch(`${config.apiUrl}/api/events/${eventId}/matches`);
       if (res.ok) {
         const data = await res.json();
         setMatches(data);
@@ -55,7 +55,7 @@ export default function BracketsPage({ params }: { params: Promise<{ id: string 
 
     setGenerating(true);
     try {
-      const res = await fetch(`http://192.168.1.246:8000/api/events/${eventId}/generate-brackets`, {
+      const res = await fetch(`${config.apiUrl}/api/events/${eventId}/generate-brackets`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ format })

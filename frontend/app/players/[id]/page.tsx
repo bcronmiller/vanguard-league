@@ -50,7 +50,9 @@ export default function PlayerProfilePage({ params }: { params: Promise<{ id: st
 
   const loadPlayer = async () => {
     try {
-      const res = await fetch(`http://192.168.1.246:8000/api/players/${playerId}`);
+      const isStatic = process.env.NEXT_PUBLIC_STATIC_MODE === 'true';
+      const endpoint = isStatic ? `/data/player-${playerId}.json` : `http://192.168.1.246:8000/api/players/${playerId}`;
+      const res = await fetch(endpoint);
       if (res.ok) {
         const data = await res.json();
         setPlayer(data);
@@ -62,10 +64,13 @@ export default function PlayerProfilePage({ params }: { params: Promise<{ id: st
 
   const loadMatches = async () => {
     try {
-      const res = await fetch(`http://192.168.1.246:8000/api/players/${playerId}/matches`);
+      const isStatic = process.env.NEXT_PUBLIC_STATIC_MODE === 'true';
+      const endpoint = isStatic ? `/data/player-${playerId}.json` : `http://192.168.1.246:8000/api/players/${playerId}/matches`;
+      const res = await fetch(endpoint);
       if (res.ok) {
         const data = await res.json();
-        setMatches(data);
+        // In static mode, player data includes matches array
+        setMatches(isStatic && data.matches ? data.matches : data);
       }
     } catch (error) {
       console.error('Failed to load matches:', error);
@@ -76,7 +81,9 @@ export default function PlayerProfilePage({ params }: { params: Promise<{ id: st
 
   const loadRanking = async () => {
     try {
-      const res = await fetch(`http://192.168.1.246:8000/api/ladder`);
+      const isStatic = process.env.NEXT_PUBLIC_STATIC_MODE === 'true';
+      const endpoint = isStatic ? '/data/ladder-overall.json' : 'http://192.168.1.246:8000/api/ladder';
+      const res = await fetch(endpoint);
       if (res.ok) {
         const ladder = await res.json();
 

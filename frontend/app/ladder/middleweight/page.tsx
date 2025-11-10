@@ -28,7 +28,9 @@ export default function MiddleweightPage() {
 
   const loadLadder = async () => {
     try {
-      const res = await fetch('http://192.168.1.246:8000/api/ladder/overall');
+      const isStatic = process.env.NEXT_PUBLIC_STATIC_MODE === 'true';
+      const endpoint = isStatic ? '/data/ladder-overall.json' : 'http://192.168.1.246:8000/api/ladder/overall';
+      const res = await fetch(endpoint);
       if (res.ok) {
         const data = await res.json();
         // Filter for middleweight only (170-185 lbs)

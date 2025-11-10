@@ -41,7 +41,7 @@ export default function RegisterFighter() {
         active: true
       };
 
-      const response = await fetch('http://192.168.1.246:8000/api/players', {
+      const response = await fetch('${config.apiUrl}/api/players', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

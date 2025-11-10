@@ -65,7 +65,7 @@ export default function MatchResultPage({ params }: { params: Promise<{ id: stri
 
   const loadMatch = async () => {
     try {
-      const res = await fetch(`http://192.168.1.246:8000/api/events/${eventId}/matches`);
+      const res = await fetch(`${config.apiUrl}/api/events/${eventId}/matches`);
       if (res.ok) {
         const matches = await res.json();
         const foundMatch = matches.find((m: Match) => m.id === parseInt(matchId));
@@ -106,7 +106,7 @@ export default function MatchResultPage({ params }: { params: Promise<{ id: stri
 
     setSaving(true);
     try {
-      const res = await fetch(`http://192.168.1.246:8000/api/matches/${matchId}/result`, {
+      const res = await fetch(`${config.apiUrl}/api/matches/${matchId}/result`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

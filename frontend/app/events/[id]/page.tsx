@@ -53,7 +53,9 @@ export default function EventDetailPage({ params }: { params: Promise<{ id: stri
 
   const loadEvent = async () => {
     try {
-      const res = await fetch(`http://192.168.1.246:8000/api/events/${eventId}`);
+      const isStatic = process.env.NEXT_PUBLIC_STATIC_MODE === 'true';
+      const endpoint = isStatic ? `/data/event-${eventId}.json` : `http://192.168.1.246:8000/api/events/${eventId}`;
+      const res = await fetch(endpoint);
       if (res.ok) {
         const data = await res.json();
         setEvent(data);
@@ -67,7 +69,9 @@ export default function EventDetailPage({ params }: { params: Promise<{ id: stri
 
   const loadLadder = async () => {
     try {
-      const res = await fetch(`http://192.168.1.246:8000/api/ladder/${eventId}`);
+      const isStatic = process.env.NEXT_PUBLIC_STATIC_MODE === 'true';
+      const endpoint = isStatic ? `/data/ladder-event-${eventId}.json` : `http://192.168.1.246:8000/api/ladder/${eventId}`;
+      const res = await fetch(endpoint);
       if (res.ok) {
         const data: LadderResponse = await res.json();
         setLadder(data.standings || []);
