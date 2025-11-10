@@ -74,7 +74,7 @@ def check_in_player(
     weight_class = None
     if checkin.current_weight < 170:
         weight_class = db.query(WeightClass).filter_by(name="Lightweight").first()
-    elif checkin.current_weight < 185:
+    elif checkin.current_weight <= 200:
         weight_class = db.query(WeightClass).filter_by(name="Middleweight").first()
     else:
         weight_class = db.query(WeightClass).filter_by(name="Heavyweight").first()

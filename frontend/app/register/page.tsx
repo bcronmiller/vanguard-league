@@ -238,6 +238,17 @@ export default function RegisterFighter() {
             <li>• <strong>Academy</strong>: Defaults to VanGuard Gym, change if needed</li>
           </ul>
         </div>
+
+        {/* Weight Class Rules */}
+        <div className="mt-6 bg-blue-50 dark:bg-blue-900/20 border-l-4 border-mbjj-blue rounded-lg p-6">
+          <h2 className="font-heading font-bold text-xl mb-3 text-gray-900 dark:text-white">WEIGHT CLASS RULES</h2>
+          <ul className="space-y-2 text-gray-700 dark:text-gray-300">
+            <li>• Fighters compete in <strong>one weight class per event</strong> based on their weigh-in</li>
+            <li>• Lighter fighters may choose to <strong>fight up a weight class</strong> if desired</li>
+            <li>• Weight classes: Lightweight (&lt;170 lbs), Middleweight (170-200 lbs), Heavyweight (&gt;200 lbs)</li>
+            <li>• Weight class is locked in at check-in for that event</li>
+          </ul>
+        </div>
       </main>
     </div>
   );

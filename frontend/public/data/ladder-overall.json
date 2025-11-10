@@ -1,21 +1,6 @@
 [
   {
     "player": {
-      "id": 11,
-      "name": "*Christian Banghart",
-      "bjj_belt_rank": "Black",
-      "weight": 203,
-      "elo_rating": 2004.5397762344307,
-      "initial_elo_rating": 2000,
-      "photo_url": null,
-      "academy": "VanGuard Gym"
-    },
-    "wins": 3,
-    "losses": 0,
-    "draws": 1
-  },
-  {
-    "player": {
       "id": 2,
       "name": "*Alex Stewart",
       "bjj_belt_rank": "Purple",
@@ -31,6 +16,21 @@
   },
   {
     "player": {
+      "id": 11,
+      "name": "*Christian Banghart",
+      "bjj_belt_rank": "Black",
+      "weight": 203,
+      "elo_rating": 2004.5397762344307,
+      "initial_elo_rating": 2000,
+      "photo_url": null,
+      "academy": "VanGuard Gym"
+    },
+    "wins": 2,
+    "losses": 0,
+    "draws": 1
+  },
+  {
+    "player": {
       "id": 10,
       "name": "*Troy Wittman",
       "bjj_belt_rank": "Black",
@@ -40,22 +40,7 @@
       "photo_url": null,
       "academy": "Leo Dalla BJJ"
     },
-    "wins": 3,
-    "losses": 1,
-    "draws": 0
-  },
-  {
-    "player": {
-      "id": 5,
-      "name": "Nick Newbold",
-      "bjj_belt_rank": "Blue",
-      "weight": 206.6,
-      "elo_rating": 1387.2022580830655,
-      "initial_elo_rating": 1333,
-      "photo_url": null,
-      "academy": "VanGuard Gym"
-    },
-    "wins": 3,
+    "wins": 2,
     "losses": 1,
     "draws": 0
   },
@@ -76,18 +61,18 @@
   },
   {
     "player": {
-      "id": 7,
-      "name": "*Matt Crawford",
-      "bjj_belt_rank": "Brown",
-      "weight": 259,
-      "elo_rating": 1590.1194183870175,
-      "initial_elo_rating": 1600,
+      "id": 5,
+      "name": "Nick Newbold",
+      "bjj_belt_rank": "Blue",
+      "weight": 206.6,
+      "elo_rating": 1387.2022580830655,
+      "initial_elo_rating": 1333,
       "photo_url": null,
-      "academy": "Kaizen MMA"
+      "academy": "VanGuard Gym"
     },
-    "wins": 1,
-    "losses": 2,
-    "draws": 1
+    "wins": 2,
+    "losses": 1,
+    "draws": 0
   },
   {
     "player": {
@@ -106,6 +91,21 @@
   },
   {
     "player": {
+      "id": 7,
+      "name": "*Matt Crawford",
+      "bjj_belt_rank": "Brown",
+      "weight": 259,
+      "elo_rating": 1590.1194183870175,
+      "initial_elo_rating": 1600,
+      "photo_url": null,
+      "academy": "Kaizen MMA"
+    },
+    "wins": 0,
+    "losses": 2,
+    "draws": 1
+  },
+  {
+    "player": {
       "id": 9,
       "name": "*Edrees Saifi",
       "bjj_belt_rank": "Blue",
@@ -117,7 +117,7 @@
     },
     "wins": 0,
     "losses": 2,
-    "draws": 1
+    "draws": 0
   },
   {
     "player": {
@@ -133,20 +133,5 @@
     "wins": 0,
     "losses": 3,
     "draws": 0
-  },
-  {
-    "player": {
-      "id": 4,
-      "name": "*Josue Chevaz",
-      "bjj_belt_rank": "Blue",
-      "weight": 194.9,
-      "elo_rating": 1311.1218042616888,
-      "initial_elo_rating": 1333,
-      "photo_url": null,
-      "academy": "VanGuard Gym"
-    },
-    "wins": 0,
-    "losses": 4,
-    "draws": 1
   }
 ]

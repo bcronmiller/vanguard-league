@@ -142,7 +142,7 @@ async def get_player_match_history(player_id: int, db: Session = Depends(get_db)
                 heavier_weight = max(player_weight, opponent_weight)
                 if heavier_weight < 170:
                     match_weight_class = "Lightweight"
-                elif heavier_weight < 185:
+                elif heavier_weight <= 200:
                     match_weight_class = "Middleweight"
                 else:
                     match_weight_class = "Heavyweight"

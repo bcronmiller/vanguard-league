@@ -146,7 +146,7 @@ def get_overall_ladder(db: Session = Depends(get_db)):
             return None
         if weight < 170:
             return "lightweight"
-        elif weight < 185:
+        elif weight <= 200:
             return "middleweight"
         else:
             return "heavyweight"
