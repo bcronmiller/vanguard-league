@@ -229,7 +229,7 @@ export default function RankingsExplainedPage() {
                 <p className="text-sm text-white/80">Leg locks (heel hook, ankle lock, kneebar, toe hold)</p>
               </div>
               <div className="bg-white/10 backdrop-blur rounded-lg p-3">
-                <div className="text-2xl mb-1">🔺</div>
+                <div className="text-2xl mb-1">▲</div>
                 <div className="text-lg font-heading font-bold">TRIANGLE</div>
                 <p className="text-sm text-white/80">Triangle choke variations</p>
               </div>

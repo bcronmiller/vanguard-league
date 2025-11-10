@@ -198,7 +198,7 @@ async def get_badges_endpoint(player_id: int, db: Session = Depends(get_db)):
 
     Submission Badges (earned by getting at least one):
     - Footsie 🦶 - Leg lock submission (heel hook, ankle lock, kneebar, toe hold)
-    - Triangle 🔺 - Triangle submission
+    - Triangle ▲ - Triangle submission
     - Darce 🛡️ - Darce choke submission
     - Guillotine ⚔️ - Guillotine submission
     - Chokeout 😴 - Rear naked choke submission

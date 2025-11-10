@@ -120,7 +120,7 @@ def get_player_badges(player_id: int, db: Session) -> List[Dict]:
             badges.append({
                 "name": "Triangle",
                 "description": "Triangle submission earned",
-                "icon": "🔺"
+                "icon": "▲"
             })
 
         # DARCE MASTER - Darce choke
