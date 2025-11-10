@@ -183,12 +183,20 @@ async def get_badges_endpoint(player_id: int, db: Session = Depends(get_db)):
     """
     Get all achievement badges earned by a player.
 
-    Badges include:
-    - Footsie 🦶 - All wins by leg locks (heel hook, ankle lock, kneebar, toe hold)
-    - Darce Knight 🦇 - All wins by Darce choke (3+ wins)
-    - Triangle Master 🔺 - All wins by triangle chokes
-    - Guillotine Guru ⚔️ - All wins by guillotine
-    - Submission Specialist 🥋 - 5+ submission victories
+    Streak Badges:
+    - On Fire 🔥 - 3+ wins in a row (current streak)
+    - Comeback Kid 💪 - Won after losing 2+ matches in a row
+
+    Submission Badges (earned by getting at least one):
+    - Footsie 🦶 - Leg lock submission (heel hook, ankle lock, kneebar, toe hold)
+    - Triangle 🔺 - Triangle submission
+    - Darce 🛡️ - Darce choke submission
+    - Guillotine ⚔️ - Guillotine submission
+    - Chokeout 😴 - Rear naked choke submission
+    - Armbar 🔧 - Armbar submission
+
+    Other Badges:
+    - Multi-Division ⚖️ - Competed in multiple weight classes
     """
     from app.services.badges import get_player_badges
 
