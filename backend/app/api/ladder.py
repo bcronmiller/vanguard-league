@@ -37,6 +37,7 @@ class LadderEntry(BaseModel):
     draws: int
     win_rate: float
     elo_rating: float | None
+    initial_elo_rating: float | None
 
     class Config:
         from_attributes = True
@@ -47,6 +48,18 @@ class LadderResponse(BaseModel):
     event_name: str
     event_date: datetime
     standings: List[LadderEntry]
+
+
+def get_initial_elo(belt_rank: str | None) -> float:
+    """Get starting ELO rating based on belt rank"""
+    belt_elos = {
+        "Black": 2000.0,
+        "Brown": 1600.0,
+        "Purple": 1467.0,
+        "Blue": 1333.0,
+        "White": 1200.0
+    }
+    return belt_elos.get(belt_rank or "White", 1333.0)  # Default to Blue belt rating
 
 
 def get_head_to_head_record(player_a_id: int, player_b_id: int, event_id: int, db: Session) -> tuple[int, int]:
@@ -85,17 +98,22 @@ def compare_players(a: dict, b: dict, event_id: int, db: Session) -> int:
     Compare two players for ladder ranking.
     Returns -1 if a should rank higher, 1 if b should rank higher, 0 if tied.
 
-    Tiebreaker order:
-    1. Win-Loss record (wins - losses)
-    2. Head-to-head record
-    3. ELO rating
+    Ranking order (performance vs. expectations):
+    1. ELO gain from starting rating (accounts for belt rank)
+    2. Head-to-head record (if tied)
+    3. Absolute ELO rating (final tiebreaker)
     """
-    # 1. Compare win-loss differential
-    a_diff = a['wins'] - a['losses']
-    b_diff = b['wins'] - b['losses']
+    # 1. Compare ELO gain (performance vs. expectations)
+    a_initial = a.get('initial_elo_rating') or 0
+    b_initial = b.get('initial_elo_rating') or 0
+    a_current = a.get('elo_rating') or a_initial
+    b_current = b.get('elo_rating') or b_initial
 
-    if a_diff != b_diff:
-        return -1 if a_diff > b_diff else 1
+    a_gain = a_current - a_initial
+    b_gain = b_current - b_initial
+
+    if abs(a_gain - b_gain) > 0.01:  # Account for floating point precision
+        return -1 if a_gain > b_gain else 1
 
     # 2. Check head-to-head if they've played
     a_h2h_wins, b_h2h_wins = get_head_to_head_record(a['player_id'], b['player_id'], event_id, db)
@@ -103,7 +121,7 @@ def compare_players(a: dict, b: dict, event_id: int, db: Session) -> int:
     if a_h2h_wins != b_h2h_wins:
         return -1 if a_h2h_wins > b_h2h_wins else 1
 
-    # 3. Compare ELO ratings
+    # 3. Compare absolute ELO ratings (final tiebreaker)
     a_elo = a.get('elo_rating') or 0
     b_elo = b.get('elo_rating') or 0
 
@@ -245,12 +263,14 @@ async def get_ladder(event_id: int, db: Session = Depends(get_db)):
         if match.a_player_id not in player_records:
             player_a = db.query(Player).filter(Player.id == match.a_player_id).first()
             if player_a:
+                initial_elo = get_initial_elo(player_a.bjj_belt_rank)
                 player_records[match.a_player_id] = {
                     'player_id': player_a.id,
                     'player_name': player_a.name,
                     'photo_url': player_a.photo_url,
                     'belt_rank': player_a.bjj_belt_rank,
                     'elo_rating': player_a.elo_rating,
+                    'initial_elo_rating': initial_elo,
                     'wins': 0,
                     'losses': 0,
                     'draws': 0
@@ -260,12 +280,14 @@ async def get_ladder(event_id: int, db: Session = Depends(get_db)):
         if match.b_player_id not in player_records:
             player_b = db.query(Player).filter(Player.id == match.b_player_id).first()
             if player_b:
+                initial_elo = get_initial_elo(player_b.bjj_belt_rank)
                 player_records[match.b_player_id] = {
                     'player_id': player_b.id,
                     'player_name': player_b.name,
                     'photo_url': player_b.photo_url,
                     'belt_rank': player_b.bjj_belt_rank,
                     'elo_rating': player_b.elo_rating,
+                    'initial_elo_rating': initial_elo,
                     'wins': 0,
                     'losses': 0,
                     'draws': 0
@@ -317,7 +339,8 @@ async def get_ladder(event_id: int, db: Session = Depends(get_db)):
             losses=player_data['losses'],
             draws=player_data['draws'],
             win_rate=win_rate,
-            elo_rating=player_data['elo_rating']
+            elo_rating=player_data['elo_rating'],
+            initial_elo_rating=player_data.get('initial_elo_rating')
         ))
 
     return LadderResponse(
@@ -399,12 +422,14 @@ async def get_ladder_by_weight_class(
         if match.a_player_id not in player_records:
             player_a = db.query(Player).filter(Player.id == match.a_player_id).first()
             if player_a:
+                initial_elo = get_initial_elo(player_a.bjj_belt_rank)
                 player_records[match.a_player_id] = {
                     'player_id': player_a.id,
                     'player_name': player_a.name,
                     'photo_url': player_a.photo_url,
                     'belt_rank': player_a.bjj_belt_rank,
                     'elo_rating': player_a.elo_rating,
+                    'initial_elo_rating': initial_elo,
                     'wins': 0,
                     'losses': 0,
                     'draws': 0
@@ -414,12 +439,14 @@ async def get_ladder_by_weight_class(
         if match.b_player_id not in player_records:
             player_b = db.query(Player).filter(Player.id == match.b_player_id).first()
             if player_b:
+                initial_elo = get_initial_elo(player_b.bjj_belt_rank)
                 player_records[match.b_player_id] = {
                     'player_id': player_b.id,
                     'player_name': player_b.name,
                     'photo_url': player_b.photo_url,
                     'belt_rank': player_b.bjj_belt_rank,
                     'elo_rating': player_b.elo_rating,
+                    'initial_elo_rating': initial_elo,
                     'wins': 0,
                     'losses': 0,
                     'draws': 0
@@ -460,7 +487,8 @@ async def get_ladder_by_weight_class(
             losses=player_data['losses'],
             draws=player_data['draws'],
             win_rate=win_rate,
-            elo_rating=player_data['elo_rating']
+            elo_rating=player_data['elo_rating'],
+            initial_elo_rating=player_data.get('initial_elo_rating')
         ))
 
     return LadderResponse(

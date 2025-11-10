@@ -6,6 +6,7 @@
       "bjj_belt_rank": "Black",
       "weight": 203,
       "elo_rating": 2004.5397762344307,
+      "initial_elo_rating": 2000,
       "photo_url": null,
       "academy": "VanGuard Gym"
     },
@@ -19,7 +20,8 @@
       "name": "*Alex Stewart",
       "bjj_belt_rank": "Purple",
       "weight": 149.7,
-      "elo_rating": 1486.9270982828134,
+      "elo_rating": 1503.1329011552034,
+      "initial_elo_rating": 1467,
       "photo_url": null,
       "academy": "VanGuard Gym"
     },
@@ -34,8 +36,9 @@
       "bjj_belt_rank": "Black",
       "weight": 215,
       "elo_rating": 1987.69956212777,
+      "initial_elo_rating": 2000,
       "photo_url": null,
-      "academy": "VanGuard Gym"
+      "academy": "Leo Dalla BJJ"
     },
     "wins": 3,
     "losses": 1,
@@ -48,6 +51,7 @@
       "bjj_belt_rank": "Blue",
       "weight": 206.6,
       "elo_rating": 1387.2022580830655,
+      "initial_elo_rating": 1333,
       "photo_url": null,
       "academy": "VanGuard Gym"
     },
@@ -61,7 +65,8 @@
       "name": "*John Michael El Mapache Rodriguez Uhweta",
       "bjj_belt_rank": "Purple",
       "weight": 156,
-      "elo_rating": 1364.5077055614356,
+      "elo_rating": 1471.0579950856763,
+      "initial_elo_rating": 1467,
       "photo_url": null,
       "academy": "Kaizen MMA"
     },
@@ -76,6 +81,7 @@
       "bjj_belt_rank": "Brown",
       "weight": 259,
       "elo_rating": 1590.1194183870175,
+      "initial_elo_rating": 1600,
       "photo_url": null,
       "academy": "Kaizen MMA"
     },
@@ -89,7 +95,8 @@
       "name": "*Hussain Samir",
       "bjj_belt_rank": "Blue",
       "weight": 167.8,
-      "elo_rating": 1336.6514655466822,
+      "elo_rating": 1342.327444626183,
+      "initial_elo_rating": 1333,
       "photo_url": null,
       "academy": "VanGuard Gym"
     },
@@ -104,6 +111,7 @@
       "bjj_belt_rank": "Blue",
       "weight": 207,
       "elo_rating": 1302.3171809060275,
+      "initial_elo_rating": 1333,
       "photo_url": null,
       "academy": "VanGuard Gym"
     },
@@ -117,7 +125,8 @@
       "name": "*Josh Rivera",
       "bjj_belt_rank": "Blue",
       "weight": 156.1,
-      "elo_rating": 1293.9137306090688,
+      "elo_rating": 1299.4816591329372,
+      "initial_elo_rating": 1333,
       "photo_url": null,
       "academy": "VanGuard Gym"
     },
@@ -132,6 +141,7 @@
       "bjj_belt_rank": "Blue",
       "weight": 194.9,
       "elo_rating": 1311.1218042616888,
+      "initial_elo_rating": 1333,
       "photo_url": null,
       "academy": "VanGuard Gym"
     },

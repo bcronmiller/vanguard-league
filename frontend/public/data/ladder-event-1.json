@@ -5,15 +5,16 @@
   "standings": [
     {
       "rank": 1,
-      "player_id": 11,
-      "player_name": "*Christian Banghart",
+      "player_id": 5,
+      "player_name": "Nick Newbold",
       "photo_url": null,
-      "belt_rank": "Black",
+      "belt_rank": "Blue",
       "wins": 3,
-      "losses": 0,
-      "draws": 1,
+      "losses": 1,
+      "draws": 0,
       "win_rate": 0.75,
-      "elo_rating": 2004.5397762344307
+      "elo_rating": 1387.2022580830655,
+      "initial_elo_rating": 1333
     },
     {
       "rank": 2,
@@ -25,31 +26,34 @@
       "losses": 0,
       "draws": 0,
       "win_rate": 1,
-      "elo_rating": 1486.9270982828134
+      "elo_rating": 1503.1329011552034,
+      "initial_elo_rating": 1467
     },
     {
       "rank": 3,
-      "player_id": 10,
-      "player_name": "*Troy Wittman",
+      "player_id": 3,
+      "player_name": "*Hussain Samir",
       "photo_url": null,
-      "belt_rank": "Black",
-      "wins": 3,
-      "losses": 1,
+      "belt_rank": "Blue",
+      "wins": 2,
+      "losses": 2,
       "draws": 0,
-      "win_rate": 0.75,
-      "elo_rating": 1987.69956212777
+      "win_rate": 0.5,
+      "elo_rating": 1342.327444626183,
+      "initial_elo_rating": 1333
     },
     {
       "rank": 4,
-      "player_id": 5,
-      "player_name": "Nick Newbold",
+      "player_id": 11,
+      "player_name": "*Christian Banghart",
       "photo_url": null,
-      "belt_rank": "Blue",
+      "belt_rank": "Black",
       "wins": 3,
-      "losses": 1,
-      "draws": 0,
+      "losses": 0,
+      "draws": 1,
       "win_rate": 0.75,
-      "elo_rating": 1387.2022580830655
+      "elo_rating": 2004.5397762344307,
+      "initial_elo_rating": 2000
     },
     {
       "rank": 5,
@@ -61,22 +65,11 @@
       "losses": 1,
       "draws": 0,
       "win_rate": 0.6666666666666666,
-      "elo_rating": 1364.5077055614356
+      "elo_rating": 1471.0579950856763,
+      "initial_elo_rating": 1467
     },
     {
       "rank": 6,
-      "player_id": 3,
-      "player_name": "*Hussain Samir",
-      "photo_url": null,
-      "belt_rank": "Blue",
-      "wins": 2,
-      "losses": 2,
-      "draws": 0,
-      "win_rate": 0.5,
-      "elo_rating": 1336.6514655466822
-    },
-    {
-      "rank": 7,
       "player_id": 7,
       "player_name": "*Matt Crawford",
       "photo_url": null,
@@ -85,34 +78,24 @@
       "losses": 2,
       "draws": 1,
       "win_rate": 0.25,
-      "elo_rating": 1590.1194183870175
+      "elo_rating": 1590.1194183870175,
+      "initial_elo_rating": 1600
+    },
+    {
+      "rank": 7,
+      "player_id": 10,
+      "player_name": "*Troy Wittman",
+      "photo_url": null,
+      "belt_rank": "Black",
+      "wins": 3,
+      "losses": 1,
+      "draws": 0,
+      "win_rate": 0.75,
+      "elo_rating": 1987.69956212777,
+      "initial_elo_rating": 2000
     },
     {
       "rank": 8,
-      "player_id": 9,
-      "player_name": "*Edrees Saifi",
-      "photo_url": null,
-      "belt_rank": "Blue",
-      "wins": 0,
-      "losses": 3,
-      "draws": 1,
-      "win_rate": 0,
-      "elo_rating": 1302.3171809060275
-    },
-    {
-      "rank": 9,
-      "player_id": 6,
-      "player_name": "*Josh Rivera",
-      "photo_url": null,
-      "belt_rank": "Blue",
-      "wins": 0,
-      "losses": 3,
-      "draws": 0,
-      "win_rate": 0,
-      "elo_rating": 1293.9137306090688
-    },
-    {
-      "rank": 10,
       "player_id": 4,
       "player_name": "*Josue Chevaz",
       "photo_url": null,
@@ -121,7 +104,34 @@
       "losses": 4,
       "draws": 1,
       "win_rate": 0,
-      "elo_rating": 1311.1218042616888
+      "elo_rating": 1311.1218042616888,
+      "initial_elo_rating": 1333
+    },
+    {
+      "rank": 9,
+      "player_id": 9,
+      "player_name": "*Edrees Saifi",
+      "photo_url": null,
+      "belt_rank": "Blue",
+      "wins": 0,
+      "losses": 3,
+      "draws": 1,
+      "win_rate": 0,
+      "elo_rating": 1302.3171809060275,
+      "initial_elo_rating": 1333
+    },
+    {
+      "rank": 10,
+      "player_id": 6,
+      "player_name": "*Josh Rivera",
+      "photo_url": null,
+      "belt_rank": "Blue",
+      "wins": 0,
+      "losses": 3,
+      "draws": 0,
+      "win_rate": 0,
+      "elo_rating": 1299.4816591329372,
+      "initial_elo_rating": 1333
     }
   ]
 }
