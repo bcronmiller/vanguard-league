@@ -10,6 +10,7 @@ interface Fighter {
     bjj_belt_rank: string | null;
     weight: number | null;
     elo_rating: number;
+    initial_elo_rating?: number;
     photo_url: string | null;
     academy: string | null;
   };
@@ -21,7 +22,6 @@ interface Fighter {
 export default function LightweightPage() {
   const [fighters, setFighters] = useState<Fighter[]>([]);
   const [loading, setLoading] = useState(true);
-  const readOnly = config.readOnly;
 
   useEffect(() => {
     loadLadder();
@@ -34,8 +34,8 @@ export default function LightweightPage() {
       const res = await fetch(endpoint);
       if (res.ok) {
         const data = await res.json();
-        // Filter for lightweight only (<170 lbs)
-        const lightweight = data.filter((f: Fighter) => f.player.weight && f.player.weight < 170);
+        // Filter for lightweight only (≤170 lbs)
+        const lightweight = data.filter((f: Fighter) => f.player.weight && f.player.weight <= 170);
         setFighters(lightweight);
       }
     } catch (error) {
@@ -95,13 +95,39 @@ export default function LightweightPage() {
               LADDER RANKINGS
             </p>
             <p className="text-lg text-gray-200 mt-2">
-              Under 170 lbs
+              170 lbs and below
             </p>
           </div>
         </div>
       </div>
 
       <main className="container mx-auto px-4 py-12">
+        {/* How Rankings Work Info Box */}
+        <div className="bg-gradient-to-r from-blue-50 to-blue-100 dark:from-blue-900/20 dark:to-blue-800/20 rounded-lg p-6 mb-8 border-l-4 border-mbjj-blue">
+          <div className="flex items-start gap-3">
+            <div className="text-3xl">📊</div>
+            <div>
+              <h3 className="font-heading font-bold text-xl text-gray-900 dark:text-white mb-2">
+                HOW RANKINGS WORK
+              </h3>
+              <p className="text-gray-700 dark:text-gray-300 mb-3">
+                Rankings are based on <strong>ELO improvement</strong>, not absolute rating. Your position reflects how much you've gained (or lost) from your starting rating. This rewards consistent competition and quality wins.
+              </p>
+              <ul className="text-sm text-gray-600 dark:text-gray-400 space-y-1 mb-3">
+                <li>• <strong>Big gains</strong> for beating higher-rated opponents</li>
+                <li>• <strong>Smaller gains</strong> for beating equal or lower-rated opponents</li>
+                <li>• Starting ratings based on belt rank (White=1200, Blue=1333, Purple=1467, Brown=1600, Black=2000)</li>
+              </ul>
+              <a
+                href="/rankings-explained"
+                className="text-mbjj-blue hover:text-mbjj-red font-heading font-bold text-sm transition"
+              >
+                Learn More About ELO Rankings →
+              </a>
+            </div>
+          </div>
+        </div>
+
         <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden border-t-4 border-mbjj-red">
           <div className="overflow-x-auto">
             <table className="w-full">
@@ -111,9 +137,7 @@ export default function LightweightPage() {
                   <th className="px-6 py-4 text-left font-heading font-bold">FIGHTER</th>
                   <th className="px-6 py-4 text-center font-heading font-bold">WEIGHT</th>
                   <th className="px-6 py-4 text-center font-heading font-bold">RECORD</th>
-                  {!readOnly && (
-                    <th className="px-6 py-4 text-center font-heading font-bold">ELO</th>
-                  )}
+                  <th className="px-6 py-4 text-center font-heading font-bold" title="Current ELO rating and change from starting rating">ELO RATING</th>
                   <th className="px-6 py-4 text-left font-heading font-bold">BELT</th>
                 </tr>
               </thead>
@@ -150,11 +174,21 @@ export default function LightweightPage() {
                     <td className="px-6 py-4 text-center font-heading font-bold text-lg">
                       {fighter.wins}-{fighter.losses}-{fighter.draws}
                     </td>
-                    {!readOnly && (
-                      <td className="px-6 py-4 text-center font-heading font-bold text-2xl text-mbjj-blue">
+                    <td className="px-6 py-4 text-center font-heading">
+                      <div className="font-bold text-2xl text-mbjj-blue">
                         {Math.round(fighter.player.elo_rating)}
-                      </td>
-                    )}
+                      </div>
+                      {fighter.player.initial_elo_rating && (
+                        <div className={`text-sm mt-1 ${
+                          (fighter.player.elo_rating - fighter.player.initial_elo_rating) >= 0
+                            ? 'text-green-600 dark:text-green-400'
+                            : 'text-red-600 dark:text-red-400'
+                        }`}>
+                          ({(fighter.player.elo_rating - fighter.player.initial_elo_rating) >= 0 ? '+' : ''}
+                          {Math.round(fighter.player.elo_rating - fighter.player.initial_elo_rating)})
+                        </div>
+                      )}
+                    </td>
                     <td className="px-6 py-4 text-gray-600 dark:text-gray-400">
                       {fighter.player.bjj_belt_rank || 'N/A'}
                     </td>
@@ -171,19 +205,17 @@ export default function LightweightPage() {
         </div>
 
         {/* Weight Class Stats */}
-        <div className={`mt-8 grid ${readOnly ? 'md:grid-cols-1 max-w-md mx-auto' : 'md:grid-cols-2'} gap-6`}>
+        <div className="mt-8 grid md:grid-cols-2 gap-6">
           <div className="bg-white dark:bg-gray-800 rounded-lg p-6 text-center border-t-4 border-mbjj-red">
             <div className="text-4xl font-heading font-bold text-mbjj-red mb-2">{fighters.length}</div>
             <div className="text-gray-600 dark:text-gray-400 font-heading">TOTAL FIGHTERS</div>
           </div>
-          {!readOnly && (
-            <div className="bg-white dark:bg-gray-800 rounded-lg p-6 text-center border-t-4 border-mbjj-blue">
-              <div className="text-4xl font-heading font-bold text-mbjj-blue mb-2">
-                {fighters.length > 0 ? Math.round(fighters[0].player.elo_rating) : 0}
-              </div>
-              <div className="text-gray-600 dark:text-gray-400 font-heading">TOP ELO RATING</div>
+          <div className="bg-white dark:bg-gray-800 rounded-lg p-6 text-center border-t-4 border-mbjj-blue">
+            <div className="text-4xl font-heading font-bold text-mbjj-blue mb-2">
+              {fighters.length > 0 ? Math.round(fighters[0].player.elo_rating) : 0}
             </div>
-          )}
+            <div className="text-gray-600 dark:text-gray-400 font-heading">TOP ELO RATING</div>
+          </div>
         </div>
       </main>
 

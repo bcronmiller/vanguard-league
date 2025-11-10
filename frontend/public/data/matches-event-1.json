@@ -144,24 +144,6 @@
     "synced_to_rankade": true
   },
   {
-    "id": 11,
-    "match_number": 11,
-    "player_a": {
-      "id": 2,
-      "name": "*Alex Stewart",
-      "photo_url": null
-    },
-    "player_b": {
-      "id": 3,
-      "name": "*Hussain Samir",
-      "photo_url": null
-    },
-    "result": "a_win",
-    "method": "Guillotine",
-    "duration_seconds": 30,
-    "synced_to_rankade": true
-  },
-  {
     "id": 74,
     "match_number": 74,
     "player_a": {
@@ -216,21 +198,21 @@
     "synced_to_rankade": true
   },
   {
-    "id": 15,
-    "match_number": 15,
+    "id": 11,
+    "match_number": 11,
     "player_a": {
       "id": 2,
       "name": "*Alex Stewart",
       "photo_url": null
     },
     "player_b": {
-      "id": 6,
-      "name": "*Josh Rivera",
+      "id": 3,
+      "name": "*Hussain Samir",
       "photo_url": null
     },
     "result": "a_win",
-    "method": "Rear Naked Choke",
-    "duration_seconds": 210,
+    "method": "Knee Bar",
+    "duration_seconds": 30,
     "synced_to_rankade": true
   },
   {
@@ -322,5 +304,41 @@
     "method": "Arm Triangle",
     "duration_seconds": 450,
     "synced_to_rankade": true
+  },
+  {
+    "id": 15,
+    "match_number": 15,
+    "player_a": {
+      "id": 2,
+      "name": "*Alex Stewart",
+      "photo_url": null
+    },
+    "player_b": {
+      "id": 6,
+      "name": "*Josh Rivera",
+      "photo_url": null
+    },
+    "result": "a_win",
+    "method": "Heel Hook",
+    "duration_seconds": 210,
+    "synced_to_rankade": true
+  },
+  {
+    "id": 75,
+    "match_number": 75,
+    "player_a": {
+      "id": 2,
+      "name": "*Alex Stewart",
+      "photo_url": null
+    },
+    "player_b": {
+      "id": 8,
+      "name": "*John Michael El Mapache Rodriguez Uhweta",
+      "photo_url": null
+    },
+    "result": "a_win",
+    "method": "Reverse Triangle Cutting Armbar",
+    "duration_seconds": 180,
+    "synced_to_rankade": false
   }
 ]

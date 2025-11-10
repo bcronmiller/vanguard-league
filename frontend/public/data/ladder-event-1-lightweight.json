@@ -9,7 +9,7 @@
       "player_name": "*Alex Stewart",
       "photo_url": null,
       "belt_rank": "Purple",
-      "wins": 2,
+      "wins": 3,
       "losses": 0,
       "draws": 0,
       "win_rate": 1,
@@ -22,9 +22,9 @@
       "photo_url": null,
       "belt_rank": "Purple",
       "wins": 2,
-      "losses": 0,
+      "losses": 1,
       "draws": 0,
-      "win_rate": 1,
+      "win_rate": 0.6666666666666666,
       "elo_rating": 1364.5077055614356
     },
     {

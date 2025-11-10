@@ -15,6 +15,20 @@
   },
   {
     "player": {
+      "id": 2,
+      "name": "*Alex Stewart",
+      "bjj_belt_rank": "Purple",
+      "weight": 149.7,
+      "elo_rating": 1486.9270982828134,
+      "photo_url": null,
+      "academy": "VanGuard Gym"
+    },
+    "wins": 3,
+    "losses": 0,
+    "draws": 0
+  },
+  {
+    "player": {
       "id": 10,
       "name": "*Troy Wittman",
       "bjj_belt_rank": "Black",
@@ -25,20 +39,6 @@
     },
     "wins": 3,
     "losses": 1,
-    "draws": 0
-  },
-  {
-    "player": {
-      "id": 2,
-      "name": "*Alex Stewart",
-      "bjj_belt_rank": "Purple",
-      "weight": 149.7,
-      "elo_rating": 1486.9270982828134,
-      "photo_url": null,
-      "academy": "VanGuard Gym"
-    },
-    "wins": 2,
-    "losses": 0,
     "draws": 0
   },
   {
@@ -66,7 +66,7 @@
       "academy": "Kaizen MMA"
     },
     "wins": 2,
-    "losses": 0,
+    "losses": 1,
     "draws": 0
   },
   {

@@ -75,11 +75,11 @@ export default function Home() {
       // Separate by weight class based on player weight
       for (const standing of allLadder) {
         const weight = standing.player.weight;
-        if (weight && weight < 170) {
+        if (weight && weight <= 170) {
           lightweight.push(standing);
-        } else if (weight && weight >= 170 && weight < 185) {
+        } else if (weight && weight > 170 && weight <= 200) {
           middleweight.push(standing);
-        } else if (weight && weight >= 185) {
+        } else if (weight && weight > 200) {
           heavyweight.push(standing);
         }
       }
@@ -290,7 +290,7 @@ export default function Home() {
             <a href="/ladder/lightweight" className="bg-white dark:bg-gray-800 rounded-lg shadow-lg border-t-4 border-mbjj-red overflow-hidden hover:shadow-2xl transition group">
               <div className="bg-mbjj-red text-white p-4">
                 <h3 className="font-heading font-bold text-xl text-center">LIGHTWEIGHT</h3>
-                <p className="text-center text-xs">Under 170 lbs</p>
+                <p className="text-center text-xs">170 lbs and below</p>
               </div>
               <div className="p-6">
                 {ladderData.lightweight.length > 0 ? (
@@ -300,7 +300,7 @@ export default function Home() {
                       {ladderData.lightweight[0].player.name.replace('*', '')}
                     </div>
                     <div className="text-sm text-gray-600 dark:text-gray-400 mt-2">
-                      {ladderData.lightweight[0].wins}-{ladderData.lightweight[0].losses}-{ladderData.lightweight[0].draws}{!readOnly && ` • ELO: ${Math.round(ladderData.lightweight[0].player.elo_rating || 0)}`}
+                      {ladderData.lightweight[0].wins}-{ladderData.lightweight[0].losses}-{ladderData.lightweight[0].draws} • ELO: {Math.round(ladderData.lightweight[0].player.elo_rating || 0)}
                     </div>
                     <div className="mt-4 text-mbjj-blue font-heading font-bold group-hover:underline">
                       VIEW FULL LADDER →
@@ -316,7 +316,7 @@ export default function Home() {
             <a href="/ladder/middleweight" className="bg-white dark:bg-gray-800 rounded-lg shadow-lg border-t-4 border-mbjj-blue overflow-hidden hover:shadow-2xl transition group">
               <div className="bg-mbjj-blue text-white p-4">
                 <h3 className="font-heading font-bold text-xl text-center">MIDDLEWEIGHT</h3>
-                <p className="text-center text-xs">170-185 lbs</p>
+                <p className="text-center text-xs">171-200 lbs</p>
               </div>
               <div className="p-6">
                 {ladderData.middleweight.length > 0 ? (
@@ -326,7 +326,7 @@ export default function Home() {
                       {ladderData.middleweight[0].player.name.replace('*', '')}
                     </div>
                     <div className="text-sm text-gray-600 dark:text-gray-400 mt-2">
-                      {ladderData.middleweight[0].wins}-{ladderData.middleweight[0].losses}-{ladderData.middleweight[0].draws}{!readOnly && ` • ELO: ${Math.round(ladderData.middleweight[0].player.elo_rating || 0)}`}
+                      {ladderData.middleweight[0].wins}-{ladderData.middleweight[0].losses}-{ladderData.middleweight[0].draws} • ELO: {Math.round(ladderData.middleweight[0].player.elo_rating || 0)}
                     </div>
                     <div className="mt-4 text-mbjj-blue font-heading font-bold group-hover:underline">
                       VIEW FULL LADDER →
@@ -342,7 +342,7 @@ export default function Home() {
             <a href="/ladder/heavyweight" className="bg-white dark:bg-gray-800 rounded-lg shadow-lg border-t-4 border-mbjj-red overflow-hidden hover:shadow-2xl transition group">
               <div className="bg-mbjj-red text-white p-4">
                 <h3 className="font-heading font-bold text-xl text-center">HEAVYWEIGHT</h3>
-                <p className="text-center text-xs">Over 185 lbs</p>
+                <p className="text-center text-xs">Over 200 lbs</p>
               </div>
               <div className="p-6">
                 {ladderData.heavyweight.length > 0 ? (
@@ -352,7 +352,7 @@ export default function Home() {
                       {ladderData.heavyweight[0].player.name.replace('*', '')}
                     </div>
                     <div className="text-sm text-gray-600 dark:text-gray-400 mt-2">
-                      {ladderData.heavyweight[0].wins}-{ladderData.heavyweight[0].losses}-{ladderData.heavyweight[0].draws}{!readOnly && ` • ELO: ${Math.round(ladderData.heavyweight[0].player.elo_rating || 0)}`}
+                      {ladderData.heavyweight[0].wins}-{ladderData.heavyweight[0].losses}-{ladderData.heavyweight[0].draws} • ELO: {Math.round(ladderData.heavyweight[0].player.elo_rating || 0)}
                     </div>
                     <div className="mt-4 text-mbjj-blue font-heading font-bold group-hover:underline">
                       VIEW FULL LADDER →

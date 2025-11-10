@@ -17,6 +17,24 @@
   "updated_at": "2025-11-10T02:01:47.913433",
   "matches": [
     {
+      "match_id": 75,
+      "event_id": 1,
+      "event_name": "VGL 1",
+      "event_date": "2025-11-07T19:00:00",
+      "opponent": {
+        "id": 2,
+        "name": "*Alex Stewart",
+        "photo_url": null
+      },
+      "result": "loss",
+      "method": "Reverse Triangle Cutting Armbar",
+      "duration_seconds": 180,
+      "match_number": 75,
+      "belt_rank": "Blue",
+      "weight": 156,
+      "weight_class": "Lightweight"
+    },
+    {
       "match_id": 17,
       "event_id": 1,
       "event_name": "VGL 1",
