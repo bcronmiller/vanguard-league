@@ -12,6 +12,8 @@ interface Player {
   weight: number | null;
   weight_class: { name: string } | null;
   academy: string | null;
+  elo_rating: number;
+  initial_elo_rating: number | null;
 }
 
 interface MatchHistory {
@@ -118,6 +120,17 @@ export default function PlayerProfilePage({ params }: { params: { id: string } }
             classLadder = validLadder.filter((s: any) => s.player.weight && s.player.weight > 200);
           }
 
+          // Sort by ELO gain (performance vs expectations)
+          classLadder.sort((a: any, b: any) => {
+            const aGain = a.player.initial_elo_rating
+              ? a.player.elo_rating - a.player.initial_elo_rating
+              : 0;
+            const bGain = b.player.initial_elo_rating
+              ? b.player.elo_rating - b.player.initial_elo_rating
+              : 0;
+            return bGain - aGain; // Descending (highest gain first)
+          });
+
           const rank = classLadder.findIndex((s: any) => s.player.id === parseInt(playerId)) + 1;
           setRanking({ rank, total: classLadder.length, weightClass });
         }
@@ -197,7 +210,7 @@ export default function PlayerProfilePage({ params }: { params: { id: string } }
                 {cleanName}
               </h2>
 
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-6">
+              <div className="grid grid-cols-2 md:grid-cols-5 gap-6 mb-6">
                 {/* Record */}
                 <div>
                   <div className="text-sm text-gray-600 dark:text-gray-400 mb-1">RECORD</div>
@@ -217,6 +230,24 @@ export default function PlayerProfilePage({ params }: { params: { id: string } }
                     </div>
                   </div>
                 )}
+
+                {/* ELO Rating */}
+                <div>
+                  <div className="text-sm text-gray-600 dark:text-gray-400 mb-1">ELO RATING</div>
+                  <div className="text-3xl font-heading font-bold text-mbjj-blue">
+                    {Math.round(player.elo_rating)}
+                  </div>
+                  {player.initial_elo_rating && (
+                    <div className={`text-sm mt-1 ${
+                      (player.elo_rating - player.initial_elo_rating) >= 0
+                        ? 'text-green-600 dark:text-green-400'
+                        : 'text-red-600 dark:text-red-400'
+                    }`}>
+                      ({(player.elo_rating - player.initial_elo_rating) >= 0 ? '+' : ''}
+                      {Math.round(player.elo_rating - player.initial_elo_rating)})
+                    </div>
+                  )}
+                </div>
 
                 {/* Belt Rank */}
                 <div>
