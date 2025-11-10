@@ -1,6 +1,7 @@
 'use client';
 
 import { use, useState, useEffect } from 'react';
+import { config } from '@/lib/config';
 
 interface Event {
   id: number;

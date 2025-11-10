@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { config } from '@/lib/config';
 
 interface Event {
   id: number;
@@ -30,7 +31,7 @@ export default function EventsPage() {
   const loadEvents = async () => {
     try {
       const isStatic = process.env.NEXT_PUBLIC_STATIC_MODE === 'true';
-      const endpoint = isStatic ? '/data/events.json' : `${config.apiUrl}/api/events';
+      const endpoint = isStatic ? '/data/events.json' : `${config.apiUrl}/api/events`;
 
       const res = await fetch(endpoint);
       if (res.ok) {
