@@ -18,8 +18,21 @@ class Player(Base):
     bjj_belt_rank = Column(String, nullable=True)  # BJJ belt rank (white, blue, purple, brown, black)
     weight = Column(Float, nullable=True)  # Weight in lbs
     weight_class_id = Column(Integer, ForeignKey("weight_classes.id"), nullable=True)
-    elo_rating = Column(Float, nullable=True)  # ELO rating for competitive ranking (used in ladder)
+
+    # Global ELO (kept for backward compatibility)
+    elo_rating = Column(Float, nullable=True)  # Overall ELO rating (legacy)
     rankade_ree_score = Column(Float, nullable=True)  # Rankade REE score (for reference only)
+
+    # Weight class specific ELO ratings
+    elo_lightweight = Column(Float, nullable=True)  # Current lightweight ELO
+    elo_middleweight = Column(Float, nullable=True)  # Current middleweight ELO
+    elo_heavyweight = Column(Float, nullable=True)  # Current heavyweight ELO
+
+    # Initial ELO per weight class (for gain/loss calculation)
+    initial_elo_lightweight = Column(Float, nullable=True)  # Starting lightweight ELO
+    initial_elo_middleweight = Column(Float, nullable=True)  # Starting middleweight ELO
+    initial_elo_heavyweight = Column(Float, nullable=True)  # Starting heavyweight ELO
+
     active = Column(Boolean, default=True)
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
