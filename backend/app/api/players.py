@@ -193,7 +193,7 @@ async def get_badges_endpoint(player_id: int, db: Session = Depends(get_db)):
     - Darce 🛡️ - Darce choke submission
     - Guillotine ⚔️ - Guillotine submission
     - Chokeout 😴 - Rear naked choke submission
-    - Armbar 🔧 - Armbar submission
+    - Armbar 🦴 - Armbar submission
 
     Other Badges:
     - Multi-Division ⚖️ - Competed in multiple weight classes

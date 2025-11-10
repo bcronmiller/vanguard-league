@@ -154,7 +154,7 @@ def get_player_badges(player_id: int, db: Session) -> List[Dict]:
             badges.append({
                 "name": "Armbar",
                 "description": "Armbar submission earned",
-                "icon": "🔧"
+                "icon": "🦴"  # Bone - breaking the arm!
             })
 
     # MULTI-DIVISION FIGHTER - Fought in multiple weight classes
