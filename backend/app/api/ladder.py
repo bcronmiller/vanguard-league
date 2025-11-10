@@ -185,6 +185,15 @@ def get_overall_ladder(db: Session = Depends(get_db)):
 
         # Only include fighters with at least one in-class match
         if wins + losses + draws > 0:
+            # Get initial ELO based on weight class
+            initial_elo = None
+            if player_weight_class == "lightweight":
+                initial_elo = player.initial_elo_lightweight
+            elif player_weight_class == "middleweight":
+                initial_elo = player.initial_elo_middleweight
+            elif player_weight_class == "heavyweight":
+                initial_elo = player.initial_elo_heavyweight
+
             standings.append({
                 "player": {
                     "id": player.id,
@@ -192,6 +201,7 @@ def get_overall_ladder(db: Session = Depends(get_db)):
                     "bjj_belt_rank": player.bjj_belt_rank,
                     "weight": player.weight,
                     "elo_rating": player.elo_rating,
+                    "initial_elo_rating": initial_elo,
                     "photo_url": player.photo_url,
                     "academy": player.academy
                 },

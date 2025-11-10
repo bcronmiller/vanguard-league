@@ -13,7 +13,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://192.168.1.246:8000';
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
 const DATA_DIR = path.join(__dirname, '..', 'public', 'data');
 
 // Ensure data directory exists

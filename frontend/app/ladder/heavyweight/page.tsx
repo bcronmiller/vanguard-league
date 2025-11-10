@@ -30,13 +30,25 @@ export default function HeavyweightPage() {
   const loadLadder = async () => {
     try {
       const isStatic = process.env.NEXT_PUBLIC_STATIC_MODE === 'true';
-      const endpoint = isStatic ? '/data/ladder-overall.json' : 'http://192.168.1.246:8000/api/ladder/overall';
+      const endpoint = isStatic ? '/data/ladder-overall.json' : `${config.apiUrl}/api/ladder/overall`;
       const res = await fetch(endpoint);
       if (res.ok) {
         const data = await res.json();
-        // Filter for heavyweight only (>200 lbs)
-        const heavyweight = data.filter((f: Fighter) => f.player.weight && f.player.weight > 200);
-        setFighters(heavyweight);
+        // Filter for heavyweight only (>=185 lbs)
+        const heavyweight = data.filter((f: Fighter) => f.player.weight && f.player.weight >= 185);
+
+        // Sort by ELO gain (performance vs. expectations) for rankings
+        const sorted = heavyweight.sort((a: Fighter, b: Fighter) => {
+          const aGain = a.player.initial_elo_rating
+            ? a.player.elo_rating - a.player.initial_elo_rating
+            : 0;
+          const bGain = b.player.initial_elo_rating
+            ? b.player.elo_rating - b.player.initial_elo_rating
+            : 0;
+          return bGain - aGain; // Descending order (highest gain first)
+        });
+
+        setFighters(sorted);
       }
     } catch (error) {
       console.error('Failed to load ladder:', error);
@@ -95,7 +107,7 @@ export default function HeavyweightPage() {
               LADDER RANKINGS
             </p>
             <p className="text-lg text-gray-200 mt-2">
-              Over 200 lbs
+              185 lbs and above
             </p>
           </div>
         </div>
@@ -111,11 +123,11 @@ export default function HeavyweightPage() {
                 HOW RANKINGS WORK
               </h3>
               <p className="text-gray-700 dark:text-gray-300 mb-3">
-                Rankings are based on <strong>ELO improvement</strong>, not absolute rating. Your position reflects how much you've gained (or lost) from your starting rating. This rewards consistent competition and quality wins.
+                Rankings are based on <strong>performance vs. expectations</strong>, accounting for belt rank. When a Black Belt beats a lower belt, it's expected, so there's minimal point change. But when a lower belt defeats a higher belt, you get big ELO swings — and <strong>those upsets determine the rankings</strong>.
               </p>
               <ul className="text-sm text-gray-600 dark:text-gray-400 space-y-1 mb-3">
-                <li>• <strong>Big gains</strong> for beating higher-rated opponents</li>
-                <li>• <strong>Smaller gains</strong> for beating equal or lower-rated opponents</li>
+                <li>• <strong>Big gains</strong> for beating higher-ranked opponents (upsets)</li>
+                <li>• <strong>Small gains</strong> for expected wins against equal or lower belts</li>
                 <li>• Starting ratings based on belt rank (White=1200, Blue=1333, Purple=1467, Brown=1600, Black=2000)</li>
               </ul>
               <a

@@ -10,7 +10,6 @@ from app.models.match import Match, MatchResult
 from app.models.event import Event
 from app.models.entry import Entry
 from app.schemas.player import PlayerCreate, PlayerResponse, PlayerUpdate
-from app.services.rankade import rankade_service
 
 router = APIRouter()
 
@@ -175,44 +174,9 @@ async def get_player_match_history(player_id: int, db: Session = Depends(get_db)
     return history
 
 
-@router.post("/players/sync-from-rankade")
-async def sync_players_from_rankade(db: Session = Depends(get_db)):
-    """Sync players from Rankade to local database"""
-    try:
-        # Get players from Rankade
-        result = await rankade_service.get_players()
 
-        synced = 0
-        for rankade_player in result.get("success", {}).get("players", []):
-            # Check if player exists
-            player = db.query(Player).filter(
-                Player.rankade_id == rankade_player["id"]
-            ).first()
-
-            if not player:
-                # Create new player
-                player = Player(
-                    rankade_id=rankade_player["id"],
-                    name=rankade_player["name"],
-                    photo_url=rankade_player.get("ghost", {}).get("picture")
-                )
-                db.add(player)
-                synced += 1
-            else:
-                # Update existing player
-                player.name = rankade_player["name"]
-                player.active = True
-
-        db.commit()
-
-        return {
-            "message": f"Synced {synced} new players from Rankade",
-            "total_synced": synced
-        }
-
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Rankade sync failed: {str(e)}")
-
+# Note: Rankade sync endpoint removed - local ELO system is primary
+# Manual player registration is done via POST /players endpoint
 
 @router.get("/players/{player_id}/badges")
 async def get_player_badges(player_id: int, db: Session = Depends(get_db)):

@@ -24,7 +24,7 @@ export default function PlayersPage() {
     try {
       // Fetch only active competitors from the ladder
       const isStatic = process.env.NEXT_PUBLIC_STATIC_MODE === 'true';
-      const endpoint = isStatic ? '/data/ladder-overall.json' : 'http://192.168.1.246:8000/api/ladder/overall';
+      const endpoint = isStatic ? '/data/ladder-overall.json' : `${config.apiUrl}/api/ladder/overall';
 
       const res = await fetch(endpoint);
       if (res.ok) {

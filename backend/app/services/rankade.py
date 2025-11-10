@@ -1,6 +1,18 @@
 """
-Rankade API integration service
-Handles authentication, match submission, and ranking retrieval
+DEPRECATED: Rankade API integration service
+
+This service is no longer actively used. The Vanguard League platform now uses
+a local ELO rating system as the primary ranking method, which provides better
+control and customization for submission-only grappling competitions.
+
+This code is preserved for reference only and may be reactivated if needed.
+
+Previous functionality:
+- Authentication and token management
+- Match submission to Rankade
+- Ranking retrieval from Rankade API
+
+Deprecated: November 2025
 """
 import httpx
 from datetime import datetime, timedelta

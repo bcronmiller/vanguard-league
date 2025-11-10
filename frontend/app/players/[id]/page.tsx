@@ -52,7 +52,7 @@ export default function PlayerProfilePage({ params }: { params: Promise<{ id: st
   const loadPlayer = async () => {
     try {
       const isStatic = process.env.NEXT_PUBLIC_STATIC_MODE === 'true';
-      const endpoint = isStatic ? `/data/player-${playerId}.json` : `http://192.168.1.246:8000/api/players/${playerId}`;
+      const endpoint = isStatic ? `/data/player-${playerId}.json` : `${config.apiUrl}/api/players/${playerId}`;
       const res = await fetch(endpoint);
       if (res.ok) {
         const data = await res.json();
@@ -78,7 +78,7 @@ export default function PlayerProfilePage({ params }: { params: Promise<{ id: st
     }
 
     try {
-      const endpoint = `http://192.168.1.246:8000/api/players/${playerId}/matches`;
+      const endpoint = `${config.apiUrl}/api/players/${playerId}/matches`;
       const res = await fetch(endpoint);
       if (res.ok) {
         const data = await res.json();
@@ -94,7 +94,7 @@ export default function PlayerProfilePage({ params }: { params: Promise<{ id: st
   const loadRanking = async () => {
     try {
       const isStatic = process.env.NEXT_PUBLIC_STATIC_MODE === 'true';
-      const endpoint = isStatic ? '/data/ladder-overall.json' : 'http://192.168.1.246:8000/api/ladder';
+      const endpoint = isStatic ? '/data/ladder-overall.json' : `${config.apiUrl}/api/ladder`;
       const res = await fetch(endpoint);
       if (res.ok) {
         const ladder = await res.json();

@@ -84,6 +84,12 @@ def initialize_player_elos(db: Session):
     for player in players:
         starting_elo = get_starting_elo(player.bjj_belt_rank)
         player.elo_rating = starting_elo
+
+        # Set weight-class-specific initial ELO for tracking gain/loss
+        player.initial_elo_lightweight = starting_elo
+        player.initial_elo_middleweight = starting_elo
+        player.initial_elo_heavyweight = starting_elo
+
         print(f"{player.name:25} | {player.bjj_belt_rank or 'Unknown':8} belt → ELO: {starting_elo:.0f}")
 
     db.commit()

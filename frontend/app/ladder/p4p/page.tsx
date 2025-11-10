@@ -10,6 +10,7 @@ interface Fighter {
     bjj_belt_rank: string | null;
     weight: number | null;
     elo_rating: number;
+    initial_elo_rating: number | null;
     photo_url: string | null;
     academy: string | null;
   };
@@ -35,7 +36,19 @@ export default function PoundForPoundPage() {
       const res = await fetch(endpoint);
       if (res.ok) {
         const data = await res.json();
-        setFighters(data);
+
+        // Sort by ELO gain (improvement from starting rating) for P4P rankings
+        const sorted = data.sort((a: Fighter, b: Fighter) => {
+          const aGain = a.player.initial_elo_rating
+            ? a.player.elo_rating - a.player.initial_elo_rating
+            : 0;
+          const bGain = b.player.initial_elo_rating
+            ? b.player.elo_rating - b.player.initial_elo_rating
+            : 0;
+          return bGain - aGain; // Descending order (highest gain first)
+        });
+
+        setFighters(sorted);
       }
     } catch (error) {
       console.error('Failed to load ladder:', error);
@@ -105,10 +118,43 @@ export default function PoundForPoundPage() {
             </h2>
             <div className="h-1 w-32 bg-white mx-auto mb-4"></div>
             <p className="text-xl md:text-2xl font-heading text-gray-100">
-              OVERALL LADDER RANKINGS
+              PERFORMANCE VS. EXPECTATIONS
             </p>
             <p className="text-lg text-gray-200 mt-2">
-              All Weight Classes Combined
+              Ranked by ELO Gain from Belt-Based Starting Rating
+            </p>
+          </div>
+        </div>
+      </div>
+
+      {/* Explanation Section */}
+      <div className="container mx-auto px-4 py-8">
+        <div className="max-w-4xl mx-auto bg-yellow-50 dark:bg-yellow-900/20 border-2 border-yellow-500 rounded-lg p-6">
+          <h3 className="text-2xl font-heading font-bold text-yellow-800 dark:text-yellow-200 mb-3">
+            📊 HOW P4P RANKINGS WORK
+          </h3>
+          <div className="space-y-3 text-gray-800 dark:text-gray-200">
+            <p className="text-lg">
+              <strong>Pound-for-Pound rankings measure performance vs. expectations, not absolute strength.</strong> Fighters are ranked by how much they've exceeded or fallen short of expectations based on their starting belt rank.
+            </p>
+            <div className="bg-white dark:bg-gray-800 rounded p-4 border-l-4 border-yellow-500 mb-3">
+              <p className="font-bold mb-2">Why can a Blue Belt rank above a Black Belt?</p>
+              <p className="text-sm leading-relaxed">
+                A Blue Belt who gains <strong className="text-green-600 dark:text-green-400">+54 ELO points</strong> has vastly outperformed expectations (started at 1333 → now 1387).
+                A Black Belt who gains <strong className="text-green-600 dark:text-green-400">+4.5 points</strong> is performing at expectations (started at 2000 → now 2004.5).
+                The Blue Belt's performance is more impressive <em>relative to their skill level</em>, even if they lost head-to-head.
+              </p>
+            </div>
+            <div className="bg-white dark:bg-gray-800 rounded p-4 border-l-4 border-yellow-500">
+              <p className="font-bold mb-2">How Belt Rank Affects Point Changes</p>
+              <p className="text-sm leading-relaxed">
+                When a <strong>Black Belt beats a Blue Belt</strong>, we expect this outcome, so the ELO change is small (maybe +2 points for the Black Belt, -2 for the Blue Belt).
+                But when a <strong>Blue Belt beats a Black Belt</strong>, it's a major upset — the Blue Belt gains significantly (+30-40 points) while the Black Belt loses the same amount.
+                <strong className="block mt-2">These big swings from upsets are what determine P4P rankings.</strong> Fighters who consistently defeat higher-ranked opponents rise quickly.
+              </p>
+            </div>
+            <p className="text-sm mt-3">
+              <strong>Starting ELO by Belt:</strong> Black (2000) • Brown (1600) • Purple (1467) • Blue (1333) • White (1200)
             </p>
           </div>
         </div>
@@ -124,9 +170,8 @@ export default function PoundForPoundPage() {
                   <th className="px-6 py-4 text-left font-heading font-bold">FIGHTER</th>
                   <th className="px-6 py-4 text-left font-heading font-bold">WEIGHT CLASS</th>
                   <th className="px-6 py-4 text-center font-heading font-bold">RECORD</th>
-                  {!readOnly && (
-                    <th className="px-6 py-4 text-center font-heading font-bold">ELO</th>
-                  )}
+                  <th className="px-6 py-4 text-center font-heading font-bold">ELO GAIN</th>
+                  <th className="px-6 py-4 text-center font-heading font-bold">CURRENT ELO</th>
                   <th className="px-6 py-4 text-left font-heading font-bold">BELT</th>
                 </tr>
               </thead>
@@ -165,11 +210,28 @@ export default function PoundForPoundPage() {
                     <td className="px-6 py-4 text-center font-heading font-bold text-lg">
                       {fighter.wins}-{fighter.losses}-{fighter.draws}
                     </td>
-                    {!readOnly && (
-                      <td className="px-6 py-4 text-center font-heading font-bold text-2xl text-mbjj-blue">
-                        {Math.round(fighter.player.elo_rating)}
-                      </td>
-                    )}
+                    <td className="px-6 py-4 text-center font-heading">
+                      {fighter.player.initial_elo_rating ? (
+                        <div className="flex flex-col items-center">
+                          <span className={`text-3xl font-bold ${
+                            (fighter.player.elo_rating - fighter.player.initial_elo_rating) >= 0
+                              ? 'text-green-600 dark:text-green-400'
+                              : 'text-red-600 dark:text-red-400'
+                          }`}>
+                            {(fighter.player.elo_rating - fighter.player.initial_elo_rating) >= 0 ? '+' : ''}
+                            {Math.round(fighter.player.elo_rating - fighter.player.initial_elo_rating)}
+                          </span>
+                          <span className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                            ({Math.round(fighter.player.initial_elo_rating)} → {Math.round(fighter.player.elo_rating)})
+                          </span>
+                        </div>
+                      ) : (
+                        <span className="text-gray-400">N/A</span>
+                      )}
+                    </td>
+                    <td className="px-6 py-4 text-center font-heading font-bold text-2xl text-mbjj-blue">
+                      {Math.round(fighter.player.elo_rating)}
+                    </td>
                     <td className="px-6 py-4 text-gray-600 dark:text-gray-400">
                       {fighter.player.bjj_belt_rank || 'N/A'}
                     </td>

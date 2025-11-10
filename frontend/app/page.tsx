@@ -75,14 +75,29 @@ export default function Home() {
       // Separate by weight class based on player weight
       for (const standing of allLadder) {
         const weight = standing.player.weight;
-        if (weight && weight <= 170) {
+        if (weight && weight < 170) {
           lightweight.push(standing);
-        } else if (weight && weight > 170 && weight <= 200) {
+        } else if (weight && weight < 185) {
           middleweight.push(standing);
-        } else if (weight && weight > 200) {
+        } else if (weight && weight >= 185) {
           heavyweight.push(standing);
         }
       }
+
+      // Sort each weight class by ELO gain (performance vs. expectations)
+      const sortByEloGain = (a: any, b: any) => {
+        const aGain = a.player.initial_elo_rating
+          ? a.player.elo_rating - a.player.initial_elo_rating
+          : 0;
+        const bGain = b.player.initial_elo_rating
+          ? b.player.elo_rating - b.player.initial_elo_rating
+          : 0;
+        return bGain - aGain; // Descending order (highest gain first)
+      };
+
+      lightweight.sort(sortByEloGain);
+      middleweight.sort(sortByEloGain);
+      heavyweight.sort(sortByEloGain);
 
       setLadderData({
         overall: allLadder,
@@ -282,15 +297,18 @@ export default function Home() {
 
         {/* Current Champions */}
         <section>
-          <h2 className="text-3xl font-heading font-bold text-center mb-8 text-gray-900 dark:text-white">
+          <h2 className="text-3xl font-heading font-bold text-center mb-2 text-gray-900 dark:text-white">
             CURRENT #1 RANKED FIGHTERS
           </h2>
+          <p className="text-center text-gray-600 dark:text-gray-400 mb-8 text-sm">
+            Rankings based on performance vs. expectations, accounting for belt rank
+          </p>
           <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
             {/* Lightweight */}
             <a href="/ladder/lightweight" className="bg-white dark:bg-gray-800 rounded-lg shadow-lg border-t-4 border-mbjj-red overflow-hidden hover:shadow-2xl transition group">
               <div className="bg-mbjj-red text-white p-4">
                 <h3 className="font-heading font-bold text-xl text-center">LIGHTWEIGHT</h3>
-                <p className="text-center text-xs">170 lbs and below</p>
+                <p className="text-center text-xs">Under 170 lbs</p>
               </div>
               <div className="p-6">
                 {ladderData.lightweight.length > 0 ? (
@@ -316,7 +334,7 @@ export default function Home() {
             <a href="/ladder/middleweight" className="bg-white dark:bg-gray-800 rounded-lg shadow-lg border-t-4 border-mbjj-blue overflow-hidden hover:shadow-2xl transition group">
               <div className="bg-mbjj-blue text-white p-4">
                 <h3 className="font-heading font-bold text-xl text-center">MIDDLEWEIGHT</h3>
-                <p className="text-center text-xs">171-200 lbs</p>
+                <p className="text-center text-xs">170-185 lbs</p>
               </div>
               <div className="p-6">
                 {ladderData.middleweight.length > 0 ? (
@@ -342,7 +360,7 @@ export default function Home() {
             <a href="/ladder/heavyweight" className="bg-white dark:bg-gray-800 rounded-lg shadow-lg border-t-4 border-mbjj-red overflow-hidden hover:shadow-2xl transition group">
               <div className="bg-mbjj-red text-white p-4">
                 <h3 className="font-heading font-bold text-xl text-center">HEAVYWEIGHT</h3>
-                <p className="text-center text-xs">Over 200 lbs</p>
+                <p className="text-center text-xs">185 lbs and over</p>
               </div>
               <div className="p-6">
                 {ladderData.heavyweight.length > 0 ? (

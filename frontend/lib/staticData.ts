@@ -7,7 +7,7 @@
  */
 
 const IS_STATIC = process.env.NEXT_PUBLIC_STATIC_MODE === 'true';
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://192.168.1.246:8000';
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
 
 /**
  * Fetch data from API or static JSON files
