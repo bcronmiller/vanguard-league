@@ -68,9 +68,14 @@ export default function PlayerProfilePage({ params }: { params: { id: string } }
         const data = await res.json();
         setPlayer(data);
 
-        // In static mode, player data includes matches
-        if (isStatic && data.matches) {
-          setMatches(data.matches);
+        // In static mode, player data includes matches and badges
+        if (isStatic) {
+          if (data.matches) {
+            setMatches(data.matches);
+          }
+          if (data.badges) {
+            setBadges(data.badges);
+          }
           setLoading(false); // Set loading false here in static mode since we have all data
         }
       }

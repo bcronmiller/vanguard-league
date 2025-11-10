@@ -13,7 +13,7 @@
       "losses": 1,
       "draws": 0,
       "win_rate": 0.75,
-      "elo_rating": 1387.2022580830655,
+      "elo_rating": 1387.5217240222007,
       "initial_elo_rating": 1333
     },
     {
@@ -26,7 +26,7 @@
       "losses": 0,
       "draws": 0,
       "win_rate": 1,
-      "elo_rating": 1503.1329011552034,
+      "elo_rating": 1502.8529968666,
       "initial_elo_rating": 1467
     },
     {
@@ -39,7 +39,7 @@
       "losses": 2,
       "draws": 0,
       "win_rate": 0.5,
-      "elo_rating": 1342.327444626183,
+      "elo_rating": 1342.6048527058874,
       "initial_elo_rating": 1333
     },
     {
@@ -52,7 +52,7 @@
       "losses": 0,
       "draws": 1,
       "win_rate": 0.75,
-      "elo_rating": 2004.5397762344307,
+      "elo_rating": 2004.542231954942,
       "initial_elo_rating": 2000
     },
     {
@@ -65,7 +65,7 @@
       "losses": 1,
       "draws": 0,
       "win_rate": 0.6666666666666666,
-      "elo_rating": 1471.0579950856763,
+      "elo_rating": 1470.7781147538794,
       "initial_elo_rating": 1467
     },
     {
@@ -78,7 +78,7 @@
       "losses": 2,
       "draws": 1,
       "win_rate": 0.25,
-      "elo_rating": 1590.1194183870175,
+      "elo_rating": 1590.1369609804622,
       "initial_elo_rating": 1600
     },
     {
@@ -91,7 +91,7 @@
       "losses": 1,
       "draws": 0,
       "win_rate": 0.75,
-      "elo_rating": 1987.69956212777,
+      "elo_rating": 1987.7023319440266,
       "initial_elo_rating": 2000
     },
     {
@@ -104,7 +104,7 @@
       "losses": 4,
       "draws": 1,
       "win_rate": 0,
-      "elo_rating": 1311.1218042616888,
+      "elo_rating": 1311.4410822360956,
       "initial_elo_rating": 1333
     },
     {
@@ -117,7 +117,7 @@
       "losses": 3,
       "draws": 1,
       "win_rate": 0,
-      "elo_rating": 1302.3171809060275,
+      "elo_rating": 1302.6456688622727,
       "initial_elo_rating": 1333
     },
     {
@@ -130,7 +130,7 @@
       "losses": 3,
       "draws": 0,
       "win_rate": 0,
-      "elo_rating": 1299.4816591329372,
+      "elo_rating": 1299.764035673633,
       "initial_elo_rating": 1333
     }
   ]

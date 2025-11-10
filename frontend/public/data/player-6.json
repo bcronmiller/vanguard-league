@@ -8,13 +8,13 @@
   "bjj_belt_rank": "Blue",
   "weight": 156.1,
   "weight_class_id": 1,
-  "elo_rating": 1299.4816591329372,
+  "elo_rating": 1299.764035673633,
   "rankade_ree_score": null,
   "id": 6,
   "rankade_id": "691DkJzvgM0",
   "active": true,
   "created_at": "2025-11-09T18:57:19.336253",
-  "updated_at": "2025-11-10T18:03:12.067224",
+  "updated_at": "2025-11-10T20:42:31.440051",
   "matches": [
     {
       "match_id": 15,
@@ -32,7 +32,8 @@
       "match_number": 15,
       "belt_rank": "Blue",
       "weight": 156.1,
-      "weight_class": "Lightweight"
+      "weight_class": "Lightweight",
+      "elo_change": -9
     },
     {
       "match_id": 10,
@@ -50,7 +51,8 @@
       "match_number": 10,
       "belt_rank": "Blue",
       "weight": 156.1,
-      "weight_class": "Lightweight"
+      "weight_class": "Lightweight",
+      "elo_change": -10
     },
     {
       "match_id": 6,
@@ -68,7 +70,9 @@
       "match_number": 6,
       "belt_rank": "Blue",
       "weight": 156.1,
-      "weight_class": "Lightweight"
+      "weight_class": "Lightweight",
+      "elo_change": -15
     }
-  ]
+  ],
+  "badges": []
 }

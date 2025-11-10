@@ -13,7 +13,7 @@
       "losses": 1,
       "draws": 0,
       "win_rate": 0.75,
-      "elo_rating": 1387.2022580830655,
+      "elo_rating": 1387.5217240222007,
       "initial_elo_rating": 1333
     },
     {
@@ -26,7 +26,7 @@
       "losses": 0,
       "draws": 1,
       "win_rate": 0.75,
-      "elo_rating": 2004.5397762344307,
+      "elo_rating": 2004.542231954942,
       "initial_elo_rating": 2000
     },
     {
@@ -39,7 +39,7 @@
       "losses": 2,
       "draws": 1,
       "win_rate": 0.25,
-      "elo_rating": 1590.1194183870175,
+      "elo_rating": 1590.1369609804622,
       "initial_elo_rating": 1600
     },
     {
@@ -52,7 +52,7 @@
       "losses": 1,
       "draws": 0,
       "win_rate": 0.75,
-      "elo_rating": 1987.69956212777,
+      "elo_rating": 1987.7023319440266,
       "initial_elo_rating": 2000
     },
     {
@@ -65,7 +65,7 @@
       "losses": 4,
       "draws": 1,
       "win_rate": 0,
-      "elo_rating": 1311.1218042616888,
+      "elo_rating": 1311.4410822360956,
       "initial_elo_rating": 1333
     },
     {
@@ -78,7 +78,7 @@
       "losses": 2,
       "draws": 1,
       "win_rate": 0,
-      "elo_rating": 1302.3171809060275,
+      "elo_rating": 1302.6456688622727,
       "initial_elo_rating": 1333
     }
   ]

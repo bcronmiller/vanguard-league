@@ -72,26 +72,38 @@ async function exportData() {
       // Fetch player info
       const playerData = await fetchAndSave(`/api/players/${player.id}`, `player-${player.id}.json`);
 
-      // Fetch match history separately
+      // Fetch match history and badges separately
       if (playerData) {
         try {
           console.log(`Fetching matches for player ${player.id}...`);
           const matchesResponse = await fetch(`${API_URL}/api/players/${player.id}/matches`);
+
+          console.log(`Fetching badges for player ${player.id}...`);
+          const badgesResponse = await fetch(`${API_URL}/api/players/${player.id}/badges`);
+
+          let matches = [];
+          let badges = [];
+
           if (matchesResponse.ok) {
-            const matches = await matchesResponse.json();
-
-            // Combine player data with matches
-            const combinedData = {
-              ...playerData,
-              matches: matches
-            };
-
-            const filepath = path.join(DATA_DIR, `player-${player.id}.json`);
-            fs.writeFileSync(filepath, JSON.stringify(combinedData, null, 2));
-            console.log(`✓ Updated player-${player.id}.json with ${matches.length} matches`);
+            matches = await matchesResponse.json();
           }
+
+          if (badgesResponse.ok) {
+            badges = await badgesResponse.json();
+          }
+
+          // Combine player data with matches and badges
+          const combinedData = {
+            ...playerData,
+            matches: matches,
+            badges: badges
+          };
+
+          const filepath = path.join(DATA_DIR, `player-${player.id}.json`);
+          fs.writeFileSync(filepath, JSON.stringify(combinedData, null, 2));
+          console.log(`✓ Updated player-${player.id}.json with ${matches.length} matches and ${badges.length} badges`);
         } catch (error) {
-          console.error(`✗ Failed to fetch matches for player ${player.id}:`, error.message);
+          console.error(`✗ Failed to fetch data for player ${player.id}:`, error.message);
         }
       }
     }
