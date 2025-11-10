@@ -105,7 +105,7 @@ export default function PlayersPage() {
               {groups.lightweight.map((player) => (
                 <a
                   key={player.id}
-                  href={`/players/${player.id}`}
+                  href={"/players/" + player.id}
                   className="bg-white dark:bg-gray-800 rounded-lg p-6 border-2 border-transparent hover:border-mbjj-red transition shadow-lg hover:shadow-2xl"
                 >
                   <div className="flex items-center gap-4 mb-4">
@@ -155,7 +155,7 @@ export default function PlayersPage() {
               {groups.middleweight.map((player) => (
                 <a
                   key={player.id}
-                  href={`/players/${player.id}`}
+                  href={"/players/" + player.id}
                   className="bg-white dark:bg-gray-800 rounded-lg p-6 border-2 border-transparent hover:border-mbjj-blue transition shadow-lg hover:shadow-2xl"
                 >
                   <div className="flex items-center gap-4 mb-4">
@@ -205,7 +205,7 @@ export default function PlayersPage() {
               {groups.heavyweight.map((player) => (
                 <a
                   key={player.id}
-                  href={`/players/${player.id}`}
+                  href={"/players/" + player.id}
                   className="bg-white dark:bg-gray-800 rounded-lg p-6 border-2 border-transparent hover:border-mbjj-red transition shadow-lg hover:shadow-2xl"
                 >
                   <div className="flex items-center gap-4 mb-4">

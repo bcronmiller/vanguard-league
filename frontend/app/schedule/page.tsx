@@ -79,7 +79,7 @@ export default function EventsPage() {
     const period = hour >= 12 ? 'PM' : 'AM';
     const displayHour = hour % 12 || 12;
 
-    return `${displayHour}:${minutes} ${period}`;
+    return displayHour + ":" + minutes + " " + period;
   };
 
   const getStatusBadge = (status: string) => {
@@ -142,7 +142,7 @@ export default function EventsPage() {
                     return (
                       <a
                         key={event.id}
-                        href={`/events/${event.id}`}
+                        href={"/events/" + event.id}
                         className="bg-white dark:bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition border-t-4 border-mbjj-blue group"
                       >
                         <div className="p-8">
@@ -171,7 +171,7 @@ export default function EventsPage() {
                               </div>
                             </div>
                             <div>
-                              <span className={`${badge.color} text-white px-4 py-2 rounded-lg font-heading font-bold text-sm`}>
+                              <span className={badge.color + " text-white px-4 py-2 rounded-lg font-heading font-bold text-sm"}>
                                 {badge.text}
                               </span>
                             </div>
@@ -231,7 +231,7 @@ export default function EventsPage() {
                               </div>
                             </div>
                             <div>
-                              <span className={`${badge.color} text-white px-4 py-2 rounded-lg font-heading font-bold text-sm`}>
+                              <span className={badge.color + " text-white px-4 py-2 rounded-lg font-heading font-bold text-sm"}>
                                 {badge.text}
                               </span>
                             </div>
