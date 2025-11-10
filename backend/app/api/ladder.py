@@ -156,7 +156,14 @@ def get_overall_ladder(db: Session = Depends(get_db)):
     for player in players_with_matches:
         player_weight_class = get_weight_class(player.weight)
 
-        # Count wins, losses, draws - only in same weight class matches
+        # Get assigned weight class name from database
+        weight_class_name = None
+        if player.weight_class_id:
+            weight_class = db.query(WeightClass).filter(WeightClass.id == player.weight_class_id).first()
+            if weight_class:
+                weight_class_name = weight_class.name
+
+        # Count wins, losses, draws - all matches regardless of weight class
         wins = 0
         losses = 0
         draws = 0
@@ -208,6 +215,7 @@ def get_overall_ladder(db: Session = Depends(get_db)):
                     "name": player.name,
                     "bjj_belt_rank": player.bjj_belt_rank,
                     "weight": player.weight,
+                    "weight_class_name": weight_class_name,
                     "elo_rating": player.elo_rating,
                     "initial_elo_rating": initial_elo,
                     "photo_url": player.photo_url,

@@ -35,6 +35,12 @@ interface MatchHistory {
   weight_class: string | null;
 }
 
+interface Badge {
+  name: string;
+  description: string;
+  icon: string;
+}
+
 export default function PlayerProfilePage({ params }: { params: { id: string } }) {
   const playerId = params.id;
   const readOnly = config.readOnly;
@@ -42,12 +48,14 @@ export default function PlayerProfilePage({ params }: { params: { id: string } }
   const [player, setPlayer] = useState<Player | null>(null);
   const [matches, setMatches] = useState<MatchHistory[]>([]);
   const [ranking, setRanking] = useState<{ rank: number; total: number; weightClass: string } | null>(null);
+  const [badges, setBadges] = useState<Badge[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     loadPlayer();
     loadMatches();
     loadRanking();
+    loadBadges();
   }, [playerId]);
 
   const loadPlayer = async () => {
@@ -140,6 +148,24 @@ export default function PlayerProfilePage({ params }: { params: { id: string } }
     }
   };
 
+  const loadBadges = async () => {
+    try {
+      const isStatic = process.env.NEXT_PUBLIC_STATIC_MODE === 'true';
+      if (isStatic) {
+        // Badges not available in static mode yet
+        return;
+      }
+      const endpoint = `${config.apiUrl}/api/players/${playerId}/badges`;
+      const res = await fetch(endpoint);
+      if (res.ok) {
+        const data = await res.json();
+        setBadges(data);
+      }
+    } catch (error) {
+      console.error('Failed to load badges:', error);
+    }
+  };
+
   const formatTime = (seconds: number | null) => {
     if (!seconds) return 'N/A';
     const mins = Math.floor(seconds / 60);
@@ -209,6 +235,22 @@ export default function PlayerProfilePage({ params }: { params: { id: string } }
               <h2 className="text-5xl font-heading font-bold mb-4 text-gray-900 dark:text-white">
                 {cleanName}
               </h2>
+
+              {/* Badges */}
+              {badges.length > 0 && (
+                <div className="flex flex-wrap gap-2 mb-4">
+                  {badges.map((badge, index) => (
+                    <div
+                      key={index}
+                      className="inline-flex items-center gap-2 bg-mbjj-red text-white px-4 py-2 rounded-full font-heading text-sm"
+                      title={badge.description}
+                    >
+                      <span className="text-xl">{badge.icon}</span>
+                      <span>{badge.name}</span>
+                    </div>
+                  ))}
+                </div>
+              )}
 
               <div className="grid grid-cols-2 md:grid-cols-5 gap-6 mb-6">
                 {/* Record */}

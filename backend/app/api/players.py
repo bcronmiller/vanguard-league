@@ -179,26 +179,22 @@ async def get_player_match_history(player_id: int, db: Session = Depends(get_db)
 # Manual player registration is done via POST /players endpoint
 
 @router.get("/players/{player_id}/badges")
-async def get_player_badges(player_id: int, db: Session = Depends(get_db)):
+async def get_badges_endpoint(player_id: int, db: Session = Depends(get_db)):
     """
     Get all achievement badges earned by a player.
 
     Badges include:
-    - Win streaks (3+, 5+)
-    - Undefeated record
-    - Fastest finishes (<60s, <120s)
-    - Win rate achievements (70%+, 80%+)
-    - Experience levels (10+, 15+ matches)
-    - Total victories (5+, 10+)
-    - Submission variety (3+, 5+ different subs)
-    - Multi-division fighter
-    - Iron Man (total fight time)
+    - Footsie 🦶 - All wins by leg locks (heel hook, ankle lock, kneebar, toe hold)
+    - Darce Knight 🦇 - All wins by Darce choke (3+ wins)
+    - Triangle Master 🔺 - All wins by triangle chokes
+    - Guillotine Guru ⚔️ - All wins by guillotine
+    - Submission Specialist 🥋 - 5+ submission victories
     """
-    from app.services.badges import get_badge_dict
+    from app.services.badges import get_player_badges
 
     # Check player exists
     player = db.query(Player).filter(Player.id == player_id).first()
     if not player:
         raise HTTPException(status_code=404, detail="Player not found")
 
-    return get_badge_dict(player_id, db)
+    return get_player_badges(player_id, db)
