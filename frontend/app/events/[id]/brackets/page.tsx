@@ -3,16 +3,43 @@
 import { use, useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { config } from '@/lib/config';
+import BracketTree from '@/components/BracketTree';
+import MatchModal from '@/components/MatchModal';
+
+interface Player {
+  id: number;
+  name: string;
+  photo_url: string | null;
+}
 
 interface Match {
   id: number;
-  match_number: number;
-  player_a: { id: number; name: string; photo_url: string | null } | null;
-  player_b: { id: number; name: string; photo_url: string | null } | null;
+  match_number: number | null;
+  a_player_id: number | null;
+  b_player_id: number | null;
   result: string | null;
   method: string | null;
+  match_status: string;
+  depends_on_match_a: number | null;
+  depends_on_match_b: number | null;
   duration_seconds: number | null;
-  synced_to_rankade: boolean;
+}
+
+interface BracketRound {
+  id: number;
+  round_number: number;
+  round_name: string | null;
+  bracket_type: string | null;
+  status: string;
+}
+
+interface BracketFormat {
+  id: number;
+  event_id: number;
+  weight_class_id: number | null;
+  format_type: string;
+  is_generated: boolean;
+  is_finalized: boolean;
 }
 
 export default function BracketsPage({ params }: { params: Promise<{ id: string }> }) {
@@ -20,10 +47,16 @@ export default function BracketsPage({ params }: { params: Promise<{ id: string 
   const eventId = resolvedParams.id;
   const router = useRouter();
 
+  const [brackets, setBrackets] = useState<BracketFormat[]>([]);
+  const [selectedBracket, setSelectedBracket] = useState<BracketFormat | null>(null);
+  const [rounds, setRounds] = useState<BracketRound[]>([]);
   const [matches, setMatches] = useState<Match[]>([]);
+  const [players, setPlayers] = useState<Record<number, Player>>({});
   const [loading, setLoading] = useState(true);
   const [generating, setGenerating] = useState(false);
-  const [format, setFormat] = useState<'single_elimination' | 'double_elimination' | 'swiss'>('swiss');
+  const [format, setFormat] = useState<'SINGLE_ELIMINATION' | 'DOUBLE_ELIMINATION' | 'SWISS' | 'ROUND_ROBIN' | 'GUARANTEED_MATCHES'>('SINGLE_ELIMINATION');
+  const [modalOpen, setModalOpen] = useState(false);
+  const [selectedMatchId, setSelectedMatchId] = useState<number | null>(null);
 
   // Redirect if in read-only mode
   useEffect(() => {
@@ -33,46 +66,122 @@ export default function BracketsPage({ params }: { params: Promise<{ id: string 
   }, [router]);
 
   useEffect(() => {
-    loadMatches();
+    loadBrackets();
+    loadPlayers();
   }, [eventId]);
 
-  const loadMatches = async () => {
+  useEffect(() => {
+    if (selectedBracket) {
+      loadBracketData(selectedBracket.id);
+    }
+  }, [selectedBracket]);
+
+  const loadBrackets = async () => {
     try {
-      const res = await fetch(`${config.apiUrl}/api/events/${eventId}/matches`);
+      const res = await fetch(`${config.apiUrl}/api/tournaments/events/${eventId}/brackets`);
       if (res.ok) {
         const data = await res.json();
-        setMatches(data);
+        setBrackets(data);
+        if (data.length > 0) {
+          setSelectedBracket(data[0]);
+        }
       }
     } catch (error) {
-      console.error('Failed to load matches:', error);
+      console.error('Failed to load brackets:', error);
     } finally {
       setLoading(false);
     }
   };
 
-  const generateBrackets = async () => {
-    if (!confirm(`Generate ${format.replace('_', ' ')} brackets? This will create match pairings.`)) return;
+  const loadPlayers = async () => {
+    try {
+      const res = await fetch(`${config.apiUrl}/api/players`);
+      if (res.ok) {
+        const data = await res.json();
+        const playerMap: Record<number, Player> = {};
+        data.forEach((player: Player) => {
+          playerMap[player.id] = player;
+        });
+        setPlayers(playerMap);
+      }
+    } catch (error) {
+      console.error('Failed to load players:', error);
+    }
+  };
+
+  const loadBracketData = async (bracketId: number) => {
+    try {
+      // Load rounds
+      const roundsRes = await fetch(`${config.apiUrl}/api/tournaments/brackets/${bracketId}/rounds`);
+      if (roundsRes.ok) {
+        const roundsData = await roundsRes.json();
+        setRounds(roundsData);
+      }
+
+      // Load matches
+      const matchesRes = await fetch(`${config.apiUrl}/api/tournaments/brackets/${bracketId}/matches`);
+      if (matchesRes.ok) {
+        const matchesData = await matchesRes.json();
+        setMatches(matchesData);
+      }
+    } catch (error) {
+      console.error('Failed to load bracket data:', error);
+    }
+  };
+
+  const createAndGenerateBracket = async () => {
+    if (!confirm(`Generate ${format.replace(/_/g, ' ')} bracket? This will create match pairings.`)) return;
 
     setGenerating(true);
     try {
-      const res = await fetch(`${config.apiUrl}/api/events/${eventId}/generate-brackets`, {
+      // Step 1: Create bracket
+      const createRes = await fetch(`${config.apiUrl}/api/tournaments/brackets`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ format })
+        body: JSON.stringify({
+          event_id: parseInt(eventId),
+          weight_class_id: null, // null = all fighters
+          format_type: format,
+          config: {},
+          min_rest_minutes: 30
+        })
       });
 
-      if (res.ok) {
-        await loadMatches();
-        alert('Brackets generated successfully!');
-      } else {
-        const error = await res.json();
-        alert(`Failed to generate brackets: ${error.detail}`);
+      if (!createRes.ok) {
+        throw new Error('Failed to create bracket');
       }
+
+      const bracket = await createRes.json();
+
+      // Step 2: Generate rounds/matches
+      const generateRes = await fetch(`${config.apiUrl}/api/tournaments/brackets/${bracket.id}/generate`, {
+        method: 'POST',
+      });
+
+      if (!generateRes.ok) {
+        throw new Error('Failed to generate bracket');
+      }
+
+      // Reload brackets
+      await loadBrackets();
+      alert('Bracket generated successfully!');
     } catch (error) {
       console.error('Bracket generation error:', error);
-      alert('Failed to generate brackets');
+      alert(`Failed to generate bracket: ${error}`);
     } finally {
       setGenerating(false);
+    }
+  };
+
+  const handleMatchClick = (matchId: number) => {
+    setSelectedMatchId(matchId);
+    setModalOpen(true);
+  };
+
+  const handleResultSubmitted = () => {
+    // Reload bracket data after result is submitted
+    if (selectedBracket) {
+      loadBracketData(selectedBracket.id);
     }
   };
 
@@ -123,21 +232,21 @@ export default function BracketsPage({ params }: { params: Promise<{ id: string 
 
             <div className="max-w-md mx-auto space-y-4 mb-8">
               <button
-                onClick={() => setFormat('swiss')}
+                onClick={() => setFormat('ROUND_ROBIN')}
                 className={`w-full p-4 rounded-lg border-2 font-heading font-bold text-lg transition ${
-                  format === 'swiss'
+                  format === 'ROUND_ROBIN'
                     ? 'border-mbjj-red bg-mbjj-red text-white'
                     : 'border-gray-300 hover:border-mbjj-red'
                 }`}
               >
-                SWISS / ROUND ROBIN
+                ROUND ROBIN
                 <div className="text-sm font-normal">Everyone fights everyone (best for small groups)</div>
               </button>
 
               <button
-                onClick={() => setFormat('single_elimination')}
+                onClick={() => setFormat('SINGLE_ELIMINATION')}
                 className={`w-full p-4 rounded-lg border-2 font-heading font-bold text-lg transition ${
-                  format === 'single_elimination'
+                  format === 'SINGLE_ELIMINATION'
                     ? 'border-mbjj-red bg-mbjj-red text-white'
                     : 'border-gray-300 hover:border-mbjj-red'
                 }`}
@@ -147,9 +256,9 @@ export default function BracketsPage({ params }: { params: Promise<{ id: string 
               </button>
 
               <button
-                onClick={() => setFormat('double_elimination')}
+                onClick={() => setFormat('DOUBLE_ELIMINATION')}
                 className={`w-full p-4 rounded-lg border-2 font-heading font-bold text-lg transition ${
-                  format === 'double_elimination'
+                  format === 'DOUBLE_ELIMINATION'
                     ? 'border-mbjj-red bg-mbjj-red text-white'
                     : 'border-gray-300 hover:border-mbjj-red'
                 }`}
@@ -157,10 +266,22 @@ export default function BracketsPage({ params }: { params: Promise<{ id: string 
                 DOUBLE ELIMINATION
                 <div className="text-sm font-normal">Two losses to be eliminated</div>
               </button>
+
+              <button
+                onClick={() => setFormat('SWISS')}
+                className={`w-full p-4 rounded-lg border-2 font-heading font-bold text-lg transition ${
+                  format === 'SWISS'
+                    ? 'border-mbjj-red bg-mbjj-red text-white'
+                    : 'border-gray-300 hover:border-mbjj-red'
+                }`}
+              >
+                SWISS SYSTEM
+                <div className="text-sm font-normal">Record-based pairing (advanced tournaments)</div>
+              </button>
             </div>
 
             <button
-              onClick={generateBrackets}
+              onClick={createAndGenerateBracket}
               disabled={generating}
               className="px-12 py-4 bg-mbjj-red hover:bg-mbjj-accent-hover text-white font-heading font-bold text-2xl rounded-lg transition disabled:opacity-50"
             >
@@ -168,61 +289,53 @@ export default function BracketsPage({ params }: { params: Promise<{ id: string 
             </button>
           </div>
         ) : (
-          <div className="space-y-4">
-            {matches.map((match) => (
-              <div
-                key={match.id}
-                className={`bg-white dark:bg-gray-800 rounded-lg p-6 border-l-4 ${
-                  match.result ? 'border-green-500' : 'border-gray-300'
-                }`}
-              >
-                <div className="flex items-center justify-between gap-4">
-                  <div className="text-2xl font-heading font-bold text-gray-500 w-16">
-                    #{match.match_number}
-                  </div>
-
-                  <div className="flex-1 grid grid-cols-3 gap-4 items-center">
-                    <div className={`text-right ${match.result === 'a_win' ? 'text-green-600 font-bold' : ''}`}>
-                      <div className="text-xl font-heading">{match.player_a?.name || 'TBD'}</div>
-                    </div>
-
-                    <div className="text-center">
-                      {match.result ? (
-                        <div className="space-y-1">
-                          <div className="text-sm font-bold text-green-600">✓ COMPLETE</div>
-                          {match.method && <div className="text-sm text-gray-600">{match.method}</div>}
-                          {match.duration_seconds && (
-                            <div className="text-sm text-gray-500">
-                              {Math.floor(match.duration_seconds / 60)}:{(match.duration_seconds % 60).toString().padStart(2, '0')}
-                            </div>
-                          )}
-                        </div>
-                      ) : (
-                        <div className="text-3xl font-heading text-gray-400">VS</div>
-                      )}
-                    </div>
-
-                    <div className={`text-left ${match.result === 'b_win' ? 'text-green-600 font-bold' : ''}`}>
-                      <div className="text-xl font-heading">{match.player_b?.name || 'TBD'}</div>
-                    </div>
-                  </div>
-
-                  <a
-                    href={`/events/${eventId}/matches/${match.id}/result`}
-                    className={`px-6 py-3 rounded-lg font-heading font-bold text-lg transition ${
-                      match.result
-                        ? 'bg-gray-300 hover:bg-gray-400 text-gray-700'
-                        : 'bg-mbjj-red hover:bg-mbjj-accent-hover text-white'
+          <div>
+            {/* Bracket Selector */}
+            {brackets.length > 1 && (
+              <div className="mb-6 flex gap-2">
+                {brackets.map((bracket) => (
+                  <button
+                    key={bracket.id}
+                    onClick={() => setSelectedBracket(bracket)}
+                    className={`px-6 py-3 rounded-lg font-heading font-bold transition ${
+                      selectedBracket?.id === bracket.id
+                        ? 'bg-mbjj-red text-white'
+                        : 'bg-gray-200 hover:bg-gray-300 text-gray-700'
                     }`}
                   >
-                    {match.result ? 'EDIT' : 'ENTER RESULT'}
-                  </a>
-                </div>
+                    {bracket.format_type.replace(/_/g, ' ')}
+                    {bracket.weight_class_id && ' (Weight Class)'}
+                  </button>
+                ))}
               </div>
-            ))}
+            )}
+
+            {/* Bracket Tree Visualization */}
+            {rounds.length > 0 ? (
+              <BracketTree
+                rounds={rounds}
+                matches={matches}
+                players={players}
+                onMatchClick={handleMatchClick}
+              />
+            ) : (
+              <div className="text-center text-gray-500 py-12">
+                <p className="text-xl font-heading">No rounds generated yet</p>
+              </div>
+            )}
           </div>
         )}
       </main>
+
+      {/* Match Modal */}
+      {selectedMatchId && (
+        <MatchModal
+          matchId={selectedMatchId}
+          isOpen={modalOpen}
+          onClose={() => setModalOpen(false)}
+          onResultSubmitted={handleResultSubmitted}
+        />
+      )}
     </div>
   );
 }
