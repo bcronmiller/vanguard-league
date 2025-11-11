@@ -3,13 +3,40 @@
 import { useState, useEffect } from 'react';
 import { config } from '@/lib/config';
 
+interface Player {
+  id: number;
+  name: string;
+  weight_class_name: string;
+  elo_rating: number;
+  initial_elo_rating: number;
+}
+
+interface LadderStanding {
+  player: Player;
+  wins: number;
+  losses: number;
+  draws: number;
+}
+
+interface LadderData {
+  overall: LadderStanding[];
+  lightweight: LadderStanding[];
+  middleweight: LadderStanding[];
+  heavyweight: LadderStanding[];
+}
+
+interface Event {
+  id: number;
+  name: string;
+}
+
 export default function Home() {
   const apiUrl = config.apiUrl;
   const readOnly = config.readOnly;
   const isStatic = process.env.NEXT_PUBLIC_STATIC_MODE === 'true';
 
   const [stats, setStats] = useState({ players: 0, matches: 0 });
-  const [ladderData, setLadderData] = useState<any>({
+  const [ladderData, setLadderData] = useState<LadderData>({
     overall: [],
     lightweight: [],
     middleweight: [],
@@ -22,98 +49,92 @@ export default function Home() {
   }, []);
 
   const loadData = async () => {
-    // Fetch match count
     try {
-    const eventsEndpoint = isStatic ? '/data/events.json' : `${apiUrl}/api/events`;
-    const eventsRes = await fetch(eventsEndpoint, {
-      cache: 'no-store'
-    });
-    if (eventsRes.ok) {
-      const events = await eventsRes.json();
-      let totalMatches = 0;
+      const eventsEndpoint = isStatic ? '/data/events.json' : `${apiUrl}/api/events`;
+      const ladderEndpoint = isStatic ? '/data/ladder-overall.json' : `${apiUrl}/api/ladder/overall`;
 
-      // Sum up matches from all events
-      for (const event of events) {
-        try {
-          const matchEndpoint = isStatic
-            ? `/data/matches-event-${event.id}.json`
-            : `${apiUrl}/api/events/${event.id}/matches`;
-          const matchRes = await fetch(matchEndpoint, {
-            cache: 'no-store'
-          });
-          if (matchRes.ok) {
-            const data = await matchRes.json();
-            // Count actual matches from the array
-            if (Array.isArray(data)) {
-              totalMatches += data.length;
+      // Fetch events and ladder data in parallel
+      const [eventsRes, ladderRes] = await Promise.all([
+        fetch(eventsEndpoint, { cache: 'no-store' }),
+        fetch(ladderEndpoint, { cache: 'no-store' })
+      ]);
+
+      // Process matches from all events in parallel
+      if (eventsRes.ok) {
+        const events: Event[] = await eventsRes.json();
+
+        // Fetch all event matches in parallel
+        const matchPromises = events.map(async (event) => {
+          try {
+            const matchEndpoint = isStatic
+              ? `/data/matches-event-${event.id}.json`
+              : `${apiUrl}/api/events/${event.id}/matches`;
+            const matchRes = await fetch(matchEndpoint, { cache: 'no-store' });
+            if (matchRes.ok) {
+              const data = await matchRes.json();
+              return Array.isArray(data) ? data.length : 0;
             }
+            return 0;
+          } catch {
+            return 0;
           }
-        } catch (e) {
-          // Skip this event if matches fail to load
-        }
+        });
+
+        const matchCounts = await Promise.all(matchPromises);
+        const totalMatches = matchCounts.reduce((sum, count) => sum + count, 0);
+        setStats(prev => ({ ...prev, matches: totalMatches }));
       }
 
-      setStats(prev => ({ ...prev, matches: totalMatches }));
-    }
-  } catch (e) {
-    // Continue with default stats if API fails
-  }
+      // Process ladder data
+      if (ladderRes.ok) {
+        const allLadder: LadderStanding[] = await ladderRes.json();
 
-  // Fetch overall ladder standings
-  try {
-    const ladderEndpoint = isStatic ? '/data/ladder-overall.json' : `${apiUrl}/api/ladder/overall`;
-    const ladderRes = await fetch(ladderEndpoint, {
-      cache: 'no-store'
-    });
-    if (ladderRes.ok) {
-      const allLadder = await ladderRes.json();
+        const lightweight: LadderStanding[] = [];
+        const middleweight: LadderStanding[] = [];
+        const heavyweight: LadderStanding[] = [];
 
-      const lightweight: any[] = [];
-      const middleweight: any[] = [];
-      const heavyweight: any[] = [];
-
-      // Separate by assigned weight class (not raw weight)
-      for (const standing of allLadder) {
-        const weightClassName = standing.player.weight_class_name;
-        if (weightClassName === 'Lightweight') {
-          lightweight.push(standing);
-        } else if (weightClassName === 'Middleweight') {
-          middleweight.push(standing);
-        } else if (weightClassName === 'Heavyweight') {
-          heavyweight.push(standing);
+        // Separate by assigned weight class
+        for (const standing of allLadder) {
+          const weightClassName = standing.player.weight_class_name;
+          if (weightClassName === 'Lightweight') {
+            lightweight.push(standing);
+          } else if (weightClassName === 'Middleweight') {
+            middleweight.push(standing);
+          } else if (weightClassName === 'Heavyweight') {
+            heavyweight.push(standing);
+          }
         }
+
+        // Sort each weight class by ELO gain (performance vs. expectations)
+        const sortByEloGain = (a: LadderStanding, b: LadderStanding) => {
+          const aGain = a.player.initial_elo_rating
+            ? a.player.elo_rating - a.player.initial_elo_rating
+            : 0;
+          const bGain = b.player.initial_elo_rating
+            ? b.player.elo_rating - b.player.initial_elo_rating
+            : 0;
+          return bGain - aGain; // Descending order (highest gain first)
+        };
+
+        lightweight.sort(sortByEloGain);
+        middleweight.sort(sortByEloGain);
+        heavyweight.sort(sortByEloGain);
+
+        setLadderData({
+          overall: allLadder,
+          lightweight,
+          middleweight,
+          heavyweight
+        });
+
+        // Count active competitors
+        setStats(prev => ({ ...prev, players: allLadder.length }));
       }
-
-      // Sort each weight class by ELO gain (performance vs. expectations)
-      const sortByEloGain = (a: any, b: any) => {
-        const aGain = a.player.initial_elo_rating
-          ? a.player.elo_rating - a.player.initial_elo_rating
-          : 0;
-        const bGain = b.player.initial_elo_rating
-          ? b.player.elo_rating - b.player.initial_elo_rating
-          : 0;
-        return bGain - aGain; // Descending order (highest gain first)
-      };
-
-      lightweight.sort(sortByEloGain);
-      middleweight.sort(sortByEloGain);
-      heavyweight.sort(sortByEloGain);
-
-      setLadderData({
-        overall: allLadder,
-        lightweight,
-        middleweight,
-        heavyweight
-      });
-
-      // Count active competitors (only fighters who have competed)
-      setStats(prev => ({ ...prev, players: allLadder.length }));
+    } catch (e) {
+      console.error('Failed to load data:', e);
+    } finally {
+      setLoading(false);
     }
-  } catch (e) {
-    // Ladder optional
-  }
-
-    setLoading(false);
   };
 
   return (
@@ -210,6 +231,21 @@ export default function Home() {
                 Top-ranked fighters earn from the season prize pool.
               </p>
             </div>
+          </div>
+
+          <div className="mt-12 max-w-3xl mx-auto text-center bg-mbjj-dark text-white p-8 rounded-lg shadow-lg">
+            <div className="text-4xl mb-4">📊</div>
+            <h3 className="text-2xl font-heading font-bold mb-3">INNOVATIVE ELO RANKING SYSTEM</h3>
+            <p className="text-gray-300 mb-4">
+              Our custom ELO system accounts for belt rank, creating fair matchups and meaningful rankings.
+              Lower belts gain more points for wins, while higher belts prove their skill against expectations.
+            </p>
+            <a
+              href="/rankings-explained"
+              className="inline-block bg-mbjj-red hover:bg-mbjj-accent-light text-white font-heading font-bold px-6 py-3 rounded-lg transition"
+            >
+              LEARN HOW RANKINGS WORK →
+            </a>
           </div>
         </section>
 

@@ -4,7 +4,7 @@ from typing import List
 
 class Settings(BaseSettings):
     # API Settings
-    API_V1_STR: str = "/api/v1"
+    API_PREFIX: str = "/api"
     PROJECT_NAME: str = "Vanguard League Platform"
 
     # CORS

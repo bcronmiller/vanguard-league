@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Depends, HTTPException
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session, joinedload
 from sqlalchemy import or_
 from typing import List
 from pydantic import BaseModel
@@ -105,10 +105,30 @@ async def get_player_match_history(player_id: int, db: Session = Depends(get_db)
     if not player:
         raise HTTPException(status_code=404, detail="Player not found")
 
-    # Get all matches where this player participated
+    # Get all matches with eager loading to avoid N+1 queries
     matches = db.query(Match).filter(
         or_(Match.a_player_id == player_id, Match.b_player_id == player_id)
+    ).options(
+        joinedload(Match.player_a),
+        joinedload(Match.player_b),
+        joinedload(Match.event)
     ).order_by(Match.created_at.desc()).all()
+
+    # Batch fetch all entries for this player and opponents in one query
+    event_ids = [match.event_id for match in matches]
+    opponent_ids = [
+        match.b_player_id if match.a_player_id == player_id else match.a_player_id
+        for match in matches
+    ]
+    all_player_ids = [player_id] + opponent_ids
+
+    entries = db.query(Entry).filter(
+        Entry.event_id.in_(event_ids),
+        Entry.player_id.in_(all_player_ids)
+    ).options(joinedload(Entry.weight_class)).all()
+
+    # Create a lookup dict for quick access: (event_id, player_id) -> entry
+    entry_lookup = {(e.event_id, e.player_id): e for e in entries}
 
     history = []
     for match in matches:
@@ -120,17 +140,11 @@ async def get_player_match_history(player_id: int, db: Session = Depends(get_db)
             opponent = match.player_a
             result = "win" if match.result == MatchResult.PLAYER_B_WIN else ("loss" if match.result == MatchResult.PLAYER_A_WIN else "draw")
 
-        # Get historical belt rank and weight from entry at this event
-        entry = db.query(Entry).filter(
-            Entry.event_id == match.event_id,
-            Entry.player_id == player_id
-        ).first()
+        # Get historical belt rank and weight from entry lookup
+        entry = entry_lookup.get((match.event_id, player_id))
 
         # Get opponent's entry to determine match weight class
-        opponent_entry = db.query(Entry).filter(
-            Entry.event_id == match.event_id,
-            Entry.player_id == opponent.id
-        ).first()
+        opponent_entry = entry_lookup.get((match.event_id, opponent.id))
 
         # Determine match weight class - use the heavier fighter's weight class
         match_weight_class = None

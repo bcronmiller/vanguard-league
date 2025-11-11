@@ -9,7 +9,7 @@ interface Player {
   photo_url: string | null;
   bjj_belt_rank: string | null;
   weight: number | null;
-  weight_class: { name: string } | null;
+  weight_class_name: string | null;
   academy: string | null;
 }
 
@@ -37,7 +37,7 @@ export default function PlayersPage() {
           photo_url: standing.player.photo_url,
           bjj_belt_rank: standing.player.bjj_belt_rank,
           weight: standing.player.weight,
-          weight_class: null,
+          weight_class_name: standing.player.weight_class_name,
           academy: standing.player.academy
         }));
         // Sort by weight
@@ -56,9 +56,10 @@ export default function PlayersPage() {
   };
 
   const groupByWeightClass = () => {
-    const lightweight = players.filter(p => p.weight && p.weight < 170);
-    const middleweight = players.filter(p => p.weight && p.weight >= 170 && p.weight <= 200);
-    const heavyweight = players.filter(p => p.weight && p.weight > 200);
+    // Use backend's official weight class assignments
+    const lightweight = players.filter(p => p.weight_class_name === 'Lightweight');
+    const middleweight = players.filter(p => p.weight_class_name === 'Middleweight');
+    const heavyweight = players.filter(p => p.weight_class_name === 'Heavyweight');
     return { lightweight, middleweight, heavyweight };
   };
 

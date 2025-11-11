@@ -18,16 +18,16 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Include routers
-app.include_router(health.router, prefix="/api", tags=["health"])
-app.include_router(events.router, prefix="/api", tags=["events"])
-app.include_router(players.router, prefix="/api", tags=["players"])
-app.include_router(matches.router, prefix="/api", tags=["matches"])
-app.include_router(rankings.router, prefix="/api", tags=["rankings"])
-app.include_router(checkin.router, prefix="/api", tags=["checkin"])
-app.include_router(brackets.router, prefix="/api", tags=["brackets"])
-app.include_router(ladder.router, prefix="/api", tags=["ladder"])
-app.include_router(rankings_recalc.router, prefix="/api", tags=["rankings"])
+# Include routers with centralized prefix from settings
+app.include_router(health.router, prefix=settings.API_PREFIX, tags=["health"])
+app.include_router(events.router, prefix=settings.API_PREFIX, tags=["events"])
+app.include_router(players.router, prefix=settings.API_PREFIX, tags=["players"])
+app.include_router(matches.router, prefix=settings.API_PREFIX, tags=["matches"])
+app.include_router(rankings.router, prefix=settings.API_PREFIX, tags=["rankings"])
+app.include_router(checkin.router, prefix=settings.API_PREFIX, tags=["checkin"])
+app.include_router(brackets.router, prefix=settings.API_PREFIX, tags=["brackets"])
+app.include_router(ladder.router, prefix=settings.API_PREFIX, tags=["ladder"])
+app.include_router(rankings_recalc.router, prefix=settings.API_PREFIX, tags=["rankings"])
 
 
 @app.get("/")
