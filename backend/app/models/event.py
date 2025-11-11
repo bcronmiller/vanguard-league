@@ -30,3 +30,4 @@ class Event(Base):
     entries = relationship("Entry", back_populates="event")
     matches = relationship("Match", back_populates="event")
     weigh_ins = relationship("WeighIn", back_populates="event")
+    bracket_formats = relationship("BracketFormat", back_populates="event", cascade="all, delete-orphan")
