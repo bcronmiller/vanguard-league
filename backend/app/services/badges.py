@@ -123,10 +123,10 @@ def get_player_badges(player_id: int, db: Session) -> List[Dict]:
                 "icon": "▲"
             })
 
-        # DARCE MASTER - Darce choke
+        # DARCE KNIGHT - Darce choke
         if any('darce' in method for method in submission_methods):
             badges.append({
-                "name": "Darce",
+                "name": "Darce Knight",
                 "description": "Darce choke submission earned",
                 "icon": "🛡️"
             })

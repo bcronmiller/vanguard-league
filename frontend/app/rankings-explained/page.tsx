@@ -235,7 +235,7 @@ export default function RankingsExplainedPage() {
               </div>
               <div className="bg-white/10 backdrop-blur rounded-lg p-3">
                 <div className="text-2xl mb-1">🛡️</div>
-                <div className="text-lg font-heading font-bold">DARCE</div>
+                <div className="text-lg font-heading font-bold">DARCE KNIGHT</div>
                 <p className="text-sm text-white/80">Darce choke submission</p>
               </div>
               <div className="bg-white/10 backdrop-blur rounded-lg p-3">
