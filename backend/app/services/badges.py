@@ -110,13 +110,13 @@ def get_player_badges(player_id: int, db: Session) -> List[Dict]:
             "icon": "⚡"
         })
 
-    # SURVIVOR BADGE - 5 draws
+    # ZOMBIE BADGE - 5 draws
     draw_count = sum(1 for result in result_sequence if result == 'draw')
 
     if draw_count >= 5:
         badges.append({
-            "name": "Survivor",
-            "description": f"{draw_count} draws - refuses to go down",
+            "name": "Zombie",
+            "description": f"Hard to kill - {draw_count} draws",
             "icon": "🧟"
         })
 
