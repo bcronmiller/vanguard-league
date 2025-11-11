@@ -286,8 +286,10 @@ export default function MatchModal({ matchId, isOpen, onClose, onResultSubmitted
 
           {/* ELO Prediction */}
           <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-6 mb-8">
-            <h3 className="text-xl font-heading font-bold mb-4">ELO PREDICTION</h3>
-            <div className="grid grid-cols-2 gap-4 mb-4">
+            <h3 className="text-xl font-heading font-bold mb-4">ELO IMPACT - ALL OUTCOMES</h3>
+
+            {/* Win Probabilities */}
+            <div className="grid grid-cols-2 gap-4 mb-6 pb-4 border-b border-gray-300 dark:border-gray-600">
               <div>
                 <div className="text-sm text-gray-600 dark:text-gray-400">Win Probability</div>
                 <div className="text-3xl font-heading font-bold text-mbjj-red">
@@ -302,28 +304,83 @@ export default function MatchModal({ matchId, isOpen, onClose, onResultSubmitted
               </div>
             </div>
 
-            {/* ELO Impact for Selected Result */}
-            {eloImpact && (
-              <div className="bg-white dark:bg-gray-800 rounded-lg p-4 mt-4">
-                <div className="text-sm text-gray-600 dark:text-gray-400 mb-2">ELO Changes</div>
+            {/* All Three Outcomes */}
+            <div className="space-y-4">
+              {/* Player A Wins */}
+              <div className="bg-white dark:bg-gray-800 rounded-lg p-4 border-2 border-transparent hover:border-green-500 transition">
+                <div className="text-sm font-bold text-green-600 mb-2">IF {player_a.name.toUpperCase()} WINS:</div>
                 <div className="grid grid-cols-2 gap-4">
                   <div className="text-center">
-                    <div className="font-bold">{player_a.name}</div>
-                    <div className={`text-2xl font-heading ${eloImpact.player_a_change >= 0 ? 'text-green-600' : 'text-red-600'}`}>
-                      {eloImpact.player_a_change > 0 ? '+' : ''}{eloImpact.player_a_change}
+                    <div className="text-sm text-gray-500">{player_a.name}</div>
+                    <div className="text-2xl font-heading text-green-600">
+                      +{elo_preview.outcomes.player_a_wins.player_a_change}
                     </div>
-                    <div className="text-sm text-gray-500">→ {eloImpact.player_a_new_elo}</div>
+                    <div className="text-xs text-gray-500">
+                      {player_a.elo_rating?.toFixed(0)} → {elo_preview.outcomes.player_a_wins.player_a_new_elo}
+                    </div>
                   </div>
                   <div className="text-center">
-                    <div className="font-bold">{player_b.name}</div>
-                    <div className={`text-2xl font-heading ${eloImpact.player_b_change >= 0 ? 'text-green-600' : 'text-red-600'}`}>
-                      {eloImpact.player_b_change > 0 ? '+' : ''}{eloImpact.player_b_change}
+                    <div className="text-sm text-gray-500">{player_b.name}</div>
+                    <div className="text-2xl font-heading text-red-600">
+                      {elo_preview.outcomes.player_a_wins.player_b_change}
                     </div>
-                    <div className="text-sm text-gray-500">→ {eloImpact.player_b_new_elo}</div>
+                    <div className="text-xs text-gray-500">
+                      {player_b.elo_rating?.toFixed(0)} → {elo_preview.outcomes.player_a_wins.player_b_new_elo}
+                    </div>
                   </div>
                 </div>
               </div>
-            )}
+
+              {/* Player B Wins */}
+              <div className="bg-white dark:bg-gray-800 rounded-lg p-4 border-2 border-transparent hover:border-green-500 transition">
+                <div className="text-sm font-bold text-green-600 mb-2">IF {player_b.name.toUpperCase()} WINS:</div>
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="text-center">
+                    <div className="text-sm text-gray-500">{player_a.name}</div>
+                    <div className="text-2xl font-heading text-red-600">
+                      {elo_preview.outcomes.player_b_wins.player_a_change}
+                    </div>
+                    <div className="text-xs text-gray-500">
+                      {player_a.elo_rating?.toFixed(0)} → {elo_preview.outcomes.player_b_wins.player_a_new_elo}
+                    </div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-sm text-gray-500">{player_b.name}</div>
+                    <div className="text-2xl font-heading text-green-600">
+                      +{elo_preview.outcomes.player_b_wins.player_b_change}
+                    </div>
+                    <div className="text-xs text-gray-500">
+                      {player_b.elo_rating?.toFixed(0)} → {elo_preview.outcomes.player_b_wins.player_b_new_elo}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Draw */}
+              <div className="bg-white dark:bg-gray-800 rounded-lg p-4 border-2 border-transparent hover:border-gray-500 transition">
+                <div className="text-sm font-bold text-gray-600 mb-2">IF DRAW:</div>
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="text-center">
+                    <div className="text-sm text-gray-500">{player_a.name}</div>
+                    <div className={`text-2xl font-heading ${elo_preview.outcomes.draw.player_a_change >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+                      {elo_preview.outcomes.draw.player_a_change > 0 ? '+' : ''}{elo_preview.outcomes.draw.player_a_change}
+                    </div>
+                    <div className="text-xs text-gray-500">
+                      {player_a.elo_rating?.toFixed(0)} → {elo_preview.outcomes.draw.player_a_new_elo}
+                    </div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-sm text-gray-500">{player_b.name}</div>
+                    <div className={`text-2xl font-heading ${elo_preview.outcomes.draw.player_b_change >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+                      {elo_preview.outcomes.draw.player_b_change > 0 ? '+' : ''}{elo_preview.outcomes.draw.player_b_change}
+                    </div>
+                    <div className="text-xs text-gray-500">
+                      {player_b.elo_rating?.toFixed(0)} → {elo_preview.outcomes.draw.player_b_new_elo}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
 
           {/* Result Selection */}
