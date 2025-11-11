@@ -119,14 +119,14 @@ def get_player_badges(player_id: int, db: Session) -> List[Dict]:
             "icon": "⚡"
         })
 
-    # ZOMBIE BADGE - 5 draws
+    # UNBEATABLE BADGE - 5 draws
     draw_count = sum(1 for result in result_sequence if result == 'draw')
 
     if draw_count >= 5:
         badges.append({
-            "name": "Zombie",
+            "name": "Unbeatable",
             "description": f"Hard to kill - {draw_count} draws",
-            "icon": "🧟"
+            "icon": "🧱"
         })
 
     # SUBMISSION BADGES - Earned by getting at least one submission of that type
@@ -152,7 +152,7 @@ def get_player_badges(player_id: int, db: Session) -> List[Dict]:
             badges.append({
                 "name": "Triangle",
                 "description": "Triangle submission earned",
-                "icon": "▲"
+                "icon": "🔺"
             })
 
         # DARCE KNIGHT - Darce choke
@@ -160,7 +160,7 @@ def get_player_badges(player_id: int, db: Session) -> List[Dict]:
             badges.append({
                 "name": "Darce Knight",
                 "description": "Darce choke submission earned",
-                "icon": "🛡️"
+                "icon": "🥷"
             })
 
         # GUILLOTINE - Guillotine choke
