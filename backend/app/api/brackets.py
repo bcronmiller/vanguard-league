@@ -1,8 +1,33 @@
+"""
+DEPRECATED: Legacy bracket generation API
+
+This module contains the original, simplified bracket generation logic.
+It is kept for backward compatibility but should not be used for new features.
+
+⚠️ DEPRECATION NOTICE ⚠️
+This API is deprecated. Use the new Tournament API (app.api.tournament) instead.
+
+The new tournament API provides:
+- Full bracket management with BracketFormat and BracketRound models
+- Proper round progression and match dependencies
+- Complete Swiss system with standings tracking and rematch avoidance
+- Full double elimination with complete losers bracket structure
+- Rest interval tracking and fighter scheduling
+- Auto-generation of subsequent rounds
+
+Migration:
+- OLD: POST /api/events/{id}/generate-brackets
+- NEW: POST /api/tournaments/brackets + POST /api/tournaments/brackets/{id}/generate
+
+This file will be removed in a future release.
+"""
+
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from typing import List, Literal
 from pydantic import BaseModel
 import random
+import warnings
 
 from app.core.database import get_db
 from app.models.player import Player
@@ -13,6 +38,13 @@ from app.models.weight_class import WeightClass
 
 
 router = APIRouter()
+
+# Emit deprecation warning when module is imported
+warnings.warn(
+    "app.api.brackets is deprecated. Use app.api.tournament instead.",
+    DeprecationWarning,
+    stacklevel=2
+)
 
 
 class GenerateBracketsRequest(BaseModel):
