@@ -15,64 +15,6 @@
   "active": true,
   "created_at": "2025-11-09T18:57:19.336253",
   "updated_at": "2025-11-10T23:43:02.910698",
-  "matches": [
-    {
-      "match_id": 15,
-      "event_id": 1,
-      "event_name": "VGL 1",
-      "event_date": "2025-11-07T19:00:00",
-      "opponent": {
-        "id": 2,
-        "name": "*Alex Stewart",
-        "photo_url": null
-      },
-      "result": "loss",
-      "method": "Heel Hook",
-      "duration_seconds": 210,
-      "match_number": 15,
-      "belt_rank": "Blue",
-      "weight": 156.1,
-      "weight_class": "Lightweight",
-      "elo_change": -9
-    },
-    {
-      "match_id": 10,
-      "event_id": 1,
-      "event_name": "VGL 1",
-      "event_date": "2025-11-07T19:00:00",
-      "opponent": {
-        "id": 8,
-        "name": "*John Michael El Mapache Rodriguez Uhweta",
-        "photo_url": null
-      },
-      "result": "loss",
-      "method": "Head and Arm Choke",
-      "duration_seconds": 160,
-      "match_number": 10,
-      "belt_rank": "Blue",
-      "weight": 156.1,
-      "weight_class": "Lightweight",
-      "elo_change": -10
-    },
-    {
-      "match_id": 6,
-      "event_id": 1,
-      "event_name": "VGL 1",
-      "event_date": "2025-11-07T19:00:00",
-      "opponent": {
-        "id": 3,
-        "name": "*Hussain Samir",
-        "photo_url": null
-      },
-      "result": "loss",
-      "method": "Darce",
-      "duration_seconds": 140,
-      "match_number": 6,
-      "belt_rank": "Blue",
-      "weight": 156.1,
-      "weight_class": "Lightweight",
-      "elo_change": -16
-    }
-  ],
+  "matches": [],
   "badges": []
 }
