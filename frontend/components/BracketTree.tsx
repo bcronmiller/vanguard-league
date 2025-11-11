@@ -10,6 +10,7 @@ interface Player {
 
 interface Match {
   id: number;
+  bracket_round_id: number | null;
   match_number: number | null;
   a_player_id: number | null;
   b_player_id: number | null;
@@ -36,22 +37,6 @@ interface BracketTreeProps {
 }
 
 export default function BracketTree({ rounds, matches, players, onMatchClick }: BracketTreeProps) {
-  // Group matches by round
-  const matchesByRound: Record<number, Match[]> = {};
-
-  matches.forEach(match => {
-    const round = rounds.find(r => {
-      return matches.filter(m => m.id === match.id).length > 0;
-    });
-
-    if (round) {
-      if (!matchesByRound[round.round_number]) {
-        matchesByRound[round.round_number] = [];
-      }
-      matchesByRound[round.round_number].push(match);
-    }
-  });
-
   // Sort rounds by round_number
   const sortedRounds = [...rounds].sort((a, b) => a.round_number - b.round_number);
 
@@ -77,16 +62,11 @@ export default function BracketTree({ rounds, matches, players, onMatchClick }: 
   return (
     <div className="overflow-x-auto pb-8">
       <div className="inline-flex gap-8 min-w-full">
-        {sortedRounds.map((round, roundIndex) => {
-          const roundMatches = matches.filter(m => {
-            // This is a simplified association - in reality you'd need bracket_round_id
-            // For now, we'll distribute matches evenly across rounds
-            const matchesPerRound = Math.ceil(matches.length / rounds.length);
-            const startIdx = roundIndex * matchesPerRound;
-            const endIdx = startIdx + matchesPerRound;
-            const matchIndex = matches.findIndex(match => match.id === m.id);
-            return matchIndex >= startIdx && matchIndex < endIdx;
-          }).sort((a, b) => (a.match_number || 0) - (b.match_number || 0));
+        {sortedRounds.map((round) => {
+          // Filter matches that belong to this round using bracket_round_id
+          const roundMatches = matches
+            .filter(m => m.bracket_round_id === round.id)
+            .sort((a, b) => (a.match_number || 0) - (b.match_number || 0));
 
           return (
             <div key={round.id} className="flex flex-col min-w-[300px]">
