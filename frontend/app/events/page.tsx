@@ -33,7 +33,7 @@ export default function EventsPage() {
 
   const loadEvents = async () => {
     try {
-      const res = await fetch('${config.apiUrl}/api/events');
+      const res = await fetch(`${config.apiUrl}/api/events`);
       if (res.ok) {
         const data = await res.json();
         setEvents(data);
@@ -104,7 +104,7 @@ export default function EventsPage() {
 
     setRecalculating(true);
     try {
-      const res = await fetch('${config.apiUrl}/api/recalculate-elo', {
+      const res = await fetch(`${config.apiUrl}/api/recalculate-elo`, {
         method: 'POST'
       });
 
