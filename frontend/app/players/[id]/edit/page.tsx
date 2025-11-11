@@ -14,8 +14,9 @@ interface Player {
   photo_url: string | null;
 }
 
-export default function EditPlayerPage({ params }: { params: Promise<{ id: string }> }) {
-  const resolvedParams = use(params);
+export default function EditPlayerPage({ params }: { params: { id: string } | Promise<{ id: string }> }) {
+  // Handle both Promise and direct object for Next.js 15 compatibility
+  const resolvedParams = params instanceof Promise ? use(params) : params;
   const playerId = resolvedParams.id;
   const router = useRouter();
 

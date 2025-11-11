@@ -37,8 +37,9 @@ const SUBMISSION_METHODS = [
   "Other"
 ];
 
-export default function MatchResultPage({ params }: { params: Promise<{ id: string; matchId: string }> }) {
-  const resolvedParams = use(params);
+export default function MatchResultPage({ params }: { params: { id: string; matchId: string } | Promise<{ id: string; matchId: string }> }) {
+  // Handle both Promise and direct object for Next.js 15 compatibility
+  const resolvedParams = params instanceof Promise ? use(params) : params;
   const eventId = resolvedParams.id;
   const matchId = resolvedParams.matchId;
   const router = useRouter();
