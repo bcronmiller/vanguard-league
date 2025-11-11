@@ -216,17 +216,25 @@ async def get_badges_endpoint(player_id: int, db: Session = Depends(get_db)):
     Streak Badges:
     - On Fire 🔥 - 3+ wins in a row (current streak)
     - Comeback Kid 💪 - Won after losing 2+ matches in a row
+    - Lightning Strike ⚡ - 5 wins under 30 seconds
+    - Unbeatable 🧱 - 5+ draws
 
     Submission Badges (earned by getting at least one):
     - Footsie 🦶 - Leg lock submission (heel hook, ankle lock, kneebar, toe hold)
-    - Triangle ▲ - Triangle submission
-    - Darce 🛡️ - Darce choke submission
+    - Triangle 🔺 - Triangle submission
+    - Darce Knight 🥷 - Darce choke submission
     - Guillotine ⚔️ - Guillotine submission
     - Chokeout 😴 - Rear naked choke submission
     - Armbar 🦴 - Armbar submission
 
-    Other Badges:
+    Advanced Badges:
+    - Bone Collector 💀 - 5+ armbar submissions
+    - The Strangler 🐍 - 5+ choke submissions
+
+    Special Badges:
     - Multi-Division ⚖️ - Competed in multiple weight classes
+    - The Spoiler 🤯 - Beat someone 2+ belt ranks above you
+    - Warrior Spirit ❤️‍🔥 - Most matches in a single event (minimum 3, no ties)
     """
     from app.services.badges import get_player_badges
 

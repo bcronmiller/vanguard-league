@@ -199,8 +199,104 @@ def get_player_badges(player_id: int, db: Session) -> List[Dict]:
                 "icon": "💀"  # Skull - you collect bones!
             })
 
-    # MULTI-DIVISION FIGHTER - Fought in multiple weight classes
+    # THE STRANGLER BADGE - 5+ choke submissions
+    if len(submission_methods) > 0:
+        choke_methods = ['rear naked', 'rnc', 'darce', 'guillotine', 'triangle', 'ezekiel', 'anaconda', 'bow and arrow', 'collar choke', 'loop choke', 'baseball choke']
+        choke_count = sum(1 for method in submission_methods if any(choke in method for choke in choke_methods))
+
+        if choke_count >= 5:
+            badges.append({
+                "name": "The Strangler",
+                "description": f"{choke_count} choke submissions earned",
+                "icon": "🐍"
+            })
+
+    # THE SPOILER BADGE - Beat someone 2+ belt ranks above you
     from app.models.entry import Entry
+
+    # Belt rank mapping
+    belt_rank_map = {
+        'White': 1,
+        'Blue': 2,
+        'Purple': 3,
+        'Brown': 4,
+        'Black': 5
+    }
+
+    spoiler_earned = False
+    for result, match in results:
+        if result == 'win':
+            # Determine opponent ID
+            opponent_id = match.b_player_id if match.a_player_id == player_id else match.a_player_id
+            opponent = db.query(Player).filter(Player.id == opponent_id).first()
+
+            if opponent:
+                # Get player's belt at this event
+                player_entry = db.query(Entry).filter(
+                    Entry.event_id == match.event_id,
+                    Entry.player_id == player_id
+                ).first()
+                player_belt = player_entry.belt_rank if (player_entry and player_entry.belt_rank) else player.bjj_belt_rank
+
+                # Get opponent's belt at this event
+                opponent_entry = db.query(Entry).filter(
+                    Entry.event_id == match.event_id,
+                    Entry.player_id == opponent_id
+                ).first()
+                opponent_belt = opponent_entry.belt_rank if (opponent_entry and opponent_entry.belt_rank) else opponent.bjj_belt_rank
+
+                # Compare belt ranks
+                if player_belt and opponent_belt:
+                    player_rank = belt_rank_map.get(player_belt, 0)
+                    opponent_rank = belt_rank_map.get(opponent_belt, 0)
+
+                    # Award if beat someone 2+ ranks higher
+                    if opponent_rank - player_rank >= 2:
+                        spoiler_earned = True
+                        break
+
+    if spoiler_earned:
+        badges.append({
+            "name": "The Spoiler",
+            "description": "Defeated an opponent two or more belt ranks above you",
+            "icon": "🤯"
+        })
+
+    # WARRIOR SPIRIT BADGE - Most matches in a single event (no ties)
+    from collections import defaultdict
+    matches_per_event = defaultdict(int)
+
+    for result, match in results:
+        matches_per_event[match.event_id] += 1
+
+    if matches_per_event:
+        max_matches = max(matches_per_event.values())
+        max_event_id = [event_id for event_id, count in matches_per_event.items() if count == max_matches][0]
+
+        # Check if anyone else had the same count at this event
+        all_matches_at_event = db.query(Match).filter(Match.event_id == max_event_id).all()
+        player_match_counts = defaultdict(int)
+
+        for match in all_matches_at_event:
+            if match.a_player_id:
+                player_match_counts[match.a_player_id] += 1
+            if match.b_player_id:
+                player_match_counts[match.b_player_id] += 1
+
+        # Count how many players have the max count
+        players_with_max = sum(1 for count in player_match_counts.values() if count == max_matches)
+
+        # Only award if sole leader
+        if players_with_max == 1 and max_matches >= 3:  # Minimum 3 matches to qualify
+            event = db.query(Event).filter(Event.id == max_event_id).first()
+            event_name = event.name if event else f"Event {max_event_id}"
+            badges.append({
+                "name": "Warrior Spirit",
+                "description": f"Most matches in a single event ({max_matches} at {event_name})",
+                "icon": "❤️‍🔥"
+            })
+
+    # MULTI-DIVISION FIGHTER - Fought in multiple weight classes
     weight_classes_fought = set()
     for result, match in results:
         entry = db.query(Entry).filter(

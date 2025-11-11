@@ -274,10 +274,17 @@ export default function RankingsExplainedPage() {
             <p className="text-white/90 mb-4">
               Master-level achievements for specialized dominance:
             </p>
-            <div className="bg-white/10 backdrop-blur rounded-lg p-4">
-              <div className="text-3xl mb-2">💀</div>
-              <div className="text-xl font-heading font-bold mb-1">BONE COLLECTOR</div>
-              <p className="text-white/90">Earn 5+ armbar submissions. You break arms for a living!</p>
+            <div className="grid md:grid-cols-2 gap-4">
+              <div className="bg-white/10 backdrop-blur rounded-lg p-4">
+                <div className="text-3xl mb-2">💀</div>
+                <div className="text-xl font-heading font-bold mb-1">BONE COLLECTOR</div>
+                <p className="text-white/90">Earn 5+ armbar submissions. You break arms for a living!</p>
+              </div>
+              <div className="bg-white/10 backdrop-blur rounded-lg p-4">
+                <div className="text-3xl mb-2">🐍</div>
+                <div className="text-xl font-heading font-bold mb-1">THE STRANGLER</div>
+                <p className="text-white/90">Earn 5+ choke submissions (RNC, Darce, Guillotine, Triangle, etc.)</p>
+              </div>
             </div>
           </div>
 
@@ -286,10 +293,22 @@ export default function RankingsExplainedPage() {
             <h3 className="text-2xl font-heading font-bold mb-4 border-b border-white/30 pb-2">
               SPECIAL BADGES
             </h3>
-            <div className="bg-white/10 backdrop-blur rounded-lg p-4">
-              <div className="text-3xl mb-2">⚖️</div>
-              <div className="text-xl font-heading font-bold mb-1">MULTI-DIVISION</div>
-              <p className="text-white/90">Compete in multiple weight classes. Shows your versatility!</p>
+            <div className="grid md:grid-cols-2 gap-4">
+              <div className="bg-white/10 backdrop-blur rounded-lg p-4">
+                <div className="text-3xl mb-2">⚖️</div>
+                <div className="text-xl font-heading font-bold mb-1">MULTI-DIVISION</div>
+                <p className="text-white/90">Compete in multiple weight classes. Shows your versatility!</p>
+              </div>
+              <div className="bg-white/10 backdrop-blur rounded-lg p-4">
+                <div className="text-3xl mb-2">🤯</div>
+                <div className="text-xl font-heading font-bold mb-1">THE SPOILER</div>
+                <p className="text-white/90">Defeat an opponent two or more belt ranks above you. Giant killer!</p>
+              </div>
+              <div className="bg-white/10 backdrop-blur rounded-lg p-4">
+                <div className="text-3xl mb-2">❤️‍🔥</div>
+                <div className="text-xl font-heading font-bold mb-1">WARRIOR SPIRIT</div>
+                <p className="text-white/90">Most matches in a single event (minimum 3, no ties). You came to fight!</p>
+              </div>
             </div>
           </div>
 
