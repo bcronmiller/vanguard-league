@@ -97,6 +97,19 @@ def get_player_badges(player_id: int, db: Session) -> List[Dict]:
             "icon": "💪"
         })
 
+    # LIGHTNING STRIKE BADGE - 5 wins under 30 seconds
+    quick_wins = 0
+    for result, match in results:
+        if result == 'win' and match.duration_seconds and match.duration_seconds < 30:
+            quick_wins += 1
+
+    if quick_wins >= 5:
+        badges.append({
+            "name": "Lightning Strike",
+            "description": f"{quick_wins} wins in under 30 seconds",
+            "icon": "⚡"
+        })
+
     # SUBMISSION BADGES - Earned by getting at least one submission of that type
     # Get all wins with submission methods
     submission_methods = []
