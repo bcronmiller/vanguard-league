@@ -256,6 +256,21 @@ export default function RankingsExplainedPage() {
             </div>
           </div>
 
+          {/* Advanced Badges */}
+          <div className="mb-8">
+            <h3 className="text-2xl font-heading font-bold mb-4 border-b border-white/30 pb-2">
+              ADVANCED BADGES
+            </h3>
+            <p className="text-white/90 mb-4">
+              Master-level achievements for specialized dominance:
+            </p>
+            <div className="bg-white/10 backdrop-blur rounded-lg p-4">
+              <div className="text-3xl mb-2">💀</div>
+              <div className="text-xl font-heading font-bold mb-1">BONE COLLECTOR</div>
+              <p className="text-white/90">Earn 3+ armbar submissions. You break arms for a living!</p>
+            </div>
+          </div>
+
           {/* Other Badges */}
           <div>
             <h3 className="text-2xl font-heading font-bold mb-4 border-b border-white/30 pb-2">

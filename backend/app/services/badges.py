@@ -150,11 +150,21 @@ def get_player_badges(player_id: int, db: Session) -> List[Dict]:
 
         # ARMBAR - Armbar submission
         armbar_methods = ['armbar', 'arm bar']
-        if any(any(ab in method for ab in armbar_methods) for method in submission_methods):
+        armbar_count = sum(1 for method in submission_methods if any(ab in method for ab in armbar_methods))
+
+        if armbar_count >= 1:
             badges.append({
                 "name": "Armbar",
                 "description": "Armbar submission earned",
                 "icon": "🦴"  # Bone - breaking the arm!
+            })
+
+        # BONE COLLECTOR - 3+ Armbar submissions
+        if armbar_count >= 3:
+            badges.append({
+                "name": "Bone Collector",
+                "description": f"{armbar_count} armbar submissions earned",
+                "icon": "💀"  # Skull - you collect bones!
             })
 
     # MULTI-DIVISION FIGHTER - Fought in multiple weight classes
