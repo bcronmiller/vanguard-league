@@ -204,6 +204,22 @@ export default function MatchModal({ matchId, isOpen, onClose, onResultSubmitted
           <div className="grid grid-cols-3 gap-8 mb-8">
             {/* Player A */}
             <div className="text-right">
+              {/* Fighter Photo */}
+              <div className="flex justify-end mb-4">
+                {player_a.photo_url ? (
+                  <img
+                    src={player_a.photo_url}
+                    alt={player_a.name}
+                    className="w-32 h-32 rounded-full object-cover border-4 border-mbjj-red shadow-lg"
+                  />
+                ) : (
+                  <div className="w-32 h-32 rounded-full bg-gray-300 dark:bg-gray-600 border-4 border-mbjj-red shadow-lg flex items-center justify-center">
+                    <svg className="w-16 h-16 text-gray-500" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                    </svg>
+                  </div>
+                )}
+              </div>
               <div className="text-2xl font-heading font-bold mb-2">{player_a.name}</div>
               {player_a.academy && <div className="text-sm text-gray-600 mb-4">{player_a.academy}</div>}
 
@@ -254,6 +270,22 @@ export default function MatchModal({ matchId, isOpen, onClose, onResultSubmitted
 
             {/* Player B */}
             <div className="text-left">
+              {/* Fighter Photo */}
+              <div className="flex justify-start mb-4">
+                {player_b.photo_url ? (
+                  <img
+                    src={player_b.photo_url}
+                    alt={player_b.name}
+                    className="w-32 h-32 rounded-full object-cover border-4 border-mbjj-blue shadow-lg"
+                  />
+                ) : (
+                  <div className="w-32 h-32 rounded-full bg-gray-300 dark:bg-gray-600 border-4 border-mbjj-blue shadow-lg flex items-center justify-center">
+                    <svg className="w-16 h-16 text-gray-500" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                    </svg>
+                  </div>
+                )}
+              </div>
               <div className="text-2xl font-heading font-bold mb-2">{player_b.name}</div>
               {player_b.academy && <div className="text-sm text-gray-600 mb-4">{player_b.academy}</div>}
 
