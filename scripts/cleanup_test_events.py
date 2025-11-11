@@ -15,6 +15,7 @@ from app.models.entry import Entry
 from app.models.match import Match
 from app.models.bracket_format import BracketFormat
 from app.models.bracket_round import BracketRound
+from app.models.weigh_in import WeighIn
 
 # Database connection
 DATABASE_URL = "postgresql://vanguard:vanguard2025@localhost:5432/vanguard_league"
@@ -52,6 +53,7 @@ def cleanup_test_events():
             entries_count = db.query(Entry).filter(Entry.event_id == event.id).count()
             matches_count = db.query(Match).filter(Match.event_id == event.id).count()
             brackets_count = db.query(BracketFormat).filter(BracketFormat.event_id == event.id).count()
+            weighins_count = db.query(WeighIn).filter(WeighIn.event_id == event.id).count()
 
             # Get bracket rounds (through brackets)
             brackets = db.query(BracketFormat).filter(BracketFormat.event_id == event.id).all()
@@ -63,6 +65,7 @@ def cleanup_test_events():
             print(f"  - {matches_count} matches")
             print(f"  - {brackets_count} brackets")
             print(f"  - {rounds_count} rounds")
+            print(f"  - {weighins_count} weigh-ins")
 
         # Confirm deletion
         print(f"\n{'='*60}")
@@ -78,6 +81,7 @@ def cleanup_test_events():
             'brackets': 0,
             'matches': 0,
             'entries': 0,
+            'weighins': 0,
             'events': 0
         }
 
@@ -100,6 +104,12 @@ def cleanup_test_events():
             for match in matches:
                 db.delete(match)
                 deleted_counts['matches'] += 1
+
+            # Delete weigh-ins
+            weighins = db.query(WeighIn).filter(WeighIn.event_id == event_id).all()
+            for weighin in weighins:
+                db.delete(weighin)
+                deleted_counts['weighins'] += 1
 
             # Delete entries
             entries = db.query(Entry).filter(Entry.event_id == event_id).all()
@@ -124,6 +134,7 @@ def cleanup_test_events():
         print(f"  - {deleted_counts['matches']} matches")
         print(f"  - {deleted_counts['brackets']} brackets")
         print(f"  - {deleted_counts['rounds']} rounds")
+        print(f"  - {deleted_counts['weighins']} weigh-ins")
 
         # Remove saved IDs file
         try:
