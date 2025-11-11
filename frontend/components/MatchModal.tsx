@@ -84,7 +84,8 @@ export default function MatchModal({ matchId, isOpen, onClose, onResultSubmitted
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
   const [method, setMethod] = useState('');
-  const [duration, setDuration] = useState('');
+  const [durationMinutes, setDurationMinutes] = useState('');
+  const [durationSeconds, setDurationSeconds] = useState('');
   const [selectedResult, setSelectedResult] = useState<'a_win' | 'b_win' | 'draw' | null>(null);
 
   useEffect(() => {
@@ -113,7 +114,13 @@ export default function MatchModal({ matchId, isOpen, onClose, onResultSubmitted
 
     setSubmitting(true);
     try {
-      const durationSeconds = duration ? parseInt(duration) * 60 : null;
+      // Calculate total duration in seconds from minutes and seconds
+      let totalSeconds = null;
+      if (durationMinutes || durationSeconds) {
+        const mins = parseInt(durationMinutes) || 0;
+        const secs = parseInt(durationSeconds) || 0;
+        totalSeconds = (mins * 60) + secs;
+      }
 
       const res = await fetch(`${config.apiUrl}/api/tournaments/matches/${matchId}/result`, {
         method: 'PUT',
@@ -121,7 +128,7 @@ export default function MatchModal({ matchId, isOpen, onClose, onResultSubmitted
         body: JSON.stringify({
           result: selectedResult,
           method: method || null,
-          duration_seconds: durationSeconds,
+          duration_seconds: totalSeconds,
         }),
       });
 
@@ -134,6 +141,60 @@ export default function MatchModal({ matchId, isOpen, onClose, onResultSubmitted
     } catch (error) {
       console.error('Failed to submit result:', error);
       alert('Error submitting result');
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  const undoResult = async () => {
+    if (!confirm('Are you sure you want to undo this match result? This will recalculate all ELO ratings.')) {
+      return;
+    }
+
+    setSubmitting(true);
+    try {
+      const res = await fetch(`${config.apiUrl}/api/tournaments/matches/${matchId}/result`, {
+        method: 'DELETE',
+      });
+
+      if (res.ok) {
+        alert('Match result undone successfully');
+        onResultSubmitted();
+        onClose();
+      } else {
+        const error = await res.json();
+        alert(`Failed to undo result: ${error.detail || 'Unknown error'}`);
+      }
+    } catch (error) {
+      console.error('Failed to undo result:', error);
+      alert('Error undoing result');
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  const deleteMatch = async () => {
+    if (!confirm('Are you sure you want to delete this match entirely? This will remove the pairing and cannot be undone.')) {
+      return;
+    }
+
+    setSubmitting(true);
+    try {
+      const res = await fetch(`${config.apiUrl}/api/tournaments/matches/${matchId}`, {
+        method: 'DELETE',
+      });
+
+      if (res.ok) {
+        alert('Match deleted successfully');
+        onResultSubmitted();
+        onClose();
+      } else {
+        const error = await res.json();
+        alert(`Failed to delete match: ${error.detail || 'Unknown error'}`);
+      }
+    } catch (error) {
+      console.error('Failed to delete match:', error);
+      alert('Error deleting match');
     } finally {
       setSubmitting(false);
     }
@@ -415,49 +476,74 @@ export default function MatchModal({ matchId, isOpen, onClose, onResultSubmitted
             </div>
           </div>
 
-          {/* Result Selection */}
-          <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-6">
-            <h3 className="text-xl font-heading font-bold mb-4">RECORD RESULT</h3>
-
-            {/* Winner Buttons */}
-            <div className="grid grid-cols-3 gap-4 mb-4">
-              <button
-                onClick={() => setSelectedResult('a_win')}
-                className={`p-4 rounded-lg font-heading font-bold text-lg border-2 transition ${
-                  selectedResult === 'a_win'
-                    ? 'border-green-500 bg-green-500 text-white'
-                    : 'border-gray-300 hover:border-green-500'
-                }`}
-              >
-                {player_a.name} WINS
-              </button>
-
-              <button
-                onClick={() => setSelectedResult('draw')}
-                className={`p-4 rounded-lg font-heading font-bold text-lg border-2 transition ${
-                  selectedResult === 'draw'
-                    ? 'border-yellow-500 bg-yellow-500 text-white'
-                    : 'border-gray-300 hover:border-yellow-500'
-                }`}
-              >
-                DRAW
-              </button>
-
-              <button
-                onClick={() => setSelectedResult('b_win')}
-                className={`p-4 rounded-lg font-heading font-bold text-lg border-2 transition ${
-                  selectedResult === 'b_win'
-                    ? 'border-green-500 bg-green-500 text-white'
-                    : 'border-gray-300 hover:border-green-500'
-                }`}
-              >
-                {player_b.name} WINS
-              </button>
+          {/* Result Selection or Match Completed */}
+          {taleData.match_status === 'COMPLETED' ? (
+            <div className="bg-green-50 dark:bg-green-900/20 border-2 border-green-500 rounded-lg p-6">
+              <h3 className="text-xl font-heading font-bold mb-4 text-green-600 dark:text-green-400">
+                ✓ MATCH COMPLETED
+              </h3>
+              <p className="text-gray-700 dark:text-gray-300 mb-4">
+                This match result has been recorded. ELO ratings have been updated.
+              </p>
+              <div className="space-y-3">
+                <button
+                  onClick={undoResult}
+                  disabled={submitting}
+                  className="w-full py-4 bg-yellow-600 hover:bg-yellow-700 text-white font-heading font-bold text-xl rounded-lg transition disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {submitting ? 'UNDOING...' : 'UNDO RESULT'}
+                </button>
+                <button
+                  onClick={deleteMatch}
+                  disabled={submitting}
+                  className="w-full py-3 bg-red-600 hover:bg-red-700 text-white font-heading font-bold text-lg rounded-lg transition disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {submitting ? 'DELETING...' : 'DELETE MATCH'}
+                </button>
+              </div>
             </div>
+          ) : (
+            <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-6">
+              <h3 className="text-xl font-heading font-bold mb-4">RECORD RESULT</h3>
 
-            {/* Method and Duration */}
-            <div className="grid grid-cols-2 gap-4 mb-4">
-              <div>
+              {/* Winner Buttons */}
+              <div className="grid grid-cols-3 gap-4 mb-4">
+                <button
+                  onClick={() => setSelectedResult('a_win')}
+                  className={`p-4 rounded-lg font-heading font-bold text-lg border-2 transition ${
+                    selectedResult === 'a_win'
+                      ? 'border-green-500 bg-green-500 text-white'
+                      : 'border-gray-300 hover:border-green-500'
+                  }`}
+                >
+                  {player_a.name} WINS
+                </button>
+
+                <button
+                  onClick={() => setSelectedResult('draw')}
+                  className={`p-4 rounded-lg font-heading font-bold text-lg border-2 transition ${
+                    selectedResult === 'draw'
+                      ? 'border-yellow-500 bg-yellow-500 text-white'
+                      : 'border-gray-300 hover:border-yellow-500'
+                  }`}
+                >
+                  DRAW
+                </button>
+
+                <button
+                  onClick={() => setSelectedResult('b_win')}
+                  className={`p-4 rounded-lg font-heading font-bold text-lg border-2 transition ${
+                    selectedResult === 'b_win'
+                      ? 'border-green-500 bg-green-500 text-white'
+                      : 'border-gray-300 hover:border-green-500'
+                  }`}
+                >
+                  {player_b.name} WINS
+                </button>
+              </div>
+
+              {/* Method and Duration */}
+              <div className="mb-4">
                 <label className="block text-sm font-bold mb-2">Method (Optional)</label>
                 <input
                   type="text"
@@ -468,27 +554,57 @@ export default function MatchModal({ matchId, isOpen, onClose, onResultSubmitted
                 />
               </div>
 
-              <div>
-                <label className="block text-sm font-bold mb-2">Duration (Minutes)</label>
-                <input
-                  type="number"
-                  value={duration}
-                  onChange={(e) => setDuration(e.target.value)}
-                  placeholder="e.g., 3"
-                  className="w-full p-3 border-2 border-gray-300 rounded-lg focus:border-mbjj-red focus:outline-none"
-                />
+              <div className="grid grid-cols-2 gap-4 mb-4">
+                <div>
+                  <label className="block text-sm font-bold mb-2">Minutes</label>
+                  <input
+                    type="number"
+                    value={durationMinutes}
+                    onChange={(e) => setDurationMinutes(e.target.value)}
+                    placeholder="0"
+                    min="0"
+                    className="w-full p-3 border-2 border-gray-300 rounded-lg focus:border-mbjj-red focus:outline-none"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-bold mb-2">Seconds</label>
+                  <input
+                    type="number"
+                    value={durationSeconds}
+                    onChange={(e) => setDurationSeconds(e.target.value)}
+                    placeholder="0"
+                    min="0"
+                    max="59"
+                    className="w-full p-3 border-2 border-gray-300 rounded-lg focus:border-mbjj-red focus:outline-none"
+                  />
+                </div>
+              </div>
+
+              {/* Submit Button */}
+              <button
+                onClick={submitResult}
+                disabled={!selectedResult || submitting}
+                className="w-full py-4 bg-mbjj-red hover:bg-mbjj-accent-hover text-white font-heading font-bold text-2xl rounded-lg transition disabled:opacity-50 disabled:cursor-not-allowed mb-4"
+              >
+                {submitting ? 'SUBMITTING...' : 'SUBMIT RESULT'}
+              </button>
+
+              {/* Delete Match Option */}
+              <div className="border-t border-gray-300 dark:border-gray-600 pt-4">
+                <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">
+                  Need to remove this pairing? (e.g., for a late entry)
+                </p>
+                <button
+                  onClick={deleteMatch}
+                  disabled={submitting}
+                  className="w-full py-2 bg-red-600 hover:bg-red-700 text-white font-heading font-bold text-sm rounded-lg transition disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {submitting ? 'DELETING...' : 'DELETE MATCH'}
+                </button>
               </div>
             </div>
-
-            {/* Submit Button */}
-            <button
-              onClick={submitResult}
-              disabled={!selectedResult || submitting}
-              className="w-full py-4 bg-mbjj-red hover:bg-mbjj-accent-hover text-white font-heading font-bold text-2xl rounded-lg transition disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              {submitting ? 'SUBMITTING...' : 'SUBMIT RESULT'}
-            </button>
-          </div>
+          )}
         </div>
       </div>
     </div>

@@ -293,6 +293,171 @@ async def update_match_result(
         raise HTTPException(status_code=500, detail=str(e))
 
 
+@router.delete("/tournaments/matches/{match_id}/result")
+async def undo_match_result(
+    match_id: int,
+    db: Session = Depends(get_db)
+):
+    """
+    Undo a match result and recalculate ELO ratings.
+
+    This will:
+    - Clear the match result, method, and duration
+    - Reset match status to READY (or PENDING if players not set)
+    - Clear any dependent matches that were populated by this result
+    - Trigger ELO recalculation for all players
+
+    Args:
+        match_id: Match ID
+        db: Database session
+
+    Returns:
+        Success message
+    """
+    match = db.query(Match).filter(Match.id == match_id).first()
+
+    if not match:
+        raise HTTPException(status_code=404, detail="Match not found")
+
+    if not match.result:
+        raise HTTPException(status_code=400, detail="Match has no result to undo")
+
+    # Store the winner/loser before clearing
+    if match.result == MatchResult.PLAYER_A_WIN:
+        winner_id = match.a_player_id
+        loser_id = match.b_player_id
+    elif match.result == MatchResult.PLAYER_B_WIN:
+        winner_id = match.b_player_id
+        loser_id = match.a_player_id
+    else:  # Draw
+        winner_id = None
+        loser_id = None
+
+    # Find dependent matches that were populated by this result
+    from sqlalchemy import or_
+    dependent_matches = db.query(Match).filter(
+        or_(
+            Match.depends_on_match_a == match.id,
+            Match.depends_on_match_b == match.id
+        )
+    ).all()
+
+    # Clear players from dependent matches
+    for dep_match in dependent_matches:
+        if dep_match.depends_on_match_a == match.id:
+            if dep_match.a_player_id in [winner_id, loser_id]:
+                dep_match.a_player_id = None
+                dep_match.match_status = MatchStatus.PENDING
+
+        if dep_match.depends_on_match_b == match.id:
+            if dep_match.b_player_id in [winner_id, loser_id]:
+                dep_match.b_player_id = None
+                dep_match.match_status = MatchStatus.PENDING
+
+    # Clear the match result
+    match.result = None
+    match.method = None
+    match.duration_seconds = None
+    match.a_elo_change = None
+    match.b_elo_change = None
+    match.completed_at = None
+
+    # Reset match status
+    if match.a_player_id and match.b_player_id:
+        match.match_status = MatchStatus.READY
+    else:
+        match.match_status = MatchStatus.PENDING
+
+    db.commit()
+
+    # Trigger ELO recalculation
+    from app.api.rankings_recalc import recalculate_all_elo
+    try:
+        recalculate_all_elo(db)
+    except Exception as e:
+        # Log error but don't fail the undo
+        print(f"Warning: ELO recalculation failed: {e}")
+
+    return {
+        "message": "Match result undone successfully",
+        "match_id": match_id,
+        "dependent_matches_cleared": len(dependent_matches)
+    }
+
+
+@router.delete("/tournaments/matches/{match_id}")
+async def delete_match(
+    match_id: int,
+    db: Session = Depends(get_db)
+):
+    """
+    Delete a match entirely (removes the pairing).
+
+    This is useful for removing incorrect pairings or accommodating late entries.
+
+    This will:
+    - Check if any matches depend on this match
+    - Clear references in dependent matches
+    - Delete the match
+    - Trigger ELO recalculation
+
+    Args:
+        match_id: Match ID
+        db: Database session
+
+    Returns:
+        Success message
+    """
+    match = db.query(Match).filter(Match.id == match_id).first()
+
+    if not match:
+        raise HTTPException(status_code=404, detail="Match not found")
+
+    # Find dependent matches
+    from sqlalchemy import or_
+    dependent_matches = db.query(Match).filter(
+        or_(
+            Match.depends_on_match_a == match.id,
+            Match.depends_on_match_b == match.id
+        )
+    ).all()
+
+    # Clear dependencies
+    for dep_match in dependent_matches:
+        if dep_match.depends_on_match_a == match.id:
+            dep_match.depends_on_match_a = None
+            dep_match.a_player_id = None
+            dep_match.match_status = MatchStatus.PENDING
+
+        if dep_match.depends_on_match_b == match.id:
+            dep_match.depends_on_match_b = None
+            dep_match.b_player_id = None
+            dep_match.match_status = MatchStatus.PENDING
+
+    # Store info for response
+    had_result = match.result is not None
+    bracket_round_id = match.bracket_round_id
+
+    # Delete the match
+    db.delete(match)
+    db.commit()
+
+    # Trigger ELO recalculation if match had a result
+    if had_result:
+        from app.api.rankings_recalc import recalculate_all_elo
+        try:
+            recalculate_all_elo(db)
+        except Exception as e:
+            print(f"Warning: ELO recalculation failed: {e}")
+
+    return {
+        "message": "Match deleted successfully",
+        "match_id": match_id,
+        "dependent_matches_cleared": len(dependent_matches),
+        "bracket_round_id": bracket_round_id
+    }
+
+
 @router.get("/tournaments/events/{event_id}/brackets", response_model=List[BracketFormatResponse])
 async def get_event_brackets(
     event_id: int,
