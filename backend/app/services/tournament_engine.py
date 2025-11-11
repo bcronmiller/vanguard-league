@@ -323,13 +323,18 @@ class TournamentEngine:
         participants: List[Player]
     ) -> List[BracketRound]:
         """
-        Generate double elimination bracket.
+        Generate complete double elimination bracket.
 
         Creates a double-elimination tournament with:
         - Winners bracket (standard single elimination)
-        - Losers bracket (fed by losers from winners bracket)
+        - Complete losers bracket structure
         - Grand finals (winners bracket winner vs losers bracket winner)
-        - Optional bracket reset if specified in config
+
+        Losers bracket structure:
+        - Each winners round that completes feeds losers into losers bracket
+        - Losers bracket alternates between "drop-down" rounds (receiving losers)
+          and "advancement" rounds (losers bracket winners advancing)
+        - Total losers rounds = 2 * (winners_rounds - 1)
         """
         num_participants = len(participants)
 
@@ -338,10 +343,11 @@ class TournamentEngine:
 
         # Calculate rounds needed
         winners_rounds = math.ceil(math.log2(num_participants))
+        total_losers_rounds = 2 * (winners_rounds - 1) if winners_rounds > 1 else 0
 
         created_rounds = []
-        winners_matches_by_round = {}  # Track winners bracket matches by round
-        losers_matches_by_round = {}   # Track losers bracket matches by round
+        winners_matches_by_round = {}
+        losers_matches_by_round = {}
 
         # === CREATE WINNERS BRACKET ===
         previous_round_matches = []
@@ -370,7 +376,7 @@ class TournamentEngine:
             current_round_matches = []
 
             if round_num == 1:
-                # First round: assign participants (same as single elim)
+                # First round: assign participants
                 first_round_matches_needed = math.ceil(num_participants / 2)
                 participant_idx = 0
 
@@ -447,59 +453,123 @@ class TournamentEngine:
             winners_matches_by_round[round_num] = current_round_matches
             previous_round_matches = current_round_matches
 
-        # === CREATE LOSERS BRACKET ===
-        # Losers bracket has roughly 2*(winners_rounds - 1) rounds
-        # Simplified: create losers rounds that receive losers from winners bracket
-        losers_round_num = winners_rounds + 1
-        losers_previous_matches = []
+        # === CREATE COMPLETE LOSERS BRACKET ===
+        if total_losers_rounds > 0:
+            losers_previous_matches = []
+            losers_round_counter = 1
 
-        # First losers round receives losers from winners round 1
-        losers_bracket_round = BracketRound(
-            bracket_format_id=bracket_format.id,
-            round_number=losers_round_num,
-            round_name="Losers Round 1",
-            bracket_type="losers",
-            status=RoundStatus.PENDING,
-            round_data={"format": "double_elimination", "bracket": "losers"}
-        )
-        self.db.add(losers_bracket_round)
-        self.db.flush()
+            for winners_feed_round in range(1, winners_rounds):
+                # Each winners round feeds into two losers rounds:
+                # 1. Drop-down round: losers from this winners round play each other
+                # 2. Advancement round: drop-down winners play winners from previous losers round
 
-        # Create matches for first losers round
-        # These matches receive losers from winners round 1
-        winners_r1_matches = winners_matches_by_round.get(1, [])
-        losers_r1_match_count = len(winners_r1_matches) // 2
+                # === DROP-DOWN ROUND ===
+                losers_round_num = winners_rounds + losers_round_counter
+                losers_round_counter += 1
 
-        losers_r1_matches = []
-        for match_num in range(losers_r1_match_count):
-            dep_a_idx = match_num * 2
-            dep_b_idx = match_num * 2 + 1
+                bracket_round = BracketRound(
+                    bracket_format_id=bracket_format.id,
+                    round_number=losers_round_num,
+                    round_name=f"Losers Round {losers_round_num - winners_rounds}",
+                    bracket_type="losers",
+                    status=RoundStatus.PENDING,
+                    round_data={
+                        "format": "double_elimination",
+                        "bracket": "losers",
+                        "type": "drop_down",
+                        "feeds_from_winners": winners_feed_round
+                    }
+                )
+                self.db.add(bracket_round)
+                self.db.flush()
 
-            dep_a = winners_r1_matches[dep_a_idx] if dep_a_idx < len(winners_r1_matches) else None
-            dep_b = winners_r1_matches[dep_b_idx] if dep_b_idx < len(winners_r1_matches) else None
+                # Get losers from this winners round
+                winners_matches = winners_matches_by_round.get(winners_feed_round, [])
+                num_losers = len(winners_matches)
 
-            match = Match(
-                event_id=bracket_format.event_id,
-                bracket_round_id=losers_bracket_round.id,
-                weight_class_id=bracket_format.weight_class_id,
-                a_player_id=None,  # Will be filled by loser from winners
-                b_player_id=None,
-                match_number=match_num + 1,
-                match_status=MatchStatus.PENDING,
-                depends_on_match_a=dep_a.id if dep_a else None,
-                depends_on_match_b=dep_b.id if dep_b else None,
-                requires_winner_a=False,  # Takes losers
-                requires_winner_b=False,
-            )
-            self.db.add(match)
-            losers_r1_matches.append(match)
+                # Drop-down round: pair losers from winners round
+                current_round_matches = []
+                for match_num in range(num_losers // 2):
+                    dep_a_idx = match_num * 2
+                    dep_b_idx = match_num * 2 + 1
 
-        self.db.flush()
-        created_rounds.append(losers_bracket_round)
-        losers_matches_by_round[losers_round_num] = losers_r1_matches
+                    dep_a = winners_matches[dep_a_idx] if dep_a_idx < len(winners_matches) else None
+                    dep_b = winners_matches[dep_b_idx] if dep_b_idx < len(winners_matches) else None
+
+                    match = Match(
+                        event_id=bracket_format.event_id,
+                        bracket_round_id=bracket_round.id,
+                        weight_class_id=bracket_format.weight_class_id,
+                        a_player_id=None,
+                        b_player_id=None,
+                        match_number=match_num + 1,
+                        match_status=MatchStatus.PENDING,
+                        depends_on_match_a=dep_a.id if dep_a else None,
+                        depends_on_match_b=dep_b.id if dep_b else None,
+                        requires_winner_a=False,  # Takes losers
+                        requires_winner_b=False,
+                    )
+                    self.db.add(match)
+                    current_round_matches.append(match)
+
+                self.db.flush()
+                created_rounds.append(bracket_round)
+                losers_matches_by_round[losers_round_num] = current_round_matches
+
+                # === ADVANCEMENT ROUND ===
+                # Winners from drop-down round play winners from previous losers round
+                if losers_previous_matches:
+                    losers_round_num = winners_rounds + losers_round_counter
+                    losers_round_counter += 1
+
+                    bracket_round = BracketRound(
+                        bracket_format_id=bracket_format.id,
+                        round_number=losers_round_num,
+                        round_name=f"Losers Round {losers_round_num - winners_rounds}",
+                        bracket_type="losers",
+                        status=RoundStatus.PENDING,
+                        round_data={
+                            "format": "double_elimination",
+                            "bracket": "losers",
+                            "type": "advancement"
+                        }
+                    )
+                    self.db.add(bracket_round)
+                    self.db.flush()
+
+                    advancement_matches = []
+                    num_advancement_matches = len(current_round_matches)
+
+                    for match_num in range(num_advancement_matches):
+                        # Pair drop-down winner with previous losers round winner
+                        drop_down_match = current_round_matches[match_num] if match_num < len(current_round_matches) else None
+                        previous_match = losers_previous_matches[match_num] if match_num < len(losers_previous_matches) else None
+
+                        match = Match(
+                            event_id=bracket_format.event_id,
+                            bracket_round_id=bracket_round.id,
+                            weight_class_id=bracket_format.weight_class_id,
+                            a_player_id=None,
+                            b_player_id=None,
+                            match_number=match_num + 1,
+                            match_status=MatchStatus.PENDING,
+                            depends_on_match_a=drop_down_match.id if drop_down_match else None,
+                            depends_on_match_b=previous_match.id if previous_match else None,
+                            requires_winner_a=True,
+                            requires_winner_b=True,
+                        )
+                        self.db.add(match)
+                        advancement_matches.append(match)
+
+                    self.db.flush()
+                    created_rounds.append(bracket_round)
+                    losers_matches_by_round[losers_round_num] = advancement_matches
+                    current_round_matches = advancement_matches
+
+                losers_previous_matches = current_round_matches
 
         # === CREATE GRAND FINALS ===
-        grand_finals_round_num = losers_round_num + 1
+        grand_finals_round_num = winners_rounds + total_losers_rounds + 1
         grand_finals_round = BracketRound(
             bracket_format_id=bracket_format.id,
             round_number=grand_finals_round_num,
@@ -511,16 +581,17 @@ class TournamentEngine:
         self.db.add(grand_finals_round)
         self.db.flush()
 
-        # Grand finals match: winner of winners bracket vs winner of losers bracket
-        winners_final_match = winners_matches_by_round[winners_rounds][-1]  # Last match in winners bracket
-        losers_final_match = losers_r1_matches[-1] if losers_r1_matches else None  # Simplified
+        # Grand finals: winners champion vs losers champion
+        winners_final_match = winners_matches_by_round[winners_rounds][-1]
+        losers_final_matches = losers_matches_by_round.get(winners_rounds + total_losers_rounds, [])
+        losers_final_match = losers_final_matches[-1] if losers_final_matches else None
 
         grand_finals_match = Match(
             event_id=bracket_format.event_id,
             bracket_round_id=grand_finals_round.id,
             weight_class_id=bracket_format.weight_class_id,
-            a_player_id=None,  # Winner from winners bracket
-            b_player_id=None,  # Winner from losers bracket
+            a_player_id=None,
+            b_player_id=None,
             match_number=1,
             match_status=MatchStatus.PENDING,
             depends_on_match_a=winners_final_match.id,
@@ -918,8 +989,255 @@ class TournamentEngine:
         Args:
             completed_round: The completed BracketRound
         """
-        # Format-specific logic for next round generation
-        # To be implemented per format
+        bracket_format = completed_round.bracket_format
+
+        # Check if we should generate next round
+        if not bracket_format.auto_generate:
+            return
+
+        # Route to format-specific next round generation
+        if bracket_format.format_type == TournamentFormat.SWISS:
+            self._generate_next_swiss_round(completed_round)
+        elif bracket_format.format_type == TournamentFormat.GUARANTEED_MATCHES:
+            self._generate_next_guaranteed_round(completed_round)
+        elif bracket_format.format_type == TournamentFormat.DOUBLE_ELIMINATION:
+            self._generate_next_double_elim_round(completed_round)
+        # Single elimination and round robin generate all rounds upfront, so no next round needed
+
+    def _generate_next_swiss_round(self, completed_round: BracketRound):
+        """
+        Generate the next Swiss round based on standings.
+
+        Args:
+            completed_round: The completed BracketRound
+        """
+        bracket_format = completed_round.bracket_format
+        round_data = completed_round.round_data or {}
+        total_rounds = round_data.get("total_rounds", 5)
+
+        # Check if we've reached the final round
+        if completed_round.round_number >= total_rounds:
+            bracket_format.is_finalized = True
+            self.db.commit()
+            return
+
+        # Calculate current standings
+        standings = self._calculate_swiss_standings(bracket_format.id)
+
+        # Get all players who have competed
+        all_player_ids = set()
+        for player_id, record in standings.items():
+            all_player_ids.add(player_id)
+
+        # Track who has faced whom to avoid rematches
+        matchup_history = self._get_matchup_history(bracket_format.id)
+
+        # Pair players by similar records
+        pairings = self._swiss_pairing(standings, matchup_history)
+
+        if not pairings:
+            # No valid pairings possible, end tournament
+            bracket_format.is_finalized = True
+            self.db.commit()
+            return
+
+        # Create next round
+        next_round_num = completed_round.round_number + 1
+        next_round = BracketRound(
+            bracket_format_id=bracket_format.id,
+            round_number=next_round_num,
+            round_name=f"Swiss Round {next_round_num}",
+            status=RoundStatus.IN_PROGRESS,
+            round_data={
+                "format": "swiss",
+                "total_rounds": total_rounds,
+                "standings": standings
+            }
+        )
+        self.db.add(next_round)
+        self.db.flush()
+
+        # Create matches from pairings
+        for idx, (player_a_id, player_b_id) in enumerate(pairings):
+            match = Match(
+                event_id=bracket_format.event_id,
+                bracket_round_id=next_round.id,
+                weight_class_id=bracket_format.weight_class_id,
+                a_player_id=player_a_id,
+                b_player_id=player_b_id if player_b_id else None,  # None = bye
+                match_number=idx + 1,
+                match_status=MatchStatus.READY if player_b_id else MatchStatus.COMPLETED,
+                result=MatchResult.PLAYER_A_WIN if not player_b_id else None,
+                method="Bye" if not player_b_id else None,
+                completed_at=datetime.utcnow() if not player_b_id else None,
+            )
+            self.db.add(match)
+
+        self.db.commit()
+
+    def _calculate_swiss_standings(self, bracket_format_id: int) -> Dict[int, Dict]:
+        """
+        Calculate current standings for a Swiss tournament.
+
+        Returns:
+            Dict mapping player_id to {wins, losses, draws, points, opponents_faced}
+        """
+        standings = {}
+
+        # Get all matches for this bracket
+        matches = self.db.query(Match).join(BracketRound).filter(
+            BracketRound.bracket_format_id == bracket_format_id,
+            Match.result.isnot(None)
+        ).all()
+
+        for match in matches:
+            # Initialize standings for both players
+            if match.a_player_id and match.a_player_id not in standings:
+                standings[match.a_player_id] = {
+                    "wins": 0, "losses": 0, "draws": 0,
+                    "points": 0.0, "opponents_faced": set()
+                }
+
+            if match.b_player_id and match.b_player_id not in standings:
+                standings[match.b_player_id] = {
+                    "wins": 0, "losses": 0, "draws": 0,
+                    "points": 0.0, "opponents_faced": set()
+                }
+
+            # Update records
+            if match.result == MatchResult.PLAYER_A_WIN:
+                if match.a_player_id:
+                    standings[match.a_player_id]["wins"] += 1
+                    standings[match.a_player_id]["points"] += 1.0
+                if match.b_player_id:
+                    standings[match.b_player_id]["losses"] += 1
+                    standings[match.a_player_id]["opponents_faced"].add(match.b_player_id)
+                    standings[match.b_player_id]["opponents_faced"].add(match.a_player_id)
+
+            elif match.result == MatchResult.PLAYER_B_WIN:
+                if match.b_player_id:
+                    standings[match.b_player_id]["wins"] += 1
+                    standings[match.b_player_id]["points"] += 1.0
+                if match.a_player_id:
+                    standings[match.a_player_id]["losses"] += 1
+                    standings[match.a_player_id]["opponents_faced"].add(match.b_player_id)
+                    standings[match.b_player_id]["opponents_faced"].add(match.a_player_id)
+
+            elif match.result == MatchResult.DRAW:
+                if match.a_player_id:
+                    standings[match.a_player_id]["draws"] += 1
+                    standings[match.a_player_id]["points"] += 0.5
+                if match.b_player_id:
+                    standings[match.b_player_id]["draws"] += 1
+                    standings[match.b_player_id]["points"] += 0.5
+                    if match.a_player_id and match.b_player_id:
+                        standings[match.a_player_id]["opponents_faced"].add(match.b_player_id)
+                        standings[match.b_player_id]["opponents_faced"].add(match.a_player_id)
+
+        return standings
+
+    def _get_matchup_history(self, bracket_format_id: int) -> Dict[int, set]:
+        """
+        Get history of who has faced whom in this bracket.
+
+        Returns:
+            Dict mapping player_id to set of opponent player_ids
+        """
+        history = {}
+
+        matches = self.db.query(Match).join(BracketRound).filter(
+            BracketRound.bracket_format_id == bracket_format_id
+        ).all()
+
+        for match in matches:
+            if match.a_player_id and match.b_player_id:
+                if match.a_player_id not in history:
+                    history[match.a_player_id] = set()
+                if match.b_player_id not in history:
+                    history[match.b_player_id] = set()
+
+                history[match.a_player_id].add(match.b_player_id)
+                history[match.b_player_id].add(match.a_player_id)
+
+        return history
+
+    def _swiss_pairing(
+        self,
+        standings: Dict[int, Dict],
+        matchup_history: Dict[int, set]
+    ) -> List[Tuple[int, Optional[int]]]:
+        """
+        Create pairings for next Swiss round.
+
+        Uses strength-based pairing: pair players with similar records.
+        Avoids rematches when possible.
+
+        Returns:
+            List of (player_a_id, player_b_id) tuples (player_b_id may be None for bye)
+        """
+        # Sort players by points (descending), then wins
+        sorted_players = sorted(
+            standings.items(),
+            key=lambda x: (x[1]["points"], x[1]["wins"]),
+            reverse=True
+        )
+
+        player_ids = [p[0] for p in sorted_players]
+        paired = set()
+        pairings = []
+
+        for i, player_id in enumerate(player_ids):
+            if player_id in paired:
+                continue
+
+            # Find best opponent: similar record, haven't faced before
+            opponent_id = None
+            for j in range(i + 1, len(player_ids)):
+                candidate = player_ids[j]
+                if candidate in paired:
+                    continue
+
+                # Check if they've faced before
+                if candidate not in matchup_history.get(player_id, set()):
+                    opponent_id = candidate
+                    break
+
+            # If no valid opponent found due to rematch constraints,
+            # relax constraint and pair with closest available
+            if opponent_id is None:
+                for j in range(i + 1, len(player_ids)):
+                    candidate = player_ids[j]
+                    if candidate not in paired:
+                        opponent_id = candidate
+                        break
+
+            if opponent_id:
+                pairings.append((player_id, opponent_id))
+                paired.add(player_id)
+                paired.add(opponent_id)
+            else:
+                # Odd number of players, this player gets a bye
+                pairings.append((player_id, None))
+                paired.add(player_id)
+
+        return pairings
+
+    def _generate_next_guaranteed_round(self, completed_round: BracketRound):
+        """
+        Generate next round for guaranteed matches format.
+
+        Ensures each player reaches their guaranteed match count.
+        """
+        # TODO: Implement guaranteed matches progression
+        pass
+
+    def _generate_next_double_elim_round(self, completed_round: BracketRound):
+        """
+        Generate next round for double elimination (losers bracket rounds).
+
+        This should build the losers bracket progressively as winners bracket advances.
+        """
+        # TODO: Implement double elimination losers bracket progression
         pass
 
     def get_upcoming_matches(
