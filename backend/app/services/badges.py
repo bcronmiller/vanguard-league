@@ -110,6 +110,16 @@ def get_player_badges(player_id: int, db: Session) -> List[Dict]:
             "icon": "⚡"
         })
 
+    # SURVIVOR BADGE - 5 draws
+    draw_count = sum(1 for result in result_sequence if result == 'draw')
+
+    if draw_count >= 5:
+        badges.append({
+            "name": "Survivor",
+            "description": f"{draw_count} draws - refuses to go down",
+            "icon": "🧟"
+        })
+
     # SUBMISSION BADGES - Earned by getting at least one submission of that type
     # Get all wins with submission methods
     submission_methods = []

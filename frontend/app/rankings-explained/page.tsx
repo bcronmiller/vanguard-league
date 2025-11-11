@@ -216,6 +216,11 @@ export default function RankingsExplainedPage() {
                 <div className="text-xl font-heading font-bold mb-1">LIGHTNING STRIKE</div>
                 <p className="text-white/90">Win 5 matches in under 30 seconds. You strike before they can react!</p>
               </div>
+              <div className="bg-white/10 backdrop-blur rounded-lg p-4">
+                <div className="text-3xl mb-2">🧟</div>
+                <div className="text-xl font-heading font-bold mb-1">SURVIVOR</div>
+                <p className="text-white/90">Earn 5 draws. You refuse to go down no matter what!</p>
+              </div>
             </div>
           </div>
 
