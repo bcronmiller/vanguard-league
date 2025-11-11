@@ -46,10 +46,19 @@ def get_player_match_results(player_id: int, db: Session) -> List[Tuple[str, Mat
 def get_player_badges(player_id: int, db: Session) -> List[Dict]:
     """
     Calculate which badges a player has earned based on their match streaks
+    Includes both automatic badges (from match data) and manual badges (admin awarded)
 
     Returns a list of badge dicts with: name, description, icon
     """
     badges = []
+
+    # Get player to access manual badges
+    player = db.query(Player).filter(Player.id == player_id).first()
+
+    # Add manual badges first (if any)
+    if player and player.manual_badges:
+        for badge in player.manual_badges:
+            badges.append(badge)
 
     # Get match results in chronological order
     results = get_player_match_results(player_id, db)

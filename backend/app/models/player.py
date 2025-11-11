@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, Boolean, DateTime, Float, ForeignKey
+from sqlalchemy import Column, Integer, String, Boolean, DateTime, Float, ForeignKey, JSON
 from sqlalchemy.orm import relationship
 from datetime import datetime
 from app.core.database import Base
@@ -32,6 +32,9 @@ class Player(Base):
     initial_elo_lightweight = Column(Float, nullable=True)  # Starting lightweight ELO
     initial_elo_middleweight = Column(Float, nullable=True)  # Starting middleweight ELO
     initial_elo_heavyweight = Column(Float, nullable=True)  # Starting heavyweight ELO
+
+    # Manual badges (awarded by admin)
+    manual_badges = Column(JSON, nullable=True, default=[])
 
     active = Column(Boolean, default=True)
     created_at = Column(DateTime, default=datetime.utcnow)

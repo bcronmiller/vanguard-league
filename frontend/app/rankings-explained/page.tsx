@@ -281,8 +281,8 @@ export default function RankingsExplainedPage() {
             </div>
           </div>
 
-          {/* Other Badges */}
-          <div>
+          {/* Special Badges */}
+          <div className="mb-8">
             <h3 className="text-2xl font-heading font-bold mb-4 border-b border-white/30 pb-2">
               SPECIAL BADGES
             </h3>
@@ -290,6 +290,33 @@ export default function RankingsExplainedPage() {
               <div className="text-3xl mb-2">⚖️</div>
               <div className="text-xl font-heading font-bold mb-1">MULTI-DIVISION</div>
               <p className="text-white/90">Compete in multiple weight classes. Shows your versatility!</p>
+            </div>
+          </div>
+
+          {/* Manual Badges (Admin Awarded) */}
+          <div>
+            <h3 className="text-2xl font-heading font-bold mb-4 border-b border-white/30 pb-2">
+              MANUALLY AWARDED BADGES
+            </h3>
+            <p className="text-white/90 mb-4">
+              These badges are awarded by the event organizers for exceptional performances:
+            </p>
+            <div className="grid md:grid-cols-3 gap-3">
+              <div className="bg-white/10 backdrop-blur rounded-lg p-3">
+                <div className="text-2xl mb-1">🍑</div>
+                <div className="text-lg font-heading font-bold">BUTTSCOOTER</div>
+                <p className="text-sm text-white/80">Guard puller specialist</p>
+              </div>
+              <div className="bg-white/10 backdrop-blur rounded-lg p-3">
+                <div className="text-2xl mb-1">🍄</div>
+                <div className="text-lg font-heading font-bold">TRIPPY</div>
+                <p className="text-sm text-white/80">Footsweep Assassin</p>
+              </div>
+              <div className="bg-white/10 backdrop-blur rounded-lg p-3">
+                <div className="text-2xl mb-1">🏆</div>
+                <div className="text-lg font-heading font-bold">FIGHT OF THE NIGHT</div>
+                <p className="text-sm text-white/80">Best fight of the event</p>
+              </div>
             </div>
           </div>
 

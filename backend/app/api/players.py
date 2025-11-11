@@ -1,5 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session, joinedload
+from sqlalchemy.orm.attributes import flag_modified
 from sqlalchemy import or_
 from typing import List
 from pydantic import BaseModel
@@ -42,6 +43,12 @@ class MatchHistoryItem(BaseModel):
 
     class Config:
         from_attributes = True
+
+
+class ManualBadgeCreate(BaseModel):
+    name: str
+    description: str
+    icon: str
 
 
 @router.get("/players", response_model=List[PlayerResponse])
@@ -229,3 +236,72 @@ async def get_badges_endpoint(player_id: int, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="Player not found")
 
     return get_player_badges(player_id, db)
+
+
+@router.post("/players/{player_id}/badges/manual")
+async def add_manual_badge(
+    player_id: int,
+    badge: ManualBadgeCreate,
+    db: Session = Depends(get_db)
+):
+    """
+    Add a manual badge to a player (admin only).
+
+    Manual badges available:
+    - 🍑 Buttscooter - Guard puller specialist
+    - 🍄 Trippy - Footsweep Assassin
+    - 🏆 Fight of the Night - Best fight of the event
+    """
+    # Check player exists
+    player = db.query(Player).filter(Player.id == player_id).first()
+    if not player:
+        raise HTTPException(status_code=404, detail="Player not found")
+
+    # Initialize manual_badges if None
+    if player.manual_badges is None:
+        player.manual_badges = []
+
+    # Check if badge already exists
+    badge_dict = {"name": badge.name, "description": badge.description, "icon": badge.icon}
+    if badge_dict in player.manual_badges:
+        raise HTTPException(status_code=400, detail="Badge already exists")
+
+    # Add badge
+    player.manual_badges.append(badge_dict)
+    flag_modified(player, "manual_badges")  # Tell SQLAlchemy the JSON field changed
+    db.commit()
+    db.refresh(player)
+
+    return {"message": "Badge added successfully", "badges": player.manual_badges}
+
+
+@router.delete("/players/{player_id}/badges/manual/{badge_name}")
+async def remove_manual_badge(
+    player_id: int,
+    badge_name: str,
+    db: Session = Depends(get_db)
+):
+    """
+    Remove a manual badge from a player (admin only).
+    """
+    # Check player exists
+    player = db.query(Player).filter(Player.id == player_id).first()
+    if not player:
+        raise HTTPException(status_code=404, detail="Player not found")
+
+    # Check if player has manual badges
+    if not player.manual_badges:
+        raise HTTPException(status_code=404, detail="No manual badges found")
+
+    # Find and remove badge
+    original_length = len(player.manual_badges)
+    player.manual_badges = [b for b in player.manual_badges if b.get("name") != badge_name]
+
+    if len(player.manual_badges) == original_length:
+        raise HTTPException(status_code=404, detail="Badge not found")
+
+    flag_modified(player, "manual_badges")  # Tell SQLAlchemy the JSON field changed
+    db.commit()
+    db.refresh(player)
+
+    return {"message": "Badge removed successfully", "badges": player.manual_badges}
