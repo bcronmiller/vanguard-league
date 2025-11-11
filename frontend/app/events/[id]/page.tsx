@@ -148,27 +148,42 @@ export default function EventDetailPage({ params }: { params: { id: string } }) 
           <h2 className="text-4xl font-heading font-bold mb-4 text-gray-900 dark:text-white">
             {event.name}
           </h2>
-          <div className="grid md:grid-cols-2 gap-6 text-lg">
-            <div>
+          <div className="space-y-6">
+            {/* Date */}
+            <div className="text-lg">
               <span className="text-gray-600 dark:text-gray-400">Date:</span>{' '}
               <span className="font-bold">{formatDate(event.date)}</span>
             </div>
-            <div>
-              <span className="text-gray-600 dark:text-gray-400">Venue:</span>{' '}
-              <span className="font-bold">{event.venue}</span>
+
+            {/* Venue with Map Link */}
+            <div className="text-lg">
+              <div className="text-gray-600 dark:text-gray-400 mb-2">Location:</div>
+              <a
+                href={`https://maps.google.com/?q=${encodeURIComponent(event.venue)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 font-bold text-mbjj-blue hover:text-mbjj-red transition-colors"
+              >
+                <span className="text-2xl">📍</span>
+                <span>{event.venue}</span>
+              </a>
             </div>
-            {event.fighter_arrival_time && (
-              <div>
-                <span className="text-gray-600 dark:text-gray-400">Fighter Check-In:</span>{' '}
-                <span className="font-bold">{formatTime(event.fighter_arrival_time)}</span>
-              </div>
-            )}
-            {event.event_start_time && (
-              <div>
-                <span className="text-gray-600 dark:text-gray-400">Event Start:</span>{' '}
-                <span className="font-bold">{formatTime(event.event_start_time)}</span>
-              </div>
-            )}
+
+            {/* Times Grid */}
+            <div className="grid md:grid-cols-2 gap-6 text-lg">
+              {event.fighter_arrival_time && (
+                <div>
+                  <span className="text-gray-600 dark:text-gray-400">Weigh-Ins:</span>{' '}
+                  <span className="font-bold">{formatTime(event.fighter_arrival_time)}</span>
+                </div>
+              )}
+              {event.event_start_time && (
+                <div>
+                  <span className="text-gray-600 dark:text-gray-400">Event Start:</span>{' '}
+                  <span className="font-bold">{formatTime(event.event_start_time)}</span>
+                </div>
+              )}
+            </div>
           </div>
         </div>
 
