@@ -1,6 +1,6 @@
 'use client';
 
-import { use, useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { config } from '@/lib/config';
 
 interface Event {
@@ -39,9 +39,14 @@ const EVENT_VIDEOS: { [key: number]: string } = {
   // Add more events and their YouTube video IDs here
 };
 
-export default function EventDetailPage({ params }: { params: Promise<{ id: string }> }) {
-  const resolvedParams = use(params);
-  const eventId = parseInt(resolvedParams.id);
+// Map event IDs to Google Form URLs (for registration)
+const EVENT_FORMS: { [key: number]: string } = {
+  2: 'https://forms.gle/2HzZfk8VuGBVNfnx5', // VGL 2 registration
+  // Add more event registration forms here
+};
+
+export default function EventDetailPage({ params }: { params: { id: string } }) {
+  const eventId = parseInt(params.id);
 
   const [event, setEvent] = useState<Event | null>(null);
   const [ladder, setLadder] = useState<Standing[]>([]);
@@ -166,6 +171,32 @@ export default function EventDetailPage({ params }: { params: Promise<{ id: stri
             )}
           </div>
         </div>
+
+        {/* Registration Form Section */}
+        {EVENT_FORMS[eventId] && (
+          <div className="mb-8">
+            <h3 className="text-3xl font-heading font-bold mb-6 text-gray-900 dark:text-white">
+              PRE-REGISTER FOR THIS EVENT
+            </h3>
+            <div className="bg-white dark:bg-gray-800 rounded-lg overflow-hidden shadow-lg border-t-4 border-mbjj-blue p-6">
+              <p className="text-gray-700 dark:text-gray-300 mb-6 text-center">
+                Pre-register to let us know you're interested in competing. Not a firm commitment.
+              </p>
+              <div className="relative" style={{ paddingBottom: '800px', minHeight: '800px' }}>
+                <iframe
+                  className="absolute top-0 left-0 w-full h-full"
+                  src={EVENT_FORMS[eventId]}
+                  title={`${event.name} Registration`}
+                  frameBorder="0"
+                  marginHeight={0}
+                  marginWidth={0}
+                >
+                  Loading…
+                </iframe>
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* Video Section */}
         {videoId && (

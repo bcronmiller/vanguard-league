@@ -14,10 +14,23 @@
       "draws": 0,
       "win_rate": 0.75,
       "elo_rating": 1387.5217240222007,
-      "initial_elo_rating": 1333
+      "initial_elo_rating": 1333.33
     },
     {
       "rank": 2,
+      "player_id": 3,
+      "player_name": "*Hussain Samir",
+      "photo_url": null,
+      "belt_rank": "Blue",
+      "wins": 1,
+      "losses": 0,
+      "draws": 0,
+      "win_rate": 1,
+      "elo_rating": 1349.33,
+      "initial_elo_rating": 1333.33
+    },
+    {
+      "rank": 3,
       "player_id": 11,
       "player_name": "*Christian Banghart",
       "photo_url": null,
@@ -30,7 +43,7 @@
       "initial_elo_rating": 2000
     },
     {
-      "rank": 3,
+      "rank": 4,
       "player_id": 7,
       "player_name": "*Matt Crawford",
       "photo_url": null,
@@ -43,7 +56,7 @@
       "initial_elo_rating": 1600
     },
     {
-      "rank": 4,
+      "rank": 5,
       "player_id": 10,
       "player_name": "*Troy Wittman",
       "photo_url": null,
@@ -56,7 +69,7 @@
       "initial_elo_rating": 2000
     },
     {
-      "rank": 5,
+      "rank": 6,
       "player_id": 4,
       "player_name": "*Josue Chevaz",
       "photo_url": null,
@@ -66,20 +79,20 @@
       "draws": 1,
       "win_rate": 0,
       "elo_rating": 1311.4410822360956,
-      "initial_elo_rating": 1333
+      "initial_elo_rating": 1333.33
     },
     {
-      "rank": 6,
+      "rank": 7,
       "player_id": 9,
       "player_name": "*Edrees Saifi",
       "photo_url": null,
       "belt_rank": "Blue",
       "wins": 0,
-      "losses": 2,
+      "losses": 3,
       "draws": 1,
       "win_rate": 0,
       "elo_rating": 1302.6456688622727,
-      "initial_elo_rating": 1333
+      "initial_elo_rating": 1333.33
     }
   ]
 }

@@ -9,6 +9,7 @@ interface Fighter {
     name: string;
     bjj_belt_rank: string | null;
     weight: number | null;
+    weight_class_name: string | null;
     elo_rating: number;
     initial_elo_rating?: number;
     photo_url: string | null;
@@ -34,8 +35,8 @@ export default function LightweightPage() {
       const res = await fetch(endpoint);
       if (res.ok) {
         const data = await res.json();
-        // Filter for lightweight only (<170 lbs)
-        const lightweight = data.filter((f: Fighter) => f.player.weight && f.player.weight < 170);
+        // Filter for lightweight only (by assigned weight class)
+        const lightweight = data.filter((f: Fighter) => f.player.weight_class_name === 'Lightweight');
 
         // Sort by ELO gain (performance vs. expectations) for rankings
         const sorted = lightweight.sort((a: Fighter, b: Fighter) => {

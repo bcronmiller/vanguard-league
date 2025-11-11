@@ -9,6 +9,7 @@ interface Fighter {
     name: string;
     bjj_belt_rank: string | null;
     weight: number | null;
+    weight_class_name: string | null;
     elo_rating: number;
     initial_elo_rating?: number;
     photo_url: string | null;
@@ -34,8 +35,8 @@ export default function HeavyweightPage() {
       const res = await fetch(endpoint);
       if (res.ok) {
         const data = await res.json();
-        // Filter for heavyweight only (>200 lbs)
-        const heavyweight = data.filter((f: Fighter) => f.player.weight && f.player.weight > 200);
+        // Filter for heavyweight only (by assigned weight class)
+        const heavyweight = data.filter((f: Fighter) => f.player.weight_class_name === 'Heavyweight');
 
         // Sort by ELO gain (performance vs. expectations) for rankings
         const sorted = heavyweight.sort((a: Fighter, b: Fighter) => {

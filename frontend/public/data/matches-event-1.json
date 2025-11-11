@@ -90,24 +90,6 @@
     "synced_to_rankade": true
   },
   {
-    "id": 6,
-    "match_number": 6,
-    "player_a": {
-      "id": 3,
-      "name": "*Hussain Samir",
-      "photo_url": null
-    },
-    "player_b": {
-      "id": 6,
-      "name": "*Josh Rivera",
-      "photo_url": null
-    },
-    "result": "a_win",
-    "method": "Darce",
-    "duration_seconds": 140,
-    "synced_to_rankade": true
-  },
-  {
     "id": 7,
     "match_number": 7,
     "player_a": {
@@ -288,24 +270,6 @@
     "synced_to_rankade": true
   },
   {
-    "id": 17,
-    "match_number": 17,
-    "player_a": {
-      "id": 8,
-      "name": "*John Michael El Mapache Rodriguez Uhweta",
-      "photo_url": null
-    },
-    "player_b": {
-      "id": 3,
-      "name": "*Hussain Samir",
-      "photo_url": null
-    },
-    "result": "a_win",
-    "method": "Americana",
-    "duration_seconds": 300,
-    "synced_to_rankade": true
-  },
-  {
     "id": 74,
     "match_number": 74,
     "player_a": {
@@ -340,5 +304,41 @@
     "method": "Reverse Triangle Cutting Armbar",
     "duration_seconds": 180,
     "synced_to_rankade": false
+  },
+  {
+    "id": 6,
+    "match_number": 6,
+    "player_a": {
+      "id": 3,
+      "name": "*Hussain Samir",
+      "photo_url": null
+    },
+    "player_b": {
+      "id": 6,
+      "name": "*Josh Rivera",
+      "photo_url": null
+    },
+    "result": "a_win",
+    "method": "Darce",
+    "duration_seconds": 140,
+    "synced_to_rankade": true
+  },
+  {
+    "id": 17,
+    "match_number": 17,
+    "player_a": {
+      "id": 8,
+      "name": "*John Michael El Mapache Rodriguez Uhweta",
+      "photo_url": null
+    },
+    "player_b": {
+      "id": 3,
+      "name": "*Hussain Samir",
+      "photo_url": null
+    },
+    "result": "a_win",
+    "method": "Americana",
+    "duration_seconds": 300,
+    "synced_to_rankade": true
   }
 ]

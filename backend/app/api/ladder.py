@@ -198,16 +198,10 @@ def get_overall_ladder(db: Session = Depends(get_db)):
             elif match.result == MatchResult.DRAW:
                 draws += 1
 
-        # Only include fighters with at least one in-class match
+        # Only include fighters with at least one match
         if wins + losses + draws > 0:
-            # Get initial ELO based on weight class
-            initial_elo = None
-            if player_weight_class == "lightweight":
-                initial_elo = player.initial_elo_lightweight
-            elif player_weight_class == "middleweight":
-                initial_elo = player.initial_elo_middleweight
-            elif player_weight_class == "heavyweight":
-                initial_elo = player.initial_elo_heavyweight
+            # For P4P (overall), use belt-based starting ELO
+            initial_elo = get_initial_elo(player.bjj_belt_rank)
 
             standings.append({
                 "player": {
@@ -387,14 +381,15 @@ async def get_ladder_by_weight_class(
     if not weight_class:
         raise HTTPException(status_code=404, detail="Weight class not found")
 
-    # Get all entries for this event in this weight class
-    entries = db.query(Entry).filter(
-        Entry.event_id == event_id,
-        Entry.weight_class_id == weight_class.id
+    # Get all matches for this event fought at this weight class
+    matches = db.query(Match).filter(
+        Match.event_id == event_id,
+        Match.weight_class_id == weight_class.id,
+        Match.result.isnot(None)
     ).all()
 
-    if not entries:
-        # Return empty standings if no one competed in this weight class
+    if not matches:
+        # Return empty standings if no matches in this weight class
         return LadderResponse(
             event_id=event.id,
             event_name=f"{event.name} - {weight_class_name}",
@@ -402,31 +397,31 @@ async def get_ladder_by_weight_class(
             standings=[]
         )
 
-    # Get player IDs who competed in this weight class
-    weight_class_player_ids = {entry.player_id for entry in entries}
-
-    # Get all matches for this event
-    matches = db.query(Match).filter(Match.event_id == event_id).all()
+    # Determine which ELO field to use for this weight class
+    elo_field_map = {
+        'Lightweight': ('elo_lightweight', 'initial_elo_lightweight'),
+        'Middleweight': ('elo_middleweight', 'initial_elo_middleweight'),
+        'Heavyweight': ('elo_heavyweight', 'initial_elo_heavyweight')
+    }
+    elo_field, initial_elo_field = elo_field_map.get(weight_class_name, ('elo_rating', None))
 
     # Calculate records for each player in this weight class
     player_records = {}
 
     for match in matches:
-        # Only include matches where both players are in this weight class
-        if match.a_player_id not in weight_class_player_ids or match.b_player_id not in weight_class_player_ids:
-            continue
 
         # Initialize player A if not seen
         if match.a_player_id not in player_records:
             player_a = db.query(Player).filter(Player.id == match.a_player_id).first()
             if player_a:
-                initial_elo = get_initial_elo(player_a.bjj_belt_rank)
+                current_elo = getattr(player_a, elo_field, None) or get_initial_elo(player_a.bjj_belt_rank)
+                initial_elo = getattr(player_a, initial_elo_field, None) if initial_elo_field else get_initial_elo(player_a.bjj_belt_rank)
                 player_records[match.a_player_id] = {
                     'player_id': player_a.id,
                     'player_name': player_a.name,
                     'photo_url': player_a.photo_url,
                     'belt_rank': player_a.bjj_belt_rank,
-                    'elo_rating': player_a.elo_rating,
+                    'elo_rating': current_elo,
                     'initial_elo_rating': initial_elo,
                     'wins': 0,
                     'losses': 0,
@@ -437,13 +432,14 @@ async def get_ladder_by_weight_class(
         if match.b_player_id not in player_records:
             player_b = db.query(Player).filter(Player.id == match.b_player_id).first()
             if player_b:
-                initial_elo = get_initial_elo(player_b.bjj_belt_rank)
+                current_elo = getattr(player_b, elo_field, None) or get_initial_elo(player_b.bjj_belt_rank)
+                initial_elo = getattr(player_b, initial_elo_field, None) if initial_elo_field else get_initial_elo(player_b.bjj_belt_rank)
                 player_records[match.b_player_id] = {
                     'player_id': player_b.id,
                     'player_name': player_b.name,
                     'photo_url': player_b.photo_url,
                     'belt_rank': player_b.bjj_belt_rank,
-                    'elo_rating': player_b.elo_rating,
+                    'elo_rating': current_elo,
                     'initial_elo_rating': initial_elo,
                     'wins': 0,
                     'losses': 0,

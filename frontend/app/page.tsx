@@ -72,14 +72,14 @@ export default function Home() {
       const middleweight: any[] = [];
       const heavyweight: any[] = [];
 
-      // Separate by weight class based on player weight
+      // Separate by assigned weight class (not raw weight)
       for (const standing of allLadder) {
-        const weight = standing.player.weight;
-        if (weight && weight < 170) {
+        const weightClassName = standing.player.weight_class_name;
+        if (weightClassName === 'Lightweight') {
           lightweight.push(standing);
-        } else if (weight && weight <= 200) {
+        } else if (weightClassName === 'Middleweight') {
           middleweight.push(standing);
-        } else if (weight && weight > 200) {
+        } else if (weightClassName === 'Heavyweight') {
           heavyweight.push(standing);
         }
       }

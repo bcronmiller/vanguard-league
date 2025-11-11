@@ -19,6 +19,7 @@ class Match(Base):
     event_id = Column(Integer, ForeignKey("events.id"), nullable=False)
     a_player_id = Column(Integer, ForeignKey("players.id"), nullable=False)
     b_player_id = Column(Integer, ForeignKey("players.id"), nullable=False)
+    weight_class_id = Column(Integer, ForeignKey("weight_classes.id"), nullable=True)  # Which division this match was fought at
     result = Column(SQLEnum(MatchResult), nullable=True)
     method = Column(String, nullable=True)  # submission type or "draw"
     duration_seconds = Column(Integer, nullable=True)
@@ -39,3 +40,4 @@ class Match(Base):
     event = relationship("Event", back_populates="matches")
     player_a = relationship("Player", foreign_keys=[a_player_id])
     player_b = relationship("Player", foreign_keys=[b_player_id])
+    weight_class = relationship("WeightClass")
