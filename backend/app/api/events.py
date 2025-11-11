@@ -316,8 +316,8 @@ def check_in_fighter(
     weigh_in = WeighIn(
         event_id=event_id,
         player_id=check_in.player_id,
-        weight_lbs=check_in.current_weight,
-        weighed_in_at=datetime.utcnow()
+        weight=check_in.current_weight,
+        weighed_at=datetime.utcnow()
     )
     db.add(weigh_in)
 
