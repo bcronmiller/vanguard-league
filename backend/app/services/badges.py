@@ -159,8 +159,8 @@ def get_player_badges(player_id: int, db: Session) -> List[Dict]:
                 "icon": "🦴"  # Bone - breaking the arm!
             })
 
-        # BONE COLLECTOR - 3+ Armbar submissions
-        if armbar_count >= 3:
+        # BONE COLLECTOR - 5+ Armbar submissions
+        if armbar_count >= 5:
             badges.append({
                 "name": "Bone Collector",
                 "description": f"{armbar_count} armbar submissions earned",

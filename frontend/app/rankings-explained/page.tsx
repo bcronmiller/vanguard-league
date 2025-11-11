@@ -267,7 +267,7 @@ export default function RankingsExplainedPage() {
             <div className="bg-white/10 backdrop-blur rounded-lg p-4">
               <div className="text-3xl mb-2">💀</div>
               <div className="text-xl font-heading font-bold mb-1">BONE COLLECTOR</div>
-              <p className="text-white/90">Earn 3+ armbar submissions. You break arms for a living!</p>
+              <p className="text-white/90">Earn 5+ armbar submissions. You break arms for a living!</p>
             </div>
           </div>
 
