@@ -55,7 +55,7 @@ export default function BracketsPage({ params }: { params: { id: string } | Prom
   const [players, setPlayers] = useState<Record<number, Player>>({});
   const [loading, setLoading] = useState(true);
   const [generating, setGenerating] = useState(false);
-  const [format, setFormat] = useState<'SINGLE_ELIMINATION' | 'DOUBLE_ELIMINATION' | 'SWISS' | 'ROUND_ROBIN' | 'GUARANTEED_MATCHES'>('SINGLE_ELIMINATION');
+  const [format, setFormat] = useState<'single_elimination' | 'double_elimination' | 'swiss' | 'round_robin' | 'guaranteed_matches'>('single_elimination');
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedMatchId, setSelectedMatchId] = useState<number | null>(null);
 
@@ -233,9 +233,9 @@ export default function BracketsPage({ params }: { params: { id: string } | Prom
 
             <div className="max-w-md mx-auto space-y-4 mb-8">
               <button
-                onClick={() => setFormat('ROUND_ROBIN')}
+                onClick={() => setFormat('round_robin')}
                 className={`w-full p-4 rounded-lg border-2 font-heading font-bold text-lg transition ${
-                  format === 'ROUND_ROBIN'
+                  format === 'round_robin'
                     ? 'border-mbjj-red bg-mbjj-red text-white'
                     : 'border-gray-300 hover:border-mbjj-red'
                 }`}
@@ -245,9 +245,9 @@ export default function BracketsPage({ params }: { params: { id: string } | Prom
               </button>
 
               <button
-                onClick={() => setFormat('SINGLE_ELIMINATION')}
+                onClick={() => setFormat('single_elimination')}
                 className={`w-full p-4 rounded-lg border-2 font-heading font-bold text-lg transition ${
-                  format === 'SINGLE_ELIMINATION'
+                  format === 'single_elimination'
                     ? 'border-mbjj-red bg-mbjj-red text-white'
                     : 'border-gray-300 hover:border-mbjj-red'
                 }`}
@@ -257,9 +257,9 @@ export default function BracketsPage({ params }: { params: { id: string } | Prom
               </button>
 
               <button
-                onClick={() => setFormat('DOUBLE_ELIMINATION')}
+                onClick={() => setFormat('double_elimination')}
                 className={`w-full p-4 rounded-lg border-2 font-heading font-bold text-lg transition ${
-                  format === 'DOUBLE_ELIMINATION'
+                  format === 'double_elimination'
                     ? 'border-mbjj-red bg-mbjj-red text-white'
                     : 'border-gray-300 hover:border-mbjj-red'
                 }`}
@@ -269,9 +269,9 @@ export default function BracketsPage({ params }: { params: { id: string } | Prom
               </button>
 
               <button
-                onClick={() => setFormat('SWISS')}
+                onClick={() => setFormat('swiss')}
                 className={`w-full p-4 rounded-lg border-2 font-heading font-bold text-lg transition ${
-                  format === 'SWISS'
+                  format === 'swiss'
                     ? 'border-mbjj-red bg-mbjj-red text-white'
                     : 'border-gray-300 hover:border-mbjj-red'
                 }`}
