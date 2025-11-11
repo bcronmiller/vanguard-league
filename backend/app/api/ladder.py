@@ -270,7 +270,10 @@ async def get_ladder(event_id: int, db: Session = Depends(get_db)):
                 'draws': 0
             }
 
-        # Update records
+        # Update records (skip if either player is None - byes or TBD matches)
+        if match.a_player_id is None or match.b_player_id is None:
+            continue
+
         if match.result == MatchResult.PLAYER_A_WIN:
             player_records[match.a_player_id]['wins'] += 1
             player_records[match.b_player_id]['losses'] += 1
@@ -432,7 +435,10 @@ async def get_ladder_by_weight_class(
                 'draws': 0
             }
 
-        # Update records
+        # Update records (skip if either player is None - byes or TBD matches)
+        if match.a_player_id is None or match.b_player_id is None:
+            continue
+
         if match.result == MatchResult.PLAYER_A_WIN:
             player_records[match.a_player_id]['wins'] += 1
             player_records[match.b_player_id]['losses'] += 1
