@@ -1002,7 +1002,9 @@ class TournamentEngine:
             self._generate_next_guaranteed_round(completed_round)
         elif bracket_format.format_type == TournamentFormat.DOUBLE_ELIMINATION:
             self._generate_next_double_elim_round(completed_round)
-        # Single elimination and round robin generate all rounds upfront, so no next round needed
+        elif bracket_format.format_type == TournamentFormat.ROUND_ROBIN:
+            self._generate_next_round_robin_round(completed_round)
+        # Single elimination generates all rounds upfront and activates via dependencies
 
     def _generate_next_swiss_round(self, completed_round: BracketRound):
         """
@@ -1221,6 +1223,41 @@ class TournamentEngine:
                 paired.add(player_id)
 
         return pairings
+
+    def _generate_next_round_robin_round(self, completed_round: BracketRound):
+        """
+        Activate the next round in a round robin tournament.
+
+        Round robin tournaments have all rounds pre-created during initial
+        bracket generation. This function activates the next pending round.
+        """
+        bracket_format = completed_round.bracket_format
+
+        # Find the next pending round
+        next_round = self.db.query(BracketRound).filter(
+            BracketRound.bracket_format_id == bracket_format.id,
+            BracketRound.status == RoundStatus.PENDING
+        ).order_by(BracketRound.round_number).first()
+
+        if not next_round:
+            # No more rounds - finalize bracket
+            bracket_format.is_finalized = True
+            self.db.commit()
+            return
+
+        # Activate the next round
+        next_round.status = RoundStatus.IN_PROGRESS
+
+        # Activate all matches in this round
+        matches = self.db.query(Match).filter(
+            Match.bracket_round_id == next_round.id
+        ).all()
+
+        for match in matches:
+            if match.match_status == MatchStatus.PENDING:
+                match.match_status = MatchStatus.READY
+
+        self.db.commit()
 
     def _generate_next_guaranteed_round(self, completed_round: BracketRound):
         """
