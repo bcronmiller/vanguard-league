@@ -226,5 +226,24 @@
     "created_at": "2025-11-09T18:57:19.336251",
     "updated_at": "2025-11-12T04:46:10.834096",
     "weight_class_name": "Heavyweight"
+  },
+  {
+    "name": "George Battistelli",
+    "belt": null,
+    "team": null,
+    "academy": "VanGuard Gym",
+    "photo_url": "https://i.imgur.com/w6vvxqV.jpg",
+    "age": null,
+    "bjj_belt_rank": "Purple",
+    "weight": 180,
+    "weight_class_id": 2,
+    "elo_rating": 1600,
+    "rankade_ree_score": null,
+    "id": 15,
+    "rankade_id": null,
+    "active": true,
+    "created_at": "2025-11-12T19:06:19.851150",
+    "updated_at": "2025-11-12T19:07:54.403769",
+    "weight_class_name": "Middleweight"
   }
 ]
