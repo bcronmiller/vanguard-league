@@ -140,8 +140,8 @@ export default function PoundForPoundPage() {
             <div className="bg-white dark:bg-gray-800 rounded p-4 border-l-4 border-yellow-500 mb-3">
               <p className="font-bold mb-2">Why can a Blue Belt rank above a Black Belt?</p>
               <p className="text-sm leading-relaxed">
-                A Blue Belt who gains <strong className="text-green-600 dark:text-green-400">+54 ELO points</strong> has vastly outperformed expectations (started at 1333 → now 1387).
-                A Black Belt who gains <strong className="text-green-600 dark:text-green-400">+4.5 points</strong> is performing at expectations (started at 2000 → now 2004.5).
+                A Blue Belt who gains <strong className="text-green-600 dark:text-green-400">+56 ELO points</strong> has vastly outperformed expectations (started at 1400 → now 1456).
+                A Black Belt who gains <strong className="text-green-600 dark:text-green-400">+9 points</strong> is performing at expectations (started at 2000 → now 2009).
                 The Blue Belt's performance is more impressive <em>relative to their skill level</em>, even if they lost head-to-head.
               </p>
             </div>
@@ -154,7 +154,7 @@ export default function PoundForPoundPage() {
               </p>
             </div>
             <p className="text-sm mt-3">
-              <strong>Starting ELO by Belt:</strong> Black (2000) • Brown (1600) • Purple (1467) • Blue (1333) • White (1200)
+              <strong>Starting ELO by Belt:</strong> Black (2000) • Brown (1800) • Purple (1600) • Blue (1400) • White (1200)
             </p>
           </div>
         </div>

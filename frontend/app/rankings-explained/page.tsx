@@ -40,7 +40,7 @@ export default function RankingsExplainedPage() {
             <h3 className="text-xl font-heading font-bold mb-3">Example:</h3>
             <ul className="space-y-2">
               <li className="flex justify-between">
-                <span>Blue Belt Fighter: 1333 → 1500 ELO (2-1 record)</span>
+                <span>Blue Belt Fighter: 1400 → 1567 ELO (2-1 record)</span>
                 <span className="font-bold">Rank #1 (+167)</span>
               </li>
               <li className="flex justify-between">
@@ -72,15 +72,15 @@ export default function RankingsExplainedPage() {
             </div>
             <div className="bg-blue-100 dark:bg-blue-900/30 rounded-lg p-4">
               <div className="text-2xl font-heading font-bold text-gray-900 dark:text-white">Blue Belt</div>
-              <div className="text-3xl font-heading font-bold text-mbjj-blue">1333 ELO</div>
+              <div className="text-3xl font-heading font-bold text-mbjj-blue">1400 ELO</div>
             </div>
             <div className="bg-purple-100 dark:bg-purple-900/30 rounded-lg p-4">
               <div className="text-2xl font-heading font-bold text-gray-900 dark:text-white">Purple Belt</div>
-              <div className="text-3xl font-heading font-bold text-purple-600 dark:text-purple-400">1467 ELO</div>
+              <div className="text-3xl font-heading font-bold text-purple-600 dark:text-purple-400">1600 ELO</div>
             </div>
             <div className="bg-amber-100 dark:bg-amber-900/30 rounded-lg p-4">
               <div className="text-2xl font-heading font-bold text-gray-900 dark:text-white">Brown Belt</div>
-              <div className="text-3xl font-heading font-bold text-amber-700 dark:text-amber-500">1600 ELO</div>
+              <div className="text-3xl font-heading font-bold text-amber-700 dark:text-amber-500">1800 ELO</div>
             </div>
             <div className="bg-gray-900 dark:bg-gray-600 rounded-lg p-4 md:col-span-2">
               <div className="text-2xl font-heading font-bold text-white">Black Belt</div>

@@ -2,11 +2,11 @@
 """
 Initialize ELO ratings for all players based on their belt rank.
 
-Starting ELO ratings:
+Starting ELO ratings (200pt increments):
 - Black belt: 2000
-- Brown belt: 1600
-- Purple belt: 1467
-- Blue belt: 1333
+- Brown belt: 1800
+- Purple belt: 1600
+- Blue belt: 1400
 - White belt: 1200
 """
 
@@ -22,12 +22,12 @@ from app.models.event import Event
 from sqlalchemy import or_
 import math
 
-# Belt-based starting ELO ratings
+# Belt-based starting ELO ratings (200pt increments)
 BELT_ELO = {
     "Black": 2000,
-    "Brown": 1600,
-    "Purple": 1467,
-    "Blue": 1333,
+    "Brown": 1800,
+    "Purple": 1600,
+    "Blue": 1400,
     "White": 1200
 }
 

@@ -129,7 +129,7 @@ export default function LightweightPage() {
               <ul className="text-sm text-gray-600 dark:text-gray-400 space-y-1 mb-3">
                 <li>• <strong>Big gains</strong> for beating higher-ranked opponents (upsets)</li>
                 <li>• <strong>Small gains</strong> for expected wins against equal or lower belts</li>
-                <li>• Starting ratings based on belt rank (White=1200, Blue=1333, Purple=1467, Brown=1600, Black=2000)</li>
+                <li>• Starting ratings based on belt rank (White=1200, Blue=1400, Purple=1600, Brown=1800, Black=2000)</li>
               </ul>
               <a
                 href="/rankings-explained"
