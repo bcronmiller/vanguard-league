@@ -293,24 +293,36 @@ export default function BracketsPage({ params }: { params: { id: string } | Prom
         ) : (
           <div>
             {/* Bracket Selector */}
-            {brackets.length > 1 && (
-              <div className="mb-6 flex gap-2">
-                {brackets.map((bracket) => (
-                  <button
-                    key={bracket.id}
-                    onClick={() => setSelectedBracket(bracket)}
-                    className={`px-6 py-3 rounded-lg font-heading font-bold transition ${
-                      selectedBracket?.id === bracket.id
-                        ? 'bg-mbjj-red text-white'
-                        : 'bg-gray-200 hover:bg-gray-300 text-gray-700'
-                    }`}
-                  >
-                    {bracket.format_type.replace(/_/g, ' ')}
-                    {bracket.weight_class_id && ' (Weight Class)'}
-                  </button>
-                ))}
-              </div>
-            )}
+            <div className="mb-6 flex gap-4 items-center">
+              {brackets.length > 1 && (
+                <div className="flex gap-2">
+                  {brackets.map((bracket) => (
+                    <button
+                      key={bracket.id}
+                      onClick={() => setSelectedBracket(bracket)}
+                      className={`px-6 py-3 rounded-lg font-heading font-bold transition ${
+                        selectedBracket?.id === bracket.id
+                          ? 'bg-mbjj-red text-white'
+                          : 'bg-gray-200 hover:bg-gray-300 text-gray-700'
+                      }`}
+                    >
+                      {bracket.format_type.replace(/_/g, ' ')}
+                      {bracket.weight_class_id && ' (Weight Class)'}
+                    </button>
+                  ))}
+                </div>
+              )}
+
+              {/* Visualization Link */}
+              <a
+                href={`/events/${eventId}/brackets/visualization`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-6 py-3 rounded-lg font-heading font-bold bg-blue-600 hover:bg-blue-700 text-white transition flex items-center gap-2"
+              >
+                📺 BROADCAST VIEW
+              </a>
+            </div>
 
             {/* Bracket Tree Visualization */}
             {rounds.length > 0 ? (

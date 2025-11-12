@@ -371,3 +371,85 @@ def delete_event(event_id: int, db: Session = Depends(get_db)):
             "weigh_ins": weighins_count
         }
     }
+
+
+@router.get("/events/{event_id}/brackets")
+async def get_event_brackets(event_id: int, db: Session = Depends(get_db)):
+    """Get all brackets for an event with full match and player details"""
+    from app.models.bracket_format import BracketFormat
+    from app.models.bracket_round import BracketRound
+    from sqlalchemy.orm import joinedload
+
+    # Get event
+    event = db.query(Event).filter(Event.id == event_id).first()
+    if not event:
+        raise HTTPException(status_code=404, detail="Event not found")
+
+    # Get all brackets for this event
+    brackets = db.query(BracketFormat).filter(
+        BracketFormat.event_id == event_id
+    ).all()
+
+    result = []
+    for bracket in brackets:
+        # Get all rounds for this bracket
+        rounds = db.query(BracketRound).filter(
+            BracketRound.bracket_format_id == bracket.id
+        ).order_by(BracketRound.round_number).all()
+
+        rounds_data = []
+        for round in rounds:
+            # Get all matches for this round with player data
+            matches = db.query(Match).filter(
+                Match.bracket_round_id == round.id
+            ).options(
+                joinedload(Match.player_a),
+                joinedload(Match.player_b)
+            ).order_by(Match.match_number).all()
+
+            matches_data = []
+            for match in matches:
+                match_dict = {
+                    "id": match.id,
+                    "match_number": match.match_number,
+                    "a_player_id": match.a_player_id,
+                    "b_player_id": match.b_player_id,
+                    "result": match.result.value if match.result else None,
+                    "method": match.method,
+                    "duration_seconds": match.duration_seconds,
+                    "match_status": match.match_status.value,
+                }
+
+                # Add player details
+                if match.player_a:
+                    match_dict["player_a"] = {
+                        "id": match.player_a.id,
+                        "name": match.player_a.name
+                    }
+
+                if match.player_b:
+                    match_dict["player_b"] = {
+                        "id": match.player_b.id,
+                        "name": match.player_b.name
+                    }
+
+                matches_data.append(match_dict)
+
+            rounds_data.append({
+                "id": round.id,
+                "round_number": round.round_number,
+                "round_name": round.round_name,
+                "bracket_type": round.bracket_type,
+                "status": round.status.value,
+                "matches": matches_data
+            })
+
+        result.append({
+            "id": bracket.id,
+            "format_type": bracket.format_type.value,
+            "weight_class_id": bracket.weight_class_id,
+            "is_finalized": bracket.is_finalized,
+            "rounds": rounds_data
+        })
+
+    return result
