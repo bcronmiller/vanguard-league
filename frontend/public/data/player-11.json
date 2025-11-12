@@ -18,6 +18,63 @@
   "weight_class_name": null,
   "matches": [
     {
+      "match_id": 116,
+      "event_id": 9000,
+      "event_name": "Test Guaranteed Matches Event",
+      "event_date": "2025-11-12T20:15:42.377761",
+      "opponent": {
+        "id": 10,
+        "name": "Troy Wittman",
+        "photo_url": null
+      },
+      "result": "win",
+      "method": "Submission",
+      "duration_seconds": 195,
+      "match_number": 1,
+      "belt_rank": null,
+      "weight": null,
+      "weight_class": "Heavyweight",
+      "elo_change": null
+    },
+    {
+      "match_id": 113,
+      "event_id": 9000,
+      "event_name": "Test Guaranteed Matches Event",
+      "event_date": "2025-11-12T20:15:42.377761",
+      "opponent": {
+        "id": 1,
+        "name": "Brian Cronmiller",
+        "photo_url": "https://lh3.googleusercontent.com/a/ACg8ocJOJ1p_Vj0Va5mTGZ-CnXknVOQQQiQcaswy47wZRN2jz4uZIRKCZg=s96-c"
+      },
+      "result": "win",
+      "method": "Submission",
+      "duration_seconds": 210,
+      "match_number": 1,
+      "belt_rank": null,
+      "weight": null,
+      "weight_class": "Heavyweight",
+      "elo_change": null
+    },
+    {
+      "match_id": 111,
+      "event_id": 9000,
+      "event_name": "Test Guaranteed Matches Event",
+      "event_date": "2025-11-12T20:15:42.377761",
+      "opponent": {
+        "id": 8,
+        "name": "John Michael El Mapache Rodriguez Uhweta",
+        "photo_url": null
+      },
+      "result": "win",
+      "method": "Submission",
+      "duration_seconds": 180,
+      "match_number": 2,
+      "belt_rank": null,
+      "weight": null,
+      "weight_class": "Heavyweight",
+      "elo_change": null
+    },
+    {
       "match_id": 16,
       "event_id": 1,
       "event_name": "VGL 1",
@@ -95,6 +152,11 @@
     }
   ],
   "badges": [
+    {
+      "name": "On Fire",
+      "description": "4 wins in a row",
+      "icon": "🔥"
+    },
     {
       "name": "Triangle",
       "description": "Triangle submission earned",
