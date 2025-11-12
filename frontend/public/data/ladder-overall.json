@@ -6,7 +6,7 @@
       "bjj_belt_rank": "Black",
       "weight": 203,
       "weight_class_name": "Heavyweight",
-      "elo_rating": 2004.542231954942,
+      "elo_rating": 2009.1523435199547,
       "initial_elo_rating": 2000,
       "photo_url": null,
       "academy": "VanGuard Gym"
@@ -22,8 +22,8 @@
       "bjj_belt_rank": "Purple",
       "weight": 149.7,
       "weight_class_name": "Lightweight",
-      "elo_rating": 1502.8529968666,
-      "initial_elo_rating": 1467,
+      "elo_rating": 1631.4715127061438,
+      "initial_elo_rating": 1600,
       "photo_url": null,
       "academy": "VanGuard Gym"
     },
@@ -38,7 +38,7 @@
       "bjj_belt_rank": "Black",
       "weight": 215,
       "weight_class_name": "Heavyweight",
-      "elo_rating": 1987.7023319440266,
+      "elo_rating": 1993.0915289485029,
       "initial_elo_rating": 2000,
       "photo_url": null,
       "academy": "Leo Dalla BJJ"
@@ -54,8 +54,8 @@
       "bjj_belt_rank": "Blue",
       "weight": 206.6,
       "weight_class_name": "Heavyweight",
-      "elo_rating": 1387.5217240222007,
-      "initial_elo_rating": 1333,
+      "elo_rating": 1456.6026532125022,
+      "initial_elo_rating": 1400,
       "photo_url": null,
       "academy": "VanGuard Gym"
     },
@@ -70,8 +70,8 @@
       "bjj_belt_rank": "Purple",
       "weight": 156,
       "weight_class_name": "Lightweight",
-      "elo_rating": 1470.7781147538794,
-      "initial_elo_rating": 1467,
+      "elo_rating": 1599.4039331616434,
+      "initial_elo_rating": 1600,
       "photo_url": null,
       "academy": "Kaizen MMA"
     },
@@ -86,8 +86,8 @@
       "bjj_belt_rank": "Blue",
       "weight": 167.8,
       "weight_class_name": "Lightweight",
-      "elo_rating": 1342.6048527058874,
-      "initial_elo_rating": 1333,
+      "elo_rating": 1414.2621016518635,
+      "initial_elo_rating": 1400,
       "photo_url": null,
       "academy": "VanGuard Gym"
     },
@@ -102,8 +102,8 @@
       "bjj_belt_rank": "Brown",
       "weight": 259,
       "weight_class_name": "Heavyweight",
-      "elo_rating": 1590.1369609804622,
-      "initial_elo_rating": 1600,
+      "elo_rating": 1775.7929184382822,
+      "initial_elo_rating": 1800,
       "photo_url": null,
       "academy": "Kaizen MMA"
     },
@@ -113,29 +113,13 @@
   },
   {
     "player": {
-      "id": 9,
-      "name": "*Edrees Saifi",
-      "bjj_belt_rank": "Blue",
-      "weight": 207,
-      "weight_class_name": "Heavyweight",
-      "elo_rating": 1302.6456688622727,
-      "initial_elo_rating": 1333,
-      "photo_url": null,
-      "academy": "VanGuard Gym"
-    },
-    "wins": 0,
-    "losses": 3,
-    "draws": 1
-  },
-  {
-    "player": {
       "id": 6,
       "name": "*Josh Rivera",
       "bjj_belt_rank": "Blue",
       "weight": 156.1,
       "weight_class_name": "Lightweight",
-      "elo_rating": 1299.764035673633,
-      "initial_elo_rating": 1333,
+      "elo_rating": 1370.8624524803492,
+      "initial_elo_rating": 1400,
       "photo_url": null,
       "academy": "VanGuard Gym"
     },
@@ -145,13 +129,29 @@
   },
   {
     "player": {
+      "id": 9,
+      "name": "*Edrees Saifi",
+      "bjj_belt_rank": "Blue",
+      "weight": 207,
+      "weight_class_name": "Heavyweight",
+      "elo_rating": 1369.1713937521972,
+      "initial_elo_rating": 1400,
+      "photo_url": null,
+      "academy": "VanGuard Gym"
+    },
+    "wins": 0,
+    "losses": 3,
+    "draws": 1
+  },
+  {
+    "player": {
       "id": 4,
       "name": "*Josue Chevaz",
       "bjj_belt_rank": "Blue",
       "weight": 194.9,
       "weight_class_name": "Heavyweight",
-      "elo_rating": 1311.4410822360956,
-      "initial_elo_rating": 1333,
+      "elo_rating": 1380.1891621285608,
+      "initial_elo_rating": 1400,
       "photo_url": null,
       "academy": "VanGuard Gym"
     },

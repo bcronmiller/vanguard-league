@@ -12,12 +12,12 @@ from sqlalchemy import or_
 from app.models.player import Player
 from app.models.match import Match, MatchResult
 
-# Belt-based starting ELO ratings
+# Belt-based starting ELO ratings (200pt increments)
 BELT_ELO = {
     "Black": 2000,
-    "Brown": 1600,
-    "Purple": 1467,
-    "Blue": 1333,
+    "Brown": 1800,
+    "Purple": 1600,
+    "Blue": 1400,
     "White": 1200
 }
 

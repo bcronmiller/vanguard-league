@@ -51,15 +51,15 @@ class LadderResponse(BaseModel):
 
 
 def get_initial_elo(belt_rank: str | None) -> float:
-    """Get starting ELO rating based on belt rank"""
+    """Get starting ELO rating based on belt rank (200pt increments)"""
     belt_elos = {
         "Black": 2000.0,
-        "Brown": 1600.0,
-        "Purple": 1467.0,
-        "Blue": 1333.0,
+        "Brown": 1800.0,
+        "Purple": 1600.0,
+        "Blue": 1400.0,
         "White": 1200.0
     }
-    return belt_elos.get(belt_rank or "White", 1333.0)  # Default to Blue belt rating
+    return belt_elos.get(belt_rank or "White", 1400.0)  # Default to Blue belt rating
 
 
 def get_head_to_head_record(player_a_id: int, player_b_id: int, event_id: int, db: Session) -> tuple[int, int]:

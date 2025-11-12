@@ -18,24 +18,6 @@
     "synced_to_rankade": true
   },
   {
-    "id": 2,
-    "match_number": 2,
-    "player_a": {
-      "id": 7,
-      "name": "*Matt Crawford",
-      "photo_url": null
-    },
-    "player_b": {
-      "id": 4,
-      "name": "*Josue Chevaz",
-      "photo_url": null
-    },
-    "result": "a_win",
-    "method": null,
-    "duration_seconds": null,
-    "synced_to_rankade": true
-  },
-  {
     "id": 3,
     "match_number": 3,
     "player_a": {
@@ -72,39 +54,21 @@
     "synced_to_rankade": true
   },
   {
-    "id": 5,
-    "match_number": 5,
+    "id": 2,
+    "match_number": 2,
     "player_a": {
-      "id": 10,
-      "name": "*Troy Wittman",
-      "photo_url": null
-    },
-    "player_b": {
       "id": 7,
       "name": "*Matt Crawford",
       "photo_url": null
     },
+    "player_b": {
+      "id": 4,
+      "name": "*Josue Chevaz",
+      "photo_url": null
+    },
     "result": "a_win",
-    "method": "Darce",
+    "method": null,
     "duration_seconds": null,
-    "synced_to_rankade": true
-  },
-  {
-    "id": 7,
-    "match_number": 7,
-    "player_a": {
-      "id": 5,
-      "name": "Nick Newbold",
-      "photo_url": null
-    },
-    "player_b": {
-      "id": 7,
-      "name": "*Matt Crawford",
-      "photo_url": null
-    },
-    "result": "a_win",
-    "method": "Kneebar",
-    "duration_seconds": 90,
     "synced_to_rankade": true
   },
   {
@@ -144,42 +108,6 @@
     "synced_to_rankade": true
   },
   {
-    "id": 10,
-    "match_number": 10,
-    "player_a": {
-      "id": 8,
-      "name": "*John Michael El Mapache Rodriguez Uhweta",
-      "photo_url": null
-    },
-    "player_b": {
-      "id": 6,
-      "name": "*Josh Rivera",
-      "photo_url": null
-    },
-    "result": "a_win",
-    "method": "Head and Arm Choke",
-    "duration_seconds": 160,
-    "synced_to_rankade": true
-  },
-  {
-    "id": 11,
-    "match_number": 11,
-    "player_a": {
-      "id": 2,
-      "name": "*Alex Stewart",
-      "photo_url": null
-    },
-    "player_b": {
-      "id": 3,
-      "name": "*Hussain Samir",
-      "photo_url": null
-    },
-    "result": "a_win",
-    "method": "Knee Bar",
-    "duration_seconds": 30,
-    "synced_to_rankade": true
-  },
-  {
     "id": 12,
     "match_number": 12,
     "player_a": {
@@ -195,24 +123,6 @@
     "result": "a_win",
     "method": "Darce",
     "duration_seconds": 60,
-    "synced_to_rankade": true
-  },
-  {
-    "id": 13,
-    "match_number": 13,
-    "player_a": {
-      "id": 7,
-      "name": "*Matt Crawford",
-      "photo_url": null
-    },
-    "player_b": {
-      "id": 11,
-      "name": "*Christian Banghart",
-      "photo_url": null
-    },
-    "result": "draw",
-    "method": "Triangle",
-    "duration_seconds": 90,
     "synced_to_rankade": true
   },
   {
@@ -234,24 +144,6 @@
     "synced_to_rankade": true
   },
   {
-    "id": 15,
-    "match_number": 15,
-    "player_a": {
-      "id": 2,
-      "name": "*Alex Stewart",
-      "photo_url": null
-    },
-    "player_b": {
-      "id": 6,
-      "name": "*Josh Rivera",
-      "photo_url": null
-    },
-    "result": "a_win",
-    "method": "Heel Hook",
-    "duration_seconds": 210,
-    "synced_to_rankade": true
-  },
-  {
     "id": 16,
     "match_number": 16,
     "player_a": {
@@ -267,6 +159,24 @@
     "result": "a_win",
     "method": "Arm Triangle",
     "duration_seconds": 450,
+    "synced_to_rankade": true
+  },
+  {
+    "id": 5,
+    "match_number": 5,
+    "player_a": {
+      "id": 10,
+      "name": "*Troy Wittman",
+      "photo_url": null
+    },
+    "player_b": {
+      "id": 7,
+      "name": "*Matt Crawford",
+      "photo_url": null
+    },
+    "result": "a_win",
+    "method": "Darce",
+    "duration_seconds": null,
     "synced_to_rankade": true
   },
   {
@@ -321,6 +231,96 @@
     "result": "a_win",
     "method": "Darce",
     "duration_seconds": 140,
+    "synced_to_rankade": true
+  },
+  {
+    "id": 7,
+    "match_number": 7,
+    "player_a": {
+      "id": 5,
+      "name": "Nick Newbold",
+      "photo_url": null
+    },
+    "player_b": {
+      "id": 7,
+      "name": "*Matt Crawford",
+      "photo_url": null
+    },
+    "result": "a_win",
+    "method": "Kneebar",
+    "duration_seconds": 90,
+    "synced_to_rankade": true
+  },
+  {
+    "id": 10,
+    "match_number": 10,
+    "player_a": {
+      "id": 8,
+      "name": "*John Michael El Mapache Rodriguez Uhweta",
+      "photo_url": null
+    },
+    "player_b": {
+      "id": 6,
+      "name": "*Josh Rivera",
+      "photo_url": null
+    },
+    "result": "a_win",
+    "method": "Head and Arm Choke",
+    "duration_seconds": 160,
+    "synced_to_rankade": true
+  },
+  {
+    "id": 11,
+    "match_number": 11,
+    "player_a": {
+      "id": 2,
+      "name": "*Alex Stewart",
+      "photo_url": null
+    },
+    "player_b": {
+      "id": 3,
+      "name": "*Hussain Samir",
+      "photo_url": null
+    },
+    "result": "a_win",
+    "method": "Knee Bar",
+    "duration_seconds": 30,
+    "synced_to_rankade": true
+  },
+  {
+    "id": 13,
+    "match_number": 13,
+    "player_a": {
+      "id": 7,
+      "name": "*Matt Crawford",
+      "photo_url": null
+    },
+    "player_b": {
+      "id": 11,
+      "name": "*Christian Banghart",
+      "photo_url": null
+    },
+    "result": "draw",
+    "method": "Triangle",
+    "duration_seconds": 90,
+    "synced_to_rankade": true
+  },
+  {
+    "id": 15,
+    "match_number": 15,
+    "player_a": {
+      "id": 2,
+      "name": "*Alex Stewart",
+      "photo_url": null
+    },
+    "player_b": {
+      "id": 6,
+      "name": "*Josh Rivera",
+      "photo_url": null
+    },
+    "result": "a_win",
+    "method": "Heel Hook",
+    "duration_seconds": 210,
     "synced_to_rankade": true
   },
   {

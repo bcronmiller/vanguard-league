@@ -13,12 +13,12 @@ router = APIRouter()
 
 
 def get_starting_elo(belt_rank: str | None) -> float:
-    """Get starting ELO based on belt rank"""
+    """Get starting ELO based on belt rank (200pt increments)"""
     belt_elo = {
         'Black': 2000.0,
-        'Brown': 1600.0,
-        'Purple': 1466.67,
-        'Blue': 1333.33,
+        'Brown': 1800.0,
+        'Purple': 1600.0,
+        'Blue': 1400.0,
         'White': 1200.0
     }
     return belt_elo.get(belt_rank or 'White', 1200.0)

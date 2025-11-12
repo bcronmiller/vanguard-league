@@ -8,13 +8,13 @@
   "bjj_belt_rank": "Black",
   "weight": 215,
   "weight_class_id": 3,
-  "elo_rating": 1987.7023319440266,
+  "elo_rating": 1993.0915289485029,
   "rankade_ree_score": null,
   "id": 10,
   "rankade_id": "onWM53v7WZx",
   "active": true,
   "created_at": "2025-11-09T18:57:19.336261",
-  "updated_at": "2025-11-11T20:49:48.777384",
+  "updated_at": "2025-11-12T04:46:10.835815",
   "matches": [
     {
       "match_id": 16,
@@ -90,7 +90,7 @@
       "belt_rank": "Black",
       "weight": 215,
       "weight_class": "Heavyweight",
-      "elo_change": 3
+      "elo_change": 8
     }
   ],
   "badges": [

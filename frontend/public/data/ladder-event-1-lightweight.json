@@ -13,24 +13,11 @@
       "losses": 0,
       "draws": 0,
       "win_rate": 1,
-      "elo_rating": 1502.2144166207008,
-      "initial_elo_rating": 1466.67
+      "elo_rating": 1630.9187893514882,
+      "initial_elo_rating": 1600
     },
     {
       "rank": 2,
-      "player_id": 8,
-      "player_name": "*John Michael El Mapache Rodriguez Uhweta",
-      "photo_url": null,
-      "belt_rank": "Purple",
-      "wins": 2,
-      "losses": 1,
-      "draws": 0,
-      "win_rate": 0.6666666666666666,
-      "elo_rating": 1470.1627621465982,
-      "initial_elo_rating": 1466.67
-    },
-    {
-      "rank": 3,
       "player_id": 3,
       "player_name": "*Hussain Samir",
       "photo_url": null,
@@ -39,8 +26,21 @@
       "losses": 2,
       "draws": 0,
       "win_rate": 0.3333333333333333,
-      "elo_rating": 1328.5641356075214,
-      "initial_elo_rating": 1333.33
+      "elo_rating": 1400.0529118412462,
+      "initial_elo_rating": 1400
+    },
+    {
+      "rank": 3,
+      "player_id": 8,
+      "player_name": "*John Michael El Mapache Rodriguez Uhweta",
+      "photo_url": null,
+      "belt_rank": "Purple",
+      "wins": 2,
+      "losses": 1,
+      "draws": 0,
+      "win_rate": 0.6666666666666666,
+      "elo_rating": 1598.8735731580073,
+      "initial_elo_rating": 1600
     },
     {
       "rank": 4,
@@ -52,8 +52,8 @@
       "losses": 3,
       "draws": 0,
       "win_rate": 0,
-      "elo_rating": 1299.0586856251796,
-      "initial_elo_rating": 1333.33
+      "elo_rating": 1370.1547256492584,
+      "initial_elo_rating": 1400
     }
   ]
 }
