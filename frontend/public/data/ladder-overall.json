@@ -11,7 +11,7 @@
       "photo_url": null,
       "academy": "VanGuard Gym"
     },
-    "wins": 6,
+    "wins": 3,
     "losses": 0,
     "draws": 1
   },
@@ -27,8 +27,24 @@
       "photo_url": null,
       "academy": "VanGuard Gym"
     },
-    "wins": 4,
-    "losses": 2,
+    "wins": 3,
+    "losses": 0,
+    "draws": 0
+  },
+  {
+    "player": {
+      "id": 10,
+      "name": "Troy Wittman",
+      "bjj_belt_rank": "Black",
+      "weight": 215,
+      "weight_class_name": "Heavyweight",
+      "elo_rating": 1993.0915289485029,
+      "initial_elo_rating": 2000,
+      "photo_url": null,
+      "academy": "Leo Dalla BJJ"
+    },
+    "wins": 3,
+    "losses": 1,
     "draws": 0
   },
   {
@@ -49,51 +65,19 @@
   },
   {
     "player": {
-      "id": 1,
-      "name": "Brian Cronmiller",
-      "bjj_belt_rank": "Black",
-      "weight": 250,
-      "weight_class_name": "Heavyweight",
-      "elo_rating": 2000,
-      "initial_elo_rating": 2000,
-      "photo_url": "https://lh3.googleusercontent.com/a/ACg8ocJOJ1p_Vj0Va5mTGZ-CnXknVOQQQiQcaswy47wZRN2jz4uZIRKCZg=s96-c",
-      "academy": "VanGuard Gym"
+      "id": 8,
+      "name": "John Michael El Mapache Rodriguez Uhweta",
+      "bjj_belt_rank": "Purple",
+      "weight": 156,
+      "weight_class_name": "Lightweight",
+      "elo_rating": 1599.4039331616434,
+      "initial_elo_rating": 1600,
+      "photo_url": null,
+      "academy": "Kaizen MMA"
     },
     "wins": 2,
     "losses": 1,
     "draws": 0
-  },
-  {
-    "player": {
-      "id": 10,
-      "name": "Troy Wittman",
-      "bjj_belt_rank": "Black",
-      "weight": 215,
-      "weight_class_name": "Heavyweight",
-      "elo_rating": 1993.0915289485029,
-      "initial_elo_rating": 2000,
-      "photo_url": null,
-      "academy": "Leo Dalla BJJ"
-    },
-    "wins": 4,
-    "losses": 3,
-    "draws": 0
-  },
-  {
-    "player": {
-      "id": 7,
-      "name": "Matt Crawford",
-      "bjj_belt_rank": "Brown",
-      "weight": 259,
-      "weight_class_name": "Heavyweight",
-      "elo_rating": 1775.7929184382822,
-      "initial_elo_rating": 1800,
-      "photo_url": null,
-      "academy": "Kaizen MMA"
-    },
-    "wins": 3,
-    "losses": 3,
-    "draws": 1
   },
   {
     "player": {
@@ -113,19 +97,19 @@
   },
   {
     "player": {
-      "id": 8,
-      "name": "John Michael El Mapache Rodriguez Uhweta",
-      "bjj_belt_rank": "Purple",
-      "weight": 156,
-      "weight_class_name": "Lightweight",
-      "elo_rating": 1599.4039331616434,
-      "initial_elo_rating": 1600,
+      "id": 7,
+      "name": "Matt Crawford",
+      "bjj_belt_rank": "Brown",
+      "weight": 259,
+      "weight_class_name": "Heavyweight",
+      "elo_rating": 1775.7929184382822,
+      "initial_elo_rating": 1800,
       "photo_url": null,
       "academy": "Kaizen MMA"
     },
-    "wins": 2,
-    "losses": 4,
-    "draws": 0
+    "wins": 1,
+    "losses": 2,
+    "draws": 1
   },
   {
     "player": {
