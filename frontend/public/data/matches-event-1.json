@@ -4,12 +4,12 @@
     "match_number": 1,
     "player_a": {
       "id": 3,
-      "name": "*Hussain Samir",
+      "name": "Hussain Samir",
       "photo_url": null
     },
     "player_b": {
       "id": 9,
-      "name": "*Edrees Saifi",
+      "name": "Edrees Saifi",
       "photo_url": null
     },
     "result": "a_win",
@@ -27,7 +27,7 @@
     },
     "player_b": {
       "id": 9,
-      "name": "*Edrees Saifi",
+      "name": "Edrees Saifi",
       "photo_url": null
     },
     "result": "a_win",
@@ -40,12 +40,12 @@
     "match_number": 4,
     "player_a": {
       "id": 11,
-      "name": "*Christian Banghart",
+      "name": "Christian Banghart",
       "photo_url": null
     },
     "player_b": {
       "id": 4,
-      "name": "*Josue Chevaz",
+      "name": "Josue Chevaz",
       "photo_url": null
     },
     "result": "a_win",
@@ -58,12 +58,12 @@
     "match_number": 2,
     "player_a": {
       "id": 7,
-      "name": "*Matt Crawford",
+      "name": "Matt Crawford",
       "photo_url": null
     },
     "player_b": {
       "id": 4,
-      "name": "*Josue Chevaz",
+      "name": "Josue Chevaz",
       "photo_url": null
     },
     "result": "a_win",
@@ -76,12 +76,12 @@
     "match_number": 8,
     "player_a": {
       "id": 10,
-      "name": "*Troy Wittman",
+      "name": "Troy Wittman",
       "photo_url": null
     },
     "player_b": {
       "id": 4,
-      "name": "*Josue Chevaz",
+      "name": "Josue Chevaz",
       "photo_url": null
     },
     "result": "a_win",
@@ -94,12 +94,12 @@
     "match_number": 9,
     "player_a": {
       "id": 11,
-      "name": "*Christian Banghart",
+      "name": "Christian Banghart",
       "photo_url": null
     },
     "player_b": {
       "id": 9,
-      "name": "*Edrees Saifi",
+      "name": "Edrees Saifi",
       "photo_url": null
     },
     "result": "a_win",
@@ -112,7 +112,7 @@
     "match_number": 12,
     "player_a": {
       "id": 10,
-      "name": "*Troy Wittman",
+      "name": "Troy Wittman",
       "photo_url": null
     },
     "player_b": {
@@ -130,12 +130,12 @@
     "match_number": 14,
     "player_a": {
       "id": 4,
-      "name": "*Josue Chevaz",
+      "name": "Josue Chevaz",
       "photo_url": null
     },
     "player_b": {
       "id": 9,
-      "name": "*Edrees Saifi",
+      "name": "Edrees Saifi",
       "photo_url": null
     },
     "result": "draw",
@@ -148,12 +148,12 @@
     "match_number": 16,
     "player_a": {
       "id": 11,
-      "name": "*Christian Banghart",
+      "name": "Christian Banghart",
       "photo_url": null
     },
     "player_b": {
       "id": 10,
-      "name": "*Troy Wittman",
+      "name": "Troy Wittman",
       "photo_url": null
     },
     "result": "a_win",
@@ -166,12 +166,12 @@
     "match_number": 5,
     "player_a": {
       "id": 10,
-      "name": "*Troy Wittman",
+      "name": "Troy Wittman",
       "photo_url": null
     },
     "player_b": {
       "id": 7,
-      "name": "*Matt Crawford",
+      "name": "Matt Crawford",
       "photo_url": null
     },
     "result": "a_win",
@@ -189,7 +189,7 @@
     },
     "player_b": {
       "id": 4,
-      "name": "*Josue Chevaz",
+      "name": "Josue Chevaz",
       "photo_url": null
     },
     "result": "a_win",
@@ -202,12 +202,12 @@
     "match_number": 75,
     "player_a": {
       "id": 2,
-      "name": "*Alex Stewart",
+      "name": "Alex Stewart",
       "photo_url": null
     },
     "player_b": {
       "id": 8,
-      "name": "*John Michael El Mapache Rodriguez Uhweta",
+      "name": "John Michael El Mapache Rodriguez Uhweta",
       "photo_url": null
     },
     "result": "a_win",
@@ -220,12 +220,12 @@
     "match_number": 6,
     "player_a": {
       "id": 3,
-      "name": "*Hussain Samir",
+      "name": "Hussain Samir",
       "photo_url": null
     },
     "player_b": {
       "id": 6,
-      "name": "*Josh Rivera",
+      "name": "Josh Rivera",
       "photo_url": null
     },
     "result": "a_win",
@@ -243,7 +243,7 @@
     },
     "player_b": {
       "id": 7,
-      "name": "*Matt Crawford",
+      "name": "Matt Crawford",
       "photo_url": null
     },
     "result": "a_win",
@@ -256,12 +256,12 @@
     "match_number": 10,
     "player_a": {
       "id": 8,
-      "name": "*John Michael El Mapache Rodriguez Uhweta",
+      "name": "John Michael El Mapache Rodriguez Uhweta",
       "photo_url": null
     },
     "player_b": {
       "id": 6,
-      "name": "*Josh Rivera",
+      "name": "Josh Rivera",
       "photo_url": null
     },
     "result": "a_win",
@@ -274,12 +274,12 @@
     "match_number": 11,
     "player_a": {
       "id": 2,
-      "name": "*Alex Stewart",
+      "name": "Alex Stewart",
       "photo_url": null
     },
     "player_b": {
       "id": 3,
-      "name": "*Hussain Samir",
+      "name": "Hussain Samir",
       "photo_url": null
     },
     "result": "a_win",
@@ -292,12 +292,12 @@
     "match_number": 13,
     "player_a": {
       "id": 7,
-      "name": "*Matt Crawford",
+      "name": "Matt Crawford",
       "photo_url": null
     },
     "player_b": {
       "id": 11,
-      "name": "*Christian Banghart",
+      "name": "Christian Banghart",
       "photo_url": null
     },
     "result": "draw",
@@ -310,12 +310,12 @@
     "match_number": 15,
     "player_a": {
       "id": 2,
-      "name": "*Alex Stewart",
+      "name": "Alex Stewart",
       "photo_url": null
     },
     "player_b": {
       "id": 6,
-      "name": "*Josh Rivera",
+      "name": "Josh Rivera",
       "photo_url": null
     },
     "result": "a_win",
@@ -328,12 +328,12 @@
     "match_number": 17,
     "player_a": {
       "id": 8,
-      "name": "*John Michael El Mapache Rodriguez Uhweta",
+      "name": "John Michael El Mapache Rodriguez Uhweta",
       "photo_url": null
     },
     "player_b": {
       "id": 3,
-      "name": "*Hussain Samir",
+      "name": "Hussain Samir",
       "photo_url": null
     },
     "result": "a_win",

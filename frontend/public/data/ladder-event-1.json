@@ -19,7 +19,7 @@
     {
       "rank": 2,
       "player_id": 2,
-      "player_name": "*Alex Stewart",
+      "player_name": "Alex Stewart",
       "photo_url": null,
       "belt_rank": "Purple",
       "wins": 3,
@@ -32,7 +32,7 @@
     {
       "rank": 3,
       "player_id": 3,
-      "player_name": "*Hussain Samir",
+      "player_name": "Hussain Samir",
       "photo_url": null,
       "belt_rank": "Blue",
       "wins": 2,
@@ -45,7 +45,7 @@
     {
       "rank": 4,
       "player_id": 11,
-      "player_name": "*Christian Banghart",
+      "player_name": "Christian Banghart",
       "photo_url": null,
       "belt_rank": "Black",
       "wins": 3,
@@ -58,7 +58,7 @@
     {
       "rank": 5,
       "player_id": 8,
-      "player_name": "*John Michael El Mapache Rodriguez Uhweta",
+      "player_name": "John Michael El Mapache Rodriguez Uhweta",
       "photo_url": null,
       "belt_rank": "Purple",
       "wins": 2,
@@ -71,7 +71,7 @@
     {
       "rank": 6,
       "player_id": 10,
-      "player_name": "*Troy Wittman",
+      "player_name": "Troy Wittman",
       "photo_url": null,
       "belt_rank": "Black",
       "wins": 3,
@@ -84,7 +84,7 @@
     {
       "rank": 7,
       "player_id": 4,
-      "player_name": "*Josue Chevaz",
+      "player_name": "Josue Chevaz",
       "photo_url": null,
       "belt_rank": "Blue",
       "wins": 0,
@@ -97,7 +97,7 @@
     {
       "rank": 8,
       "player_id": 7,
-      "player_name": "*Matt Crawford",
+      "player_name": "Matt Crawford",
       "photo_url": null,
       "belt_rank": "Brown",
       "wins": 1,
@@ -110,7 +110,7 @@
     {
       "rank": 9,
       "player_id": 6,
-      "player_name": "*Josh Rivera",
+      "player_name": "Josh Rivera",
       "photo_url": null,
       "belt_rank": "Blue",
       "wins": 0,
@@ -123,7 +123,7 @@
     {
       "rank": 10,
       "player_id": 9,
-      "player_name": "*Edrees Saifi",
+      "player_name": "Edrees Saifi",
       "photo_url": null,
       "belt_rank": "Blue",
       "wins": 0,

@@ -1,5 +1,5 @@
 {
-  "name": "*Matt Crawford",
+  "name": "Matt Crawford",
   "belt": null,
   "team": null,
   "academy": "Kaizen MMA",
@@ -23,7 +23,7 @@
       "event_date": "2025-11-07T19:00:00",
       "opponent": {
         "id": 11,
-        "name": "*Christian Banghart",
+        "name": "Christian Banghart",
         "photo_url": null
       },
       "result": "draw",
@@ -61,7 +61,7 @@
       "event_date": "2025-11-07T19:00:00",
       "opponent": {
         "id": 10,
-        "name": "*Troy Wittman",
+        "name": "Troy Wittman",
         "photo_url": null
       },
       "result": "loss",
@@ -80,7 +80,7 @@
       "event_date": "2025-11-07T19:00:00",
       "opponent": {
         "id": 4,
-        "name": "*Josue Chevaz",
+        "name": "Josue Chevaz",
         "photo_url": null
       },
       "result": "win",

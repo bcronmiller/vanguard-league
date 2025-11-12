@@ -23,7 +23,7 @@
       "event_date": "2025-11-07T19:00:00",
       "opponent": {
         "id": 4,
-        "name": "*Josue Chevaz",
+        "name": "Josue Chevaz",
         "photo_url": null
       },
       "result": "win",
@@ -42,7 +42,7 @@
       "event_date": "2025-11-07T19:00:00",
       "opponent": {
         "id": 10,
-        "name": "*Troy Wittman",
+        "name": "Troy Wittman",
         "photo_url": null
       },
       "result": "loss",
@@ -61,7 +61,7 @@
       "event_date": "2025-11-07T19:00:00",
       "opponent": {
         "id": 7,
-        "name": "*Matt Crawford",
+        "name": "Matt Crawford",
         "photo_url": null
       },
       "result": "win",
@@ -80,7 +80,7 @@
       "event_date": "2025-11-07T19:00:00",
       "opponent": {
         "id": 9,
-        "name": "*Edrees Saifi",
+        "name": "Edrees Saifi",
         "photo_url": null
       },
       "result": "win",

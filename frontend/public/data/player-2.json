@@ -1,5 +1,5 @@
 {
-  "name": "*Alex Stewart",
+  "name": "Alex Stewart",
   "belt": null,
   "team": null,
   "academy": "VanGuard Gym",
@@ -23,7 +23,7 @@
       "event_date": "2025-11-07T19:00:00",
       "opponent": {
         "id": 8,
-        "name": "*John Michael El Mapache Rodriguez Uhweta",
+        "name": "John Michael El Mapache Rodriguez Uhweta",
         "photo_url": null
       },
       "result": "win",
@@ -42,7 +42,7 @@
       "event_date": "2025-11-07T19:00:00",
       "opponent": {
         "id": 6,
-        "name": "*Josh Rivera",
+        "name": "Josh Rivera",
         "photo_url": null
       },
       "result": "win",
@@ -61,7 +61,7 @@
       "event_date": "2025-11-07T19:00:00",
       "opponent": {
         "id": 3,
-        "name": "*Hussain Samir",
+        "name": "Hussain Samir",
         "photo_url": null
       },
       "result": "win",

@@ -1,5 +1,5 @@
 {
-  "name": "*Josue Chevaz",
+  "name": "Josue Chevaz",
   "belt": null,
   "team": null,
   "academy": "VanGuard Gym",
@@ -42,7 +42,7 @@
       "event_date": "2025-11-07T19:00:00",
       "opponent": {
         "id": 9,
-        "name": "*Edrees Saifi",
+        "name": "Edrees Saifi",
         "photo_url": null
       },
       "result": "draw",
@@ -61,7 +61,7 @@
       "event_date": "2025-11-07T19:00:00",
       "opponent": {
         "id": 10,
-        "name": "*Troy Wittman",
+        "name": "Troy Wittman",
         "photo_url": null
       },
       "result": "loss",
@@ -80,7 +80,7 @@
       "event_date": "2025-11-07T19:00:00",
       "opponent": {
         "id": 11,
-        "name": "*Christian Banghart",
+        "name": "Christian Banghart",
         "photo_url": null
       },
       "result": "loss",
@@ -99,7 +99,7 @@
       "event_date": "2025-11-07T19:00:00",
       "opponent": {
         "id": 7,
-        "name": "*Matt Crawford",
+        "name": "Matt Crawford",
         "photo_url": null
       },
       "result": "loss",
