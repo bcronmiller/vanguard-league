@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
-import config from '@/app/config';
+import { config } from '@/lib/config';
 
 interface Player {
   id: number;
