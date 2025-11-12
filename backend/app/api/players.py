@@ -34,7 +34,7 @@ class MatchHistoryItem(BaseModel):
     result: str  # "win", "loss", "draw"
     method: str | None
     duration_seconds: int | None
-    match_number: int
+    match_number: int | None  # Made optional to handle matches without match_number
     # Historical data from this event
     belt_rank: str | None  # Player's belt rank at this event
     weight: float | None  # Player's weight at this event

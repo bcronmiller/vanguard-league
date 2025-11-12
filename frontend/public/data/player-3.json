@@ -14,8 +14,104 @@
   "rankade_id": "6dgROEGO1vG",
   "active": true,
   "created_at": "2025-11-09T18:57:19.336248",
-  "updated_at": "2025-11-11T18:52:44.902013",
-  "matches": [],
+  "updated_at": "2025-11-11T20:49:48.775666",
+  "matches": [
+    {
+      "match_id": 104,
+      "event_id": 2,
+      "event_name": "VGL 2",
+      "event_date": "2025-11-14T19:00:00",
+      "opponent": {
+        "id": 2,
+        "name": "*Alex Stewart",
+        "photo_url": null
+      },
+      "result": "draw",
+      "method": null,
+      "duration_seconds": null,
+      "match_number": 1,
+      "belt_rank": null,
+      "weight": null,
+      "weight_class": "Lightweight",
+      "elo_change": null
+    },
+    {
+      "match_id": 17,
+      "event_id": 1,
+      "event_name": "VGL 1",
+      "event_date": "2025-11-07T19:00:00",
+      "opponent": {
+        "id": 8,
+        "name": "*John Michael El Mapache Rodriguez Uhweta",
+        "photo_url": null
+      },
+      "result": "loss",
+      "method": "Americana",
+      "duration_seconds": 300,
+      "match_number": null,
+      "belt_rank": "Blue",
+      "weight": 167.8,
+      "weight_class": "Lightweight",
+      "elo_change": -10
+    },
+    {
+      "match_id": 11,
+      "event_id": 1,
+      "event_name": "VGL 1",
+      "event_date": "2025-11-07T19:00:00",
+      "opponent": {
+        "id": 2,
+        "name": "*Alex Stewart",
+        "photo_url": null
+      },
+      "result": "loss",
+      "method": "Knee Bar",
+      "duration_seconds": 30,
+      "match_number": null,
+      "belt_rank": "Blue",
+      "weight": 167.8,
+      "weight_class": "Lightweight",
+      "elo_change": -11
+    },
+    {
+      "match_id": 6,
+      "event_id": 1,
+      "event_name": "VGL 1",
+      "event_date": "2025-11-07T19:00:00",
+      "opponent": {
+        "id": 6,
+        "name": "*Josh Rivera",
+        "photo_url": null
+      },
+      "result": "win",
+      "method": "Darce",
+      "duration_seconds": 140,
+      "match_number": null,
+      "belt_rank": "Blue",
+      "weight": 167.8,
+      "weight_class": "Lightweight",
+      "elo_change": 16
+    },
+    {
+      "match_id": 1,
+      "event_id": 1,
+      "event_name": "VGL 1",
+      "event_date": "2025-11-07T19:00:00",
+      "opponent": {
+        "id": 9,
+        "name": "*Edrees Saifi",
+        "photo_url": null
+      },
+      "result": "win",
+      "method": "Ankle Lock",
+      "duration_seconds": 15,
+      "match_number": null,
+      "belt_rank": "Blue",
+      "weight": 167.8,
+      "weight_class": "Heavyweight",
+      "elo_change": 16
+    }
+  ],
   "badges": [
     {
       "name": "Buttscooter",
@@ -30,7 +126,7 @@
     {
       "name": "Darce Knight",
       "description": "Darce choke submission earned",
-      "icon": "🛡️"
+      "icon": "🥷"
     }
   ]
 }

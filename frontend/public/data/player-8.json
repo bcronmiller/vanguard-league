@@ -14,7 +14,84 @@
   "rankade_id": "5lW7md3XgaZ",
   "active": true,
   "created_at": "2025-11-09T18:57:19.336257",
-  "updated_at": "2025-11-10T23:43:02.911767",
-  "matches": [],
+  "updated_at": "2025-11-11T20:49:48.777086",
+  "matches": [
+    {
+      "match_id": 105,
+      "event_id": 2,
+      "event_name": "VGL 2",
+      "event_date": "2025-11-14T19:00:00",
+      "opponent": {
+        "id": 1,
+        "name": "Brian Cronmiller",
+        "photo_url": "https://lh3.googleusercontent.com/a/ACg8ocJOJ1p_Vj0Va5mTGZ-CnXknVOQQQiQcaswy47wZRN2jz4uZIRKCZg=s96-c"
+      },
+      "result": "draw",
+      "method": null,
+      "duration_seconds": null,
+      "match_number": 2,
+      "belt_rank": null,
+      "weight": null,
+      "weight_class": "Heavyweight",
+      "elo_change": null
+    },
+    {
+      "match_id": 75,
+      "event_id": 1,
+      "event_name": "VGL 1",
+      "event_date": "2025-11-07T19:00:00",
+      "opponent": {
+        "id": 2,
+        "name": "*Alex Stewart",
+        "photo_url": null
+      },
+      "result": "loss",
+      "method": "Reverse Triangle Cutting Armbar",
+      "duration_seconds": 180,
+      "match_number": null,
+      "belt_rank": "Blue",
+      "weight": 156,
+      "weight_class": "Lightweight",
+      "elo_change": -16
+    },
+    {
+      "match_id": 17,
+      "event_id": 1,
+      "event_name": "VGL 1",
+      "event_date": "2025-11-07T19:00:00",
+      "opponent": {
+        "id": 3,
+        "name": "*Hussain Samir",
+        "photo_url": null
+      },
+      "result": "win",
+      "method": "Americana",
+      "duration_seconds": 300,
+      "match_number": null,
+      "belt_rank": "Blue",
+      "weight": 156,
+      "weight_class": "Lightweight",
+      "elo_change": 10
+    },
+    {
+      "match_id": 10,
+      "event_id": 1,
+      "event_name": "VGL 1",
+      "event_date": "2025-11-07T19:00:00",
+      "opponent": {
+        "id": 6,
+        "name": "*Josh Rivera",
+        "photo_url": null
+      },
+      "result": "win",
+      "method": "Head and Arm Choke",
+      "duration_seconds": 160,
+      "match_number": null,
+      "belt_rank": "Blue",
+      "weight": 156,
+      "weight_class": "Lightweight",
+      "elo_change": 10
+    }
+  ],
   "badges": []
 }
