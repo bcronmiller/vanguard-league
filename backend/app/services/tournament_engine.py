@@ -1227,9 +1227,191 @@ class TournamentEngine:
         Generate next round for guaranteed matches format.
 
         Ensures each player reaches their guaranteed match count.
+        Pairs fighters based on similar records (Swiss-style) while
+        respecting rematch limits.
         """
-        # TODO: Implement guaranteed matches progression
-        pass
+        bracket_format = completed_round.bracket_format
+        round_data = completed_round.round_data or {}
+
+        # Get config
+        target_matches_per_fighter = round_data.get("total_matches_per_fighter", 3)
+        max_rematches = round_data.get("max_rematches", 1)
+
+        # Calculate current match counts for each fighter
+        match_counts = self._calculate_match_counts(bracket_format.id)
+        matchup_history = self._get_matchup_history(bracket_format.id)
+
+        # Find fighters who need more matches
+        fighters_needing_matches = [
+            player_id for player_id, count in match_counts.items()
+            if count < target_matches_per_fighter
+        ]
+
+        if not fighters_needing_matches:
+            # All fighters have reached their guaranteed matches
+            bracket_format.is_finalized = True
+            self.db.commit()
+            return
+
+        # Get standings for pairing
+        standings = self._calculate_swiss_standings(bracket_format.id)
+
+        # Filter to only include fighters who need matches
+        filtered_standings = {
+            pid: data for pid, data in standings.items()
+            if pid in fighters_needing_matches
+        }
+
+        # Create pairings with rematch limit consideration
+        pairings = self._guaranteed_pairing(
+            filtered_standings,
+            matchup_history,
+            max_rematches
+        )
+
+        if not pairings:
+            # No valid pairings possible (shouldn't happen with rematch limits)
+            bracket_format.is_finalized = True
+            self.db.commit()
+            return
+
+        # Create next round
+        next_round_num = completed_round.round_number + 1
+        next_round = BracketRound(
+            bracket_format_id=bracket_format.id,
+            round_number=next_round_num,
+            round_name=f"Round {next_round_num}",
+            status=RoundStatus.IN_PROGRESS,
+            round_data=round_data
+        )
+        self.db.add(next_round)
+        self.db.flush()
+
+        # Create matches from pairings
+        for idx, (player_a_id, player_b_id) in enumerate(pairings):
+            match = Match(
+                event_id=bracket_format.event_id,
+                bracket_round_id=next_round.id,
+                weight_class_id=bracket_format.weight_class_id,
+                a_player_id=player_a_id,
+                b_player_id=player_b_id if player_b_id else None,
+                match_number=idx + 1,
+                match_status=MatchStatus.READY if player_b_id else MatchStatus.COMPLETED,
+                result=MatchResult.PLAYER_A_WIN if not player_b_id else None,
+                method="Bye" if not player_b_id else None,
+                completed_at=datetime.utcnow() if not player_b_id else None,
+                requires_winner_a=True,
+                requires_winner_b=True,
+            )
+            self.db.add(match)
+
+        self.db.commit()
+
+    def _calculate_match_counts(self, bracket_format_id: int) -> Dict[int, int]:
+        """
+        Count how many matches each fighter has completed in this bracket.
+
+        Args:
+            bracket_format_id: BracketFormat ID
+
+        Returns:
+            Dict mapping player_id to match count
+        """
+        counts = {}
+
+        # Get all completed matches for this bracket
+        matches = self.db.query(Match).join(BracketRound).filter(
+            BracketRound.bracket_format_id == bracket_format_id,
+            Match.match_status == MatchStatus.COMPLETED
+        ).all()
+
+        for match in matches:
+            if match.a_player_id:
+                counts[match.a_player_id] = counts.get(match.a_player_id, 0) + 1
+            if match.b_player_id:
+                counts[match.b_player_id] = counts.get(match.b_player_id, 0) + 1
+
+        return counts
+
+    def _guaranteed_pairing(
+        self,
+        standings: Dict[int, Dict],
+        matchup_history: Dict[int, set],
+        max_rematches: int
+    ) -> List[Tuple[int, Optional[int]]]:
+        """
+        Create pairings for guaranteed matches format.
+
+        Similar to Swiss pairing but allows controlled rematches up to max_rematches.
+        Pairs fighters with similar records when possible.
+
+        Args:
+            standings: Current standings {player_id: {wins, losses, draws, points}}
+            matchup_history: History of who has faced whom {player_id: set of opponent_ids}
+            max_rematches: Maximum number of times two fighters can face each other
+
+        Returns:
+            List of (player_a_id, player_b_id) tuples (player_b_id may be None for bye)
+        """
+        # Count how many times each pair has faced each other
+        rematch_counts = {}
+        for p1 in standings:
+            for p2 in matchup_history.get(p1, set()):
+                # Create a consistent key (smaller ID first)
+                pair = tuple(sorted([p1, p2]))
+                rematch_counts[pair] = rematch_counts.get(pair, 0) + 1
+
+        # Sort players by record (points desc, then wins desc)
+        sorted_players = sorted(
+            standings.items(),
+            key=lambda x: (x[1]["points"], x[1]["wins"]),
+            reverse=True
+        )
+
+        player_ids = [p[0] for p in sorted_players]
+        paired = set()
+        pairings = []
+
+        for i, player_id in enumerate(player_ids):
+            if player_id in paired:
+                continue
+
+            # Find best available opponent
+            opponent_id = None
+
+            # First pass: try to find opponent within rematch limit
+            for j in range(i + 1, len(player_ids)):
+                candidate = player_ids[j]
+                if candidate in paired:
+                    continue
+
+                # Check rematch count
+                pair = tuple(sorted([player_id, candidate]))
+                rematch_count = rematch_counts.get(pair, 0)
+
+                if rematch_count < max_rematches:
+                    opponent_id = candidate
+                    break
+
+            # Second pass: if no valid opponent found, take first available
+            # (This allows exceeding rematch limit as last resort)
+            if opponent_id is None:
+                for j in range(i + 1, len(player_ids)):
+                    candidate = player_ids[j]
+                    if candidate not in paired:
+                        opponent_id = candidate
+                        break
+
+            if opponent_id:
+                pairings.append((player_id, opponent_id))
+                paired.add(player_id)
+                paired.add(opponent_id)
+            else:
+                # Odd number of players remaining, this player gets a bye
+                pairings.append((player_id, None))
+                paired.add(player_id)
+
+        return pairings
 
     def _generate_next_double_elim_round(self, completed_round: BracketRound):
         """
