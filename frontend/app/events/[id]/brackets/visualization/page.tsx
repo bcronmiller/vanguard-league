@@ -66,9 +66,10 @@ export default function BracketVisualization() {
   const getWinnerName = (match: Match) => {
     if (!match.result) return null;
 
-    if (match.result === 'PLAYER_A_WIN') {
+    const result = match.result.toUpperCase();
+    if (result === 'PLAYER_A_WIN' || result === 'A_WIN') {
       return match.player_a?.name || 'Player A';
-    } else if (match.result === 'PLAYER_B_WIN') {
+    } else if (result === 'PLAYER_B_WIN' || result === 'B_WIN') {
       return match.player_b?.name || 'Player B';
     }
     return null;
@@ -79,8 +80,9 @@ export default function BracketVisualization() {
     const playerA = match.player_a?.name || 'TBD';
     const playerB = match.player_b?.name || (match.method === 'Bye' ? 'BYE' : 'TBD');
 
-    const isPlayerAWinner = match.result === 'PLAYER_A_WIN';
-    const isPlayerBWinner = match.result === 'PLAYER_B_WIN';
+    const resultUpper = match.result?.toUpperCase();
+    const isPlayerAWinner = resultUpper === 'PLAYER_A_WIN' || resultUpper === 'A_WIN';
+    const isPlayerBWinner = resultUpper === 'PLAYER_B_WIN' || resultUpper === 'B_WIN';
     const isCompleted = match.match_status === 'completed';
 
     return (
