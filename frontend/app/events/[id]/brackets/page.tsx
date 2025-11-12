@@ -14,6 +14,7 @@ interface Player {
 
 interface Match {
   id: number;
+  bracket_round_id: number | null;
   match_number: number | null;
   a_player_id: number | null;
   b_player_id: number | null;
