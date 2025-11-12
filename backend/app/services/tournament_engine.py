@@ -1415,12 +1415,241 @@ class TournamentEngine:
 
     def _generate_next_double_elim_round(self, completed_round: BracketRound):
         """
-        Generate next round for double elimination (losers bracket rounds).
+        Activate next round(s) for double elimination.
 
-        This should build the losers bracket progressively as winners bracket advances.
+        When winners bracket rounds complete:
+        - Activate next winners round if dependencies satisfied
+        - Activate drop-down losers rounds fed by that winners round
+
+        When losers bracket rounds complete:
+        - Activate advancement rounds whose dependencies are now satisfied
+
+        Always check if grand finals should activate.
+
+        All rounds (except R1) are pre-created as PENDING during initial
+        bracket generation. This function activates them at the right time.
         """
-        # TODO: Implement double elimination losers bracket progression
-        pass
+        bracket_format = completed_round.bracket_format
+
+        if completed_round.bracket_type == "winners":
+            # Winners round completed - activate next winners round
+            self._activate_next_winners_round(bracket_format)
+            # Also activate corresponding drop-down losers rounds
+            self._activate_losers_drop_down_rounds(completed_round)
+
+        elif completed_round.bracket_type == "losers":
+            # Losers round completed - activate any advancement rounds now ready
+            self._activate_losers_advancement_rounds(bracket_format)
+
+            # Check if this was the losers finals and assign winner to grand finals
+            self._assign_losers_champion_to_finals(completed_round)
+
+        # Always check if grand finals should activate
+        self._check_grand_finals_activation(bracket_format)
+
+    def _activate_next_winners_round(self, bracket_format: BracketFormat):
+        """
+        Activate the next pending winners round if all dependencies are satisfied.
+        """
+        # Find next pending winners round
+        next_winners_round = self.db.query(BracketRound).filter(
+            BracketRound.bracket_format_id == bracket_format.id,
+            BracketRound.bracket_type == "winners",
+            BracketRound.status == RoundStatus.PENDING
+        ).order_by(BracketRound.round_number).first()
+
+        if not next_winners_round:
+            return
+
+        # Check if all matches in this round have both players assigned
+        matches = self.db.query(Match).filter(
+            Match.bracket_round_id == next_winners_round.id
+        ).all()
+
+        if matches and all(m.a_player_id and m.b_player_id for m in matches):
+            # All players assigned - activate the round
+            next_winners_round.status = RoundStatus.IN_PROGRESS
+
+            # Mark all matches as ready
+            for match in matches:
+                if match.match_status == MatchStatus.PENDING:
+                    match.match_status = MatchStatus.READY
+
+            self.db.commit()
+
+    def _activate_losers_drop_down_rounds(self, completed_winners_round: BracketRound):
+        """
+        Activate drop-down losers rounds fed by a completed winners round.
+
+        Drop-down rounds pair losers from a winners round against each other.
+        They can activate as soon as the feeding winners round completes.
+        """
+        bracket_format = completed_winners_round.bracket_format
+        winners_round_num = completed_winners_round.round_number
+
+        # Find drop-down losers rounds fed by this winners round
+        losers_rounds = self.db.query(BracketRound).filter(
+            BracketRound.bracket_format_id == bracket_format.id,
+            BracketRound.bracket_type == "losers",
+            BracketRound.status == RoundStatus.PENDING
+        ).all()
+
+        for losers_round in losers_rounds:
+            round_data = losers_round.round_data or {}
+
+            # Only activate drop-down rounds fed by this winners round
+            if (round_data.get("type") == "drop_down" and
+                round_data.get("feeds_from_winners") == winners_round_num):
+
+                losers_round.status = RoundStatus.IN_PROGRESS
+
+                # Activate any matches that are now ready
+                self._activate_ready_matches(losers_round.id)
+
+        self.db.commit()
+
+    def _activate_losers_advancement_rounds(self, bracket_format: BracketFormat):
+        """
+        Activate advancement losers rounds whose dependencies are satisfied.
+
+        Advancement rounds pair drop-down winners against previous losers round winners.
+        They activate when both sets of players are available.
+        """
+        # Find all pending advancement rounds
+        losers_rounds = self.db.query(BracketRound).filter(
+            BracketRound.bracket_format_id == bracket_format.id,
+            BracketRound.bracket_type == "losers",
+            BracketRound.status == RoundStatus.PENDING
+        ).all()
+
+        for losers_round in losers_rounds:
+            round_data = losers_round.round_data or {}
+
+            # Only check advancement rounds
+            if round_data.get("type") == "advancement":
+                # Check if all matches in this round have both players assigned
+                matches = self.db.query(Match).filter(
+                    Match.bracket_round_id == losers_round.id
+                ).all()
+
+                if matches and all(m.a_player_id and m.b_player_id for m in matches):
+                    # All players assigned - activate the round
+                    losers_round.status = RoundStatus.IN_PROGRESS
+
+                    # Mark all matches as ready
+                    for match in matches:
+                        if match.match_status == MatchStatus.PENDING:
+                            match.match_status = MatchStatus.READY
+
+        self.db.commit()
+
+    def _assign_losers_champion_to_finals(self, completed_losers_round: BracketRound):
+        """
+        Assign the losers bracket champion to the grand finals match.
+
+        This handles cases where the grand finals match wasn't properly linked
+        to the losers finals match during bracket generation.
+        """
+        bracket_format = completed_losers_round.bracket_format
+
+        # Check if there are any more pending losers rounds
+        pending_losers = self.db.query(BracketRound).filter(
+            BracketRound.bracket_format_id == bracket_format.id,
+            BracketRound.bracket_type == "losers",
+            BracketRound.status != RoundStatus.COMPLETED
+        ).count()
+
+        if pending_losers > 0:
+            # Not the losers finals yet
+            return
+
+        # This is the losers finals - find the winner
+        matches = self.db.query(Match).filter(
+            Match.bracket_round_id == completed_losers_round.id,
+            Match.match_status == MatchStatus.COMPLETED
+        ).all()
+
+        if not matches:
+            return
+
+        # Get the winner from the last match (losers finals)
+        losers_champion_match = matches[-1]
+
+        if losers_champion_match.result == MatchResult.PLAYER_A_WIN:
+            losers_champion = losers_champion_match.a_player_id
+        elif losers_champion_match.result == MatchResult.PLAYER_B_WIN:
+            losers_champion = losers_champion_match.b_player_id
+        else:
+            # Draw or no contest - can't determine champion
+            return
+
+        # Find grand finals match and assign losers champion
+        grand_finals = self.db.query(BracketRound).filter(
+            BracketRound.bracket_format_id == bracket_format.id,
+            BracketRound.bracket_type == "finals"
+        ).first()
+
+        if not grand_finals:
+            return
+
+        gf_matches = self.db.query(Match).filter(
+            Match.bracket_round_id == grand_finals.id
+        ).all()
+
+        for match in gf_matches:
+            # Assign losers champion to the slot that doesn't have the winners champion
+            if match.a_player_id and not match.b_player_id:
+                match.b_player_id = losers_champion
+            elif match.b_player_id and not match.a_player_id:
+                match.a_player_id = losers_champion
+
+            # Mark as ready if both players now assigned
+            if (match.a_player_id and match.b_player_id and
+                match.match_status == MatchStatus.PENDING):
+                match.match_status = MatchStatus.READY
+
+        self.db.commit()
+
+    def _check_grand_finals_activation(self, bracket_format: BracketFormat):
+        """
+        Activate grand finals when both finalists are determined.
+        """
+        # Find grand finals round
+        grand_finals = self.db.query(BracketRound).filter(
+            BracketRound.bracket_format_id == bracket_format.id,
+            BracketRound.bracket_type == "finals",
+            BracketRound.status == RoundStatus.PENDING
+        ).first()
+
+        if not grand_finals:
+            return
+
+        # Check if the grand finals match has both players
+        matches = self.db.query(Match).filter(
+            Match.bracket_round_id == grand_finals.id
+        ).all()
+
+        if matches and all(m.a_player_id and m.b_player_id for m in matches):
+            grand_finals.status = RoundStatus.IN_PROGRESS
+
+            for match in matches:
+                if match.match_status == MatchStatus.PENDING:
+                    match.match_status = MatchStatus.READY
+
+        self.db.commit()
+
+    def _activate_ready_matches(self, bracket_round_id: int):
+        """
+        Activate matches in a round that have both players assigned.
+        """
+        matches = self.db.query(Match).filter(
+            Match.bracket_round_id == bracket_round_id
+        ).all()
+
+        for match in matches:
+            if (match.match_status == MatchStatus.PENDING and
+                match.a_player_id and match.b_player_id):
+                match.match_status = MatchStatus.READY
 
     def get_upcoming_matches(
         self,
