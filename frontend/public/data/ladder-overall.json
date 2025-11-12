@@ -1,19 +1,51 @@
 [
   {
     "player": {
-      "id": 11,
-      "name": "Christian Banghart",
-      "bjj_belt_rank": "Black",
-      "weight": 203,
+      "id": 5,
+      "name": "Nick Newbold",
+      "bjj_belt_rank": "Blue",
+      "weight": 206.6,
       "weight_class_name": "Heavyweight",
-      "elo_rating": 2009.1523435199547,
-      "initial_elo_rating": 2000,
+      "elo_rating": 1456.6026532125022,
+      "initial_elo_rating": 1400,
       "photo_url": null,
       "academy": "VanGuard Gym"
     },
-    "wins": 3,
-    "losses": 0,
-    "draws": 1
+    "wins": 6,
+    "losses": 2,
+    "draws": 0
+  },
+  {
+    "player": {
+      "id": 1,
+      "name": "Brian Cronmiller",
+      "bjj_belt_rank": "Black",
+      "weight": 250,
+      "weight_class_name": "Heavyweight",
+      "elo_rating": 2000,
+      "initial_elo_rating": 2000,
+      "photo_url": "https://lh3.googleusercontent.com/a/ACg8ocJOJ1p_Vj0Va5mTGZ-CnXknVOQQQiQcaswy47wZRN2jz4uZIRKCZg=s96-c",
+      "academy": "VanGuard Gym"
+    },
+    "wins": 4,
+    "losses": 1,
+    "draws": 0
+  },
+  {
+    "player": {
+      "id": 10,
+      "name": "Troy Wittman",
+      "bjj_belt_rank": "Black",
+      "weight": 215,
+      "weight_class_name": "Heavyweight",
+      "elo_rating": 1993.0915289485029,
+      "initial_elo_rating": 2000,
+      "photo_url": null,
+      "academy": "Leo Dalla BJJ"
+    },
+    "wins": 5,
+    "losses": 2,
+    "draws": 0
   },
   {
     "player": {
@@ -33,35 +65,19 @@
   },
   {
     "player": {
-      "id": 10,
-      "name": "Troy Wittman",
+      "id": 11,
+      "name": "Christian Banghart",
       "bjj_belt_rank": "Black",
-      "weight": 215,
+      "weight": 203,
       "weight_class_name": "Heavyweight",
-      "elo_rating": 1993.0915289485029,
+      "elo_rating": 2009.1523435199547,
       "initial_elo_rating": 2000,
-      "photo_url": null,
-      "academy": "Leo Dalla BJJ"
-    },
-    "wins": 3,
-    "losses": 1,
-    "draws": 0
-  },
-  {
-    "player": {
-      "id": 5,
-      "name": "Nick Newbold",
-      "bjj_belt_rank": "Blue",
-      "weight": 206.6,
-      "weight_class_name": "Heavyweight",
-      "elo_rating": 1456.6026532125022,
-      "initial_elo_rating": 1400,
       "photo_url": null,
       "academy": "VanGuard Gym"
     },
-    "wins": 3,
-    "losses": 1,
-    "draws": 0
+    "wins": 4,
+    "losses": 2,
+    "draws": 1
   },
   {
     "player": {
@@ -108,7 +124,7 @@
       "academy": "Kaizen MMA"
     },
     "wins": 1,
-    "losses": 2,
+    "losses": 4,
     "draws": 1
   },
   {
@@ -139,8 +155,8 @@
       "photo_url": null,
       "academy": "VanGuard Gym"
     },
-    "wins": 0,
-    "losses": 3,
+    "wins": 1,
+    "losses": 4,
     "draws": 1
   },
   {
@@ -155,8 +171,8 @@
       "photo_url": null,
       "academy": "VanGuard Gym"
     },
-    "wins": 0,
-    "losses": 4,
+    "wins": 1,
+    "losses": 6,
     "draws": 1
   }
 ]

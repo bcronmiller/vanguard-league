@@ -18,6 +18,63 @@
   "weight_class_name": null,
   "matches": [
     {
+      "match_id": 224,
+      "event_id": 9500,
+      "event_name": "Heavyweight Double-Elimination Test Tournament",
+      "event_date": "2025-11-12T20:31:37.724000",
+      "opponent": {
+        "id": 5,
+        "name": "Nick Newbold",
+        "photo_url": null
+      },
+      "result": "loss",
+      "method": "Triangle Choke",
+      "duration_seconds": 177,
+      "match_number": 1,
+      "belt_rank": null,
+      "weight": null,
+      "weight_class": "Heavyweight",
+      "elo_change": null
+    },
+    {
+      "match_id": 222,
+      "event_id": 9500,
+      "event_name": "Heavyweight Double-Elimination Test Tournament",
+      "event_date": "2025-11-12T20:31:37.724000",
+      "opponent": {
+        "id": 1,
+        "name": "Brian Cronmiller",
+        "photo_url": "https://lh3.googleusercontent.com/a/ACg8ocJOJ1p_Vj0Va5mTGZ-CnXknVOQQQiQcaswy47wZRN2jz4uZIRKCZg=s96-c"
+      },
+      "result": "win",
+      "method": "Guillotine",
+      "duration_seconds": 129,
+      "match_number": 1,
+      "belt_rank": null,
+      "weight": null,
+      "weight_class": "Heavyweight",
+      "elo_change": null
+    },
+    {
+      "match_id": 219,
+      "event_id": 9500,
+      "event_name": "Heavyweight Double-Elimination Test Tournament",
+      "event_date": "2025-11-12T20:31:37.724000",
+      "opponent": {
+        "id": 11,
+        "name": "Christian Banghart",
+        "photo_url": null
+      },
+      "result": "win",
+      "method": "Armbar",
+      "duration_seconds": 272,
+      "match_number": 2,
+      "belt_rank": null,
+      "weight": null,
+      "weight_class": "Heavyweight",
+      "elo_change": null
+    },
+    {
       "match_id": 16,
       "event_id": 1,
       "event_name": "VGL 1",
@@ -99,6 +156,16 @@
       "name": "Darce Knight",
       "description": "Darce choke submission earned",
       "icon": "🥷"
+    },
+    {
+      "name": "Guillotine",
+      "description": "Guillotine submission earned",
+      "icon": "⚔️"
+    },
+    {
+      "name": "Armbar",
+      "description": "Armbar submission earned",
+      "icon": "🦴"
     }
   ]
 }

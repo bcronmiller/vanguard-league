@@ -1,0 +1,98 @@
+{
+  "event_id": 9500,
+  "event_name": "Heavyweight Double-Elimination Test Tournament",
+  "event_date": "2025-11-12T20:31:37.724000",
+  "standings": [
+    {
+      "rank": 1,
+      "player_id": 5,
+      "player_name": "Nick Newbold",
+      "photo_url": null,
+      "belt_rank": "Blue",
+      "wins": 2,
+      "losses": 1,
+      "draws": 0,
+      "win_rate": 0.6666666666666666,
+      "elo_rating": 1456.6026532125022,
+      "initial_elo_rating": 1400
+    },
+    {
+      "rank": 2,
+      "player_id": 11,
+      "player_name": "Christian Banghart",
+      "photo_url": null,
+      "belt_rank": "Black",
+      "wins": 1,
+      "losses": 2,
+      "draws": 0,
+      "win_rate": 0.3333333333333333,
+      "elo_rating": 2009.1523435199547,
+      "initial_elo_rating": 2000
+    },
+    {
+      "rank": 3,
+      "player_id": 1,
+      "player_name": "Brian Cronmiller",
+      "photo_url": "https://lh3.googleusercontent.com/a/ACg8ocJOJ1p_Vj0Va5mTGZ-CnXknVOQQQiQcaswy47wZRN2jz4uZIRKCZg=s96-c",
+      "belt_rank": "Black",
+      "wins": 4,
+      "losses": 1,
+      "draws": 0,
+      "win_rate": 0.8,
+      "elo_rating": 2000,
+      "initial_elo_rating": 2000
+    },
+    {
+      "rank": 4,
+      "player_id": 10,
+      "player_name": "Troy Wittman",
+      "photo_url": null,
+      "belt_rank": "Black",
+      "wins": 2,
+      "losses": 1,
+      "draws": 0,
+      "win_rate": 0.6666666666666666,
+      "elo_rating": 1993.0915289485029,
+      "initial_elo_rating": 2000
+    },
+    {
+      "rank": 5,
+      "player_id": 4,
+      "player_name": "Josue Chevaz",
+      "photo_url": null,
+      "belt_rank": "Blue",
+      "wins": 1,
+      "losses": 2,
+      "draws": 0,
+      "win_rate": 0.3333333333333333,
+      "elo_rating": 1380.1891621285608,
+      "initial_elo_rating": 1400
+    },
+    {
+      "rank": 6,
+      "player_id": 7,
+      "player_name": "Matt Crawford",
+      "photo_url": null,
+      "belt_rank": "Brown",
+      "wins": 0,
+      "losses": 2,
+      "draws": 0,
+      "win_rate": 0,
+      "elo_rating": 1775.7929184382822,
+      "initial_elo_rating": 1800
+    },
+    {
+      "rank": 7,
+      "player_id": 9,
+      "player_name": "Edrees Saifi",
+      "photo_url": null,
+      "belt_rank": "Blue",
+      "wins": 0,
+      "losses": 1,
+      "draws": 0,
+      "win_rate": 0,
+      "elo_rating": 1369.1713937521972,
+      "initial_elo_rating": 1400
+    }
+  ]
+}

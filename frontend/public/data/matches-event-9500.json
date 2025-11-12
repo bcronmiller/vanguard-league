@@ -1,0 +1,210 @@
+[
+  {
+    "id": 221,
+    "match_number": 221,
+    "player_a": {
+      "id": 5,
+      "name": "Nick Newbold",
+      "photo_url": null
+    },
+    "player_b": null,
+    "result": "a_win",
+    "method": "Bye",
+    "duration_seconds": 0,
+    "synced_to_rankade": false
+  },
+  {
+    "id": 218,
+    "match_number": 218,
+    "player_a": {
+      "id": 1,
+      "name": "Brian Cronmiller",
+      "photo_url": "https://lh3.googleusercontent.com/a/ACg8ocJOJ1p_Vj0Va5mTGZ-CnXknVOQQQiQcaswy47wZRN2jz4uZIRKCZg=s96-c"
+    },
+    "player_b": {
+      "id": 7,
+      "name": "Matt Crawford",
+      "photo_url": null
+    },
+    "result": "a_win",
+    "method": "Heel Hook",
+    "duration_seconds": 188,
+    "synced_to_rankade": false
+  },
+  {
+    "id": 219,
+    "match_number": 219,
+    "player_a": {
+      "id": 10,
+      "name": "Troy Wittman",
+      "photo_url": null
+    },
+    "player_b": {
+      "id": 11,
+      "name": "Christian Banghart",
+      "photo_url": null
+    },
+    "result": "a_win",
+    "method": "Armbar",
+    "duration_seconds": 272,
+    "synced_to_rankade": false
+  },
+  {
+    "id": 220,
+    "match_number": 220,
+    "player_a": {
+      "id": 4,
+      "name": "Josue Chevaz",
+      "photo_url": null
+    },
+    "player_b": {
+      "id": 9,
+      "name": "Edrees Saifi",
+      "photo_url": null
+    },
+    "result": "a_win",
+    "method": "Guillotine",
+    "duration_seconds": 62,
+    "synced_to_rankade": false
+  },
+  {
+    "id": 226,
+    "match_number": 226,
+    "player_a": {
+      "id": 9,
+      "name": "Edrees Saifi",
+      "photo_url": null
+    },
+    "player_b": null,
+    "result": "a_win",
+    "method": "Bye",
+    "duration_seconds": 0,
+    "synced_to_rankade": false
+  },
+  {
+    "id": 222,
+    "match_number": 222,
+    "player_a": {
+      "id": 1,
+      "name": "Brian Cronmiller",
+      "photo_url": "https://lh3.googleusercontent.com/a/ACg8ocJOJ1p_Vj0Va5mTGZ-CnXknVOQQQiQcaswy47wZRN2jz4uZIRKCZg=s96-c"
+    },
+    "player_b": {
+      "id": 10,
+      "name": "Troy Wittman",
+      "photo_url": null
+    },
+    "result": "b_win",
+    "method": "Guillotine",
+    "duration_seconds": 129,
+    "synced_to_rankade": false
+  },
+  {
+    "id": 223,
+    "match_number": 223,
+    "player_a": {
+      "id": 4,
+      "name": "Josue Chevaz",
+      "photo_url": null
+    },
+    "player_b": {
+      "id": 5,
+      "name": "Nick Newbold",
+      "photo_url": null
+    },
+    "result": "b_win",
+    "method": "Rear Naked Choke",
+    "duration_seconds": 87,
+    "synced_to_rankade": false
+  },
+  {
+    "id": 225,
+    "match_number": 225,
+    "player_a": {
+      "id": 7,
+      "name": "Matt Crawford",
+      "photo_url": null
+    },
+    "player_b": {
+      "id": 11,
+      "name": "Christian Banghart",
+      "photo_url": null
+    },
+    "result": "b_win",
+    "method": "Armbar",
+    "duration_seconds": 69,
+    "synced_to_rankade": false
+  },
+  {
+    "id": 224,
+    "match_number": 224,
+    "player_a": {
+      "id": 10,
+      "name": "Troy Wittman",
+      "photo_url": null
+    },
+    "player_b": {
+      "id": 5,
+      "name": "Nick Newbold",
+      "photo_url": null
+    },
+    "result": "b_win",
+    "method": "Triangle Choke",
+    "duration_seconds": 177,
+    "synced_to_rankade": false
+  },
+  {
+    "id": 227,
+    "match_number": 227,
+    "player_a": {
+      "id": 1,
+      "name": "Brian Cronmiller",
+      "photo_url": "https://lh3.googleusercontent.com/a/ACg8ocJOJ1p_Vj0Va5mTGZ-CnXknVOQQQiQcaswy47wZRN2jz4uZIRKCZg=s96-c"
+    },
+    "player_b": {
+      "id": 4,
+      "name": "Josue Chevaz",
+      "photo_url": null
+    },
+    "result": "a_win",
+    "method": "Heel Hook",
+    "duration_seconds": 256,
+    "synced_to_rankade": false
+  },
+  {
+    "id": 228,
+    "match_number": 228,
+    "player_a": {
+      "id": 1,
+      "name": "Brian Cronmiller",
+      "photo_url": "https://lh3.googleusercontent.com/a/ACg8ocJOJ1p_Vj0Va5mTGZ-CnXknVOQQQiQcaswy47wZRN2jz4uZIRKCZg=s96-c"
+    },
+    "player_b": {
+      "id": 11,
+      "name": "Christian Banghart",
+      "photo_url": null
+    },
+    "result": "a_win",
+    "method": "Rear Naked Choke",
+    "duration_seconds": 168,
+    "synced_to_rankade": false
+  },
+  {
+    "id": 229,
+    "match_number": 229,
+    "player_a": {
+      "id": 5,
+      "name": "Nick Newbold",
+      "photo_url": null
+    },
+    "player_b": {
+      "id": 1,
+      "name": "Brian Cronmiller",
+      "photo_url": "https://lh3.googleusercontent.com/a/ACg8ocJOJ1p_Vj0Va5mTGZ-CnXknVOQQQiQcaswy47wZRN2jz4uZIRKCZg=s96-c"
+    },
+    "result": "b_win",
+    "method": "Armbar",
+    "duration_seconds": 257,
+    "synced_to_rankade": false
+  }
+]

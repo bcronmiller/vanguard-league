@@ -18,6 +18,63 @@
   "weight_class_name": null,
   "matches": [
     {
+      "match_id": 227,
+      "event_id": 9500,
+      "event_name": "Heavyweight Double-Elimination Test Tournament",
+      "event_date": "2025-11-12T20:31:37.724000",
+      "opponent": {
+        "id": 1,
+        "name": "Brian Cronmiller",
+        "photo_url": "https://lh3.googleusercontent.com/a/ACg8ocJOJ1p_Vj0Va5mTGZ-CnXknVOQQQiQcaswy47wZRN2jz4uZIRKCZg=s96-c"
+      },
+      "result": "loss",
+      "method": "Heel Hook",
+      "duration_seconds": 256,
+      "match_number": 1,
+      "belt_rank": null,
+      "weight": null,
+      "weight_class": "Heavyweight",
+      "elo_change": null
+    },
+    {
+      "match_id": 223,
+      "event_id": 9500,
+      "event_name": "Heavyweight Double-Elimination Test Tournament",
+      "event_date": "2025-11-12T20:31:37.724000",
+      "opponent": {
+        "id": 5,
+        "name": "Nick Newbold",
+        "photo_url": null
+      },
+      "result": "loss",
+      "method": "Rear Naked Choke",
+      "duration_seconds": 87,
+      "match_number": 2,
+      "belt_rank": null,
+      "weight": null,
+      "weight_class": "Heavyweight",
+      "elo_change": null
+    },
+    {
+      "match_id": 220,
+      "event_id": 9500,
+      "event_name": "Heavyweight Double-Elimination Test Tournament",
+      "event_date": "2025-11-12T20:31:37.724000",
+      "opponent": {
+        "id": 9,
+        "name": "Edrees Saifi",
+        "photo_url": null
+      },
+      "result": "win",
+      "method": "Guillotine",
+      "duration_seconds": 62,
+      "match_number": 3,
+      "belt_rank": null,
+      "weight": null,
+      "weight_class": "Heavyweight",
+      "elo_change": null
+    },
+    {
       "match_id": 74,
       "event_id": 1,
       "event_name": "VGL 1",
@@ -114,6 +171,11 @@
     }
   ],
   "badges": [
+    {
+      "name": "Guillotine",
+      "description": "Guillotine submission earned",
+      "icon": "⚔️"
+    },
     {
       "name": "Warrior Spirit",
       "description": "Most matches in a single event (5 at VGL 1)",
