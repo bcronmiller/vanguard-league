@@ -42,6 +42,7 @@ class PlayerResponse(PlayerBase):
     active: bool
     created_at: datetime
     updated_at: datetime
+    weight_class_name: Optional[str] = None  # Computed from weight_class relationship
 
     class Config:
         from_attributes = True

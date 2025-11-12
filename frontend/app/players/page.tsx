@@ -23,30 +23,20 @@ export default function PlayersPage() {
 
   const loadPlayers = async () => {
     try {
-      // Fetch only active competitors from the ladder
+      // Fetch all registered fighters from the roster
       const isStatic = process.env.NEXT_PUBLIC_STATIC_MODE === 'true';
-      const endpoint = isStatic ? '/data/ladder-overall.json' : `${config.apiUrl}/api/ladder/overall`;
+      const endpoint = isStatic ? '/data/players.json' : `${config.apiUrl}/api/players`;
 
       const res = await fetch(endpoint);
       if (res.ok) {
-        const ladderData = await res.json();
-        // Extract player data from ladder standings
-        const activePlayers = ladderData.map((standing: any) => ({
-          id: standing.player.id,
-          name: standing.player.name,
-          photo_url: standing.player.photo_url,
-          bjj_belt_rank: standing.player.bjj_belt_rank,
-          weight: standing.player.weight,
-          weight_class_name: standing.player.weight_class_name,
-          academy: standing.player.academy
-        }));
+        const playersData = await res.json();
         // Sort by weight
-        activePlayers.sort((a: Player, b: Player) => {
+        playersData.sort((a: Player, b: Player) => {
           if (!a.weight) return 1;
           if (!b.weight) return -1;
           return a.weight - b.weight;
         });
-        setPlayers(activePlayers);
+        setPlayers(playersData);
       }
     } catch (error) {
       console.error('Failed to load players:', error);

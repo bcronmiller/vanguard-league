@@ -57,9 +57,35 @@ async def get_players(
     limit: int = 100,
     db: Session = Depends(get_db)
 ):
-    """Get list of players"""
-    players = db.query(Player).filter(Player.active == True).offset(skip).limit(limit).all()
-    return players
+    """Get list of all active players"""
+    from sqlalchemy.orm import joinedload
+    players = db.query(Player).options(joinedload(Player.weight_class)).filter(Player.active == True).offset(skip).limit(limit).all()
+
+    # Add weight_class_name to response
+    result = []
+    for player in players:
+        player_dict = {
+            "id": player.id,
+            "name": player.name,
+            "belt": player.belt,
+            "team": player.team,
+            "academy": player.academy,
+            "photo_url": player.photo_url,
+            "age": player.age,
+            "bjj_belt_rank": player.bjj_belt_rank,
+            "weight": player.weight,
+            "weight_class_id": player.weight_class_id,
+            "elo_rating": player.elo_rating,
+            "rankade_ree_score": player.rankade_ree_score,
+            "rankade_id": player.rankade_id,
+            "active": player.active,
+            "created_at": player.created_at,
+            "updated_at": player.updated_at,
+            "weight_class_name": player.weight_class.name if player.weight_class else None
+        }
+        result.append(player_dict)
+
+    return result
 
 
 @router.get("/players/{player_id}", response_model=PlayerResponse)
