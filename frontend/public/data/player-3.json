@@ -17,25 +17,6 @@
   "updated_at": "2025-11-11T20:49:48.775666",
   "matches": [
     {
-      "match_id": 104,
-      "event_id": 2,
-      "event_name": "VGL 2",
-      "event_date": "2025-11-14T19:00:00",
-      "opponent": {
-        "id": 2,
-        "name": "*Alex Stewart",
-        "photo_url": null
-      },
-      "result": "draw",
-      "method": null,
-      "duration_seconds": null,
-      "match_number": 1,
-      "belt_rank": null,
-      "weight": null,
-      "weight_class": "Lightweight",
-      "elo_change": null
-    },
-    {
       "match_id": 17,
       "event_id": 1,
       "event_name": "VGL 1",

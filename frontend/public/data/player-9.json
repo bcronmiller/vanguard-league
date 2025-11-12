@@ -17,25 +17,6 @@
   "updated_at": "2025-11-11T20:49:48.777381",
   "matches": [
     {
-      "match_id": 108,
-      "event_id": 2,
-      "event_name": "VGL 2",
-      "event_date": "2025-11-14T19:00:00",
-      "opponent": {
-        "id": 7,
-        "name": "*Matt Crawford",
-        "photo_url": null
-      },
-      "result": "draw",
-      "method": null,
-      "duration_seconds": null,
-      "match_number": 5,
-      "belt_rank": null,
-      "weight": null,
-      "weight_class": "Heavyweight",
-      "elo_change": null
-    },
-    {
       "match_id": 14,
       "event_id": 1,
       "event_name": "VGL 1",
