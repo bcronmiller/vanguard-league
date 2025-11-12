@@ -52,11 +52,13 @@ export default function Home() {
     try {
       const eventsEndpoint = isStatic ? '/data/events.json' : `${apiUrl}/api/events`;
       const ladderEndpoint = isStatic ? '/data/ladder-overall.json' : `${apiUrl}/api/ladder/overall`;
+      const playersEndpoint = isStatic ? '/data/players.json' : `${apiUrl}/api/players`;
 
-      // Fetch events and ladder data in parallel
-      const [eventsRes, ladderRes] = await Promise.all([
+      // Fetch events, ladder, and all players in parallel
+      const [eventsRes, ladderRes, playersRes] = await Promise.all([
         fetch(eventsEndpoint, { cache: 'no-store' }),
-        fetch(ladderEndpoint, { cache: 'no-store' })
+        fetch(ladderEndpoint, { cache: 'no-store' }),
+        fetch(playersEndpoint, { cache: 'no-store' })
       ]);
 
       // Process matches from all events in parallel
@@ -126,9 +128,12 @@ export default function Home() {
           middleweight,
           heavyweight
         });
+      }
 
-        // Count active competitors
-        setStats(prev => ({ ...prev, players: allLadder.length }));
+      // Count total registered fighters (all players)
+      if (playersRes.ok) {
+        const allPlayers = await playersRes.json();
+        setStats(prev => ({ ...prev, players: allPlayers.length }));
       }
     } catch (e) {
       console.error('Failed to load data:', e);
@@ -178,7 +183,7 @@ export default function Home() {
           <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
             <div className="text-center p-6 bg-black/20 rounded-lg backdrop-blur">
               <div className="text-6xl font-heading font-bold mb-2">{stats.players}</div>
-              <div className="text-xl font-heading uppercase tracking-wide">Active Fighters</div>
+              <div className="text-xl font-heading uppercase tracking-wide">Registered Fighters</div>
               <a href="/players" className="inline-block mt-4 px-6 py-2 bg-white text-mbjj-red font-heading font-bold rounded hover:bg-gray-100 transition">
                 VIEW ROSTER →
               </a>
