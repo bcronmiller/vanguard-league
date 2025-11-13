@@ -26,7 +26,7 @@
       "losses": 0,
       "draws": 0,
       "win_rate": 1,
-      "elo_rating": 1631.4715127061438,
+      "elo_rating": 1630.9187893514882,
       "initial_elo_rating": 1600
     },
     {
@@ -39,7 +39,7 @@
       "losses": 2,
       "draws": 0,
       "win_rate": 0.5,
-      "elo_rating": 1414.2621016518635,
+      "elo_rating": 1416.0529118412462,
       "initial_elo_rating": 1400
     },
     {
@@ -65,7 +65,7 @@
       "losses": 1,
       "draws": 0,
       "win_rate": 0.6666666666666666,
-      "elo_rating": 1599.4039331616434,
+      "elo_rating": 1598.8735731580073,
       "initial_elo_rating": 1600
     },
     {
@@ -117,7 +117,7 @@
       "losses": 3,
       "draws": 0,
       "win_rate": 0,
-      "elo_rating": 1370.8624524803492,
+      "elo_rating": 1370.1547256492584,
       "initial_elo_rating": 1400
     },
     {

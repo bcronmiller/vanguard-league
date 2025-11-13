@@ -14,7 +14,7 @@
   "rankade_id": "MLjykZrJ14k",
   "active": true,
   "created_at": "2025-11-09T18:57:19.336255",
-  "updated_at": "2025-11-12T04:46:10.835205",
+  "updated_at": "2025-11-13T19:31:47.232291",
   "weight_class_name": null,
   "matches": [
     {
@@ -94,5 +94,28 @@
       "elo_change": 3
     }
   ],
-  "badges": []
+  "badges": [],
+  "divisions": {
+    "player_id": 7,
+    "player_name": "Matt Crawford",
+    "overall": {
+      "wins": 1,
+      "losses": 2,
+      "draws": 1,
+      "elo_rating": 1775.7929184382822,
+      "elo_change": -24.207081561717814
+    },
+    "divisions": [
+      {
+        "weight_class_id": 3,
+        "weight_class_name": "Heavyweight",
+        "wins": 1,
+        "losses": 2,
+        "draws": 1,
+        "elo_rating": 1775.7929184382822,
+        "initial_elo_rating": 1800,
+        "elo_change": -24.207081561717814
+      }
+    ]
+  }
 }

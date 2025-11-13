@@ -240,9 +240,17 @@ export default function Home() {
             <div className="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-lg border-t-4 border-mbjj-red">
               <div className="text-4xl text-mbjj-red mb-4 text-center">💰</div>
               <h3 className="text-2xl font-heading font-bold mb-3 text-center">SEASON PRIZES</h3>
-              <p className="text-gray-700 dark:text-gray-300 text-center">
+              <p className="text-gray-700 dark:text-gray-300 text-center mb-3">
                 Top-ranked fighters earn from the season prize pool.
               </p>
+              <div className="text-center">
+                <a
+                  href="/season-rules"
+                  className="text-mbjj-blue hover:text-mbjj-red font-bold text-sm transition"
+                >
+                  See Rules →
+                </a>
+              </div>
             </div>
           </div>
 
@@ -259,6 +267,63 @@ export default function Home() {
             >
               LEARN HOW RANKINGS WORK →
             </a>
+          </div>
+        </section>
+
+        {/* Season Prize Pool Rules Summary */}
+        <section className="mb-16">
+          <div className="max-w-4xl mx-auto bg-gradient-to-r from-yellow-50 to-yellow-100 dark:from-yellow-900/20 dark:to-yellow-800/20 rounded-lg p-8 shadow-lg border-l-4 border-yellow-500">
+            <div className="flex items-start gap-4 mb-4">
+              <div className="text-5xl">💰</div>
+              <div className="flex-1">
+                <h3 className="text-3xl font-heading font-bold text-gray-900 dark:text-white mb-3">
+                  SEASON PRIZE POOL ELIGIBILITY
+                </h3>
+                <p className="text-gray-700 dark:text-gray-300 text-lg mb-4">
+                  Each season runs for <strong>8 events over 3 months</strong>. To be eligible for prize pool payouts, fighters must meet BOTH requirements:
+                </p>
+
+                <div className="grid md:grid-cols-2 gap-4 mb-6">
+                  <div className="bg-white dark:bg-gray-800 rounded-lg p-4 border-l-4 border-mbjj-blue">
+                    <div className="flex items-center gap-2 mb-2">
+                      <span className="text-2xl">📅</span>
+                      <h4 className="font-heading font-bold text-lg">Attend 5+ Events</h4>
+                    </div>
+                    <p className="text-sm text-gray-600 dark:text-gray-400">
+                      Compete in at least 5 of 8 events
+                    </p>
+                  </div>
+
+                  <div className="bg-white dark:bg-gray-800 rounded-lg p-4 border-l-4 border-mbjj-red">
+                    <div className="flex items-center gap-2 mb-2">
+                      <span className="text-2xl">🥊</span>
+                      <h4 className="font-heading font-bold text-lg">12+ Matches</h4>
+                    </div>
+                    <p className="text-sm text-gray-600 dark:text-gray-400">
+                      Complete at least 12 total matches
+                    </p>
+                  </div>
+                </div>
+
+                <div className="bg-white/50 dark:bg-gray-800/50 rounded-lg p-4 mb-4">
+                  <p className="text-gray-700 dark:text-gray-300 text-sm mb-2">
+                    <strong>Weight Class Prizes:</strong> To be eligible for a specific division's prize, you must have at least 6 matches in that division and more matches there than any other division.
+                  </p>
+                  <p className="text-gray-700 dark:text-gray-300 text-sm">
+                    <strong>Not eligible?</strong> You can still compete! Late joiners and those building their record are welcome to compete for experience, skill development, and exposure. Joining late is valuable for gaining mat time and preparing for future seasons.
+                  </p>
+                </div>
+
+                <div className="text-center">
+                  <a
+                    href="/season-rules"
+                    className="inline-block bg-yellow-600 hover:bg-yellow-700 text-white font-heading font-bold px-8 py-3 rounded-lg transition shadow-md"
+                  >
+                    VIEW FULL RULES & POLICIES →
+                  </a>
+                </div>
+              </div>
+            </div>
           </div>
         </section>
 

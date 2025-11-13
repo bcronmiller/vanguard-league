@@ -14,7 +14,7 @@
   "rankade_id": "BMgevY5x18Y",
   "active": true,
   "created_at": "2025-11-09T18:57:19.336249",
-  "updated_at": "2025-11-12T04:46:10.834094",
+  "updated_at": "2025-11-13T19:31:47.231221",
   "weight_class_name": null,
   "matches": [
     {
@@ -119,5 +119,28 @@
       "description": "Most matches in a single event (5 at VGL 1)",
       "icon": "❤️‍🔥"
     }
-  ]
+  ],
+  "divisions": {
+    "player_id": 4,
+    "player_name": "Josue Chevaz",
+    "overall": {
+      "wins": 0,
+      "losses": 4,
+      "draws": 1,
+      "elo_rating": 1380.1891621285608,
+      "elo_change": -19.810837871439162
+    },
+    "divisions": [
+      {
+        "weight_class_id": 3,
+        "weight_class_name": "Heavyweight",
+        "wins": 0,
+        "losses": 4,
+        "draws": 1,
+        "elo_rating": 1380.1891621285608,
+        "initial_elo_rating": 1400,
+        "elo_change": -19.810837871439162
+      }
+    ]
+  }
 }

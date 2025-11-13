@@ -14,7 +14,7 @@
   "rankade_id": "Y3gzKEr31a9",
   "active": true,
   "created_at": "2025-11-09T18:57:19.336262",
-  "updated_at": "2025-11-12T04:46:10.835816",
+  "updated_at": "2025-11-13T19:31:47.233079",
   "weight_class_name": null,
   "matches": [
     {
@@ -105,5 +105,28 @@
       "description": "Guillotine submission earned",
       "icon": "⚔️"
     }
-  ]
+  ],
+  "divisions": {
+    "player_id": 11,
+    "player_name": "Christian Banghart",
+    "overall": {
+      "wins": 3,
+      "losses": 0,
+      "draws": 1,
+      "elo_rating": 2009.1523435199547,
+      "elo_change": 9.152343519954684
+    },
+    "divisions": [
+      {
+        "weight_class_id": 3,
+        "weight_class_name": "Heavyweight",
+        "wins": 3,
+        "losses": 0,
+        "draws": 1,
+        "elo_rating": 2009.1523435199547,
+        "initial_elo_rating": 2000,
+        "elo_change": 9.152343519954684
+      }
+    ]
+  }
 }

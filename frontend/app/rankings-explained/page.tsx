@@ -6,9 +6,15 @@ export default function RankingsExplainedPage() {
       {/* Header */}
       <header className="bg-mbjj-dark text-white py-6">
         <div className="container mx-auto px-4">
-          <a href="/" className="text-mbjj-red hover:text-mbjj-accent-light inline-block mb-3">
-            ← Home
-          </a>
+          <div className="flex gap-4 mb-3">
+            <a href="/" className="text-mbjj-red hover:text-mbjj-accent-light">
+              ← Home
+            </a>
+            <span className="text-gray-600">|</span>
+            <a href="/season-rules" className="text-mbjj-red hover:text-mbjj-accent-light">
+              Season Rules
+            </a>
+          </div>
           <h1 className="text-4xl md:text-5xl font-heading font-bold text-white">
             HOW RANKINGS WORK
           </h1>
@@ -17,14 +23,33 @@ export default function RankingsExplainedPage() {
       </header>
 
       <main className="container mx-auto px-4 py-12 max-w-4xl">
+        {/* League Mission */}
+        <section className="bg-gradient-to-r from-mbjj-blue to-blue-700 text-white rounded-lg p-8 mb-8 shadow-lg">
+          <h2 className="text-3xl font-heading font-bold mb-4">
+            WHY WE USE ELO RANKINGS
+          </h2>
+          <p className="text-lg mb-4 leading-relaxed">
+            The Vanguard League exists to provide <strong>affordable, professional-level tournament experience</strong> for grapplers who aspire to compete at the highest levels or simply want the thrill and excitement of regular competition.
+          </p>
+          <p className="text-lg mb-4 leading-relaxed">
+            Our ranking system reflects our core philosophy: <strong>consistency and longevity matter more than any single match</strong>. While each bout is important, what truly counts is that you stay safe, stay healthy, and return to compete at the next event and the one after that.
+          </p>
+          <p className="text-lg leading-relaxed">
+            <strong>Your health is your career.</strong> Tap early, tap often, and live to train another day. Our ELO system rewards those who show up regularly, take smart risks, and build their skills over an entire season. This is a marathon, not a sprint.
+          </p>
+        </section>
+
         {/* ELO System Overview */}
         <section className="bg-white dark:bg-gray-800 rounded-lg p-8 mb-8 shadow-lg">
           <h2 className="text-3xl font-heading font-bold mb-6 text-gray-900 dark:text-white">
-            RATING SYSTEM
+            HOW THE RATING SYSTEM WORKS
           </h2>
           <p className="text-lg text-gray-700 dark:text-gray-300 mb-4">
             Vanguard League uses an <strong>ELO-based rating system</strong> similar to chess, adapted for submission-only grappling.
             Your rating changes based on match results, with bigger gains for beating higher-rated opponents.
+          </p>
+          <p className="text-lg text-gray-700 dark:text-gray-300">
+            The system is designed to reward <strong>quality over quantity</strong> and emphasizes improvement over time rather than win-loss record alone.
           </p>
         </section>
 
@@ -134,29 +159,38 @@ export default function RankingsExplainedPage() {
         {/* Rewards Activity */}
         <section className="bg-gradient-to-r from-mbjj-blue to-blue-700 text-white rounded-lg p-8 mb-8 shadow-lg">
           <h2 className="text-3xl font-heading font-bold mb-6">
-            💪 REWARDS REGULAR COMPETITION
+            💪 REWARDS CONSISTENCY & SAFETY
           </h2>
           <p className="text-lg mb-4">
-            The more you compete, the more opportunities you have to improve your rating:
+            The ELO system is designed to reward regular participation and smart competition over a full season:
           </p>
           <ul className="space-y-3 text-lg">
             <li className="flex items-start">
               <span className="text-2xl mr-3">🔄</span>
-              <span><strong>More matches = more chances to climb</strong></span>
+              <span><strong>More events = more opportunities to improve</strong> — Show up regularly and climb the ladder</span>
             </li>
             <li className="flex items-start">
               <span className="text-2xl mr-3">📈</span>
-              <span><strong>Consistent performance shows in steady ELO growth</strong></span>
+              <span><strong>Steady improvement matters more than one big win</strong> — Consistent performance compounds over time</span>
+            </li>
+            <li className="flex items-start">
+              <span className="text-2xl mr-3">🛡️</span>
+              <span><strong>Protect your health to stay in the game</strong> — One injury can derail a season; smart tapping keeps you competing</span>
             </li>
             <li className="flex items-start">
               <span className="text-2xl mr-3">🎯</span>
-              <span><strong>Challenge higher-rated opponents for bigger gains</strong></span>
+              <span><strong>Challenge yourself against higher-rated opponents</strong> — Bigger risks = bigger rewards (when you win)</span>
             </li>
             <li className="flex items-start">
               <span className="text-2xl mr-3">🏆</span>
-              <span><strong>Season rankings reward sustained excellence</strong></span>
+              <span><strong>Season rankings reward sustained excellence</strong> — It's not about one match; it's about the whole journey</span>
             </li>
           </ul>
+          <div className="mt-6 bg-white/10 backdrop-blur rounded-lg p-4">
+            <p className="text-lg">
+              <strong>Remember:</strong> No single match defines your season. Stay safe, come back to the next event, and keep building. The grapplers who win seasons are the ones who stay healthy and show up consistently.
+            </p>
+          </div>
         </section>
 
         {/* Weight Classes */}
@@ -181,9 +215,14 @@ export default function RankingsExplainedPage() {
               <div className="text-xl">Over 200 lbs</div>
             </div>
           </div>
-          <p className="text-lg text-gray-700 dark:text-gray-300">
-            <strong>Coming Soon:</strong> Separate ELO ratings per weight class for fighters who compete in multiple divisions.
+          <p className="text-lg text-gray-700 dark:text-gray-300 mb-4">
+            Each fighter has separate ELO ratings for each weight class they compete in, allowing you to track your performance across divisions.
           </p>
+          <div className="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-4 border-l-4 border-mbjj-blue">
+            <p className="text-gray-700 dark:text-gray-300">
+              💡 <strong>Multi-Division Fighters:</strong> If you compete in multiple weight classes, you'll have separate records and ELO ratings for each division. This allows you to challenge yourself at different weights while maintaining accurate rankings in each class.
+            </p>
+          </div>
         </section>
 
         {/* Badge System */}
@@ -309,6 +348,16 @@ export default function RankingsExplainedPage() {
                 <div className="text-xl font-heading font-bold mb-1">WARRIOR SPIRIT</div>
                 <p className="text-white/90">Most matches in a single event (minimum 3, no ties). You came to fight!</p>
               </div>
+              <div className="bg-white/10 backdrop-blur rounded-lg p-4">
+                <div className="text-3xl mb-2">💰</div>
+                <div className="text-xl font-heading font-bold mb-1">PRIZE POOL</div>
+                <p className="text-white/90">Eligible for season prize pool (5+ events attended, 12+ total matches). You're in it for the long haul!</p>
+              </div>
+            </div>
+            <div className="mt-4 bg-white/10 backdrop-blur rounded-lg p-4">
+              <p className="text-white/90">
+                📖 <strong>Want to learn more about season prize eligibility?</strong> Visit the <a href="/season-rules" className="text-yellow-300 hover:text-yellow-100 font-bold underline">Season Rules page</a> for full details on requirements and policies.
+              </p>
             </div>
           </div>
 
@@ -342,6 +391,24 @@ export default function RankingsExplainedPage() {
           <div className="mt-6 bg-white/10 backdrop-blur rounded-lg p-4">
             <p className="text-white/90">
               💡 <strong>Pro Tip:</strong> Collect all submission badges by diversifying your techniques. Show you're a complete grappler!
+            </p>
+          </div>
+        </section>
+
+        {/* Related Content */}
+        <section className="bg-mbjj-dark text-white rounded-lg p-8 mb-8">
+          <h3 className="text-2xl font-heading font-bold mb-4 text-center">
+            READY TO COMPETE?
+          </h3>
+          <div className="text-center">
+            <a
+              href="/season-rules"
+              className="inline-block bg-yellow-600 hover:bg-yellow-700 text-white font-heading font-bold px-8 py-3 rounded-lg transition shadow-md"
+            >
+              VIEW SEASON PRIZE POOL RULES →
+            </a>
+            <p className="text-gray-400 text-sm mt-3">
+              Learn about eligibility requirements and how to compete for season prizes
             </p>
           </div>
         </section>

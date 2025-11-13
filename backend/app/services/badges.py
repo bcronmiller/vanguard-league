@@ -297,14 +297,11 @@ def get_player_badges(player_id: int, db: Session) -> List[Dict]:
             })
 
     # MULTI-DIVISION FIGHTER - Fought in multiple weight classes
+    # Check the actual weight class of each match, not the fighter's assigned weight class
     weight_classes_fought = set()
     for result, match in results:
-        entry = db.query(Entry).filter(
-            Entry.event_id == match.event_id,
-            Entry.player_id == player_id
-        ).first()
-        if entry and entry.weight_class:
-            weight_classes_fought.add(entry.weight_class)
+        if match.weight_class_id:
+            weight_classes_fought.add(match.weight_class_id)
 
     if len(weight_classes_fought) > 1:
         badges.append({
@@ -312,5 +309,20 @@ def get_player_badges(player_id: int, db: Session) -> List[Dict]:
             "description": f"Competed in {len(weight_classes_fought)} weight classes",
             "icon": "⚖️"
         })
+
+    # PRIZE POOL ELIGIBILITY - Season prize pool participation
+    # Requirements: 5+ events attended AND 12+ total matches
+    if len(results) >= 12:  # At least 12 matches
+        # Count unique events
+        events_attended = set()
+        for result, match in results:
+            events_attended.add(match.event_id)
+
+        if len(events_attended) >= 5:  # At least 5 events
+            badges.append({
+                "name": "Prize Pool",
+                "description": f"Eligible for season prize pool ({len(events_attended)} events, {len(results)} matches)",
+                "icon": "💰"
+            })
 
     return badges

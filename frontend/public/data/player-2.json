@@ -8,13 +8,13 @@
   "bjj_belt_rank": "Purple",
   "weight": 149.7,
   "weight_class_id": 1,
-  "elo_rating": 1631.4715127061438,
+  "elo_rating": 1630.9187893514882,
   "rankade_ree_score": null,
   "id": 2,
   "rankade_id": "5K10Z3DljGp",
   "active": true,
   "created_at": "2025-11-09T18:57:19.336246",
-  "updated_at": "2025-11-12T04:46:10.832979",
+  "updated_at": "2025-11-13T19:31:47.230218",
   "weight_class_name": null,
   "matches": [
     {
@@ -96,5 +96,28 @@
       "description": "Armbar submission earned",
       "icon": "🦴"
     }
-  ]
+  ],
+  "divisions": {
+    "player_id": 2,
+    "player_name": "Alex Stewart",
+    "overall": {
+      "wins": 3,
+      "losses": 0,
+      "draws": 0,
+      "elo_rating": 1630.9187893514882,
+      "elo_change": 30.918789351488158
+    },
+    "divisions": [
+      {
+        "weight_class_id": 1,
+        "weight_class_name": "Lightweight",
+        "wins": 3,
+        "losses": 0,
+        "draws": 0,
+        "elo_rating": 1630.9187893514882,
+        "initial_elo_rating": 1600,
+        "elo_change": 30.918789351488158
+      }
+    ]
+  }
 }

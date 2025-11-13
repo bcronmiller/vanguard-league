@@ -261,6 +261,7 @@ async def get_badges_endpoint(player_id: int, db: Session = Depends(get_db)):
     - Multi-Division ⚖️ - Competed in multiple weight classes
     - The Spoiler 🤯 - Beat someone 2+ belt ranks above you
     - Warrior Spirit ❤️‍🔥 - Most matches in a single event (minimum 3, no ties)
+    - Prize Pool 💰 - Eligible for season prize pool (5+ events, 12+ matches)
     """
     from app.services.badges import get_player_badges
 
@@ -339,3 +340,93 @@ async def remove_manual_badge(
     db.refresh(player)
 
     return {"message": "Badge removed successfully", "badges": player.manual_badges}
+
+
+@router.get("/players/{player_id}/divisions")
+async def get_player_divisions(player_id: int, db: Session = Depends(get_db)):
+    """
+    Get weight-class-specific records and ELO ratings for a player.
+    Returns a list of divisions the player has competed in with their record and ELO.
+    """
+    from app.models.weight_class import WeightClass
+    from collections import defaultdict
+
+    player = db.query(Player).filter(Player.id == player_id).first()
+    if not player:
+        raise HTTPException(status_code=404, detail="Player not found")
+
+    # Get all matches with weight class info
+    matches = db.query(Match).filter(
+        or_(Match.a_player_id == player_id, Match.b_player_id == player_id),
+        Match.weight_class_id.isnot(None)
+    ).options(joinedload(Match.weight_class)).all()
+
+    # Group by weight class and calculate records
+    division_stats = defaultdict(lambda: {"wins": 0, "losses": 0, "draws": 0})
+
+    for match in matches:
+        weight_class_id = match.weight_class_id
+
+        # Determine result
+        if match.a_player_id == player_id:
+            if match.result == MatchResult.PLAYER_A_WIN:
+                division_stats[weight_class_id]["wins"] += 1
+            elif match.result == MatchResult.PLAYER_B_WIN:
+                division_stats[weight_class_id]["losses"] += 1
+            elif match.result == MatchResult.DRAW:
+                division_stats[weight_class_id]["draws"] += 1
+        else:  # player_id == match.b_player_id
+            if match.result == MatchResult.PLAYER_B_WIN:
+                division_stats[weight_class_id]["wins"] += 1
+            elif match.result == MatchResult.PLAYER_A_WIN:
+                division_stats[weight_class_id]["losses"] += 1
+            elif match.result == MatchResult.DRAW:
+                division_stats[weight_class_id]["draws"] += 1
+
+    # Build response with ELO ratings
+    divisions = []
+    elo_field_map = {
+        1: ('elo_lightweight', 'initial_elo_lightweight', 'Lightweight'),
+        2: ('elo_middleweight', 'initial_elo_middleweight', 'Middleweight'),
+        3: ('elo_heavyweight', 'initial_elo_heavyweight', 'Heavyweight')
+    }
+
+    for weight_class_id, stats in division_stats.items():
+        if weight_class_id in elo_field_map:
+            elo_field, initial_elo_field, weight_class_name = elo_field_map[weight_class_id]
+            current_elo = getattr(player, elo_field, None)
+            initial_elo = getattr(player, initial_elo_field, None)
+
+            divisions.append({
+                "weight_class_id": weight_class_id,
+                "weight_class_name": weight_class_name,
+                "wins": stats["wins"],
+                "losses": stats["losses"],
+                "draws": stats["draws"],
+                "elo_rating": current_elo,
+                "initial_elo_rating": initial_elo,
+                "elo_change": (current_elo - initial_elo) if (current_elo and initial_elo) else 0
+            })
+
+    # Sort by weight class ID
+    divisions.sort(key=lambda x: x["weight_class_id"])
+
+    # Add P4P overall stats
+    overall_wins = sum(d["wins"] for d in divisions)
+    overall_losses = sum(d["losses"] for d in divisions)
+    overall_draws = sum(d["draws"] for d in divisions)
+
+    result = {
+        "player_id": player_id,
+        "player_name": player.name,
+        "overall": {
+            "wins": overall_wins,
+            "losses": overall_losses,
+            "draws": overall_draws,
+            "elo_rating": player.elo_rating,
+            "elo_change": (player.elo_rating - player.initial_elo_lightweight) if (player.elo_rating and player.initial_elo_lightweight) else 0
+        },
+        "divisions": divisions
+    }
+
+    return result

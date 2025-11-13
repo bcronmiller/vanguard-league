@@ -14,7 +14,7 @@
   "rankade_id": "vyW6dQYQgMY",
   "active": true,
   "created_at": "2025-11-09T18:57:19.336251",
-  "updated_at": "2025-11-12T04:46:10.834096",
+  "updated_at": "2025-11-13T19:31:47.231225",
   "weight_class_name": null,
   "matches": [
     {
@@ -105,5 +105,28 @@
       "description": "Defeated an opponent two or more belt ranks above you",
       "icon": "🤯"
     }
-  ]
+  ],
+  "divisions": {
+    "player_id": 5,
+    "player_name": "Nick Newbold",
+    "overall": {
+      "wins": 3,
+      "losses": 1,
+      "draws": 0,
+      "elo_rating": 1456.6026532125022,
+      "elo_change": 56.60265321250222
+    },
+    "divisions": [
+      {
+        "weight_class_id": 3,
+        "weight_class_name": "Heavyweight",
+        "wins": 3,
+        "losses": 1,
+        "draws": 0,
+        "elo_rating": 1456.6026532125022,
+        "initial_elo_rating": 1400,
+        "elo_change": 56.60265321250222
+      }
+    ]
+  }
 }

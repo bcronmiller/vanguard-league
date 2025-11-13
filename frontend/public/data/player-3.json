@@ -8,13 +8,13 @@
   "bjj_belt_rank": "Blue",
   "weight": 167.8,
   "weight_class_id": 1,
-  "elo_rating": 1414.2621016518635,
+  "elo_rating": 1416.0529118412462,
   "rankade_ree_score": null,
   "id": 3,
   "rankade_id": "6dgROEGO1vG",
   "active": true,
   "created_at": "2025-11-09T18:57:19.336248",
-  "updated_at": "2025-11-12T04:46:10.833697",
+  "updated_at": "2025-11-13T19:31:47.230787",
   "weight_class_name": null,
   "matches": [
     {
@@ -96,11 +96,6 @@
   ],
   "badges": [
     {
-      "name": "Buttscooter",
-      "description": "Guard puller specialist",
-      "icon": "🍑"
-    },
-    {
       "name": "Footsie",
       "description": "Leg lock submission earned",
       "icon": "🦶"
@@ -109,6 +104,44 @@
       "name": "Darce Knight",
       "description": "Darce choke submission earned",
       "icon": "🥷"
+    },
+    {
+      "name": "Multi-Division",
+      "description": "Competed in 2 weight classes",
+      "icon": "⚖️"
     }
-  ]
+  ],
+  "divisions": {
+    "player_id": 3,
+    "player_name": "Hussain Samir",
+    "overall": {
+      "wins": 2,
+      "losses": 2,
+      "draws": 0,
+      "elo_rating": 1416.0529118412462,
+      "elo_change": 16.052911841246214
+    },
+    "divisions": [
+      {
+        "weight_class_id": 1,
+        "weight_class_name": "Lightweight",
+        "wins": 1,
+        "losses": 2,
+        "draws": 0,
+        "elo_rating": 1400.0529118412462,
+        "initial_elo_rating": 1400,
+        "elo_change": 0.05291184124621395
+      },
+      {
+        "weight_class_id": 3,
+        "weight_class_name": "Heavyweight",
+        "wins": 1,
+        "losses": 0,
+        "draws": 0,
+        "elo_rating": 1416,
+        "initial_elo_rating": 1400,
+        "elo_change": 16
+      }
+    ]
+  }
 }

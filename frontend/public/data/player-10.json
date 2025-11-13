@@ -14,7 +14,7 @@
   "rankade_id": "onWM53v7WZx",
   "active": true,
   "created_at": "2025-11-09T18:57:19.336261",
-  "updated_at": "2025-11-12T04:46:10.835815",
+  "updated_at": "2025-11-13T19:31:47.233078",
   "weight_class_name": null,
   "matches": [
     {
@@ -100,5 +100,28 @@
       "description": "Darce choke submission earned",
       "icon": "🥷"
     }
-  ]
+  ],
+  "divisions": {
+    "player_id": 10,
+    "player_name": "Troy Wittman",
+    "overall": {
+      "wins": 3,
+      "losses": 1,
+      "draws": 0,
+      "elo_rating": 1993.0915289485029,
+      "elo_change": -6.908471051497145
+    },
+    "divisions": [
+      {
+        "weight_class_id": 3,
+        "weight_class_name": "Heavyweight",
+        "wins": 3,
+        "losses": 1,
+        "draws": 0,
+        "elo_rating": 1993.0915289485029,
+        "initial_elo_rating": 2000,
+        "elo_change": -6.908471051497145
+      }
+    ]
+  }
 }

@@ -72,7 +72,7 @@ async function exportData() {
       // Fetch player info
       const playerData = await fetchAndSave(`/api/players/${player.id}`, `player-${player.id}.json`);
 
-      // Fetch match history and badges separately
+      // Fetch match history, badges, and divisions separately
       if (playerData) {
         try {
           console.log(`Fetching matches for player ${player.id}...`);
@@ -81,8 +81,12 @@ async function exportData() {
           console.log(`Fetching badges for player ${player.id}...`);
           const badgesResponse = await fetch(`${API_URL}/api/players/${player.id}/badges`);
 
+          console.log(`Fetching divisions for player ${player.id}...`);
+          const divisionsResponse = await fetch(`${API_URL}/api/players/${player.id}/divisions`);
+
           let matches = [];
           let badges = [];
+          let divisions = null;
 
           if (matchesResponse.ok) {
             matches = await matchesResponse.json();
@@ -92,16 +96,21 @@ async function exportData() {
             badges = await badgesResponse.json();
           }
 
-          // Combine player data with matches and badges
+          if (divisionsResponse.ok) {
+            divisions = await divisionsResponse.json();
+          }
+
+          // Combine player data with matches, badges, and divisions
           const combinedData = {
             ...playerData,
             matches: matches,
-            badges: badges
+            badges: badges,
+            divisions: divisions
           };
 
           const filepath = path.join(DATA_DIR, `player-${player.id}.json`);
           fs.writeFileSync(filepath, JSON.stringify(combinedData, null, 2));
-          console.log(`✓ Updated player-${player.id}.json with ${matches.length} matches and ${badges.length} badges`);
+          console.log(`✓ Updated player-${player.id}.json with ${matches.length} matches, ${badges.length} badges, and division stats`);
         } catch (error) {
           console.error(`✗ Failed to fetch data for player ${player.id}:`, error.message);
         }

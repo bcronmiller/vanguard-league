@@ -17,5 +17,17 @@
   "updated_at": "2025-11-10T23:43:02.842478",
   "weight_class_name": null,
   "matches": [],
-  "badges": []
+  "badges": [],
+  "divisions": {
+    "player_id": 1,
+    "player_name": "Brian Cronmiller",
+    "overall": {
+      "wins": 0,
+      "losses": 0,
+      "draws": 0,
+      "elo_rating": 2000,
+      "elo_change": 0
+    },
+    "divisions": []
+  }
 }

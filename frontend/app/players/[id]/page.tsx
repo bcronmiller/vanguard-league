@@ -42,6 +42,30 @@ interface Badge {
   icon: string;
 }
 
+interface Division {
+  weight_class_id: number;
+  weight_class_name: string;
+  wins: number;
+  losses: number;
+  draws: number;
+  elo_rating: number;
+  initial_elo_rating: number;
+  elo_change: number;
+}
+
+interface DivisionData {
+  player_id: number;
+  player_name: string;
+  overall: {
+    wins: number;
+    losses: number;
+    draws: number;
+    elo_rating: number;
+    elo_change: number;
+  };
+  divisions: Division[];
+}
+
 export default function PlayerProfilePage({ params }: { params: { id: string } }) {
   const playerId = params.id;
   const readOnly = config.readOnly;
@@ -50,6 +74,7 @@ export default function PlayerProfilePage({ params }: { params: { id: string } }
   const [matches, setMatches] = useState<MatchHistory[]>([]);
   const [ranking, setRanking] = useState<{ rank: number; total: number; weightClass: string } | null>(null);
   const [badges, setBadges] = useState<Badge[]>([]);
+  const [divisions, setDivisions] = useState<DivisionData | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -57,6 +82,7 @@ export default function PlayerProfilePage({ params }: { params: { id: string } }
     loadMatches();
     loadRanking();
     loadBadges();
+    loadDivisions();
   }, [playerId]);
 
   const loadPlayer = async () => {
@@ -68,13 +94,16 @@ export default function PlayerProfilePage({ params }: { params: { id: string } }
         const data = await res.json();
         setPlayer(data);
 
-        // In static mode, player data includes matches and badges
+        // In static mode, player data includes matches, badges, and divisions
         if (isStatic) {
           if (data.matches) {
             setMatches(data.matches);
           }
           if (data.badges) {
             setBadges(data.badges);
+          }
+          if (data.divisions) {
+            setDivisions(data.divisions);
           }
           setLoading(false); // Set loading false here in static mode since we have all data
         }
@@ -158,7 +187,7 @@ export default function PlayerProfilePage({ params }: { params: { id: string } }
     try {
       const isStatic = process.env.NEXT_PUBLIC_STATIC_MODE === 'true';
       if (isStatic) {
-        // Badges not available in static mode yet
+        // Badges loaded with player data
         return;
       }
       const endpoint = `${config.apiUrl}/api/players/${playerId}/badges`;
@@ -169,6 +198,24 @@ export default function PlayerProfilePage({ params }: { params: { id: string } }
       }
     } catch (error) {
       console.error('Failed to load badges:', error);
+    }
+  };
+
+  const loadDivisions = async () => {
+    try {
+      const isStatic = process.env.NEXT_PUBLIC_STATIC_MODE === 'true';
+      if (isStatic) {
+        // Divisions loaded with player data
+        return;
+      }
+      const endpoint = `${config.apiUrl}/api/players/${playerId}/divisions`;
+      const res = await fetch(endpoint);
+      if (res.ok) {
+        const data = await res.json();
+        setDivisions(data);
+      }
+    } catch (error) {
+      console.error('Failed to load divisions:', error);
     }
   };
 
@@ -258,45 +305,89 @@ export default function PlayerProfilePage({ params }: { params: { id: string } }
                 </div>
               )}
 
-              <div className="grid grid-cols-2 md:grid-cols-5 gap-6 mb-6">
-                {/* Record */}
-                <div>
-                  <div className="text-sm text-gray-600 dark:text-gray-400 mb-1">RECORD</div>
-                  <div className="text-3xl font-heading font-bold text-mbjj-red">
-                    {record.wins}-{record.losses}-{record.draws}
+              {/* Division Stats - Show each weight class separately */}
+              {divisions && divisions.divisions && divisions.divisions.length > 0 ? (
+                <div className="mb-6">
+                  <div className="text-sm text-gray-600 dark:text-gray-400 mb-3">DIVISION RECORDS</div>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {divisions.divisions.map((division) => (
+                      <div
+                        key={division.weight_class_id}
+                        className="bg-gray-50 dark:bg-gray-700 rounded-lg p-4 border-l-4 border-mbjj-blue"
+                      >
+                        <div className="text-lg font-heading font-bold text-mbjj-blue mb-2">
+                          {division.weight_class_name.toUpperCase()}
+                        </div>
+                        <div className="space-y-2">
+                          <div>
+                            <span className="text-sm text-gray-600 dark:text-gray-400">Record: </span>
+                            <span className="text-xl font-heading font-bold text-mbjj-red">
+                              {division.wins}-{division.losses}-{division.draws}
+                            </span>
+                          </div>
+                          <div>
+                            <span className="text-sm text-gray-600 dark:text-gray-400">ELO: </span>
+                            <span className="text-xl font-heading font-bold">
+                              {Math.round(division.elo_rating)}
+                            </span>
+                            <span className={`text-sm ml-2 ${
+                              division.elo_change >= 0
+                                ? 'text-green-600 dark:text-green-400'
+                                : 'text-red-600 dark:text-red-400'
+                            }`}>
+                              ({division.elo_change >= 0 ? '+' : ''}{Math.round(division.elo_change)})
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
                   </div>
                 </div>
-
-                {/* Ranking */}
-                {ranking && (
+              ) : (
+                /* Fallback to overall stats if no division data */
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-6 mb-6">
+                  {/* Record */}
                   <div>
-                    <div className="text-sm text-gray-600 dark:text-gray-400 mb-1">
-                      {ranking.weightClass.toUpperCase()} RANK
-                    </div>
-                    <div className="text-3xl font-heading font-bold text-mbjj-blue">
-                      #{ranking.rank} <span className="text-lg text-gray-500">of {ranking.total}</span>
+                    <div className="text-sm text-gray-600 dark:text-gray-400 mb-1">RECORD</div>
+                    <div className="text-3xl font-heading font-bold text-mbjj-red">
+                      {record.wins}-{record.losses}-{record.draws}
                     </div>
                   </div>
-                )}
 
-                {/* ELO Rating */}
-                <div>
-                  <div className="text-sm text-gray-600 dark:text-gray-400 mb-1">ELO RATING</div>
-                  <div className="text-3xl font-heading font-bold text-mbjj-blue">
-                    {Math.round(player.elo_rating)}
+                  {/* ELO Rating */}
+                  <div>
+                    <div className="text-sm text-gray-600 dark:text-gray-400 mb-1">ELO RATING</div>
+                    <div className="text-3xl font-heading font-bold text-mbjj-blue">
+                      {Math.round(player.elo_rating)}
+                    </div>
+                    {player.initial_elo_rating && (
+                      <div className={`text-sm mt-1 ${
+                        (player.elo_rating - player.initial_elo_rating) >= 0
+                          ? 'text-green-600 dark:text-green-400'
+                          : 'text-red-600 dark:text-red-400'
+                      }`}>
+                        ({(player.elo_rating - player.initial_elo_rating) >= 0 ? '+' : ''}
+                        {Math.round(player.elo_rating - player.initial_elo_rating)})
+                      </div>
+                    )}
                   </div>
-                  {player.initial_elo_rating && (
-                    <div className={`text-sm mt-1 ${
-                      (player.elo_rating - player.initial_elo_rating) >= 0
-                        ? 'text-green-600 dark:text-green-400'
-                        : 'text-red-600 dark:text-red-400'
-                    }`}>
-                      ({(player.elo_rating - player.initial_elo_rating) >= 0 ? '+' : ''}
-                      {Math.round(player.elo_rating - player.initial_elo_rating)})
+
+                  {/* Ranking */}
+                  {ranking && (
+                    <div>
+                      <div className="text-sm text-gray-600 dark:text-gray-400 mb-1">
+                        {ranking.weightClass.toUpperCase()} RANK
+                      </div>
+                      <div className="text-3xl font-heading font-bold text-mbjj-blue">
+                        #{ranking.rank} <span className="text-lg text-gray-500">of {ranking.total}</span>
+                      </div>
                     </div>
                   )}
                 </div>
+              )}
 
+              {/* Fighter Info */}
+              <div className="grid grid-cols-2 gap-6 mb-6">
                 {/* Belt Rank */}
                 <div>
                   <div className="text-sm text-gray-600 dark:text-gray-400 mb-1">BELT RANK</div>

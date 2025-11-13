@@ -8,14 +8,26 @@
   "bjj_belt_rank": "Brown",
   "weight": 280,
   "weight_class_id": 3,
-  "elo_rating": 1600,
+  "elo_rating": 1800,
   "rankade_ree_score": null,
   "id": 16,
   "rankade_id": null,
   "active": true,
   "created_at": "2025-11-13T18:26:23.396967",
-  "updated_at": "2025-11-13T18:27:01.764229",
+  "updated_at": "2025-11-13T19:31:47.047538",
   "weight_class_name": null,
   "matches": [],
-  "badges": []
+  "badges": [],
+  "divisions": {
+    "player_id": 16,
+    "player_name": "Marcus Harness",
+    "overall": {
+      "wins": 0,
+      "losses": 0,
+      "draws": 0,
+      "elo_rating": 1800,
+      "elo_change": 0
+    },
+    "divisions": []
+  }
 }
