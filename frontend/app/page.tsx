@@ -6,9 +6,13 @@ import { config } from '@/lib/config';
 interface Player {
   id: number;
   name: string;
-  weight_class_name: string;
+  bjj_belt_rank?: string;
+  weight?: number | null;
+  weight_class_name: string | null;
   elo_rating: number;
   initial_elo_rating: number;
+  photo_url?: string | null;
+  academy?: string | null;
 }
 
 interface LadderStanding {
