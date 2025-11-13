@@ -57,6 +57,7 @@ export default function BracketsPage({ params }: { params: { id: string } | Prom
   const [loading, setLoading] = useState(true);
   const [generating, setGenerating] = useState(false);
   const [format, setFormat] = useState<'single_elimination' | 'double_elimination' | 'swiss' | 'round_robin' | 'guaranteed_matches'>('single_elimination');
+  const [selectedWeightClass, setSelectedWeightClass] = useState<number | null>(null); // null = all fighters
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedMatchId, setSelectedMatchId] = useState<number | null>(null);
 
@@ -158,7 +159,11 @@ export default function BracketsPage({ params }: { params: { id: string } | Prom
   };
 
   const createAndGenerateBracket = async () => {
-    if (!confirm(`Generate ${format.replace(/_/g, ' ')} bracket? This will create match pairings.`)) return;
+    const weightClassName = selectedWeightClass === 1 ? 'Lightweight' :
+                           selectedWeightClass === 2 ? 'Middleweight' :
+                           selectedWeightClass === 3 ? 'Heavyweight' : 'All Fighters';
+
+    if (!confirm(`Generate ${format.replace(/_/g, ' ')} bracket for ${weightClassName}?\n\nThis will create match pairings.`)) return;
 
     setGenerating(true);
     try {
@@ -168,7 +173,7 @@ export default function BracketsPage({ params }: { params: { id: string } | Prom
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           event_id: parseInt(eventId),
-          weight_class_id: null, // null = all fighters
+          weight_class_id: selectedWeightClass, // null = all fighters, or specific weight class ID
           format_type: format,
           config: {},
           min_rest_minutes: 30
@@ -257,6 +262,24 @@ export default function BracketsPage({ params }: { params: { id: string } | Prom
             <p className="text-gray-600 dark:text-gray-400 mb-8 text-center">
               {numFighters} checked-in fighters • Select a bracket format
             </p>
+
+            {/* Weight Class Selector */}
+            <div className="max-w-2xl mx-auto mb-6 bg-yellow-50 dark:bg-yellow-900/20 p-6 rounded-lg border-l-4 border-yellow-500">
+              <h3 className="font-heading font-bold mb-4 text-gray-900 dark:text-white">Weight Class (IMPORTANT)</h3>
+              <select
+                value={selectedWeightClass || ''}
+                onChange={(e) => setSelectedWeightClass(e.target.value ? Number(e.target.value) : null)}
+                className="w-full px-4 py-3 border-2 rounded-lg dark:bg-gray-800 dark:border-gray-700 text-lg font-medium"
+              >
+                <option value="">All Fighters (Mixed Weight)</option>
+                <option value="1">Lightweight (Under 170 lbs)</option>
+                <option value="2">Middleweight (170-200 lbs)</option>
+                <option value="3">Heavyweight (Over 200 lbs)</option>
+              </select>
+              <p className="text-sm text-gray-700 dark:text-gray-300 mt-2">
+                Select a specific weight class to only include fighters checked in for that division
+              </p>
+            </div>
 
             {/* Settings */}
             <div className="max-w-2xl mx-auto mb-8 bg-gray-50 dark:bg-gray-900 p-6 rounded-lg">

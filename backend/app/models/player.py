@@ -20,7 +20,8 @@ class Player(Base):
     weight_class_id = Column(Integer, ForeignKey("weight_classes.id"), nullable=True)
 
     # Global ELO (kept for backward compatibility)
-    elo_rating = Column(Float, nullable=True)  # Overall ELO rating (legacy)
+    elo_rating = Column(Float, nullable=True)  # Overall P4P ELO rating
+    initial_p4p_elo = Column(Float, nullable=True)  # Starting P4P ELO (for gain/loss calculation)
     rankade_ree_score = Column(Float, nullable=True)  # Rankade REE score (for reference only)
 
     # Weight class specific ELO ratings

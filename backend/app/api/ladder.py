@@ -62,8 +62,60 @@ def get_initial_elo(belt_rank: str | None) -> float:
     return belt_elos.get(belt_rank or "White", 1400.0)  # Default to Blue belt rating
 
 
+def build_head_to_head_lookup(matches: List[Match]) -> dict:
+    """
+    Build an in-memory lookup for head-to-head records from a list of matches.
+    Returns dict keyed by (player_a_id, player_b_id) -> (a_wins, b_wins)
+    """
+    from collections import defaultdict
+
+    # Store both directions for easy lookup
+    h2h = defaultdict(lambda: [0, 0])  # [a_wins, b_wins]
+
+    for match in matches:
+        if not match.a_player_id or not match.b_player_id:
+            continue
+        if match.result == MatchResult.NO_CONTEST:
+            continue
+
+        # Normalize key (smaller ID first)
+        key = tuple(sorted([match.a_player_id, match.b_player_id]))
+
+        # Determine winner
+        if match.result == MatchResult.PLAYER_A_WIN:
+            winner = match.a_player_id
+        elif match.result == MatchResult.PLAYER_B_WIN:
+            winner = match.b_player_id
+        else:
+            continue  # Skip draws
+
+        # Increment winner's count
+        if winner == key[0]:
+            h2h[key][0] += 1
+        else:
+            h2h[key][1] += 1
+
+    return dict(h2h)
+
+
+def get_head_to_head_from_lookup(player_a_id: int, player_b_id: int, h2h_lookup: dict) -> tuple[int, int]:
+    """
+    Get head-to-head record between two players from preloaded lookup.
+    Returns (player_a_wins, player_b_wins)
+    """
+    key = tuple(sorted([player_a_id, player_b_id]))
+    wins = h2h_lookup.get(key, [0, 0])
+
+    # Return in correct order
+    if key[0] == player_a_id:
+        return (wins[0], wins[1])
+    else:
+        return (wins[1], wins[0])
+
+
 def get_head_to_head_record(player_a_id: int, player_b_id: int, event_id: int, db: Session) -> tuple[int, int]:
     """
+    DEPRECATED: Use build_head_to_head_lookup() and get_head_to_head_from_lookup() instead.
     Get head-to-head record between two players for a specific event.
     Returns (player_a_wins, player_b_wins)
     """
@@ -79,6 +131,8 @@ def get_head_to_head_record(player_a_id: int, player_b_id: int, event_id: int, d
     b_wins = 0
 
     for match in matches:
+        if match.result == MatchResult.NO_CONTEST:
+            continue
         if match.a_player_id == player_a_id:
             if match.result == MatchResult.PLAYER_A_WIN:
                 a_wins += 1
@@ -93,7 +147,7 @@ def get_head_to_head_record(player_a_id: int, player_b_id: int, event_id: int, d
     return (a_wins, b_wins)
 
 
-def compare_players(a: dict, b: dict, event_id: int, db: Session) -> int:
+def compare_players(a: dict, b: dict, h2h_lookup: dict = None, event_id: int = None, db: Session = None) -> int:
     """
     Compare two players for ladder ranking.
     Returns -1 if a should rank higher, 1 if b should rank higher, 0 if tied.
@@ -116,7 +170,14 @@ def compare_players(a: dict, b: dict, event_id: int, db: Session) -> int:
         return -1 if a_gain > b_gain else 1
 
     # 2. Check head-to-head if they've played
-    a_h2h_wins, b_h2h_wins = get_head_to_head_record(a['player_id'], b['player_id'], event_id, db)
+    if h2h_lookup is not None:
+        # Use optimized lookup
+        a_h2h_wins, b_h2h_wins = get_head_to_head_from_lookup(a['player_id'], b['player_id'], h2h_lookup)
+    elif event_id and db:
+        # Fallback to database query (deprecated)
+        a_h2h_wins, b_h2h_wins = get_head_to_head_record(a['player_id'], b['player_id'], event_id, db)
+    else:
+        a_h2h_wins, b_h2h_wins = 0, 0
 
     if a_h2h_wins != b_h2h_wins:
         return -1 if a_h2h_wins > b_h2h_wins else 1
@@ -274,33 +335,29 @@ async def get_ladder(event_id: int, db: Session = Depends(get_db)):
         if match.a_player_id is None or match.b_player_id is None:
             continue
 
+        # Skip NO_CONTEST matches
+        if match.result == MatchResult.NO_CONTEST:
+            continue
+
         if match.result == MatchResult.PLAYER_A_WIN:
             player_records[match.a_player_id]['wins'] += 1
             player_records[match.b_player_id]['losses'] += 1
         elif match.result == MatchResult.PLAYER_B_WIN:
             player_records[match.b_player_id]['wins'] += 1
             player_records[match.a_player_id]['losses'] += 1
-        else:  # Draw
+        elif match.result == MatchResult.DRAW:
             player_records[match.a_player_id]['draws'] += 1
             player_records[match.b_player_id]['draws'] += 1
 
-    # Sort players by record (wins - losses), head-to-head, then ELO
-    sorted_players = sorted(
-        player_records.values(),
-        key=lambda x: (
-            -(x['wins'] - x['losses']),  # Higher win differential first (negative for descending)
-            -(x.get('elo_rating') or 0)   # Higher ELO first (negative for descending)
-        )
-    )
+    # Build head-to-head lookup from matches (O(n) instead of O(n²))
+    h2h_lookup = build_head_to_head_lookup(matches)
 
-    # Apply head-to-head tiebreaker for players with same record
-    # This is a simplified implementation - a full implementation would need
-    # to handle complex multi-way ties
+    # Sort players using head-to-head tiebreaker
     from functools import cmp_to_key
 
     sorted_players = sorted(
         player_records.values(),
-        key=cmp_to_key(lambda a, b: compare_players(a, b, event_id, db))
+        key=cmp_to_key(lambda a, b: compare_players(a, b, h2h_lookup=h2h_lookup))
     )
 
     # Build ladder entries with ranks
@@ -439,22 +496,29 @@ async def get_ladder_by_weight_class(
         if match.a_player_id is None or match.b_player_id is None:
             continue
 
+        # Skip NO_CONTEST matches
+        if match.result == MatchResult.NO_CONTEST:
+            continue
+
         if match.result == MatchResult.PLAYER_A_WIN:
             player_records[match.a_player_id]['wins'] += 1
             player_records[match.b_player_id]['losses'] += 1
         elif match.result == MatchResult.PLAYER_B_WIN:
             player_records[match.b_player_id]['wins'] += 1
             player_records[match.a_player_id]['losses'] += 1
-        else:  # Draw
+        elif match.result == MatchResult.DRAW:
             player_records[match.a_player_id]['draws'] += 1
             player_records[match.b_player_id]['draws'] += 1
+
+    # Build head-to-head lookup from matches (O(n) instead of O(n²))
+    h2h_lookup = build_head_to_head_lookup(matches)
 
     # Sort players by record, head-to-head, then ELO
     from functools import cmp_to_key
 
     sorted_players = sorted(
         player_records.values(),
-        key=cmp_to_key(lambda a, b: compare_players(a, b, event_id, db))
+        key=cmp_to_key(lambda a, b: compare_players(a, b, h2h_lookup=h2h_lookup))
     )
 
     # Build ladder entries with ranks
