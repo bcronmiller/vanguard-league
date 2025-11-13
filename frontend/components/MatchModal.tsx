@@ -240,6 +240,25 @@ export default function MatchModal({ matchId, isOpen, onClose, onResultSubmitted
 
   const eloImpact = getEloImpact();
 
+  // Convert win probability to American odds
+  const getAmericanOdds = (winProbability: number): string => {
+    const prob = winProbability / 100; // Convert percentage to decimal
+
+    if (prob >= 0.50) {
+      // Favorite (negative odds)
+      const odds = -100 * (prob / (1 - prob));
+      return Math.round(odds).toString();
+    } else {
+      // Underdog (positive odds)
+      const odds = 100 * ((1 - prob) / prob);
+      return '+' + Math.round(odds).toString();
+    }
+  };
+
+  const player_a_odds = getAmericanOdds(elo_preview.player_a.expected_score);
+  const player_b_odds = getAmericanOdds(elo_preview.player_b.expected_score);
+  const player_a_favorite = elo_preview.player_a.expected_score > elo_preview.player_b.expected_score;
+
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4 overflow-y-auto" onClick={handleBackdropClick}>
       <div className="bg-white dark:bg-gray-800 rounded-lg max-w-6xl w-full max-h-[90vh] overflow-y-auto my-8">
@@ -381,18 +400,24 @@ export default function MatchModal({ matchId, isOpen, onClose, onResultSubmitted
           <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-6 mb-8">
             <h3 className="text-xl font-heading font-bold mb-4">ELO IMPACT - ALL OUTCOMES</h3>
 
-            {/* Win Probabilities */}
+            {/* Betting Odds */}
             <div className="grid grid-cols-2 gap-4 mb-6 pb-4 border-b border-gray-300 dark:border-gray-600">
               <div>
-                <div className="text-sm text-gray-600 dark:text-gray-400">Win Probability</div>
-                <div className="text-3xl font-heading font-bold text-mbjj-red">
-                  {elo_preview.player_a.expected_score}%
+                <div className="text-sm text-gray-600 dark:text-gray-400">Betting Odds</div>
+                <div className={`text-3xl font-heading font-bold ${player_a_favorite ? 'text-green-600' : 'text-red-600'}`}>
+                  {player_a_odds}
+                </div>
+                <div className="text-xs text-gray-500 mt-1">
+                  {elo_preview.player_a.expected_score}% win probability
                 </div>
               </div>
               <div className="text-right">
-                <div className="text-sm text-gray-600 dark:text-gray-400">Win Probability</div>
-                <div className="text-3xl font-heading font-bold text-mbjj-red">
-                  {elo_preview.player_b.expected_score}%
+                <div className="text-sm text-gray-600 dark:text-gray-400">Betting Odds</div>
+                <div className={`text-3xl font-heading font-bold ${player_a_favorite ? 'text-red-600' : 'text-green-600'}`}>
+                  {player_b_odds}
+                </div>
+                <div className="text-xs text-gray-500 mt-1">
+                  {elo_preview.player_b.expected_score}% win probability
                 </div>
               </div>
             </div>
