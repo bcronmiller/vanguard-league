@@ -16,7 +16,27 @@
   "created_at": "2025-11-13T18:26:23.396967",
   "updated_at": "2025-11-13T19:31:47.047538",
   "weight_class_name": null,
-  "matches": [],
+  "matches": [
+    {
+      "match_id": 512,
+      "event_id": 12,
+      "event_name": "test",
+      "event_date": "2025-11-14T00:00:00",
+      "opponent": {
+        "id": 2,
+        "name": "Alex Stewart",
+        "photo_url": null
+      },
+      "result": "draw",
+      "method": null,
+      "duration_seconds": null,
+      "match_number": 3,
+      "belt_rank": "Brown",
+      "weight": 280,
+      "weight_class": "Heavyweight",
+      "elo_change": null
+    }
+  ],
   "badges": [],
   "divisions": {
     "player_id": 16,
