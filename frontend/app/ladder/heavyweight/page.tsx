@@ -33,7 +33,7 @@ export default function HeavyweightPage() {
     try {
       const isStatic = process.env.NEXT_PUBLIC_STATIC_MODE === 'true';
       const endpoint = isStatic
-        ? '/data/ladder-heavyweight.json'
+        ? '/data/ladder-event-1-heavyweight.json'
         : `${config.apiUrl}/api/ladder/1/weight-class/Heavyweight`;
       const res = await fetch(endpoint);
       if (res.ok) {

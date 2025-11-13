@@ -32,25 +32,35 @@ export default function MiddleweightPage() {
   const loadLadder = async () => {
     try {
       const isStatic = process.env.NEXT_PUBLIC_STATIC_MODE === 'true';
-      const endpoint = isStatic ? '/data/ladder-overall.json' : `${config.apiUrl}/api/ladder/overall`;
+      const endpoint = isStatic
+        ? '/data/ladder-event-1-middleweight.json'
+        : `${config.apiUrl}/api/ladder/1/weight-class/Middleweight`;
       const res = await fetch(endpoint);
       if (res.ok) {
         const data = await res.json();
-        // Filter for middleweight only (by assigned weight class)
-        const middleweight = data.filter((f: Fighter) => f.player.weight_class_name === 'Middleweight');
 
-        // Sort by ELO gain (performance vs. expectations) for rankings
-        const sorted = middleweight.sort((a: Fighter, b: Fighter) => {
-          const aGain = a.player.initial_elo_rating
-            ? a.player.elo_rating - a.player.initial_elo_rating
-            : 0;
-          const bGain = b.player.initial_elo_rating
-            ? b.player.elo_rating - b.player.initial_elo_rating
-            : 0;
-          return bGain - aGain; // Descending order (highest gain first)
-        });
+        // For static mode, data is an array; for API mode, it's a LadderResponse object with standings
+        const standings = isStatic ? data : data.standings || [];
 
-        setFighters(sorted);
+        // Convert LadderEntry format to Fighter format
+        const fighters = standings.map((entry: any) => ({
+          player: {
+            id: entry.player_id,
+            name: entry.player_name,
+            bjj_belt_rank: entry.belt_rank,
+            weight: null, // Weight not included in LadderEntry
+            weight_class_name: 'Middleweight',
+            elo_rating: entry.elo_rating,
+            initial_elo_rating: entry.initial_elo_rating,
+            photo_url: entry.photo_url,
+            academy: null // Academy not included in LadderEntry
+          },
+          wins: entry.wins,
+          losses: entry.losses,
+          draws: entry.draws
+        }));
+
+        setFighters(fighters);
       }
     } catch (error) {
       console.error('Failed to load ladder:', error);

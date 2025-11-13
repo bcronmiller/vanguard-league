@@ -33,7 +33,7 @@ export default function LightweightPage() {
     try {
       const isStatic = process.env.NEXT_PUBLIC_STATIC_MODE === 'true';
       const endpoint = isStatic
-        ? '/data/ladder-lightweight.json'
+        ? '/data/ladder-event-1-lightweight.json'
         : `${config.apiUrl}/api/ladder/1/weight-class/Lightweight`;
       const res = await fetch(endpoint);
       if (res.ok) {
