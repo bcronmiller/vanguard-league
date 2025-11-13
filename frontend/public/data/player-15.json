@@ -18,22 +18,22 @@
   "weight_class_name": null,
   "matches": [
     {
-      "match_id": 511,
-      "event_id": 12,
-      "event_name": "test",
+      "match_id": 517,
+      "event_id": 13,
+      "event_name": "The Rumble in Manassas!",
       "event_date": "2025-11-14T00:00:00",
       "opponent": {
-        "id": 14,
-        "name": "Jack Sudduth",
+        "id": 16,
+        "name": "Marcus Harness",
         "photo_url": null
       },
       "result": "draw",
       "method": null,
       "duration_seconds": null,
-      "match_number": 2,
+      "match_number": 1,
       "belt_rank": "Purple",
       "weight": 185,
-      "weight_class": "Middleweight",
+      "weight_class": "Heavyweight",
       "elo_change": null
     }
   ],

@@ -18,25 +18,6 @@
   "weight_class_name": null,
   "matches": [
     {
-      "match_id": 512,
-      "event_id": 12,
-      "event_name": "test",
-      "event_date": "2025-11-14T00:00:00",
-      "opponent": {
-        "id": 16,
-        "name": "Marcus Harness",
-        "photo_url": null
-      },
-      "result": "draw",
-      "method": null,
-      "duration_seconds": null,
-      "match_number": 3,
-      "belt_rank": null,
-      "weight": null,
-      "weight_class": "Heavyweight",
-      "elo_change": null
-    },
-    {
       "match_id": 75,
       "event_id": 1,
       "event_name": "VGL 1",

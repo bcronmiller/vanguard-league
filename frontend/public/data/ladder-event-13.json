@@ -1,0 +1,33 @@
+{
+  "event_id": 13,
+  "event_name": "The Rumble in Manassas!",
+  "event_date": "2025-11-14T00:00:00",
+  "standings": [
+    {
+      "rank": 1,
+      "player_id": 16,
+      "player_name": "Marcus Harness",
+      "photo_url": null,
+      "belt_rank": "Brown",
+      "wins": 0,
+      "losses": 0,
+      "draws": 0,
+      "win_rate": 0,
+      "elo_rating": 1800,
+      "initial_elo_rating": 1800
+    },
+    {
+      "rank": 2,
+      "player_id": 15,
+      "player_name": "George Battistelli",
+      "photo_url": "https://i.imgur.com/w6vvxqV.jpg",
+      "belt_rank": "Purple",
+      "wins": 0,
+      "losses": 0,
+      "draws": 0,
+      "win_rate": 0,
+      "elo_rating": 1600,
+      "initial_elo_rating": 1600
+    }
+  ]
+}

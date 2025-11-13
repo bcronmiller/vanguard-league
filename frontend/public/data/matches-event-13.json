@@ -1,0 +1,20 @@
+[
+  {
+    "id": 517,
+    "match_number": 517,
+    "player_a": {
+      "id": 15,
+      "name": "George Battistelli",
+      "photo_url": "https://i.imgur.com/w6vvxqV.jpg"
+    },
+    "player_b": {
+      "id": 16,
+      "name": "Marcus Harness",
+      "photo_url": null
+    },
+    "result": null,
+    "method": null,
+    "duration_seconds": null,
+    "synced_to_rankade": false
+  }
+]
