@@ -625,3 +625,72 @@ async def get_elo_preview(
         raise HTTPException(status_code=404, detail=str(e))
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
+
+@router.get("/tournaments/events/{event_id}/format-recommendations")
+async def get_format_recommendations(
+    event_id: int,
+    min_matches: int = 15,
+    max_matches: int = 20,
+    match_duration_minutes: int = 10,
+    time_budget_minutes: int | None = None,
+    db: Session = Depends(get_db)
+):
+    """
+    Get tournament format recommendations based on number of checked-in fighters.
+
+    Returns suggestions for which format to use with match counts, time estimates, and reasoning.
+
+    Args:
+        event_id: Event ID
+        min_matches: Minimum desired matches (default 15) - ignored if time_budget_minutes is set
+        max_matches: Maximum desired matches (default 20) - ignored if time_budget_minutes is set
+        match_duration_minutes: Expected match duration in minutes (default 10)
+        time_budget_minutes: Optional time budget for the event (e.g., 40, 60, 120 minutes)
+        db: Database session
+
+    Returns:
+        Format recommendations sorted by: fits in time budget, then closest to budget
+    """
+    from app.models.entry import Entry
+
+    # Count checked-in fighters for this event
+    num_fighters = db.query(Entry).filter(
+        Entry.event_id == event_id,
+        Entry.checked_in == True
+    ).count()
+
+    if num_fighters < 2:
+        return {
+            "num_fighters": num_fighters,
+            "min_matches": min_matches,
+            "max_matches": max_matches,
+            "match_duration_minutes": match_duration_minutes,
+            "recommendations": [],
+            "error": "Need at least 2 checked-in fighters to create a bracket"
+        }
+
+    # Get recommendations
+    recommendations = TournamentEngine.recommend_format(
+        num_fighters,
+        min_matches,
+        max_matches,
+        match_duration_minutes
+    )
+
+    # If time budget is specified, update sorting to prioritize formats that fit in time
+    if time_budget_minutes is not None:
+        for rec in recommendations:
+            rec["time_difference"] = abs(rec["estimated_time_minutes"] - time_budget_minutes)
+            rec["fits_in_budget"] = rec["estimated_time_minutes"] <= time_budget_minutes
+
+        # Sort by: fits in budget first, then closest to budget time
+        recommendations.sort(key=lambda x: (not x["fits_in_budget"], x["time_difference"]))
+
+    return {
+        "num_fighters": num_fighters,
+        "min_matches": min_matches,
+        "max_matches": max_matches,
+        "match_duration_minutes": match_duration_minutes,
+        "recommendations": recommendations
+    }

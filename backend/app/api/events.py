@@ -91,7 +91,7 @@ def get_event(event_id: int, db: Session = Depends(get_db)):
 
 @router.post("/events", response_model=EventResponse)
 def create_event(event_data: EventCreate, db: Session = Depends(get_db)):
-    """Create a new event"""
+    """Create a new event and automatically register all active fighters"""
     event = Event(
         name=event_data.name,
         date=event_data.date,
@@ -103,6 +103,22 @@ def create_event(event_data: EventCreate, db: Session = Depends(get_db)):
     db.add(event)
     db.commit()
     db.refresh(event)
+
+    # Automatically register all active fighters for the event
+    from app.models.player import Player
+    from app.models.entry import Entry
+
+    active_fighters = db.query(Player).filter(Player.active == True).all()
+    for fighter in active_fighters:
+        entry = Entry(
+            event_id=event.id,
+            player_id=fighter.id,
+            weight_class_id=fighter.weight_class_id,  # Use their assigned weight class
+            checked_in=False
+        )
+        db.add(entry)
+
+    db.commit()
     return event
 
 

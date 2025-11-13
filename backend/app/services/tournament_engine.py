@@ -34,6 +34,181 @@ class TournamentEngine:
     def __init__(self, db: Session):
         self.db = db
 
+    @staticmethod
+    def calculate_match_count(format_type: TournamentFormat, num_participants: int, swiss_rounds: int = 3) -> int:
+        """
+        Calculate how many matches a format will generate.
+
+        Args:
+            format_type: Tournament format
+            num_participants: Number of fighters
+            swiss_rounds: Number of rounds for Swiss (default 3)
+
+        Returns:
+            Total number of matches
+        """
+        if num_participants < 2:
+            return 0
+
+        if format_type == TournamentFormat.SINGLE_ELIMINATION:
+            # Single elim: n-1 matches
+            return num_participants - 1
+
+        elif format_type == TournamentFormat.DOUBLE_ELIMINATION:
+            # Double elim: roughly 2n-2 matches (varies with byes)
+            # More accurate: count winners bracket + losers bracket
+            if num_participants < 8:
+                return 0  # Not allowed
+            winners_rounds = math.ceil(math.log2(num_participants))
+            winners_matches = num_participants - 1
+            losers_matches = num_participants - 2
+            grand_finals = 1
+            return winners_matches + losers_matches + grand_finals
+
+        elif format_type == TournamentFormat.ROUND_ROBIN:
+            # Round robin: n(n-1)/2 matches
+            return (num_participants * (num_participants - 1)) // 2
+
+        elif format_type == TournamentFormat.SWISS:
+            # Swiss: (n/2) * rounds
+            return (num_participants // 2) * swiss_rounds
+
+        elif format_type == TournamentFormat.GUARANTEED_MATCHES:
+            # Guaranteed matches: everyone gets min_matches
+            # This is configurable, default to 3 matches per person
+            return (num_participants * 3) // 2
+
+        return 0
+
+    @staticmethod
+    def recommend_format(
+        num_participants: int,
+        min_matches: int = 15,
+        max_matches: int = 20,
+        match_duration_minutes: int = 10
+    ) -> List[Dict]:
+        """
+        Recommend tournament formats based on participant count and target match range.
+
+        Args:
+            num_participants: Number of fighters
+            min_matches: Minimum desired matches (default 15)
+            max_matches: Maximum desired matches (default 20)
+            match_duration_minutes: Expected match duration in minutes (default 10)
+
+        Returns:
+            List of recommendations with format, match count, time estimate, and reason
+        """
+        if num_participants < 2:
+            return []
+
+        recommendations = []
+
+        # Calculate match counts for each format
+        formats_to_check = [
+            (TournamentFormat.ROUND_ROBIN, "Round Robin", None),
+            (TournamentFormat.SINGLE_ELIMINATION, "Single Elimination", None),
+            (TournamentFormat.SWISS, "Swiss (3 rounds)", 3),
+            (TournamentFormat.SWISS, "Swiss (4 rounds)", 4),
+            (TournamentFormat.SWISS, "Swiss (5 rounds)", 5),
+        ]
+
+        # Only include double-elim if we have enough fighters
+        if num_participants >= 8:
+            formats_to_check.insert(2, (TournamentFormat.DOUBLE_ELIMINATION, "Double Elimination", None))
+
+        for format_type, format_name, swiss_rounds in formats_to_check:
+            rounds = swiss_rounds if format_type == TournamentFormat.SWISS else 3
+            match_count = TournamentEngine.calculate_match_count(format_type, num_participants, rounds)
+
+            # Skip if no matches
+            if match_count == 0:
+                continue
+
+            # Calculate estimated event time with 2-minute gaps between matches
+            # Formula: (matches × duration) + ((matches - 1) × 2-minute gap)
+            # Simplified: matches × (duration + 2) - 2
+            if match_count > 0:
+                estimated_time_minutes = (match_count * (match_duration_minutes + 2)) - 2
+            else:
+                estimated_time_minutes = 0
+
+            # Determine if this format is in range
+            in_range = min_matches <= match_count <= max_matches
+
+            # Calculate distance from range
+            if match_count < min_matches:
+                distance = min_matches - match_count
+                range_status = "below"
+            elif match_count > max_matches:
+                distance = match_count - max_matches
+                range_status = "above"
+            else:
+                distance = 0
+                range_status = "ideal"
+
+            # Determine recommendation reason
+            if in_range:
+                reason = f"✓ Within target range ({min_matches}-{max_matches})"
+            elif match_count < min_matches:
+                reason = f"{min_matches - match_count} fewer than minimum"
+            else:
+                reason = f"{match_count - max_matches} more than maximum"
+
+            # Add special notes
+            notes = []
+            if format_type == TournamentFormat.ROUND_ROBIN:
+                if num_participants > 6:
+                    notes.append("may take too long")
+                else:
+                    notes.append("everyone fights everyone")
+            elif format_type == TournamentFormat.DOUBLE_ELIMINATION:
+                notes.append("2 losses to eliminate")
+            elif format_type == TournamentFormat.SINGLE_ELIMINATION:
+                notes.append("fast, 1 loss = out")
+            elif format_type == TournamentFormat.SWISS:
+                notes.append("balanced pairing")
+
+            if notes:
+                reason += f" - {', '.join(notes)}"
+
+            # Calculate matches per fighter
+            if format_type == TournamentFormat.ROUND_ROBIN:
+                # Everyone fights everyone else once
+                matches_per_fighter = num_participants - 1
+            elif format_type == TournamentFormat.SINGLE_ELIMINATION:
+                # Most get 1 match, winner gets log2(n) matches
+                avg_matches = match_count / num_participants
+                matches_per_fighter = round(avg_matches, 1)
+            elif format_type == TournamentFormat.DOUBLE_ELIMINATION:
+                # Most get 2 matches, winner gets more
+                avg_matches = match_count / num_participants
+                matches_per_fighter = round(avg_matches, 1)
+            elif format_type == TournamentFormat.SWISS:
+                # Everyone gets the same number of rounds
+                matches_per_fighter = swiss_rounds
+            else:
+                matches_per_fighter = round(match_count / num_participants, 1)
+
+            recommendations.append({
+                "format": format_type.value,
+                "format_name": format_name,
+                "match_count": match_count,
+                "matches_per_fighter": matches_per_fighter,
+                "estimated_time_minutes": estimated_time_minutes,
+                "estimated_time_display": f"{estimated_time_minutes // 60}h {estimated_time_minutes % 60}m" if estimated_time_minutes >= 60 else f"{estimated_time_minutes}m",
+                "in_range": in_range,
+                "range_status": range_status,
+                "distance_from_range": distance,
+                "reason": reason,
+                "swiss_rounds": swiss_rounds if format_type == TournamentFormat.SWISS else None
+            })
+
+        # Sort by: in_range first, then by distance from range
+        recommendations.sort(key=lambda x: (not x["in_range"], x["distance_from_range"]))
+
+        return recommendations
+
     def create_bracket(
         self,
         event_id: int,
@@ -335,8 +510,17 @@ class TournamentEngine:
         - Losers bracket alternates between "drop-down" rounds (receiving losers)
           and "advancement" rounds (losers bracket winners advancing)
         - Total losers rounds = 2 * (winners_rounds - 1)
+
+        Minimum participants: 8 (to avoid multiple bye rounds for same fighter)
         """
         num_participants = len(participants)
+
+        # Validate minimum participants
+        if num_participants < 8:
+            raise ValueError(
+                f"Double-elimination requires at least 8 participants to avoid multiple byes for the same fighter. "
+                f"Found {num_participants}. Consider using Round Robin or Swiss format instead."
+            )
 
         if bracket_format.config.get("seeding_method") == "random":
             random.shuffle(participants)
@@ -512,6 +696,28 @@ class TournamentEngine:
                     self.db.add(match)
                     current_round_matches.append(match)
 
+                # Handle odd number of losers - one gets a bye
+                if num_losers % 2 == 1:
+                    bye_idx = num_losers - 1
+                    bye_winner = winners_matches[bye_idx] if bye_idx < len(winners_matches) else None
+
+                    if bye_winner:
+                        bye_match = Match(
+                            event_id=bracket_format.event_id,
+                            bracket_round_id=bracket_round.id,
+                            weight_class_id=bracket_format.weight_class_id,
+                            a_player_id=None,
+                            b_player_id=None,
+                            match_number=(num_losers // 2) + 1,
+                            match_status=MatchStatus.PENDING,
+                            depends_on_match_a=bye_winner.id,
+                            depends_on_match_b=None,
+                            requires_winner_a=False,  # Takes loser
+                            requires_winner_b=False,
+                        )
+                        self.db.add(bye_match)
+                        current_round_matches.append(bye_match)
+
                 self.db.flush()
                 created_rounds.append(bracket_round)
                 losers_matches_by_round[losers_round_num] = current_round_matches
@@ -538,12 +744,29 @@ class TournamentEngine:
                     self.db.flush()
 
                     advancement_matches = []
-                    num_advancement_matches = len(current_round_matches)
+
+                    # Calculate correct number of advancement matches
+                    # Total fighters = drop_down winners + previous round winners
+                    # Number of matches = total fighters / 2 (rounded down)
+                    total_fighters = len(current_round_matches) + len(losers_previous_matches)
+                    num_advancement_matches = total_fighters // 2
+
+                    # Create matches, alternating between drop-down and previous round
+                    drop_down_idx = 0
+                    previous_idx = 0
 
                     for match_num in range(num_advancement_matches):
-                        # Pair drop-down winner with previous losers round winner
-                        drop_down_match = current_round_matches[match_num] if match_num < len(current_round_matches) else None
-                        previous_match = losers_previous_matches[match_num] if match_num < len(losers_previous_matches) else None
+                        # Assign from drop-down if available
+                        drop_down_match = None
+                        if drop_down_idx < len(current_round_matches):
+                            drop_down_match = current_round_matches[drop_down_idx]
+                            drop_down_idx += 1
+
+                        # Assign from previous round if available
+                        previous_match = None
+                        if previous_idx < len(losers_previous_matches):
+                            previous_match = losers_previous_matches[previous_idx]
+                            previous_idx += 1
 
                         match = Match(
                             event_id=bracket_format.event_id,
@@ -560,6 +783,34 @@ class TournamentEngine:
                         )
                         self.db.add(match)
                         advancement_matches.append(match)
+
+                    # Handle odd number - one fighter gets a bye to next round
+                    if total_fighters % 2 == 1:
+                        # Determine who gets the bye (prefer from previous round to drop-down)
+                        bye_match = None
+
+                        if previous_idx < len(losers_previous_matches):
+                            bye_match = losers_previous_matches[previous_idx]
+                        elif drop_down_idx < len(current_round_matches):
+                            bye_match = current_round_matches[drop_down_idx]
+
+                        if bye_match:
+                            # Create bye match for this fighter
+                            bye = Match(
+                                event_id=bracket_format.event_id,
+                                bracket_round_id=bracket_round.id,
+                                weight_class_id=bracket_format.weight_class_id,
+                                a_player_id=None,
+                                b_player_id=None,
+                                match_number=num_advancement_matches + 1,
+                                match_status=MatchStatus.PENDING,
+                                depends_on_match_a=bye_match.id,
+                                depends_on_match_b=None,
+                                requires_winner_a=True,
+                                requires_winner_b=False,
+                            )
+                            self.db.add(bye)
+                            advancement_matches.append(bye)
 
                     self.db.flush()
                     created_rounds.append(bracket_round)
@@ -927,6 +1178,8 @@ class TournamentEngine:
             winner_id = None
             loser_id = None
 
+        bye_matches_completed = []
+
         for dep_match in dependent_matches:
             # Update player A if this match feeds player A
             if dep_match.depends_on_match_a == match.id:
@@ -942,11 +1195,58 @@ class TournamentEngine:
                 elif not dep_match.requires_winner_b and loser_id:
                     dep_match.b_player_id = loser_id
 
-            # If both players are now known, mark match as ready
-            if dep_match.a_player_id and dep_match.b_player_id:
-                dep_match.match_status = MatchStatus.READY
+            # Check if match is ready to play
+            # Regular match: needs both players
+            # Bye match: only needs player A (requires_winner_b = False)
+            if dep_match.a_player_id and (dep_match.b_player_id or not dep_match.requires_winner_b):
+                if dep_match.b_player_id:
+                    # Regular match with both players
+                    dep_match.match_status = MatchStatus.READY
+                else:
+                    # Bye match - auto-complete immediately
+                    dep_match.match_status = MatchStatus.COMPLETED
+                    dep_match.result = MatchResult.PLAYER_A_WIN
+                    dep_match.method = "Bye"
+                    dep_match.duration_seconds = 0
+                    dep_match.completed_at = datetime.utcnow()
+                    bye_matches_completed.append(dep_match)
 
         self.db.commit()
+
+        # Propagate results for any bye matches that were auto-completed
+        for bye_match in bye_matches_completed:
+            self._propagate_result(bye_match)
+
+        # Activate any pending rounds that now have ready matches
+        self._activate_pending_rounds_with_ready_matches(match.event_id)
+
+    def _activate_pending_rounds_with_ready_matches(self, event_id: int):
+        """Check if any PENDING rounds have READY matches and activate them."""
+        from app.models.bracket_format import BracketFormat
+
+        # Find all brackets for this event
+        brackets = self.db.query(BracketFormat).filter(
+            BracketFormat.event_id == event_id
+        ).all()
+
+        for bracket in brackets:
+            # Find PENDING rounds
+            pending_rounds = self.db.query(BracketRound).filter(
+                BracketRound.bracket_format_id == bracket.id,
+                BracketRound.status == RoundStatus.PENDING
+            ).all()
+
+            for round in pending_rounds:
+                # Check if any matches in this round are READY
+                ready_matches = self.db.query(Match).filter(
+                    Match.bracket_round_id == round.id,
+                    Match.match_status == MatchStatus.READY
+                ).count()
+
+                if ready_matches > 0:
+                    round.status = RoundStatus.IN_PROGRESS
+
+            self.db.commit()
 
     def _check_round_completion(self, bracket_round_id: int):
         """
@@ -1677,16 +1977,36 @@ class TournamentEngine:
 
     def _activate_ready_matches(self, bracket_round_id: int):
         """
-        Activate matches in a round that have both players assigned.
+        Activate matches in a round that have both players assigned (or bye matches).
         """
+        from datetime import datetime
+
         matches = self.db.query(Match).filter(
             Match.bracket_round_id == bracket_round_id
         ).all()
 
+        bye_matches_completed = []
+
         for match in matches:
-            if (match.match_status == MatchStatus.PENDING and
-                match.a_player_id and match.b_player_id):
-                match.match_status = MatchStatus.READY
+            if match.match_status == MatchStatus.PENDING and match.a_player_id:
+                # Regular match: both players assigned
+                if match.b_player_id:
+                    match.match_status = MatchStatus.READY
+                # Bye match: only player_a, and doesn't require player_b
+                elif not match.requires_winner_b:
+                    # Auto-complete bye matches
+                    match.match_status = MatchStatus.COMPLETED
+                    match.result = MatchResult.PLAYER_A_WIN
+                    match.method = "Bye"
+                    match.duration_seconds = 0
+                    match.completed_at = datetime.utcnow()
+                    bye_matches_completed.append(match)
+
+        self.db.commit()
+
+        # Propagate bye match results to dependent matches
+        for bye_match in bye_matches_completed:
+            self._propagate_result(bye_match)
 
     def get_upcoming_matches(
         self,

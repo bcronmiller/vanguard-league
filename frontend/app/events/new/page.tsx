@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 import { config } from '@/lib/config';
 
 export default function NewEventPage() {
@@ -35,7 +36,7 @@ export default function NewEventPage() {
 
     setSaving(true);
     try {
-      const res = await fetch('${config.apiUrl}/api/events', {
+      const res = await fetch(`${config.apiUrl}/api/events`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -51,10 +52,13 @@ export default function NewEventPage() {
       if (res.ok) {
         const event = await res.json();
         alert('Event created successfully!');
-        window.location.href = `/events/${event.id}/checkin`;
+        router.push(`/events/${event.id}/checkin`);
       } else {
         const error = await res.json();
-        alert(`Failed to create event: ${error.detail}`);
+        const errorMsg = Array.isArray(error.detail)
+          ? error.detail.map((e: any) => e.msg).join(', ')
+          : error.detail || 'Unknown error';
+        alert(`Failed to create event: ${errorMsg}`);
       }
     } catch (error) {
       console.error('Create event error:', error);
@@ -69,13 +73,13 @@ export default function NewEventPage() {
       <header className="bg-mbjj-dark text-white py-6">
         <div className="container mx-auto px-4">
           <div className="flex gap-4 mb-3">
-            <a href="/" className="text-mbjj-red hover:text-mbjj-accent-light">
+            <Link href="/" className="text-mbjj-red hover:text-mbjj-accent-light">
               ← Home
-            </a>
+            </Link>
             <span className="text-gray-600">|</span>
-            <a href="/events" className="text-mbjj-red hover:text-mbjj-accent-light">
+            <Link href="/events" className="text-mbjj-red hover:text-mbjj-accent-light">
               ← Events
-            </a>
+            </Link>
           </div>
           <h1 className="text-4xl font-heading font-bold">CREATE NEW EVENT</h1>
           <p className="text-gray-300 mt-2">Set up a new VGI Trench competition</p>
@@ -195,12 +199,12 @@ export default function NewEventPage() {
             >
               {saving ? 'CREATING...' : 'CREATE EVENT'}
             </button>
-            <a
+            <Link
               href="/events"
               className="px-8 py-4 bg-gray-500 hover:bg-gray-600 text-white font-heading font-bold text-xl rounded-lg transition text-center"
             >
               CANCEL
-            </a>
+            </Link>
           </div>
         </form>
       </main>

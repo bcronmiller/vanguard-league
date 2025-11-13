@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { config } from '@/lib/config';
+import Link from 'next/link';
 
 interface Fighter {
   player: {
@@ -109,9 +110,9 @@ export default function PoundForPoundPage() {
       {/* Page Title */}
       <div className="bg-gradient-to-r from-yellow-500 to-yellow-600 text-white py-8">
         <div className="container mx-auto px-4">
-          <a href="/" className="text-white hover:text-gray-200 inline-block mb-4">
+          <Link href="/" className="text-white hover:text-gray-200 inline-block mb-4">
             ← Home
-          </a>
+          </Link>
           <div className="text-center">
             <h2 className="text-5xl md:text-6xl font-heading font-bold text-white mb-2">
               POUND-FOR-POUND
@@ -182,7 +183,7 @@ export default function PoundForPoundPage() {
                       <span className="font-heading font-bold text-2xl text-mbjj-red">#{idx + 1}</span>
                     </td>
                     <td className="px-6 py-4">
-                      <a href={`/players/${fighter.player.id}`} className="flex items-center gap-3 hover:text-mbjj-red transition">
+                      <Link href={`/players/${fighter.player.id}`} className="flex items-center gap-3 hover:text-mbjj-red transition">
                         {fighter.player.photo_url && (
                           <img
                             src={fighter.player.photo_url}
@@ -200,7 +201,7 @@ export default function PoundForPoundPage() {
                             </span>
                           )}
                         </div>
-                      </a>
+                      </Link>
                     </td>
                     <td className="px-6 py-4">
                       <span className={`inline-block px-3 py-1 ${getWeightClassColor(fighter.player.weight)} text-white text-xs font-bold rounded-full`}>

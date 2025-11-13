@@ -60,6 +60,12 @@ export default function BracketsPage({ params }: { params: { id: string } | Prom
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedMatchId, setSelectedMatchId] = useState<number | null>(null);
 
+  // Format recommendations
+  const [recommendations, setRecommendations] = useState<any[]>([]);
+  const [timeBudget, setTimeBudget] = useState(60); // Default: 1 hour
+  const [matchDuration, setMatchDuration] = useState(10);
+  const [numFighters, setNumFighters] = useState(0);
+
   // Redirect if in read-only mode
   useEffect(() => {
     if (config.readOnly) {
@@ -70,7 +76,12 @@ export default function BracketsPage({ params }: { params: { id: string } | Prom
   useEffect(() => {
     loadBrackets();
     loadPlayers();
+    loadRecommendations();
   }, [eventId]);
+
+  useEffect(() => {
+    loadRecommendations();
+  }, [timeBudget, matchDuration, eventId]);
 
   useEffect(() => {
     if (selectedBracket) {
@@ -108,6 +119,21 @@ export default function BracketsPage({ params }: { params: { id: string } | Prom
       }
     } catch (error) {
       console.error('Failed to load players:', error);
+    }
+  };
+
+  const loadRecommendations = async () => {
+    try {
+      const res = await fetch(
+        `${config.apiUrl}/api/tournaments/events/${eventId}/format-recommendations?time_budget_minutes=${timeBudget}&match_duration_minutes=${matchDuration}`
+      );
+      if (res.ok) {
+        const data = await res.json();
+        setRecommendations(data.recommendations || []);
+        setNumFighters(data.num_fighters || 0);
+      }
+    } catch (error) {
+      console.error('Failed to load recommendations:', error);
     }
   };
 
@@ -226,69 +252,106 @@ export default function BracketsPage({ params }: { params: { id: string } | Prom
 
       <main className="container mx-auto px-4 py-8">
         {matches.length === 0 ? (
-          <div className="bg-white dark:bg-gray-800 rounded-lg p-12 text-center">
-            <h2 className="text-3xl font-heading font-bold mb-6">NO BRACKETS YET</h2>
-            <p className="text-gray-600 dark:text-gray-400 mb-8">
-              Select a bracket format and generate pairings
+          <div className="bg-white dark:bg-gray-800 rounded-lg p-12">
+            <h2 className="text-3xl font-heading font-bold mb-6 text-center">NO BRACKETS YET</h2>
+            <p className="text-gray-600 dark:text-gray-400 mb-8 text-center">
+              {numFighters} checked-in fighters • Select a bracket format
             </p>
 
-            <div className="max-w-md mx-auto space-y-4 mb-8">
-              <button
-                onClick={() => setFormat('round_robin')}
-                className={`w-full p-4 rounded-lg border-2 font-heading font-bold text-lg transition ${
-                  format === 'round_robin'
-                    ? 'border-mbjj-red bg-mbjj-red text-white'
-                    : 'border-gray-300 hover:border-mbjj-red'
-                }`}
-              >
-                ROUND ROBIN
-                <div className="text-sm font-normal">Everyone fights everyone (best for small groups)</div>
-              </button>
-
-              <button
-                onClick={() => setFormat('single_elimination')}
-                className={`w-full p-4 rounded-lg border-2 font-heading font-bold text-lg transition ${
-                  format === 'single_elimination'
-                    ? 'border-mbjj-red bg-mbjj-red text-white'
-                    : 'border-gray-300 hover:border-mbjj-red'
-                }`}
-              >
-                SINGLE ELIMINATION
-                <div className="text-sm font-normal">One loss and you're out (tournament style)</div>
-              </button>
-
-              <button
-                onClick={() => setFormat('double_elimination')}
-                className={`w-full p-4 rounded-lg border-2 font-heading font-bold text-lg transition ${
-                  format === 'double_elimination'
-                    ? 'border-mbjj-red bg-mbjj-red text-white'
-                    : 'border-gray-300 hover:border-mbjj-red'
-                }`}
-              >
-                DOUBLE ELIMINATION
-                <div className="text-sm font-normal">Two losses to be eliminated</div>
-              </button>
-
-              <button
-                onClick={() => setFormat('swiss')}
-                className={`w-full p-4 rounded-lg border-2 font-heading font-bold text-lg transition ${
-                  format === 'swiss'
-                    ? 'border-mbjj-red bg-mbjj-red text-white'
-                    : 'border-gray-300 hover:border-mbjj-red'
-                }`}
-              >
-                SWISS SYSTEM
-                <div className="text-sm font-normal">Record-based pairing (advanced tournaments)</div>
-              </button>
+            {/* Settings */}
+            <div className="max-w-2xl mx-auto mb-8 bg-gray-50 dark:bg-gray-900 p-6 rounded-lg">
+              <h3 className="font-heading font-bold mb-4">Event Time Budget</h3>
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium mb-2">Time Budget (minutes)</label>
+                  <select
+                    value={timeBudget}
+                    onChange={(e) => setTimeBudget(Number(e.target.value))}
+                    className="w-full px-3 py-2 border rounded-lg dark:bg-gray-800 dark:border-gray-700"
+                  >
+                    <option value="40">40 min (quick)</option>
+                    <option value="60">60 min (1 hour)</option>
+                    <option value="90">90 min (1.5 hours)</option>
+                    <option value="120">120 min (2 hours)</option>
+                    <option value="180">180 min (3 hours)</option>
+                  </select>
+                  <p className="text-xs text-gray-500 mt-1">
+                    Total time per weight class including 2-min gaps
+                  </p>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium mb-2">Match Duration (minutes)</label>
+                  <select
+                    value={matchDuration}
+                    onChange={(e) => setMatchDuration(Number(e.target.value))}
+                    className="w-full px-3 py-2 border rounded-lg dark:bg-gray-800 dark:border-gray-700"
+                  >
+                    <option value="5">5 min (huge turnout)</option>
+                    <option value="10">10 min (standard)</option>
+                    <option value="15">15 min (extended)</option>
+                  </select>
+                  <p className="text-xs text-gray-500 mt-1">
+                    Time limit per match
+                  </p>
+                </div>
+              </div>
             </div>
 
-            <button
-              onClick={createAndGenerateBracket}
-              disabled={generating}
-              className="px-12 py-4 bg-mbjj-red hover:bg-mbjj-accent-hover text-white font-heading font-bold text-2xl rounded-lg transition disabled:opacity-50"
-            >
-              {generating ? 'GENERATING...' : 'GENERATE BRACKETS'}
-            </button>
+            {/* Format Recommendations */}
+            <div className="max-w-2xl mx-auto space-y-3 mb-8">
+              {recommendations.map((rec) => {
+                const isSelected = format === rec.format;
+                const fitsInBudget = rec.fits_in_budget !== undefined ? rec.fits_in_budget : rec.in_range;
+
+                return (
+                  <button
+                    key={rec.format}
+                    onClick={() => setFormat(rec.format as any)}
+                    className={`w-full p-4 rounded-lg border-2 font-heading text-left transition ${
+                      isSelected
+                        ? 'border-mbjj-red bg-mbjj-red text-white'
+                        : fitsInBudget
+                        ? 'border-green-500 bg-green-50 dark:bg-green-900/20 hover:border-green-600'
+                        : 'border-gray-300 dark:border-gray-700 hover:border-mbjj-red'
+                    }`}
+                  >
+                    <div className="flex items-start justify-between">
+                      <div className="flex-1">
+                        <div className="flex items-center gap-2 mb-1">
+                          <span className="font-bold text-lg uppercase">{rec.format_name}</span>
+                          {fitsInBudget && <span className="text-green-600 dark:text-green-400">✓ Fits</span>}
+                        </div>
+                        <div className={`text-sm ${isSelected ? 'text-white/90' : 'text-gray-600 dark:text-gray-400'}`}>
+                          {rec.matches_per_fighter && `${rec.matches_per_fighter} matches per fighter • `}
+                          {rec.match_count} total matches
+                        </div>
+                      </div>
+                      <div className="text-right ml-4">
+                        <div className={`font-bold text-xl ${isSelected ? 'text-white' : 'text-mbjj-red'}`}>
+                          {rec.estimated_time_display}
+                        </div>
+                        <div className={`text-xs ${isSelected ? 'text-white/80' : 'text-gray-500'}`}>
+                          with 2-min gaps
+                        </div>
+                      </div>
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
+
+            <div className="text-center">
+              <button
+                onClick={createAndGenerateBracket}
+                disabled={generating || numFighters < 2}
+                className="px-12 py-4 bg-mbjj-red hover:bg-mbjj-accent-hover text-white font-heading font-bold text-2xl rounded-lg transition disabled:opacity-50"
+              >
+                {generating ? 'GENERATING...' : 'GENERATE BRACKETS'}
+              </button>
+              {numFighters < 2 && (
+                <p className="mt-4 text-sm text-gray-500">Need at least 2 checked-in fighters</p>
+              )}
+            </div>
           </div>
         ) : (
           <div>

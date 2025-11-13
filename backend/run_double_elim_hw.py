@@ -269,6 +269,13 @@ def run_tournament():
 
                 # Complete all ready matches in this round
                 for match in ready_matches:
+                    # Skip bye matches (already auto-completed)
+                    if not match.b_player_id:
+                        player_a = fighters_by_id.get(match.a_player_id)
+                        if player_a:
+                            print(f"  Bye Match: {player_a.name} advances")
+                        continue
+
                     result, method, duration, winner_name = simulate_match_result(match, fighters_by_id)
 
                     player_a = fighters_by_id[match.a_player_id]

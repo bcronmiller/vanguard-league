@@ -1,5 +1,6 @@
 'use client';
 import { config } from '@/lib/config';
+import Link from 'next/link';
 
 import { useState, useEffect } from 'react';
 
@@ -31,25 +32,35 @@ export default function HeavyweightPage() {
   const loadLadder = async () => {
     try {
       const isStatic = process.env.NEXT_PUBLIC_STATIC_MODE === 'true';
-      const endpoint = isStatic ? '/data/ladder-overall.json' : `${config.apiUrl}/api/ladder/overall`;
+      const endpoint = isStatic
+        ? '/data/ladder-heavyweight.json'
+        : `${config.apiUrl}/api/ladder/1/weight-class/Heavyweight`;
       const res = await fetch(endpoint);
       if (res.ok) {
         const data = await res.json();
-        // Filter for heavyweight only (by assigned weight class)
-        const heavyweight = data.filter((f: Fighter) => f.player.weight_class_name === 'Heavyweight');
 
-        // Sort by ELO gain (performance vs. expectations) for rankings
-        const sorted = heavyweight.sort((a: Fighter, b: Fighter) => {
-          const aGain = a.player.initial_elo_rating
-            ? a.player.elo_rating - a.player.initial_elo_rating
-            : 0;
-          const bGain = b.player.initial_elo_rating
-            ? b.player.elo_rating - b.player.initial_elo_rating
-            : 0;
-          return bGain - aGain; // Descending order (highest gain first)
-        });
+        // For static mode, data is an array; for API mode, it's a LadderResponse object with standings
+        const standings = isStatic ? data : data.standings || [];
 
-        setFighters(sorted);
+        // Convert LadderEntry format to Fighter format
+        const fighters = standings.map((entry: any) => ({
+          player: {
+            id: entry.player_id,
+            name: entry.player_name,
+            bjj_belt_rank: entry.belt_rank,
+            weight: null, // Weight not included in LadderEntry
+            weight_class_name: 'Heavyweight',
+            elo_rating: entry.elo_rating,
+            initial_elo_rating: entry.initial_elo_rating,
+            photo_url: entry.photo_url,
+            academy: null // Academy not included in LadderEntry
+          },
+          wins: entry.wins,
+          losses: entry.losses,
+          draws: entry.draws
+        }));
+
+        setFighters(fighters);
       }
     } catch (error) {
       console.error('Failed to load ladder:', error);
@@ -96,9 +107,9 @@ export default function HeavyweightPage() {
       {/* Page Title */}
       <div className="bg-gradient-to-r from-mbjj-red to-red-900 text-white py-8">
         <div className="container mx-auto px-4">
-          <a href="/" className="text-white hover:text-gray-200 inline-block mb-4">
+          <Link href="/" className="text-white hover:text-gray-200 inline-block mb-4">
             ← Home
-          </a>
+          </Link>
           <div className="text-center">
             <h2 className="text-5xl md:text-6xl font-heading font-bold text-white mb-2">
               HEAVYWEIGHT
@@ -131,12 +142,12 @@ export default function HeavyweightPage() {
                 <li>• <strong>Small gains</strong> for expected wins against equal or lower belts</li>
                 <li>• Starting ratings based on belt rank (White=1200, Blue=1400, Purple=1600, Brown=1800, Black=2000)</li>
               </ul>
-              <a
+              <Link
                 href="/rankings-explained"
                 className="text-mbjj-blue hover:text-mbjj-red font-heading font-bold text-sm transition"
               >
                 Learn More About ELO Rankings →
-              </a>
+              </Link>
             </div>
           </div>
         </div>
@@ -161,7 +172,7 @@ export default function HeavyweightPage() {
                       <span className="font-heading font-bold text-2xl text-mbjj-red">#{idx + 1}</span>
                     </td>
                     <td className="px-6 py-4">
-                      <a href={`/players/${fighter.player.id}`} className="flex items-center gap-3 hover:text-mbjj-red transition">
+                      <Link href={`/players/${fighter.player.id}`} className="flex items-center gap-3 hover:text-mbjj-red transition">
                         {fighter.player.photo_url && (
                           <img
                             src={fighter.player.photo_url}
@@ -179,7 +190,7 @@ export default function HeavyweightPage() {
                             </span>
                           )}
                         </div>
-                      </a>
+                      </Link>
                     </td>
                     <td className="px-6 py-4 text-center font-heading text-gray-600 dark:text-gray-400">
                       {fighter.player.weight} lbs
