@@ -51,13 +51,17 @@ export default function Home() {
   const loadData = async () => {
     try {
       const eventsEndpoint = isStatic ? '/data/events.json' : `${apiUrl}/api/events`;
-      const ladderEndpoint = isStatic ? '/data/ladder-overall.json' : `${apiUrl}/api/ladder/overall`;
       const playersEndpoint = isStatic ? '/data/players.json' : `${apiUrl}/api/players`;
+      const lwEndpoint = isStatic ? '/data/ladder-event-1-lightweight.json' : `${apiUrl}/api/ladder/1/weight-class/Lightweight`;
+      const mwEndpoint = isStatic ? '/data/ladder-event-1-middleweight.json' : `${apiUrl}/api/ladder/1/weight-class/Middleweight`;
+      const hwEndpoint = isStatic ? '/data/ladder-event-1-heavyweight.json' : `${apiUrl}/api/ladder/1/weight-class/Heavyweight`;
 
-      // Fetch events, ladder, and all players in parallel
-      const [eventsRes, ladderRes, playersRes] = await Promise.all([
+      // Fetch events, weight class ladders, and all players in parallel
+      const [eventsRes, lwRes, mwRes, hwRes, playersRes] = await Promise.all([
         fetch(eventsEndpoint, { cache: 'no-store' }),
-        fetch(ladderEndpoint, { cache: 'no-store' }),
+        fetch(lwEndpoint, { cache: 'no-store' }),
+        fetch(mwEndpoint, { cache: 'no-store' }),
+        fetch(hwEndpoint, { cache: 'no-store' }),
         fetch(playersEndpoint, { cache: 'no-store' })
       ]);
 
@@ -87,48 +91,52 @@ export default function Home() {
         setStats(prev => ({ ...prev, matches: totalMatches }));
       }
 
-      // Process ladder data
-      if (ladderRes.ok) {
-        const allLadder: LadderStanding[] = await ladderRes.json();
+      // Process weight class ladder data
+      const convertLadderEntry = (entry: any): LadderStanding => ({
+        player: {
+          id: entry.player_id,
+          name: entry.player_name,
+          bjj_belt_rank: entry.belt_rank,
+          weight: null,
+          weight_class_name: null,
+          elo_rating: entry.elo_rating,
+          initial_elo_rating: entry.initial_elo_rating,
+          photo_url: entry.photo_url,
+          academy: null
+        },
+        wins: entry.wins,
+        losses: entry.losses,
+        draws: entry.draws
+      });
 
-        const lightweight: LadderStanding[] = [];
-        const middleweight: LadderStanding[] = [];
-        const heavyweight: LadderStanding[] = [];
+      const lightweight: LadderStanding[] = [];
+      const middleweight: LadderStanding[] = [];
+      const heavyweight: LadderStanding[] = [];
 
-        // Separate by assigned weight class
-        for (const standing of allLadder) {
-          const weightClassName = standing.player.weight_class_name;
-          if (weightClassName === 'Lightweight') {
-            lightweight.push(standing);
-          } else if (weightClassName === 'Middleweight') {
-            middleweight.push(standing);
-          } else if (weightClassName === 'Heavyweight') {
-            heavyweight.push(standing);
-          }
-        }
-
-        // Sort each weight class by ELO gain (performance vs. expectations)
-        const sortByEloGain = (a: LadderStanding, b: LadderStanding) => {
-          const aGain = a.player.initial_elo_rating
-            ? a.player.elo_rating - a.player.initial_elo_rating
-            : 0;
-          const bGain = b.player.initial_elo_rating
-            ? b.player.elo_rating - b.player.initial_elo_rating
-            : 0;
-          return bGain - aGain; // Descending order (highest gain first)
-        };
-
-        lightweight.sort(sortByEloGain);
-        middleweight.sort(sortByEloGain);
-        heavyweight.sort(sortByEloGain);
-
-        setLadderData({
-          overall: allLadder,
-          lightweight,
-          middleweight,
-          heavyweight
-        });
+      if (lwRes.ok) {
+        const lwData = await lwRes.json();
+        const standings = isStatic ? lwData.standings : lwData.standings || [];
+        lightweight.push(...standings.map(convertLadderEntry));
       }
+
+      if (mwRes.ok) {
+        const mwData = await mwRes.json();
+        const standings = isStatic ? mwData.standings : mwData.standings || [];
+        middleweight.push(...standings.map(convertLadderEntry));
+      }
+
+      if (hwRes.ok) {
+        const hwData = await hwRes.json();
+        const standings = isStatic ? hwData.standings : hwData.standings || [];
+        heavyweight.push(...standings.map(convertLadderEntry));
+      }
+
+      setLadderData({
+        overall: [...lightweight, ...middleweight, ...heavyweight],
+        lightweight,
+        middleweight,
+        heavyweight
+      });
 
       // Count total registered fighters (all players)
       if (playersRes.ok) {
