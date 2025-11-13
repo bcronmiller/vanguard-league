@@ -312,10 +312,11 @@ class TournamentEngine:
             weight_class_id: Weight class ID (None for all)
 
         Returns:
-            List of Player objects
+            List of Player objects that are checked in
         """
         query = self.db.query(Player).join(Entry).filter(
-            Entry.event_id == event_id
+            Entry.event_id == event_id,
+            Entry.checked_in == True  # Only include fighters who are checked in
         )
 
         if weight_class_id:
