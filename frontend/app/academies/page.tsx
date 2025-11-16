@@ -136,6 +136,7 @@ export default function AcademiesPage() {
             <div className="space-y-6 mb-12">
               {academies
                 .filter(academy => academy.total_matches > 0)
+                .sort((a, b) => b.avg_elo_change - a.avg_elo_change)
                 .map((academy, idx) => (
             <div
               key={academy.academy_name}

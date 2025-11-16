@@ -178,6 +178,16 @@ export default function EventsPage() {
                             </div>
                           </div>
 
+                          {/* Video Badge */}
+                          {hasVideo && (
+                            <div className="mt-4 flex items-center gap-2 text-mbjj-blue">
+                              <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M2 6a2 2 0 012-2h6a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V6zM14.553 7.106A1 1 0 0014 8v4a1 1 0 00.553.894l2 1A1 1 0 0018 13V7a1 1 0 00-1.447-.894l-2 1z" />
+                              </svg>
+                              <span className="font-heading font-bold">VIDEO AVAILABLE</span>
+                            </div>
+                          )}
+
                           <div className="mt-4 text-mbjj-blue font-heading font-bold group-hover:underline">
                             VIEW EVENT DETAILS →
                           </div>
