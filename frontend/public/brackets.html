@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VGL 2 - Tournament Brackets</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: #0a0a0a;
+            color: #fff;
+            font-family: 'Arial Black', Arial, sans-serif;
+            padding: 20px;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 30px;
+            background: linear-gradient(135deg, #8B0000 0%, #DC143C 100%);
+        }
+        .header h1 {
+            font-size: 3em;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.5);
+            margin-bottom: 10px;
+        }
+        .header h2 {
+            font-size: 1.5em;
+            color: #FFD700;
+        }
+        .division {
+            margin-bottom: 50px;
+        }
+        .division-header {
+            background: #8B0000;
+            padding: 15px 30px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            font-size: 2em;
+            text-align: center;
+            border: 3px solid #DC143C;
+        }
+        .rounds-container {
+            display: flex;
+            gap: 30px;
+            overflow-x: auto;
+            padding: 20px;
+        }
+        .round {
+            min-width: 400px;
+            flex-shrink: 0;
+        }
+        .round-header {
+            background: #2d2d2d;
+            padding: 12px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 1.3em;
+            border: 2px solid #DC143C;
+        }
+        .match {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            border: 2px solid #555;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+        .match.completed {
+            border-color: #4CAF50;
+        }
+        .match.in-progress {
+            border-color: #FFD700;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+        }
+        .match-number {
+            text-align: center;
+            color: #888;
+            font-size: 0.9em;
+            margin-bottom: 10px;
+        }
+        .fighter {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px;
+            margin: 5px 0;
+            border-radius: 6px;
+            background: rgba(0,0,0,0.3);
+        }
+        .fighter.winner {
+            background: rgba(76, 175, 80, 0.3);
+            border: 2px solid #4CAF50;
+            font-weight: bold;
+        }
+        .fighter.loser {
+            opacity: 0.5;
+        }
+        .fighter-name {
+            font-size: 1.1em;
+            flex: 1;
+        }
+        .fighter-stats {
+            font-size: 0.85em;
+            color: #aaa;
+            margin-left: 10px;
+        }
+        .method {
+            text-align: center;
+            margin-top: 10px;
+            padding: 8px;
+            background: rgba(220, 20, 60, 0.2);
+            border-radius: 5px;
+            font-size: 0.9em;
+        }
+        .method-text {
+            color: #FFD700;
+            font-weight: bold;
+        }
+        .time {
+            color: #aaa;
+            font-size: 0.85em;
+            margin-left: 10px;
+        }
+        .loading {
+            text-align: center;
+            padding: 50px;
+            font-size: 2em;
+        }
+        .vs {
+            text-align: center;
+            color: #DC143C;
+            font-size: 0.9em;
+            margin: 5px 0;
+        }
+        .match:hover {
+            cursor: pointer;
+            transform: scale(1.02);
+            transition: transform 0.2s;
+            border-color: #FFD700;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.9);
+            overflow-y: auto;
+        }
+        .modal.active {
+            display: block;
+        }
+        .modal-content {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            margin: 3% auto;
+            padding: 0;
+            border: 3px solid #DC143C;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 1200px;
+            box-shadow: 0 20px 60px rgba(220, 20, 60, 0.5);
+        }
+        .modal-header {
+            background: #8B0000;
+            padding: 25px;
+            border-radius: 12px 12px 0 0;
+            text-align: center;
+            font-size: 2em;
+        }
+        .modal-body {
+            padding: 30px;
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 40px;
+            font-weight: bold;
+            line-height: 20px;
+            cursor: pointer;
+        }
+        .close:hover {
+            color: #DC143C;
+        }
+        .tale-fighters {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+            align-items: start;
+        }
+        .tale-fighter {
+            text-align: center;
+        }
+        .tale-fighter-photo {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            background: #333;
+            border: 4px solid #DC143C;
+            overflow: hidden;
+        }
+        .tale-fighter-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .tale-fighter-name {
+            font-size: 2em;
+            color: #FFD700;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        .tale-fighter-academy {
+            font-size: 1.2em;
+            color: #aaa;
+            margin-bottom: 20px;
+        }
+        .tale-stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .tale-stat {
+            background: rgba(0,0,0,0.3);
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #555;
+        }
+        .tale-stat-label {
+            color: #888;
+            font-size: 0.9em;
+            margin-bottom: 5px;
+        }
+        .tale-stat-value {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #FFD700;
+        }
+        .tale-vs {
+            font-size: 4em;
+            color: #DC143C;
+            align-self: center;
+        }
+        .predictions {
+            background: rgba(139, 0, 0, 0.2);
+            border: 2px solid #8B0000;
+            border-radius: 10px;
+            padding: 25px;
+            margin-top: 30px;
+        }
+        .predictions-header {
+            text-align: center;
+            font-size: 1.8em;
+            color: #FFD700;
+            margin-bottom: 20px;
+        }
+        .prediction-row {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 20px;
+            margin-bottom: 15px;
+            align-items: center;
+        }
+        .prediction-label {
+            text-align: center;
+            font-size: 1.2em;
+            color: #DC143C;
+        }
+        .prediction-value {
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+        .prediction-left {
+            text-align: right;
+            color: #4CAF50;
+        }
+        .prediction-right {
+            text-align: left;
+            color: #2196F3;
+        }
+        .win-probability {
+            background: rgba(0,0,0,0.5);
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .probability-bars {
+            display: flex;
+            height: 60px;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-top: 15px;
+        }
+        .prob-bar-a {
+            background: linear-gradient(90deg, #4CAF50, #66BB6A);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+        .prob-bar-b {
+            background: linear-gradient(90deg, #42A5F5, #2196F3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>VANGUARD LEAGUE 2</h1>
+        <h2>TOURNAMENT BRACKETS</h2>
+    </div>
+
+    <div id="brackets">
+        <div class="loading">LOADING BRACKETS...</div>
+    </div>
+
+    <!-- Tale of the Tape Modal -->
+    <div id="taleModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="close" onclick="closeTale()">&times;</span>
+                <div id="modalTitle">TALE OF THE TAPE</div>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <div class="loading">Loading...</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_URL = 'http://localhost:8000';
+        const EVENT_ID = 2;
+
+        async function loadBrackets() {
+            try {
+                const bracketsRes = await fetch(`${API_URL}/api/tournaments/events/${EVENT_ID}/brackets`);
+                const brackets = await bracketsRes.json();
+
+                const container = document.getElementById('brackets');
+                container.innerHTML = '';
+
+                for (const bracket of brackets) {
+                    await displayBracket(bracket, container);
+                }
+
+                if (container.children.length === 0) {
+                    container.innerHTML = '<div class="loading">NO BRACKETS AVAILABLE</div>';
+                }
+            } catch (error) {
+                console.error('Failed to load brackets:', error);
+                document.getElementById('brackets').innerHTML = '<div class="loading">ERROR LOADING BRACKETS</div>';
+            }
+        }
+
+        async function displayBracket(bracket, container) {
+            try {
+                // Get all matches for this bracket
+                const matchesRes = await fetch(`${API_URL}/api/tournaments/brackets/${bracket.id}/matches`);
+                const matches = await matchesRes.json();
+
+                // Get rounds
+                const roundsRes = await fetch(`${API_URL}/api/tournaments/brackets/${bracket.id}/rounds`);
+                const rounds = await roundsRes.json();
+
+                // Get players
+                const playersRes = await fetch(`${API_URL}/api/players`);
+                const playersData = await playersRes.json();
+                const players = {};
+                playersData.forEach(p => players[p.id] = p);
+
+                // Get weight class name
+                let divisionName = bracket.format_type.toUpperCase().replace(/_/g, ' ');
+                if (bracket.weight_class_id === 1) {
+                    divisionName = 'LIGHTWEIGHT - ' + divisionName;
+                } else if (bracket.weight_class_id === 2) {
+                    divisionName = 'MIDDLEWEIGHT - ' + divisionName;
+                } else if (bracket.weight_class_id === 3) {
+                    divisionName = 'HEAVYWEIGHT - ' + divisionName;
+                }
+
+                const divisionEl = document.createElement('div');
+                divisionEl.className = 'division';
+                divisionEl.innerHTML = `
+                    <div class="division-header">${divisionName}</div>
+                    <div class="rounds-container" id="rounds-${bracket.id}"></div>
+                `;
+                container.appendChild(divisionEl);
+
+                const roundsContainer = document.getElementById(`rounds-${bracket.id}`);
+
+                // Group matches by round
+                rounds.sort((a, b) => a.round_number - b.round_number);
+
+                for (const round of rounds) {
+                    const roundMatches = matches.filter(m => m.bracket_round_id === round.id);
+                    if (roundMatches.length === 0) continue;
+
+                    const roundEl = document.createElement('div');
+                    roundEl.className = 'round';
+                    roundEl.innerHTML = `<div class="round-header">${round.round_name || 'Round ' + round.round_number}</div>`;
+
+                    roundMatches.sort((a, b) => (a.match_number || 0) - (b.match_number || 0));
+
+                    for (const match of roundMatches) {
+                        const matchEl = createMatchCard(match, players);
+                        roundEl.appendChild(matchEl);
+                    }
+
+                    roundsContainer.appendChild(roundEl);
+                }
+            } catch (error) {
+                console.error('Failed to display bracket:', error);
+            }
+        }
+
+        function createMatchCard(match, players) {
+            const playerA = players[match.a_player_id];
+            const playerB = players[match.b_player_id];
+
+            const playerAName = playerA ? playerA.name : 'TBD';
+            const playerBName = playerB ? (playerB.name || 'BYE') : 'TBD';
+
+            const isCompleted = match.match_status === 'completed';
+            const result = match.result?.toLowerCase();
+
+            let matchClass = 'match';
+            if (isCompleted) matchClass += ' completed';
+            else if (match.match_status === 'ready') matchClass += ' in-progress';
+
+            const aWins = result === 'a_win' || result === 'player_a_win';
+            const bWins = result === 'b_win' || result === 'player_b_win';
+            const isDraw = result === 'draw';
+
+            const card = document.createElement('div');
+            card.className = matchClass;
+            card.onclick = () => showTaleOfTape(match.id);
+            card.style.cursor = 'pointer';
+
+            let methodHtml = '';
+            if (match.method || match.duration_seconds) {
+                const minutes = match.duration_seconds ? Math.floor(match.duration_seconds / 60) : 0;
+                const seconds = match.duration_seconds ? match.duration_seconds % 60 : 0;
+                const timeStr = match.duration_seconds ? `${minutes}:${seconds.toString().padStart(2, '0')}` : '';
+
+                methodHtml = `
+                    <div class="method">
+                        ${match.method ? `<span class="method-text">${match.method}</span>` : ''}
+                        ${timeStr ? `<span class="time">${timeStr}</span>` : ''}
+                    </div>
+                `;
+            }
+
+            const playerAStats = playerA ? `${playerA.bjj_belt_rank} • ${Math.round(playerA.elo_rating || 1400)}` : '';
+            const playerBStats = playerB ? `${playerB.bjj_belt_rank} • ${Math.round(playerB.elo_rating || 1400)}` : '';
+
+            card.innerHTML = `
+                <div class="match-number">Match ${match.match_number || ''}</div>
+                <div class="fighter ${aWins ? 'winner' : (bWins || isDraw) && isCompleted ? 'loser' : ''}">
+                    <span class="fighter-name">${playerAName}</span>
+                    <span class="fighter-stats">${playerAStats}</span>
+                </div>
+                <div class="vs">VS</div>
+                <div class="fighter ${bWins ? 'winner' : (aWins || isDraw) && isCompleted ? 'loser' : ''}">
+                    <span class="fighter-name">${playerBName}</span>
+                    <span class="fighter-stats">${playerBStats}</span>
+                </div>
+                ${isDraw ? '<div class="method"><span class="method-text">DRAW</span></div>' : ''}
+                ${methodHtml}
+            `;
+
+            return card;
+        }
+
+        // Tale of the Tape Modal Functions
+        function closeTale() {
+            document.getElementById('taleModal').classList.remove('active');
+        }
+
+        async function showTaleOfTape(matchId) {
+            const modal = document.getElementById('taleModal');
+            const modalBody = document.getElementById('modalBody');
+
+            modal.classList.add('active');
+            modalBody.innerHTML = '<div class="loading">Loading Tale of the Tape...</div>';
+
+            try {
+                const res = await fetch(`${API_URL}/api/tournaments/matches/${matchId}/tale-of-the-tape`);
+                if (!res.ok) {
+                    modalBody.innerHTML = '<div class="loading">Match not ready yet</div>';
+                    return;
+                }
+
+                const data = await res.json();
+
+                const pa = data.player_a;
+                const pb = data.player_b;
+                const elo = data.elo_preview;
+                const h2h = data.head_to_head;
+
+                modalBody.innerHTML = `
+                    <div class="tale-fighters">
+                        <div class="tale-fighter">
+                            <div class="tale-fighter-photo">
+                                ${pa.photo_url ? `<img src="${pa.photo_url}" alt="${pa.name}">` : '<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:3em;">👤</div>'}
+                            </div>
+                            <div class="tale-fighter-name">${pa.name}</div>
+                            <div class="tale-fighter-academy">${pa.academy}</div>
+                            <div class="tale-stats-grid">
+                                <div class="tale-stat">
+                                    <div class="tale-stat-label">Belt Rank</div>
+                                    <div class="tale-stat-value">${pa.bjj_belt_rank}</div>
+                                </div>
+                                <div class="tale-stat">
+                                    <div class="tale-stat-label">Weight</div>
+                                    <div class="tale-stat-value">${pa.weight} lbs</div>
+                                </div>
+                                <div class="tale-stat">
+                                    <div class="tale-stat-label">ELO Rating</div>
+                                    <div class="tale-stat-value">${Math.round(pa.elo_rating)}</div>
+                                </div>
+                                <div class="tale-stat">
+                                    <div class="tale-stat-label">Record</div>
+                                    <div class="tale-stat-value">${pa.wins}-${pa.losses}-${pa.draws}</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tale-vs">VS</div>
+
+                        <div class="tale-fighter">
+                            <div class="tale-fighter-photo">
+                                ${pb.photo_url ? `<img src="${pb.photo_url}" alt="${pb.name}">` : '<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:3em;">👤</div>'}
+                            </div>
+                            <div class="tale-fighter-name">${pb.name}</div>
+                            <div class="tale-fighter-academy">${pb.academy}</div>
+                            <div class="tale-stats-grid">
+                                <div class="tale-stat">
+                                    <div class="tale-stat-label">Belt Rank</div>
+                                    <div class="tale-stat-value">${pb.bjj_belt_rank}</div>
+                                </div>
+                                <div class="tale-stat">
+                                    <div class="tale-stat-label">Weight</div>
+                                    <div class="tale-stat-value">${pb.weight} lbs</div>
+                                </div>
+                                <div class="tale-stat">
+                                    <div class="tale-stat-label">ELO Rating</div>
+                                    <div class="tale-stat-value">${Math.round(pb.elo_rating)}</div>
+                                </div>
+                                <div class="tale-stat">
+                                    <div class="tale-stat-label">Record</div>
+                                    <div class="tale-stat-value">${pb.wins}-${pb.losses}-${pb.draws}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    ${h2h.total_matches > 0 ? `
+                    <div style="text-align:center; padding:20px; background:rgba(0,0,0,0.3); border-radius:10px; margin-bottom:20px;">
+                        <h3 style="color:#FFD700; margin-bottom:10px;">HEAD TO HEAD</h3>
+                        <div style="font-size:1.5em;">${pa.name}: ${h2h.player_a_wins} | Draws: ${h2h.draws} | ${pb.name}: ${h2h.player_b_wins}</div>
+                    </div>
+                    ` : ''}
+
+                    <div class="predictions">
+                        <div class="predictions-header">🎯 ELO PREDICTIONS & ODDS</div>
+
+                        <div class="win-probability">
+                            <div style="text-align:center; margin-bottom:10px; font-size:1.2em;">Win Probability</div>
+                            <div class="probability-bars">
+                                <div class="prob-bar-a" style="width: ${elo.player_a.expected_score}%">
+                                    ${elo.player_a.expected_score.toFixed(1)}%
+                                </div>
+                                <div class="prob-bar-b" style="width: ${elo.player_b.expected_score}%">
+                                    ${elo.player_b.expected_score.toFixed(1)}%
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="margin-top:30px;">
+                            <h3 style="text-align:center; color:#FFD700; margin-bottom:20px;">ELO Changes if...</h3>
+
+                            <div class="prediction-row">
+                                <div class="prediction-value prediction-left">+${elo.outcomes.player_a_wins.player_a_change.toFixed(1)}</div>
+                                <div class="prediction-label">${pa.name} WINS</div>
+                                <div class="prediction-value prediction-right">${elo.outcomes.player_a_wins.player_b_change.toFixed(1)}</div>
+                            </div>
+
+                            <div class="prediction-row">
+                                <div class="prediction-value prediction-left">${elo.outcomes.player_b_wins.player_a_change.toFixed(1)}</div>
+                                <div class="prediction-label">${pb.name} WINS</div>
+                                <div class="prediction-value prediction-right">+${elo.outcomes.player_b_wins.player_b_change.toFixed(1)}</div>
+                            </div>
+
+                            <div class="prediction-row">
+                                <div class="prediction-value prediction-left">${elo.outcomes.draw.player_a_change >= 0 ? '+' : ''}${elo.outcomes.draw.player_a_change.toFixed(1)}</div>
+                                <div class="prediction-label">DRAW</div>
+                                <div class="prediction-value prediction-right">${elo.outcomes.draw.player_b_change >= 0 ? '+' : ''}${elo.outcomes.draw.player_b_change.toFixed(1)}</div>
+                            </div>
+                        </div>
+
+                        <div style="margin-top:30px; padding:20px; background:rgba(0,0,0,0.3); border-radius:10px;">
+                            <div style="text-align:center; margin-bottom:15px; font-size:1.2em; color:#FFD700;">Current Stats</div>
+                            <div class="prediction-row">
+                                <div class="prediction-value prediction-left">${Math.round(elo.player_a.current_elo)}</div>
+                                <div class="prediction-label">CURRENT ELO</div>
+                                <div class="prediction-value prediction-right">${Math.round(elo.player_b.current_elo)}</div>
+                            </div>
+                            <div class="prediction-row">
+                                <div class="prediction-value prediction-left">${elo.player_a.matches_played}</div>
+                                <div class="prediction-label">MATCHES PLAYED</div>
+                                <div class="prediction-value prediction-right">${elo.player_b.matches_played}</div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            } catch (error) {
+                console.error('Failed to load tale of the tape:', error);
+                modalBody.innerHTML = '<div class="loading">Error loading tale of the tape</div>';
+            }
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('taleModal');
+            if (event.target == modal) {
+                closeTale();
+            }
+        }
+
+        // Load brackets on page load
+        loadBrackets();
+
+        // Auto-refresh every 30 seconds
+        setInterval(loadBrackets, 30000);
+    </script>
+</body>
+</html>

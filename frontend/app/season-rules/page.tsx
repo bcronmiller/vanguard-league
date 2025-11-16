@@ -94,10 +94,10 @@ export default function SeasonRulesPage() {
                     Minimum Event Attendance
                   </h3>
                   <p className="text-xl text-gray-800 dark:text-gray-200 font-bold mb-2">
-                    Compete in at least <span className="text-mbjj-red">5 of 8 events</span> (62.5%)
+                    Compete in at least <span className="text-mbjj-red">3 of 6 events</span> (50%)
                   </p>
                   <p className="text-gray-700 dark:text-gray-300">
-                    Fighters must attend and compete in at least 5 events during the season to qualify for prize pool consideration. This ensures fairness to those who participate consistently throughout the season.
+                    Fighters must attend and compete in at least 3 events during the season to qualify for prize pool consideration. This ensures fairness to those who participate consistently throughout the season.
                   </p>
                 </div>
               </div>
@@ -404,7 +404,7 @@ export default function SeasonRulesPage() {
                 Q: What if I miss exactly 3 events?
               </h3>
               <p className="text-gray-700 dark:text-gray-300">
-                <strong>A:</strong> If you miss 3 events, you attended 5 events (8 - 3 = 5). That meets the minimum requirement! As long as you also have 12+ total matches, you're eligible for the prize pool.
+                <strong>A:</strong> If you miss 3 events, you attended 3 events (6 - 3 = 3). That meets the minimum requirement! As long as you also have 12+ total matches, you're eligible for the prize pool.
               </p>
             </div>
           </div>
@@ -449,7 +449,7 @@ export default function SeasonRulesPage() {
               rel="noopener noreferrer"
               className="hover:text-mbjj-red transition inline-flex items-center gap-1"
             >
-              <span>📍</span> Hosted at VanGuard Gym
+              <span>📍</span> 9414 Center Point Ln, Manassas, VA
             </a>
           </p>
           <p className="text-gray-500 text-sm mt-4">&copy; 2025 Vanguard League. All rights reserved.</p>

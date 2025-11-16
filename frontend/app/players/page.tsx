@@ -272,7 +272,7 @@ export default function PlayersPage() {
               rel="noopener noreferrer"
               className="hover:text-mbjj-red transition inline-flex items-center gap-1"
             >
-              <span>📍</span> Hosted at VanGuard Gym
+              <span>📍</span> 9414 Center Point Ln, Manassas, VA
             </a>
           </p>
           <p className="text-gray-500 text-sm mt-4">&copy; 2025 Vanguard League. All rights reserved.</p>

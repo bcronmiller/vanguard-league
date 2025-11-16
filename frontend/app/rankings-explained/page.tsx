@@ -351,7 +351,7 @@ export default function RankingsExplainedPage() {
               <div className="bg-white/10 backdrop-blur rounded-lg p-4">
                 <div className="text-3xl mb-2">💰</div>
                 <div className="text-xl font-heading font-bold mb-1">PRIZE POOL</div>
-                <p className="text-white/90">Eligible for season prize pool (5+ events attended, 12+ total matches). You're in it for the long haul!</p>
+                <p className="text-white/90">Eligible for season prize pool (3+ events attended, 12+ total matches). You're in it for the long haul!</p>
               </div>
             </div>
             <div className="mt-4 bg-white/10 backdrop-blur rounded-lg p-4">
@@ -395,6 +395,82 @@ export default function RankingsExplainedPage() {
           </div>
         </section>
 
+        {/* Academy Rankings Explanation */}
+        <section className="bg-gradient-to-br from-blue-600 to-blue-800 text-white rounded-lg p-8 mb-8">
+          <h2 className="text-3xl font-heading font-bold mb-6 border-b border-white/30 pb-3">
+            🏫 ACADEMY RANKINGS EXPLAINED
+          </h2>
+
+          <div className="mb-6">
+            <h3 className="text-2xl font-heading font-bold mb-4">How Are Academies Ranked?</h3>
+            <p className="text-white/90 mb-4 text-lg">
+              Academy rankings are calculated using the <strong>Average ELO Increase of Climbers</strong> - a system designed to reward quality training while encouraging academies to bring ALL their fighters, regardless of skill level.
+            </p>
+          </div>
+
+          <div className="bg-white/10 backdrop-blur rounded-lg p-6 mb-6">
+            <h4 className="text-xl font-heading font-bold mb-3">📊 The Formula</h4>
+            <div className="bg-black/30 rounded p-4 mb-3 font-mono text-sm">
+              Academy Score = (Sum of Positive ELO Changes) ÷ (Number of Climbers)
+            </div>
+            <p className="text-white/90 mb-3">
+              <strong>Climbers</strong> = Fighters who improved their ELO (positive change only)
+            </p>
+            <p className="text-white/90">
+              <strong>Only positive ELO changes count.</strong> Fighters who lose ELO are <strong>not included</strong> in the calculation - they don't hurt your academy's ranking at all.
+            </p>
+          </div>
+
+          <div className="bg-white/10 backdrop-blur rounded-lg p-6 mb-6">
+            <h4 className="text-xl font-heading font-bold mb-3">💡 Why This System?</h4>
+            <div className="space-y-3">
+              <div className="flex items-start gap-3">
+                <div className="text-2xl">✅</div>
+                <div>
+                  <p className="font-bold mb-1">Encourages Bringing Beginners</p>
+                  <p className="text-white/80 text-sm">
+                    A white belt who goes 0-5 doesn't hurt your academy's score. There's ZERO downside risk to bringing developing fighters.
+                  </p>
+                </div>
+              </div>
+              <div className="flex items-start gap-3">
+                <div className="text-2xl">✅</div>
+                <div>
+                  <p className="font-bold mb-1">Rewards Quality Training</p>
+                  <p className="text-white/80 text-sm">
+                    Academies with better coaching produce more "climbers" - fighters who exceed expectations for their belt rank.
+                  </p>
+                </div>
+              </div>
+              <div className="flex items-start gap-3">
+                <div className="text-2xl">✅</div>
+                <div>
+                  <p className="font-bold mb-1">Huge Upside Potential</p>
+                  <p className="text-white/80 text-sm">
+                    A beginner who surprises everyone with big wins provides massive ELO gains. Bring everyone - you never know who will shine!
+                  </p>
+                </div>
+              </div>
+              <div className="flex items-start gap-3">
+                <div className="text-2xl">✅</div>
+                <div>
+                  <p className="font-bold mb-1">Promotes Participation</p>
+                  <p className="text-white/80 text-sm">
+                    We want academies to bring their full roster. More competitors = better league experience for everyone.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-yellow-500/20 border-l-4 border-yellow-400 rounded p-4">
+            <p className="text-white font-bold mb-2">🎯 The Bottom Line</p>
+            <p className="text-white/90">
+              Bring all your fighters! Every competitor gets valuable mat time and experience. Those who improve help your academy's ranking, and those still developing don't hurt it. It's a win-win system designed to grow the sport.
+            </p>
+          </div>
+        </section>
+
         {/* Related Content */}
         <section className="bg-mbjj-dark text-white rounded-lg p-8 mb-8">
           <h3 className="text-2xl font-heading font-bold mb-4 text-center">
@@ -424,7 +500,7 @@ export default function RankingsExplainedPage() {
               rel="noopener noreferrer"
               className="hover:text-mbjj-red transition inline-flex items-center gap-1"
             >
-              <span>📍</span> Hosted at VanGuard Gym
+              <span>📍</span> 9414 Center Point Ln, Manassas, VA
             </a>
           </p>
           <p className="text-gray-500 text-sm mt-4">&copy; 2025 Vanguard League. All rights reserved.</p>

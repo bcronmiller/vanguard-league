@@ -96,11 +96,15 @@ export default function MatchModal({ matchId, isOpen, onClose, onResultSubmitted
 
   const loadTaleOfTheTape = async () => {
     setLoading(true);
+    setTaleData(null); // Clear old data first
     try {
       const res = await fetch(`${config.apiUrl}/api/tournaments/matches/${matchId}/tale-of-the-tape`);
       if (res.ok) {
         const data = await res.json();
         setTaleData(data);
+      } else {
+        // Match has TBD players or other error - keep taleData as null
+        console.log('Match not ready yet (TBD players)');
       }
     } catch (error) {
       console.error('Failed to load tale of the tape:', error);
@@ -221,9 +225,19 @@ export default function MatchModal({ matchId, isOpen, onClose, onResultSubmitted
   if (!taleData) {
     return (
       <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50" onClick={handleBackdropClick}>
-        <div className="bg-white dark:bg-gray-800 rounded-lg p-8">
-          <div className="text-xl text-red-600">Failed to load match data</div>
-          <button onClick={onClose} className="mt-4 px-6 py-2 bg-gray-300 rounded-lg">Close</button>
+        <div className="bg-white dark:bg-gray-800 rounded-lg p-8 max-w-md">
+          <div className="text-2xl font-heading font-bold text-gray-900 dark:text-white mb-4">Match Not Ready</div>
+          <div className="text-gray-700 dark:text-gray-300 mb-6">
+            This match cannot be started yet because one or both fighters are TBD (To Be Determined).
+            <br/><br/>
+            Complete the previous round's matches first, and the winners will automatically advance to this match.
+          </div>
+          <button
+            onClick={onClose}
+            className="w-full px-6 py-3 bg-mbjj-red hover:bg-mbjj-accent-hover text-white font-heading font-bold rounded-lg transition"
+          >
+            CLOSE
+          </button>
         </div>
       </div>
     );

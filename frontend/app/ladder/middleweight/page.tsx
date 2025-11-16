@@ -33,14 +33,14 @@ export default function MiddleweightPage() {
     try {
       const isStatic = process.env.NEXT_PUBLIC_STATIC_MODE === 'true';
       const endpoint = isStatic
-        ? '/data/ladder-event-1-middleweight.json'
-        : `${config.apiUrl}/api/ladder/1/weight-class/Middleweight`;
+        ? '/data/ladder-middleweight.json'
+        : `${config.apiUrl}/api/ladder/weight-class/Middleweight`;
       const res = await fetch(endpoint);
       if (res.ok) {
         const data = await res.json();
 
-        // For static mode, data is an array; for API mode, it's a LadderResponse object with standings
-        const standings = isStatic ? data : data.standings || [];
+        // Both static and API modes return a LadderResponse object with standings
+        const standings = data.standings || [];
 
         // Convert LadderEntry format to Fighter format
         const fighters = standings.map((entry: any) => ({
@@ -199,19 +199,19 @@ export default function MiddleweightPage() {
                       {fighter.wins}-{fighter.losses}-{fighter.draws}
                     </td>
                     <td className="px-6 py-4 text-center font-heading">
-                      <div className="font-bold text-2xl text-mbjj-blue">
-                        {Math.round(fighter.player.elo_rating)}
-                      </div>
                       {fighter.player.initial_elo_rating && (
-                        <div className={`text-sm mt-1 ${
+                        <div className={`font-bold text-2xl ${
                           (fighter.player.elo_rating - fighter.player.initial_elo_rating) >= 0
                             ? 'text-green-600 dark:text-green-400'
                             : 'text-red-600 dark:text-red-400'
                         }`}>
-                          ({(fighter.player.elo_rating - fighter.player.initial_elo_rating) >= 0 ? '+' : ''}
-                          {Math.round(fighter.player.elo_rating - fighter.player.initial_elo_rating)})
+                          {(fighter.player.elo_rating - fighter.player.initial_elo_rating) >= 0 ? '+' : ''}
+                          {Math.round(fighter.player.elo_rating - fighter.player.initial_elo_rating)}
                         </div>
                       )}
+                      <div className="text-sm mt-1 text-gray-500 dark:text-gray-400">
+                        ({Math.round(fighter.player.elo_rating)})
+                      </div>
                     </td>
                     <td className="px-6 py-4 text-gray-600 dark:text-gray-400">
                       {fighter.player.bjj_belt_rank || 'N/A'}
@@ -253,7 +253,7 @@ export default function MiddleweightPage() {
               rel="noopener noreferrer"
               className="hover:text-mbjj-red transition inline-flex items-center gap-1"
             >
-              <span>📍</span> Hosted at VanGuard Gym
+              <span>📍</span> 9414 Center Point Ln, Manassas, VA
             </a>
           </p>
           <p className="text-gray-500 text-sm mt-4">&copy; 2025 Vanguard League. All rights reserved.</p>

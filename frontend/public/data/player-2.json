@@ -3,38 +3,124 @@
   "belt": null,
   "team": null,
   "academy": "VanGuard Gym",
-  "photo_url": null,
+  "photo_url": "https://i.imgur.com/xzfxRkA.jpg",
   "age": null,
   "bjj_belt_rank": "Purple",
-  "weight": 149.7,
+  "weight": 148.0,
   "weight_class_id": 1,
-  "elo_rating": 1630.9187893514882,
+  "elo_rating": 1650.5816286894574,
   "rankade_ree_score": null,
   "id": 2,
   "rankade_id": "5K10Z3DljGp",
   "active": true,
   "created_at": "2025-11-09T18:57:19.336246",
-  "updated_at": "2025-11-13T19:31:47.230218",
-  "weight_class_name": null,
+  "updated_at": "2025-11-16T15:51:03.379295",
+  "weight_class_name": "Lightweight",
+  "badges": [
+    {
+      "icon": "\ud83d\udee1\ufe0f",
+      "name": "Undefeated",
+      "description": "Maintained undefeated record"
+    },
+    {
+      "name": "Footsie",
+      "description": "Leg lock submission earned",
+      "icon": "\ud83e\uddb6"
+    },
+    {
+      "name": "Triangle",
+      "description": "Triangle submission earned",
+      "icon": "\ud83d\udd3a"
+    },
+    {
+      "name": "Armbar",
+      "description": "Armbar submission earned",
+      "icon": "\ud83e\uddb4"
+    },
+    {
+      "name": "Multi-Division",
+      "description": "Competed in 2 weight classes",
+      "icon": "\u2696\ufe0f"
+    }
+  ],
+  "manual_badges": [
+    {
+      "icon": "\ud83d\udee1\ufe0f",
+      "name": "Undefeated",
+      "description": "Maintained undefeated record"
+    }
+  ],
+  "divisions": {
+    "player_id": 2,
+    "player_name": "Alex Stewart",
+    "overall": {
+      "wins": 5,
+      "losses": 0,
+      "draws": 1,
+      "elo_rating": 1650.5816286894574,
+      "elo_change": 50.581628689457375
+    },
+    "divisions": [
+      {
+        "weight_class_id": 1,
+        "weight_class_name": "Lightweight",
+        "wins": 4,
+        "losses": 0,
+        "draws": 1,
+        "elo_rating": 1635.5072814053065,
+        "initial_elo_rating": 1600.0,
+        "elo_change": 35.50728140530646
+      },
+      {
+        "weight_class_id": 2,
+        "weight_class_name": "Middleweight",
+        "wins": 1,
+        "losses": 0,
+        "draws": 0,
+        "elo_rating": 1616.3539922369444,
+        "initial_elo_rating": 1600.0,
+        "elo_change": 16.35399223694435
+      }
+    ]
+  },
   "matches": [
     {
-      "match_id": 75,
+      "match_id": 645,
+      "event_id": 2,
+      "event_name": "VGL 2",
+      "event_date": "2025-11-14T19:00:00",
+      "opponent": {
+        "id": 18,
+        "name": "Jamie Corzo",
+        "photo_url": null
+      },
+      "result": "win",
+      "method": "Ankle Lock",
+      "duration_seconds": 90,
+      "match_number": 2,
+      "belt_rank": "Purple",
+      "weight": 149.7,
+      "weight_class": "Lightweight",
+      "elo_change": 6
+    },
+    {
+      "match_id": 11,
       "event_id": 1,
       "event_name": "VGL 1",
       "event_date": "2025-11-07T19:00:00",
       "opponent": {
-        "id": 8,
-        "name": "John Michael El Mapache Rodriguez Uhweta",
-        "photo_url": null
+        "id": 3,
+        "name": "Hussain Samir",
+        "photo_url": "https://i.imgur.com/OnbmNBi.jpg"
       },
       "result": "win",
-      "method": "Reverse Triangle Cutting Armbar",
-      "duration_seconds": 180,
+      "method": "Knee Bar",
+      "duration_seconds": 30,
       "match_number": null,
       "belt_rank": "Blue",
       "weight": 149.7,
       "weight_class": "Lightweight",
-      "elo_change": 16
+      "elo_change": 8
     },
     {
       "match_id": 15,
@@ -44,7 +130,7 @@
       "opponent": {
         "id": 6,
         "name": "Josh Rivera",
-        "photo_url": null
+        "photo_url": "https://i.imgur.com/9SPGfFG.jpg"
       },
       "result": "win",
       "method": "Heel Hook",
@@ -56,68 +142,61 @@
       "elo_change": 7
     },
     {
-      "match_id": 11,
+      "match_id": 75,
       "event_id": 1,
       "event_name": "VGL 1",
       "event_date": "2025-11-07T19:00:00",
       "opponent": {
-        "id": 3,
-        "name": "Hussain Samir",
-        "photo_url": null
+        "id": 8,
+        "name": "John Michael El Mapache Rodriguez Uhweta",
+        "photo_url": "https://i.imgur.com/kX7wqFU.jpg"
       },
       "result": "win",
-      "method": "Knee Bar",
-      "duration_seconds": 30,
+      "method": "Reverse Triangle Cutting Armbar",
+      "duration_seconds": 180,
       "match_number": null,
       "belt_rank": "Blue",
       "weight": 149.7,
       "weight_class": "Lightweight",
-      "elo_change": 8
+      "elo_change": 16
+    },
+    {
+      "match_id": 629,
+      "event_id": 2,
+      "event_name": "VGL 2",
+      "event_date": "2025-11-14T19:00:00",
+      "opponent": {
+        "id": 15,
+        "name": "George Battistelli",
+        "photo_url": "https://i.imgur.com/w6vvxqV.jpg"
+      },
+      "result": "win",
+      "method": "Triangle",
+      "duration_seconds": 120,
+      "match_number": 3,
+      "belt_rank": "Purple",
+      "weight": 149.7,
+      "weight_class": "Middleweight",
+      "elo_change": 16
+    },
+    {
+      "match_id": 621,
+      "event_id": 2,
+      "event_name": "VGL 2",
+      "event_date": "2025-11-14T19:00:00",
+      "opponent": {
+        "id": 8,
+        "name": "John Michael El Mapache Rodriguez Uhweta",
+        "photo_url": "https://i.imgur.com/kX7wqFU.jpg"
+      },
+      "result": "draw",
+      "method": null,
+      "duration_seconds": 600,
+      "match_number": 1,
+      "belt_rank": "Purple",
+      "weight": 149.7,
+      "weight_class": "Lightweight",
+      "elo_change": -1
     }
-  ],
-  "badges": [
-    {
-      "name": "On Fire",
-      "description": "3 wins in a row",
-      "icon": "🔥"
-    },
-    {
-      "name": "Footsie",
-      "description": "Leg lock submission earned",
-      "icon": "🦶"
-    },
-    {
-      "name": "Triangle",
-      "description": "Triangle submission earned",
-      "icon": "🔺"
-    },
-    {
-      "name": "Armbar",
-      "description": "Armbar submission earned",
-      "icon": "🦴"
-    }
-  ],
-  "divisions": {
-    "player_id": 2,
-    "player_name": "Alex Stewart",
-    "overall": {
-      "wins": 3,
-      "losses": 0,
-      "draws": 0,
-      "elo_rating": 1630.9187893514882,
-      "elo_change": 30.918789351488158
-    },
-    "divisions": [
-      {
-        "weight_class_id": 1,
-        "weight_class_name": "Lightweight",
-        "wins": 3,
-        "losses": 0,
-        "draws": 0,
-        "elo_rating": 1630.9187893514882,
-        "initial_elo_rating": 1600,
-        "elo_change": 30.918789351488158
-      }
-    ]
-  }
+  ]
 }

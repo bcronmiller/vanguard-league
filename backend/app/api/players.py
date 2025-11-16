@@ -91,10 +91,40 @@ async def get_players(
 @router.get("/players/{player_id}", response_model=PlayerResponse)
 async def get_player(player_id: int, db: Session = Depends(get_db)):
     """Get a specific player"""
-    player = db.query(Player).filter(Player.id == player_id).first()
+    from app.services.badges import get_player_badges
+    from sqlalchemy.orm import joinedload
+
+    player = db.query(Player).options(joinedload(Player.weight_class)).filter(Player.id == player_id).first()
     if not player:
         raise HTTPException(status_code=404, detail="Player not found")
-    return player
+
+    # Calculate badges for this player
+    badges = get_player_badges(player_id, db)
+
+    # Build response dict
+    player_dict = {
+        "id": player.id,
+        "name": player.name,
+        "belt": player.belt,
+        "team": player.team,
+        "academy": player.academy,
+        "photo_url": player.photo_url,
+        "age": player.age,
+        "bjj_belt_rank": player.bjj_belt_rank,
+        "weight": player.weight,
+        "weight_class_id": player.weight_class_id,
+        "elo_rating": player.elo_rating,
+        "rankade_ree_score": player.rankade_ree_score,
+        "rankade_id": player.rankade_id,
+        "active": player.active,
+        "created_at": player.created_at,
+        "updated_at": player.updated_at,
+        "weight_class_name": player.weight_class.name if player.weight_class else None,
+        "badges": badges,
+        "manual_badges": player.manual_badges or []
+    }
+
+    return player_dict
 
 
 @router.post("/players", response_model=PlayerResponse)

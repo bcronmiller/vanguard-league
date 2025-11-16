@@ -43,6 +43,8 @@ class PlayerResponse(PlayerBase):
     created_at: datetime
     updated_at: datetime
     weight_class_name: Optional[str] = None  # Computed from weight_class relationship
+    badges: Optional[list] = None  # Computed badges (automatic + manual)
+    manual_badges: Optional[list] = None  # Admin-awarded badges
 
     class Config:
         from_attributes = True

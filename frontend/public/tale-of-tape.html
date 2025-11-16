@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VGL 2 - Tale of the Tape</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: #0a0a0a;
+            color: #fff;
+            font-family: 'Arial Black', Arial, sans-serif;
+            padding: 20px;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px;
+            background: linear-gradient(135deg, #8B0000 0%, #DC143C 100%);
+        }
+        .header h1 {
+            font-size: 3em;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.5);
+            margin-bottom: 10px;
+        }
+        .header h2 {
+            font-size: 1.5em;
+            color: #FFD700;
+        }
+        .matches-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(600px, 1fr));
+            gap: 30px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .match-card {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            border: 3px solid #DC143C;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(220, 20, 60, 0.3);
+        }
+        .match-header {
+            text-align: center;
+            background: #8B0000;
+            margin: -30px -30px 20px -30px;
+            padding: 15px;
+            border-radius: 12px 12px 0 0;
+            font-size: 1.3em;
+            letter-spacing: 2px;
+        }
+        .vs-section {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 20px;
+            align-items: center;
+        }
+        .fighter {
+            text-align: center;
+        }
+        .fighter-name {
+            font-size: 1.4em;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #FFD700;
+        }
+        .fighter-academy {
+            font-size: 0.9em;
+            color: #aaa;
+            margin-bottom: 8px;
+        }
+        .fighter-stats {
+            margin-top: 15px;
+            padding: 15px;
+            background: rgba(0,0,0,0.3);
+            border-radius: 8px;
+        }
+        .stat-line {
+            display: flex;
+            justify-content: space-between;
+            padding: 5px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .stat-line:last-child { border-bottom: none; }
+        .vs-text {
+            font-size: 2.5em;
+            color: #DC143C;
+            font-weight: bold;
+        }
+        .elo-rating {
+            font-size: 1.5em;
+            color: #FFD700;
+            font-weight: bold;
+        }
+        .loading {
+            text-align: center;
+            padding: 50px;
+            font-size: 2em;
+        }
+        .completed {
+            opacity: 0.6;
+            border-color: #555;
+        }
+        .completed .match-header {
+            background: #555;
+        }
+        .result-badge {
+            display: inline-block;
+            padding: 5px 15px;
+            background: #4CAF50;
+            border-radius: 20px;
+            font-size: 0.9em;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>VANGUARD LEAGUE 2</h1>
+        <h2>TALE OF THE TAPE</h2>
+    </div>
+
+    <div id="matches" class="matches-grid">
+        <div class="loading">LOADING MATCHES...</div>
+    </div>
+
+    <script>
+        const API_URL = 'http://localhost:8000';
+        const EVENT_ID = 2;
+
+        async function loadMatches() {
+            try {
+                // Get all brackets for the event
+                const bracketsRes = await fetch(`${API_URL}/api/tournaments/events/${EVENT_ID}/brackets`);
+                const brackets = await bracketsRes.json();
+
+                const matchesContainer = document.getElementById('matches');
+                matchesContainer.innerHTML = '';
+
+                // Get matches from all brackets
+                for (const bracket of brackets) {
+                    const matchesRes = await fetch(`${API_URL}/api/tournaments/brackets/${bracket.id}/matches`);
+                    const matches = await matchesRes.json();
+
+                    // Filter for ready matches only (not completed)
+                    const readyMatches = matches.filter(m => m.match_status === 'ready' || m.match_status === 'completed');
+
+                    for (const match of readyMatches) {
+                        await displayMatch(match);
+                    }
+                }
+
+                if (matchesContainer.children.length === 0) {
+                    matchesContainer.innerHTML = '<div class="loading">NO MATCHES AVAILABLE</div>';
+                }
+            } catch (error) {
+                console.error('Failed to load matches:', error);
+                document.getElementById('matches').innerHTML = '<div class="loading">ERROR LOADING MATCHES</div>';
+            }
+        }
+
+        async function displayMatch(match) {
+            try {
+                const res = await fetch(`${API_URL}/api/tournaments/matches/${match.id}/tale-of-the-tape`);
+                if (!res.ok) return;
+
+                const data = await res.json();
+                const matchesContainer = document.getElementById('matches');
+
+                const isCompleted = match.match_status === 'completed';
+                const cardClass = isCompleted ? 'match-card completed' : 'match-card';
+
+                const card = document.createElement('div');
+                card.className = cardClass;
+                card.innerHTML = `
+                    <div class="match-header">
+                        ${data.round_name || 'ROUND 1'} - MATCH ${match.match_number}
+                        ${isCompleted ? '✓ COMPLETED' : ''}
+                    </div>
+                    <div class="vs-section">
+                        <div class="fighter">
+                            <div class="fighter-name">${data.player_a.name}</div>
+                            <div class="fighter-academy">${data.player_a.academy}</div>
+                            <div class="fighter-stats">
+                                <div class="stat-line">
+                                    <span>Belt:</span>
+                                    <span>${data.player_a.bjj_belt_rank}</span>
+                                </div>
+                                <div class="stat-line">
+                                    <span>Weight:</span>
+                                    <span>${data.player_a.weight} lbs</span>
+                                </div>
+                                <div class="stat-line">
+                                    <span>ELO:</span>
+                                    <span class="elo-rating">${Math.round(data.player_a.elo_rating)}</span>
+                                </div>
+                                <div class="stat-line">
+                                    <span>Record:</span>
+                                    <span>${data.player_a.wins}-${data.player_a.losses}-${data.player_a.draws}</span>
+                                </div>
+                            </div>
+                            ${match.result && (match.result === 'a_win' || match.result === 'PLAYER_A_WIN') ?
+                                '<div class="result-badge">WINNER</div>' : ''}
+                        </div>
+                        <div class="vs-text">VS</div>
+                        <div class="fighter">
+                            <div class="fighter-name">${data.player_b.name}</div>
+                            <div class="fighter-academy">${data.player_b.academy}</div>
+                            <div class="fighter-stats">
+                                <div class="stat-line">
+                                    <span>Belt:</span>
+                                    <span>${data.player_b.bjj_belt_rank}</span>
+                                </div>
+                                <div class="stat-line">
+                                    <span>Weight:</span>
+                                    <span>${data.player_b.weight} lbs</span>
+                                </div>
+                                <div class="stat-line">
+                                    <span>ELO:</span>
+                                    <span class="elo-rating">${Math.round(data.player_b.elo_rating)}</span>
+                                </div>
+                                <div class="stat-line">
+                                    <span>Record:</span>
+                                    <span>${data.player_b.wins}-${data.player_b.losses}-${data.player_b.draws}</span>
+                                </div>
+                            </div>
+                            ${match.result && (match.result === 'b_win' || match.result === 'PLAYER_B_WIN') ?
+                                '<div class="result-badge">WINNER</div>' : ''}
+                        </div>
+                    </div>
+                    ${match.method ? `<div style="text-align: center; margin-top: 20px; color: #FFD700;">Method: ${match.method}</div>` : ''}
+                `;
+
+                matchesContainer.appendChild(card);
+            } catch (error) {
+                console.error('Failed to load match tale of tape:', error);
+            }
+        }
+
+        // Load matches on page load
+        loadMatches();
+
+        // Auto-refresh every 30 seconds
+        setInterval(loadMatches, 30000);
+    </script>
+</body>
+</html>

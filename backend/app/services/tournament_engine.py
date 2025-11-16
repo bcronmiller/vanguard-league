@@ -348,28 +348,31 @@ class TournamentEngine:
         # Calculate number of rounds needed
         num_rounds = math.ceil(math.log2(num_participants))
 
-        # Calculate matches per round (working backwards from final)
-        # Final = 1 match, Semi = 2, Quarter = 4, etc.
+        # Build rounds data from first round to final
+        # Round 1 has most matches, final round has 1 match
         rounds_data = []
-        for round_num in range(num_rounds, 0, -1):
-            matches_in_round = 2 ** (round_num - 1)
+        for round_num in range(1, num_rounds + 1):
+            # Calculate matches for this round (halves each round)
+            matches_in_round = 2 ** (num_rounds - round_num)
 
-            if round_num == num_rounds:
+            # Assign round names based on distance from end
+            rounds_from_end = num_rounds - round_num
+            if rounds_from_end == 0:
                 round_name = "Final"
-            elif round_num == num_rounds - 1:
+            elif rounds_from_end == 1:
                 round_name = "Semifinals"
-            elif round_num == num_rounds - 2:
+            elif rounds_from_end == 2:
                 round_name = "Quarterfinals"
             else:
-                round_name = f"Round {num_rounds - round_num + 1}"
+                round_name = f"Round {round_num}"
 
             rounds_data.append({
-                "round_number": num_rounds - round_num + 1,
+                "round_number": round_num,
                 "round_name": round_name,
                 "matches_count": matches_in_round
             })
 
-        rounds_data.reverse()  # Start with round 1
+        # rounds_data is already in correct order (no reverse needed)
 
         # Create rounds and matches
         created_rounds = []

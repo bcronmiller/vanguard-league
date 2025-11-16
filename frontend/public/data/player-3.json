@@ -3,39 +3,102 @@
   "belt": null,
   "team": null,
   "academy": "VanGuard Gym",
-  "photo_url": null,
+  "photo_url": "https://i.imgur.com/OnbmNBi.jpg",
   "age": null,
   "bjj_belt_rank": "Blue",
-  "weight": 167.8,
+  "weight": 166.0,
   "weight_class_id": 1,
-  "elo_rating": 1416.0529118412462,
+  "elo_rating": 1465.1021410203534,
   "rankade_ree_score": null,
   "id": 3,
   "rankade_id": "6dgROEGO1vG",
   "active": true,
   "created_at": "2025-11-09T18:57:19.336248",
-  "updated_at": "2025-11-13T19:31:47.230787",
-  "weight_class_name": null,
-  "matches": [
+  "updated_at": "2025-11-16T15:51:03.380109",
+  "weight_class_name": "Lightweight",
+  "badges": [
     {
-      "match_id": 17,
-      "event_id": 1,
-      "event_name": "VGL 1",
-      "event_date": "2025-11-07T19:00:00",
-      "opponent": {
-        "id": 8,
-        "name": "John Michael El Mapache Rodriguez Uhweta",
-        "photo_url": null
-      },
-      "result": "loss",
-      "method": "Americana",
-      "duration_seconds": 300,
-      "match_number": null,
-      "belt_rank": "Blue",
-      "weight": 167.8,
-      "weight_class": "Lightweight",
-      "elo_change": -8
+      "icon": "\ud83c\udf51",
+      "name": "Buttscooter",
+      "description": "Master of the legendary butt scoot technique"
     },
+    {
+      "name": "On Fire",
+      "description": "3 wins in a row",
+      "icon": "\ud83d\udd25"
+    },
+    {
+      "name": "Comeback Kid",
+      "description": "Won after losing 2+ matches",
+      "icon": "\ud83d\udcaa"
+    },
+    {
+      "name": "Footsie",
+      "description": "Leg lock submission earned",
+      "icon": "\ud83e\uddb6"
+    },
+    {
+      "name": "Darce Knight",
+      "description": "Darce choke submission earned",
+      "icon": "\ud83e\udd77"
+    },
+    {
+      "name": "Multi-Division",
+      "description": "Competed in 3 weight classes",
+      "icon": "\u2696\ufe0f"
+    }
+  ],
+  "manual_badges": [
+    {
+      "icon": "\ud83c\udf51",
+      "name": "Buttscooter",
+      "description": "Master of the legendary butt scoot technique"
+    }
+  ],
+  "divisions": {
+    "player_id": 3,
+    "player_name": "Hussain Samir",
+    "overall": {
+      "wins": 5,
+      "losses": 2,
+      "draws": 0,
+      "elo_rating": 1465.1021410203534,
+      "elo_change": 65.10214102035343
+    },
+    "divisions": [
+      {
+        "weight_class_id": 1,
+        "weight_class_name": "Lightweight",
+        "wins": 3,
+        "losses": 2,
+        "draws": 0,
+        "elo_rating": 1429.949106578004,
+        "initial_elo_rating": 1400.0,
+        "elo_change": 29.94910657800392
+      },
+      {
+        "weight_class_id": 2,
+        "weight_class_name": "Middleweight",
+        "wins": 1,
+        "losses": 0,
+        "draws": 0,
+        "elo_rating": 1424.0167604518567,
+        "initial_elo_rating": 1400.0,
+        "elo_change": 24.016760451856726
+      },
+      {
+        "weight_class_id": 3,
+        "weight_class_name": "Heavyweight",
+        "wins": 1,
+        "losses": 0,
+        "draws": 0,
+        "elo_rating": 1416.0,
+        "initial_elo_rating": 1400.0,
+        "elo_change": 16.0
+      }
+    ]
+  },
+  "matches": [
     {
       "match_id": 11,
       "event_id": 1,
@@ -44,7 +107,7 @@
       "opponent": {
         "id": 2,
         "name": "Alex Stewart",
-        "photo_url": null
+        "photo_url": "https://i.imgur.com/xzfxRkA.jpg"
       },
       "result": "loss",
       "method": "Knee Bar",
@@ -54,25 +117,6 @@
       "weight": 167.8,
       "weight_class": "Lightweight",
       "elo_change": -8
-    },
-    {
-      "match_id": 6,
-      "event_id": 1,
-      "event_name": "VGL 1",
-      "event_date": "2025-11-07T19:00:00",
-      "opponent": {
-        "id": 6,
-        "name": "Josh Rivera",
-        "photo_url": null
-      },
-      "result": "win",
-      "method": "Darce",
-      "duration_seconds": 140,
-      "match_number": null,
-      "belt_rank": "Blue",
-      "weight": 167.8,
-      "weight_class": "Lightweight",
-      "elo_change": 16
     },
     {
       "match_id": 1,
@@ -92,56 +136,101 @@
       "weight": 167.8,
       "weight_class": "Heavyweight",
       "elo_change": 16
-    }
-  ],
-  "badges": [
-    {
-      "name": "Footsie",
-      "description": "Leg lock submission earned",
-      "icon": "🦶"
     },
     {
-      "name": "Darce Knight",
-      "description": "Darce choke submission earned",
-      "icon": "🥷"
-    },
-    {
-      "name": "Multi-Division",
-      "description": "Competed in 2 weight classes",
-      "icon": "⚖️"
-    }
-  ],
-  "divisions": {
-    "player_id": 3,
-    "player_name": "Hussain Samir",
-    "overall": {
-      "wins": 2,
-      "losses": 2,
-      "draws": 0,
-      "elo_rating": 1416.0529118412462,
-      "elo_change": 16.052911841246214
-    },
-    "divisions": [
-      {
-        "weight_class_id": 1,
-        "weight_class_name": "Lightweight",
-        "wins": 1,
-        "losses": 2,
-        "draws": 0,
-        "elo_rating": 1400.0529118412462,
-        "initial_elo_rating": 1400,
-        "elo_change": 0.05291184124621395
+      "match_id": 6,
+      "event_id": 1,
+      "event_name": "VGL 1",
+      "event_date": "2025-11-07T19:00:00",
+      "opponent": {
+        "id": 6,
+        "name": "Josh Rivera",
+        "photo_url": "https://i.imgur.com/9SPGfFG.jpg"
       },
-      {
-        "weight_class_id": 3,
-        "weight_class_name": "Heavyweight",
-        "wins": 1,
-        "losses": 0,
-        "draws": 0,
-        "elo_rating": 1416,
-        "initial_elo_rating": 1400,
-        "elo_change": 16
-      }
-    ]
-  }
+      "result": "win",
+      "method": "Darce",
+      "duration_seconds": 140,
+      "match_number": null,
+      "belt_rank": "Blue",
+      "weight": 167.8,
+      "weight_class": "Lightweight",
+      "elo_change": 16
+    },
+    {
+      "match_id": 643,
+      "event_id": 2,
+      "event_name": "VGL 2",
+      "event_date": "2025-11-14T19:00:00",
+      "opponent": {
+        "id": 15,
+        "name": "George Battistelli",
+        "photo_url": "https://i.imgur.com/w6vvxqV.jpg"
+      },
+      "result": "win",
+      "method": "Kneebar",
+      "duration_seconds": 180,
+      "match_number": 3,
+      "belt_rank": "Blue",
+      "weight": 167.8,
+      "weight_class": "Middleweight",
+      "elo_change": 24
+    },
+    {
+      "match_id": 17,
+      "event_id": 1,
+      "event_name": "VGL 1",
+      "event_date": "2025-11-07T19:00:00",
+      "opponent": {
+        "id": 8,
+        "name": "John Michael El Mapache Rodriguez Uhweta",
+        "photo_url": "https://i.imgur.com/kX7wqFU.jpg"
+      },
+      "result": "loss",
+      "method": "Americana",
+      "duration_seconds": 300,
+      "match_number": null,
+      "belt_rank": "Blue",
+      "weight": 167.8,
+      "weight_class": "Lightweight",
+      "elo_change": -8
+    },
+    {
+      "match_id": 628,
+      "event_id": 2,
+      "event_name": "VGL 2",
+      "event_date": "2025-11-14T19:00:00",
+      "opponent": {
+        "id": 6,
+        "name": "Josh Rivera",
+        "photo_url": "https://i.imgur.com/9SPGfFG.jpg"
+      },
+      "result": "win",
+      "method": "Heel Hook",
+      "duration_seconds": 40,
+      "match_number": 2,
+      "belt_rank": "Blue",
+      "weight": 167.8,
+      "weight_class": "Lightweight",
+      "elo_change": 14
+    },
+    {
+      "match_id": 623,
+      "event_id": 2,
+      "event_name": "VGL 2",
+      "event_date": "2025-11-14T19:00:00",
+      "opponent": {
+        "id": 18,
+        "name": "Jamie Corzo",
+        "photo_url": null
+      },
+      "result": "win",
+      "method": "Kneebar",
+      "duration_seconds": 150,
+      "match_number": 3,
+      "belt_rank": "Blue",
+      "weight": 167.8,
+      "weight_class": "Lightweight",
+      "elo_change": 16
+    }
+  ]
 }

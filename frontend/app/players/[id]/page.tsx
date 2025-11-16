@@ -327,15 +327,15 @@ export default function PlayerProfilePage({ params }: { params: { id: string } }
                           </div>
                           <div>
                             <span className="text-sm text-gray-600 dark:text-gray-400">ELO: </span>
-                            <span className="text-xl font-heading font-bold">
-                              {Math.round(division.elo_rating)}
-                            </span>
-                            <span className={`text-sm ml-2 ${
+                            <span className={`text-xl font-heading font-bold ${
                               division.elo_change >= 0
                                 ? 'text-green-600 dark:text-green-400'
                                 : 'text-red-600 dark:text-red-400'
                             }`}>
-                              ({division.elo_change >= 0 ? '+' : ''}{Math.round(division.elo_change)})
+                              {division.elo_change >= 0 ? '+' : ''}{Math.round(division.elo_change)}
+                            </span>
+                            <span className="text-sm ml-2 text-gray-500 dark:text-gray-400">
+                              ({Math.round(division.elo_rating)})
                             </span>
                           </div>
                         </div>
@@ -354,22 +354,22 @@ export default function PlayerProfilePage({ params }: { params: { id: string } }
                     </div>
                   </div>
 
-                  {/* ELO Rating */}
+                  {/* ELO Change */}
                   <div>
-                    <div className="text-sm text-gray-600 dark:text-gray-400 mb-1">ELO RATING</div>
-                    <div className="text-3xl font-heading font-bold text-mbjj-blue">
-                      {Math.round(player.elo_rating)}
-                    </div>
+                    <div className="text-sm text-gray-600 dark:text-gray-400 mb-1">ELO CHANGE</div>
                     {player.initial_elo_rating && (
-                      <div className={`text-sm mt-1 ${
+                      <div className={`text-3xl font-heading font-bold ${
                         (player.elo_rating - player.initial_elo_rating) >= 0
                           ? 'text-green-600 dark:text-green-400'
                           : 'text-red-600 dark:text-red-400'
                       }`}>
-                        ({(player.elo_rating - player.initial_elo_rating) >= 0 ? '+' : ''}
-                        {Math.round(player.elo_rating - player.initial_elo_rating)})
+                        {(player.elo_rating - player.initial_elo_rating) >= 0 ? '+' : ''}
+                        {Math.round(player.elo_rating - player.initial_elo_rating)}
                       </div>
                     )}
+                    <div className="text-sm mt-1 text-gray-500 dark:text-gray-400">
+                      ({Math.round(player.elo_rating)})
+                    </div>
                   </div>
 
                   {/* Ranking */}

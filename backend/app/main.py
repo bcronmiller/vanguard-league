@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.core.config import settings
-from app.api import health, players, matches, rankings, checkin, brackets, events, ladder, rankings_recalc, tournament
+from app.api import health, players, matches, rankings, checkin, brackets, events, ladder, rankings_recalc, tournament, academies
 
 app = FastAPI(
     title="Vanguard League API",
@@ -29,6 +29,7 @@ app.include_router(brackets.router, prefix=settings.API_PREFIX, tags=["brackets"
 app.include_router(ladder.router, prefix=settings.API_PREFIX, tags=["ladder"])
 app.include_router(rankings_recalc.router, prefix=settings.API_PREFIX, tags=["rankings"])
 app.include_router(tournament.router, prefix=settings.API_PREFIX, tags=["tournaments"])
+app.include_router(academies.router, prefix=settings.API_PREFIX, tags=["academies"])
 
 
 @app.get("/")
