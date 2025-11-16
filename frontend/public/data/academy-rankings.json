@@ -1,1 +1,188 @@
-{"academies":[{"academy_name":"VanGuard Gym","fighter_count":11,"climber_count":4,"avg_elo_change":49.02,"total_elo_change":7.87,"total_matches":47,"fighters":[{"id":3,"name":"Hussain Samir","belt_rank":"Blue","elo_rating":1465.1021410203534,"elo_change":65.1,"photo_url":"https://i.imgur.com/OnbmNBi.jpg","match_count":7},{"id":5,"name":"Nick Newbold","belt_rank":"Blue","elo_rating":1456.6026532125022,"elo_change":56.6,"photo_url":"https://i.imgur.com/RXmwkBZ.jpg","match_count":4},{"id":2,"name":"Alex Stewart","belt_rank":"Purple","elo_rating":1650.5816286894574,"elo_change":50.58,"photo_url":"https://i.imgur.com/xzfxRkA.jpg","match_count":6},{"id":11,"name":"Christian Banghart","belt_rank":"Black","elo_rating":2023.8060677371493,"elo_change":23.81,"photo_url":"https://marketmusclescdn.nyc3.digitaloceanspaces.com/wp-content/uploads/sites/265/2021/07/28171628/christiansmall.jpg","match_count":7},{"id":1,"name":"Brian Cronmiller","belt_rank":"Black","elo_rating":2000.0,"elo_change":0.0,"photo_url":"https://i.imgur.com/4Byp9fT.jpg","match_count":0},{"id":4,"name":"Josue Chevaz","belt_rank":"Blue","elo_rating":1380.1891621285608,"elo_change":-19.81,"photo_url":null,"match_count":5},{"id":16,"name":"Marcus Harness","belt_rank":"Brown","elo_rating":1776.075940858658,"elo_change":-23.92,"photo_url":null,"match_count":2},{"id":18,"name":"Jamie Corzo","belt_rank":"Blue","elo_rating":1371.8487164147305,"elo_change":-28.15,"photo_url":null,"match_count":3},{"id":15,"name":"George Battistelli","belt_rank":"Purple","elo_rating":1569.343011112265,"elo_change":-30.66,"photo_url":"https://i.imgur.com/w6vvxqV.jpg","match_count":3},{"id":9,"name":"Edrees Saifi","belt_rank":"Blue","elo_rating":1369.1713937521972,"elo_change":-30.83,"photo_url":null,"match_count":4},{"id":6,"name":"Josh Rivera","belt_rank":"Blue","elo_rating":1345.1537903260523,"elo_change":-54.85,"photo_url":"https://i.imgur.com/9SPGfFG.jpg","match_count":6}],"logo_url":"/vgg-logo.png","website":"https://vanguardgym.com"},{"academy_name":"Kaizen MMA","fighter_count":2,"climber_count":1,"avg_elo_change":13.97,"total_elo_change":-12.92,"total_matches":13,"fighters":[{"id":8,"name":"John Michael El Mapache Rodriguez Uhweta","belt_rank":"Purple","elo_rating":1613.9707124371414,"elo_change":13.97,"photo_url":"https://i.imgur.com/kX7wqFU.jpg","match_count":6},{"id":7,"name":"Matt Crawford","belt_rank":"Brown","elo_rating":1773.1096146254324,"elo_change":-26.89,"photo_url":null,"match_count":7}],"logo_url":"https://kzmma.com/wp-content/uploads/2020/08/facebook-logokz.png","website":"https://kzmma.com"},{"academy_name":"Battlefield BJJ","fighter_count":1,"climber_count":1,"avg_elo_change":11.95,"total_elo_change":11.95,"total_matches":2,"fighters":[{"id":17,"name":"Dustin Montano","belt_rank":"Blue","elo_rating":1411.9536387369972,"elo_change":11.95,"photo_url":null,"match_count":2}],"logo_url":"https://marketmusclescdn.nyc3.digitaloceanspaces.com/wp-content/uploads/sites/186/2021/04/29155113/logo-1.png","website":null},{"academy_name":"Leo Dalla BJJ","fighter_count":1,"climber_count":0,"avg_elo_change":0,"total_elo_change":-6.91,"total_matches":4,"fighters":[{"id":10,"name":"Troy Wittman","belt_rank":"Black","elo_rating":1993.0915289485029,"elo_change":-6.91,"photo_url":null,"match_count":4}],"logo_url":"https://leodalla.com/wp-content/uploads/2022/07/NewDALLALOGO-400x400.jpeg","website":"https://leodalla.com"}],"total_academies":4}
+{
+  "academies": [
+    {
+      "academy_name": "VanGuard Gym",
+      "fighter_count": 11,
+      "climber_count": 4,
+      "avg_elo_change": 49.02,
+      "total_elo_change": 7.87,
+      "total_matches": 31,
+      "fighters": [
+        {
+          "id": 3,
+          "name": "Hussain Samir",
+          "belt_rank": "Blue",
+          "elo_rating": 1465.1021410203534,
+          "elo_change": 65.1,
+          "photo_url": "https://i.imgur.com/OnbmNBi.jpg",
+          "match_count": 7
+        },
+        {
+          "id": 5,
+          "name": "Nick Newbold",
+          "belt_rank": "Blue",
+          "elo_rating": 1456.6026532125022,
+          "elo_change": 56.6,
+          "photo_url": "https://i.imgur.com/RXmwkBZ.jpg",
+          "match_count": 4
+        },
+        {
+          "id": 2,
+          "name": "Alex Stewart",
+          "belt_rank": "Purple",
+          "elo_rating": 1650.5816286894574,
+          "elo_change": 50.58,
+          "photo_url": "https://i.imgur.com/xzfxRkA.jpg",
+          "match_count": 6
+        },
+        {
+          "id": 11,
+          "name": "Christian Banghart",
+          "belt_rank": "Black",
+          "elo_rating": 2023.8060677371493,
+          "elo_change": 23.81,
+          "photo_url": "https://marketmusclescdn.nyc3.digitaloceanspaces.com/wp-content/uploads/sites/265/2021/07/28171628/christiansmall.jpg",
+          "match_count": 7
+        },
+        {
+          "id": 1,
+          "name": "Brian Cronmiller",
+          "belt_rank": "Black",
+          "elo_rating": 2000.0,
+          "elo_change": 0.0,
+          "photo_url": "https://i.imgur.com/4Byp9fT.jpg",
+          "match_count": 0
+        },
+        {
+          "id": 4,
+          "name": "Josue Chevaz",
+          "belt_rank": "Blue",
+          "elo_rating": 1380.1891621285608,
+          "elo_change": -19.81,
+          "photo_url": null,
+          "match_count": 5
+        },
+        {
+          "id": 16,
+          "name": "Marcus Harness",
+          "belt_rank": "Brown",
+          "elo_rating": 1776.075940858658,
+          "elo_change": -23.92,
+          "photo_url": null,
+          "match_count": 2
+        },
+        {
+          "id": 18,
+          "name": "Jamie Corzo",
+          "belt_rank": "Blue",
+          "elo_rating": 1371.8487164147305,
+          "elo_change": -28.15,
+          "photo_url": null,
+          "match_count": 3
+        },
+        {
+          "id": 15,
+          "name": "George Battistelli",
+          "belt_rank": "Purple",
+          "elo_rating": 1569.343011112265,
+          "elo_change": -30.66,
+          "photo_url": "https://i.imgur.com/w6vvxqV.jpg",
+          "match_count": 3
+        },
+        {
+          "id": 9,
+          "name": "Edrees Saifi",
+          "belt_rank": "Blue",
+          "elo_rating": 1369.1713937521972,
+          "elo_change": -30.83,
+          "photo_url": null,
+          "match_count": 4
+        },
+        {
+          "id": 6,
+          "name": "Josh Rivera",
+          "belt_rank": "Blue",
+          "elo_rating": 1345.1537903260523,
+          "elo_change": -54.85,
+          "photo_url": "https://i.imgur.com/9SPGfFG.jpg",
+          "match_count": 6
+        }
+      ],
+      "logo_url": "/vgg-logo.png",
+      "website": "https://vanguardgym.com"
+    },
+    {
+      "academy_name": "Kaizen MMA",
+      "fighter_count": 2,
+      "climber_count": 1,
+      "avg_elo_change": 13.97,
+      "total_elo_change": -12.92,
+      "total_matches": 13,
+      "fighters": [
+        {
+          "id": 8,
+          "name": "John Michael El Mapache Rodriguez Uhweta",
+          "belt_rank": "Purple",
+          "elo_rating": 1613.9707124371414,
+          "elo_change": 13.97,
+          "photo_url": "https://i.imgur.com/kX7wqFU.jpg",
+          "match_count": 6
+        },
+        {
+          "id": 7,
+          "name": "Matt Crawford",
+          "belt_rank": "Brown",
+          "elo_rating": 1773.1096146254324,
+          "elo_change": -26.89,
+          "photo_url": null,
+          "match_count": 7
+        }
+      ],
+      "logo_url": "https://kzmma.com/wp-content/uploads/2020/08/facebook-logokz.png",
+      "website": "https://kzmma.com"
+    },
+    {
+      "academy_name": "Battlefield BJJ",
+      "fighter_count": 1,
+      "climber_count": 1,
+      "avg_elo_change": 11.95,
+      "total_elo_change": 11.95,
+      "total_matches": 2,
+      "fighters": [
+        {
+          "id": 17,
+          "name": "Dustin Montano",
+          "belt_rank": "Blue",
+          "elo_rating": 1411.9536387369972,
+          "elo_change": 11.95,
+          "photo_url": null,
+          "match_count": 2
+        }
+      ],
+      "logo_url": "https://marketmusclescdn.nyc3.digitaloceanspaces.com/wp-content/uploads/sites/186/2021/04/29155113/logo-1.png",
+      "website": null
+    },
+    {
+      "academy_name": "Leo Dalla BJJ",
+      "fighter_count": 1,
+      "climber_count": 0,
+      "avg_elo_change": 0,
+      "total_elo_change": -6.91,
+      "total_matches": 4,
+      "fighters": [
+        {
+          "id": 10,
+          "name": "Troy Wittman",
+          "belt_rank": "Black",
+          "elo_rating": 1993.0915289485029,
+          "elo_change": -6.91,
+          "photo_url": null,
+          "match_count": 4
+        }
+      ],
+      "logo_url": "https://leodalla.com/wp-content/uploads/2022/07/NewDALLALOGO-400x400.jpeg",
+      "website": "https://leodalla.com"
+    }
+  ],
+  "total_academies": 4
+}
