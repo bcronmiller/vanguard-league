@@ -1,1 +1,254 @@
-[{"id":636,"match_number":636,"player_a":{"id":7,"name":"Matt Crawford","photo_url":null},"player_b":{"id":16,"name":"Marcus Harness","photo_url":null},"result":"a_win","method":"Kimura","duration_seconds":240,"synced_to_rankade":false},{"id":637,"match_number":637,"player_a":{"id":11,"name":"Christian Banghart","photo_url":"https://marketmusclescdn.nyc3.digitaloceanspaces.com/wp-content/uploads/sites/265/2021/07/28171628/christiansmall.jpg"},"player_b":{"id":17,"name":"Dustin Montano","photo_url":null},"result":"a_win","method":"Darce","duration_seconds":360,"synced_to_rankade":false},{"id":639,"match_number":639,"player_a":{"id":16,"name":"Marcus Harness","photo_url":null},"player_b":{"id":11,"name":"Christian Banghart","photo_url":"https://marketmusclescdn.nyc3.digitaloceanspaces.com/wp-content/uploads/sites/265/2021/07/28171628/christiansmall.jpg"},"result":"b_win","method":"Arm Triangle","duration_seconds":390,"synced_to_rankade":false},{"id":640,"match_number":640,"player_a":{"id":7,"name":"Matt Crawford","photo_url":null},"player_b":{"id":11,"name":"Christian Banghart","photo_url":"https://marketmusclescdn.nyc3.digitaloceanspaces.com/wp-content/uploads/sites/265/2021/07/28171628/christiansmall.jpg"},"result":"b_win","method":"Head and Arm Choke","duration_seconds":450,"synced_to_rankade":false},{"id":643,"match_number":643,"player_a":{"id":15,"name":"George Battistelli","photo_url":"https://i.imgur.com/w6vvxqV.jpg"},"player_b":{"id":3,"name":"Hussain Samir","photo_url":"https://i.imgur.com/OnbmNBi.jpg"},"result":"b_win","method":"Kneebar","duration_seconds":180,"synced_to_rankade":null},{"id":645,"match_number":645,"player_a":{"id":2,"name":"Alex Stewart","photo_url":"https://i.imgur.com/xzfxRkA.jpg"},"player_b":{"id":18,"name":"Jamie Corzo","photo_url":null},"result":"a_win","method":"Ankle Lock","duration_seconds":90,"synced_to_rankade":null},{"id":646,"match_number":646,"player_a":{"id":7,"name":"Matt Crawford","photo_url":null},"player_b":{"id":17,"name":"Dustin Montano","photo_url":null},"result":"draw","method":null,"duration_seconds":null,"synced_to_rankade":null},{"id":644,"match_number":644,"player_a":{"id":8,"name":"John Michael El Mapache Rodriguez Uhweta","photo_url":"https://i.imgur.com/kX7wqFU.jpg"},"player_b":{"id":6,"name":"Josh Rivera","photo_url":"https://i.imgur.com/9SPGfFG.jpg"},"result":"a_win","method":"Armbar","duration_seconds":270,"synced_to_rankade":null},{"id":621,"match_number":621,"player_a":{"id":8,"name":"John Michael El Mapache Rodriguez Uhweta","photo_url":"https://i.imgur.com/kX7wqFU.jpg"},"player_b":{"id":2,"name":"Alex Stewart","photo_url":"https://i.imgur.com/xzfxRkA.jpg"},"result":"draw","method":null,"duration_seconds":600,"synced_to_rankade":false},{"id":622,"match_number":622,"player_a":{"id":15,"name":"George Battistelli","photo_url":"https://i.imgur.com/w6vvxqV.jpg"},"player_b":{"id":6,"name":"Josh Rivera","photo_url":"https://i.imgur.com/9SPGfFG.jpg"},"result":"a_win","method":"Ankle Lock","duration_seconds":600,"synced_to_rankade":false},{"id":623,"match_number":623,"player_a":{"id":3,"name":"Hussain Samir","photo_url":"https://i.imgur.com/OnbmNBi.jpg"},"player_b":{"id":18,"name":"Jamie Corzo","photo_url":null},"result":"a_win","method":"Kneebar","duration_seconds":150,"synced_to_rankade":false},{"id":627,"match_number":627,"player_a":{"id":8,"name":"John Michael El Mapache Rodriguez Uhweta","photo_url":"https://i.imgur.com/kX7wqFU.jpg"},"player_b":{"id":18,"name":"Jamie Corzo","photo_url":null},"result":"a_win","method":"Guillotine","duration_seconds":370,"synced_to_rankade":false},{"id":628,"match_number":628,"player_a":{"id":6,"name":"Josh Rivera","photo_url":"https://i.imgur.com/9SPGfFG.jpg"},"player_b":{"id":3,"name":"Hussain Samir","photo_url":"https://i.imgur.com/OnbmNBi.jpg"},"result":"b_win","method":"Heel Hook","duration_seconds":40,"synced_to_rankade":false},{"id":629,"match_number":629,"player_a":{"id":2,"name":"Alex Stewart","photo_url":"https://i.imgur.com/xzfxRkA.jpg"},"player_b":{"id":15,"name":"George Battistelli","photo_url":"https://i.imgur.com/w6vvxqV.jpg"},"result":"a_win","method":"Triangle","duration_seconds":120,"synced_to_rankade":false}]
+[
+  {
+    "id": 636,
+    "match_number": 636,
+    "player_a": {
+      "id": 7,
+      "name": "Matt Crawford",
+      "photo_url": null
+    },
+    "player_b": {
+      "id": 16,
+      "name": "Marcus Harness",
+      "photo_url": null
+    },
+    "result": "a_win",
+    "method": "Kimura",
+    "duration_seconds": 240,
+    "synced_to_rankade": false
+  },
+  {
+    "id": 637,
+    "match_number": 637,
+    "player_a": {
+      "id": 11,
+      "name": "Christian Banghart",
+      "photo_url": "https://marketmusclescdn.nyc3.digitaloceanspaces.com/wp-content/uploads/sites/265/2021/07/28171628/christiansmall.jpg"
+    },
+    "player_b": {
+      "id": 17,
+      "name": "Dustin Montano",
+      "photo_url": null
+    },
+    "result": "a_win",
+    "method": "Darce",
+    "duration_seconds": 360,
+    "synced_to_rankade": false
+  },
+  {
+    "id": 639,
+    "match_number": 639,
+    "player_a": {
+      "id": 16,
+      "name": "Marcus Harness",
+      "photo_url": null
+    },
+    "player_b": {
+      "id": 11,
+      "name": "Christian Banghart",
+      "photo_url": "https://marketmusclescdn.nyc3.digitaloceanspaces.com/wp-content/uploads/sites/265/2021/07/28171628/christiansmall.jpg"
+    },
+    "result": "b_win",
+    "method": "Arm Triangle",
+    "duration_seconds": 390,
+    "synced_to_rankade": false
+  },
+  {
+    "id": 640,
+    "match_number": 640,
+    "player_a": {
+      "id": 7,
+      "name": "Matt Crawford",
+      "photo_url": null
+    },
+    "player_b": {
+      "id": 11,
+      "name": "Christian Banghart",
+      "photo_url": "https://marketmusclescdn.nyc3.digitaloceanspaces.com/wp-content/uploads/sites/265/2021/07/28171628/christiansmall.jpg"
+    },
+    "result": "b_win",
+    "method": "Head and Arm Choke",
+    "duration_seconds": 450,
+    "synced_to_rankade": false
+  },
+  {
+    "id": 643,
+    "match_number": 643,
+    "player_a": {
+      "id": 15,
+      "name": "George Battistelli",
+      "photo_url": "https://i.imgur.com/w6vvxqV.jpg"
+    },
+    "player_b": {
+      "id": 3,
+      "name": "Hussain Samir",
+      "photo_url": "https://i.imgur.com/OnbmNBi.jpg"
+    },
+    "result": "b_win",
+    "method": "Heel Hook",
+    "duration_seconds": 180,
+    "synced_to_rankade": null
+  },
+  {
+    "id": 645,
+    "match_number": 645,
+    "player_a": {
+      "id": 2,
+      "name": "Alex Stewart",
+      "photo_url": "https://i.imgur.com/xzfxRkA.jpg"
+    },
+    "player_b": {
+      "id": 18,
+      "name": "Jamie Corzo",
+      "photo_url": null
+    },
+    "result": "a_win",
+    "method": "Ankle Lock",
+    "duration_seconds": 90,
+    "synced_to_rankade": null
+  },
+  {
+    "id": 646,
+    "match_number": 646,
+    "player_a": {
+      "id": 7,
+      "name": "Matt Crawford",
+      "photo_url": null
+    },
+    "player_b": {
+      "id": 17,
+      "name": "Dustin Montano",
+      "photo_url": null
+    },
+    "result": "draw",
+    "method": null,
+    "duration_seconds": null,
+    "synced_to_rankade": null
+  },
+  {
+    "id": 644,
+    "match_number": 644,
+    "player_a": {
+      "id": 8,
+      "name": "John Michael El Mapache Rodriguez Uhweta",
+      "photo_url": "https://i.imgur.com/kX7wqFU.jpg"
+    },
+    "player_b": {
+      "id": 6,
+      "name": "Josh Rivera",
+      "photo_url": "https://i.imgur.com/9SPGfFG.jpg"
+    },
+    "result": "a_win",
+    "method": "Armbar",
+    "duration_seconds": 270,
+    "synced_to_rankade": null
+  },
+  {
+    "id": 621,
+    "match_number": 621,
+    "player_a": {
+      "id": 8,
+      "name": "John Michael El Mapache Rodriguez Uhweta",
+      "photo_url": "https://i.imgur.com/kX7wqFU.jpg"
+    },
+    "player_b": {
+      "id": 2,
+      "name": "Alex Stewart",
+      "photo_url": "https://i.imgur.com/xzfxRkA.jpg"
+    },
+    "result": "draw",
+    "method": null,
+    "duration_seconds": 600,
+    "synced_to_rankade": false
+  },
+  {
+    "id": 622,
+    "match_number": 622,
+    "player_a": {
+      "id": 15,
+      "name": "George Battistelli",
+      "photo_url": "https://i.imgur.com/w6vvxqV.jpg"
+    },
+    "player_b": {
+      "id": 6,
+      "name": "Josh Rivera",
+      "photo_url": "https://i.imgur.com/9SPGfFG.jpg"
+    },
+    "result": "a_win",
+    "method": "Ankle Lock",
+    "duration_seconds": 600,
+    "synced_to_rankade": false
+  },
+  {
+    "id": 623,
+    "match_number": 623,
+    "player_a": {
+      "id": 3,
+      "name": "Hussain Samir",
+      "photo_url": "https://i.imgur.com/OnbmNBi.jpg"
+    },
+    "player_b": {
+      "id": 18,
+      "name": "Jamie Corzo",
+      "photo_url": null
+    },
+    "result": "a_win",
+    "method": "Kneebar",
+    "duration_seconds": 150,
+    "synced_to_rankade": false
+  },
+  {
+    "id": 627,
+    "match_number": 627,
+    "player_a": {
+      "id": 8,
+      "name": "John Michael El Mapache Rodriguez Uhweta",
+      "photo_url": "https://i.imgur.com/kX7wqFU.jpg"
+    },
+    "player_b": {
+      "id": 18,
+      "name": "Jamie Corzo",
+      "photo_url": null
+    },
+    "result": "a_win",
+    "method": "Guillotine",
+    "duration_seconds": 370,
+    "synced_to_rankade": false
+  },
+  {
+    "id": 628,
+    "match_number": 628,
+    "player_a": {
+      "id": 6,
+      "name": "Josh Rivera",
+      "photo_url": "https://i.imgur.com/9SPGfFG.jpg"
+    },
+    "player_b": {
+      "id": 3,
+      "name": "Hussain Samir",
+      "photo_url": "https://i.imgur.com/OnbmNBi.jpg"
+    },
+    "result": "b_win",
+    "method": "Heel Hook",
+    "duration_seconds": 40,
+    "synced_to_rankade": false
+  },
+  {
+    "id": 629,
+    "match_number": 629,
+    "player_a": {
+      "id": 2,
+      "name": "Alex Stewart",
+      "photo_url": "https://i.imgur.com/xzfxRkA.jpg"
+    },
+    "player_b": {
+      "id": 15,
+      "name": "George Battistelli",
+      "photo_url": "https://i.imgur.com/w6vvxqV.jpg"
+    },
+    "result": "a_win",
+    "method": "Triangle",
+    "duration_seconds": 120,
+    "synced_to_rankade": false
+  }
+]
