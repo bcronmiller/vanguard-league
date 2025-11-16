@@ -41,6 +41,12 @@
       "name": "Guillotine",
       "description": "Guillotine submission earned",
       "icon": "\u2694\ufe0f"
+    },
+    {
+      "type": "buttscooter",
+      "event_id": 2,
+      "event_name": "VGL 2",
+      "description": "Buttscooter Award"
     }
   ],
   "manual_badges": [

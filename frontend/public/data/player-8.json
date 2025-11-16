@@ -26,6 +26,12 @@
       "name": "Armbar",
       "description": "Armbar submission earned",
       "icon": "\ud83e\uddb4"
+    },
+    {
+      "type": "fight_of_night",
+      "event_id": 2,
+      "event_name": "VGL 2",
+      "description": "Fight of the Night"
     }
   ],
   "manual_badges": [],

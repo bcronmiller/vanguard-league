@@ -41,6 +41,12 @@
       "name": "Multi-Division",
       "description": "Competed in 2 weight classes",
       "icon": "\u2696\ufe0f"
+    },
+    {
+      "type": "fight_of_night",
+      "event_id": 2,
+      "event_name": "VGL 2",
+      "description": "Fight of the Night"
     }
   ],
   "manual_badges": [
