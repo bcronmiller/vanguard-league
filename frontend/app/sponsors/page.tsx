@@ -56,6 +56,13 @@ export default function SponsorsPage() {
           {/* Neff Bros. Stone - More Details Available */}
           <div className="bg-white dark:bg-gray-800 rounded-lg shadow-2xl overflow-hidden border-t-4 border-mbjj-blue mb-8">
             <div className="bg-gradient-to-r from-gray-700 to-gray-900 text-white p-8 text-center">
+              <div className="flex items-center justify-center mb-4">
+                <img
+                  src="https://neffbrothersstone.com/wp-content/uploads/2022/12/cropped-NeffBROSlogo.png"
+                  alt="Neff Bros. Stone"
+                  className="h-24 object-contain"
+                />
+              </div>
               <h3 className="text-4xl md:text-5xl font-heading font-bold mb-4">
                 NEFF BROS. STONE
               </h3>
@@ -230,6 +237,13 @@ export default function SponsorsPage() {
             {/* Game Day Men's Health */}
             <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden border-t-4 border-mbjj-blue md:col-span-2">
               <div className="bg-gradient-to-r from-mbjj-blue to-mbjj-accent-light text-white p-6 text-center">
+                <div className="flex items-center justify-center mb-3">
+                  <img
+                    src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/ovE9FwuwI54GZrZi1VEF/media/65e7605b3be386aa75f6d014.webp"
+                    alt="Game Day Men's Health"
+                    className="h-20 object-contain"
+                  />
+                </div>
                 <h4 className="text-3xl font-heading font-bold">
                   GAME DAY MEN'S HEALTH
                 </h4>
@@ -292,16 +306,16 @@ export default function SponsorsPage() {
             {/* Attn2DetailMercantile */}
             <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden border-t-4 border-mbjj-blue md:col-span-2 mt-8">
               <div className="bg-gradient-to-r from-mbjj-blue to-mbjj-accent-light text-white p-6 text-center">
-                <div className="flex items-center justify-center gap-4 mb-2">
+                <div className="flex items-center justify-center mb-3">
                   <img
-                    src="https://scontent-iad3-1.xx.fbcdn.net/v/t39.30808-1/415756036_880401494093108_2247950511451915220_n.jpg?stp=dst-jpg_s200x200_tt6&_nc_cat=104&ccb=1-7&_nc_sid=2d3e12&_nc_ohc=pROfv_qhSr4Q7kNvwHGSqUI&_nc_oc=AdkHu-8z4_UXmHoTd1fsGmqv7CD8BHHLLzspfxmCsPb5V8Sz-2jO3ZmDfmwESPfs9UOm9USn3So50gWu9rUIAuVK&_nc_zt=24&_nc_ht=scontent-iad3-1.xx&_nc_gid=DRd4_kvkSGxtRYsWisD_8A&oh=00_Afg08RjWex7H9iDEadPZWeyDh2srdATu_7yOVnNoQzWMLg&oe=69201ED3"
+                    src="https://attn2detailmercantile.com/cdn/shop/files/Red_Knife_Girl_213x150.png?v=1702409843"
                     alt="Attn2DetailMercantile"
-                    className="h-16 w-16 rounded-full object-cover border-2 border-white"
+                    className="h-20 object-contain"
                   />
-                  <h4 className="text-3xl font-heading font-bold">
-                    ATTN2DETAILMERCANTILE
-                  </h4>
                 </div>
+                <h4 className="text-3xl font-heading font-bold">
+                  ATTN2DETAILMERCANTILE
+                </h4>
                 <p className="text-gray-200 mt-2">Veteran-Owned Custom Knives & Handcrafted Goods</p>
               </div>
               <div className="p-6">

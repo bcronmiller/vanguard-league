@@ -761,7 +761,12 @@ export default function Home() {
                 <div className="bg-mbjj-dark text-white p-4 text-center">
                   <h4 className="text-2xl font-heading font-bold">NEFF BROS. STONE</h4>
                 </div>
-                <div className="p-4 text-center">
+                <div className="p-4 text-center flex flex-col items-center">
+                  <img
+                    src="https://neffbrothersstone.com/wp-content/uploads/2022/12/cropped-NeffBROSlogo.png"
+                    alt="Neff Bros. Stone"
+                    className="h-16 object-contain mb-3"
+                  />
                   <p className="text-gray-600 dark:text-gray-400 text-sm mb-3">
                     Pavers, Walls, Stone & Aggregates
                   </p>
@@ -843,7 +848,12 @@ export default function Home() {
                 <div className="bg-mbjj-dark text-white p-4 text-center">
                   <h4 className="text-2xl font-heading font-bold">GAME DAY MEN'S HEALTH</h4>
                 </div>
-                <div className="p-4 text-center">
+                <div className="p-4 text-center flex flex-col items-center">
+                  <img
+                    src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/ovE9FwuwI54GZrZi1VEF/media/65e7605b3be386aa75f6d014.webp"
+                    alt="Game Day Men's Health"
+                    className="h-16 object-contain mb-3"
+                  />
                   <p className="text-gray-600 dark:text-gray-400 text-sm mb-3">
                     Men's Health & Wellness - Manassas
                   </p>
@@ -863,7 +873,12 @@ export default function Home() {
                 <div className="bg-mbjj-dark text-white p-4 text-center">
                   <h4 className="text-2xl font-heading font-bold">ATTN2DETAIL MERCANTILE</h4>
                 </div>
-                <div className="p-4 text-center">
+                <div className="p-4 text-center flex flex-col items-center">
+                  <img
+                    src="https://attn2detailmercantile.com/cdn/shop/files/Red_Knife_Girl_213x150.png?v=1702409843"
+                    alt="Attn2DetailMercantile"
+                    className="h-16 object-contain mb-3"
+                  />
                   <p className="text-gray-600 dark:text-gray-400 text-sm mb-3">
                     Veteran-Owned Custom Knives
                   </p>
