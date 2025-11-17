@@ -131,20 +131,78 @@ export default function SponsorsPage() {
 
           {/* Other Sponsors */}
           <div className="grid md:grid-cols-2 gap-8">
-            {/* Newbold Construction */}
+            {/* Leadmark Contracting */}
             <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden border-t-4 border-mbjj-blue">
               <div className="bg-gradient-to-r from-mbjj-blue to-mbjj-accent-light text-white p-6 text-center">
+                <div className="flex items-center justify-center mb-3">
+                  <img
+                    src="https://leadmk.com/wp-content/uploads/2025/04/image-5-removebg-preview.png"
+                    alt="Leadmark Contracting"
+                    className="h-20 object-contain"
+                  />
+                </div>
                 <h4 className="text-3xl font-heading font-bold">
-                  NEWBOLD CONSTRUCTION
+                  LEADMARK CONTRACTING
                 </h4>
+                <p className="text-gray-200 mt-2">Premier Home Improvement Contractors</p>
               </div>
               <div className="p-6">
-                <div className="text-center text-gray-700 dark:text-gray-300">
-                  <p className="text-lg mb-4">
-                    Professional construction services for Northern Virginia
+                <div className="text-gray-700 dark:text-gray-300">
+                  <p className="text-base mb-4 leading-relaxed">
+                    At Leadmark Contracting, we specialize in transforming houses into dream homes. As premier home improvement contractors in Northern Virginia, we deliver high-end, custom-built solutions that increase your home's value, utility, and charm.
                   </p>
-                  <div className="text-sm text-gray-500 dark:text-gray-400 italic">
-                    Website and details coming soon
+                  <p className="text-base mb-4 leading-relaxed">
+                    From concept to completion, we work closely with you to ensure your vision becomes reality—with no shortcuts, just expert craftsmanship.
+                  </p>
+                  <div className="text-center mt-6">
+                    <a
+                      href="https://leadmk.com/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-block bg-mbjj-blue hover:bg-mbjj-accent-light text-white font-heading font-bold px-6 py-3 rounded-lg transition shadow-md"
+                    >
+                      Visit Website →
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Precision Lawn & Landscape */}
+            <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden border-t-4 border-mbjj-blue">
+              <div className="bg-gradient-to-r from-mbjj-blue to-mbjj-accent-light text-white p-6 text-center">
+                <div className="flex items-center justify-center mb-3">
+                  <img
+                    src="https://precisionlawnandlandscape.com/wp-content/uploads/2023/12/logo.webp"
+                    alt="Precision Lawn & Landscape"
+                    className="h-20 object-contain"
+                  />
+                </div>
+                <h4 className="text-3xl font-heading font-bold">
+                  PRECISION LAWN & LANDSCAPE
+                </h4>
+                <p className="text-gray-200 mt-2">Lawn & Landscaping Excellence Since 2006</p>
+              </div>
+              <div className="p-6">
+                <div className="text-gray-700 dark:text-gray-300">
+                  <p className="text-base mb-4 leading-relaxed">
+                    Welcome to Precision Lawn & Landscape! We are a lawn and landscaping company that provides a wide range of top-notch services to residential, commercial, and HOA property owners in Woodbridge, VA, and nearby cities, such as Manassas and Dumfries.
+                  </p>
+                  <p className="text-base mb-4 leading-relaxed">
+                    Our company has been around since 2006 and is built on a steadfast commitment to excellence and client satisfaction. That's why we place an emphasis on always doing things the right way, whether we're installing a patio, aerating your lawn, trimming your plants, or repairing your irrigation system.
+                  </p>
+                  <p className="text-base mb-4 font-semibold">
+                    If you're looking for a reliable team you can trust, we are the company for you.
+                  </p>
+                  <div className="text-center mt-6">
+                    <a
+                      href="https://precisionlawnandlandscape.com/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-block bg-mbjj-blue hover:bg-mbjj-accent-light text-white font-heading font-bold px-6 py-3 rounded-lg transition shadow-md"
+                    >
+                      Visit Website →
+                    </a>
                   </div>
                 </div>
               </div>

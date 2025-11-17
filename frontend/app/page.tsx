@@ -755,7 +755,7 @@ export default function Home() {
             OUR SPONSORS
           </h2>
           <div className="max-w-6xl mx-auto">
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {/* Neff Bros. Stone */}
               <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden border-t-4 border-mbjj-blue hover:shadow-xl transition">
                 <div className="bg-mbjj-dark text-white p-4 text-center">
@@ -776,15 +776,53 @@ export default function Home() {
                 </div>
               </div>
 
-              {/* Newbold Construction */}
+              {/* Leadmark Contracting */}
               <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden border-t-4 border-mbjj-blue hover:shadow-xl transition">
                 <div className="bg-mbjj-dark text-white p-4 text-center">
-                  <h4 className="text-2xl font-heading font-bold">NEWBOLD CONSTRUCTION</h4>
+                  <h4 className="text-2xl font-heading font-bold">LEADMARK CONTRACTING</h4>
                 </div>
-                <div className="p-4 text-center">
-                  <p className="text-gray-600 dark:text-gray-400 text-sm">
-                    Professional Construction Services
+                <div className="p-4 text-center flex flex-col items-center">
+                  <img
+                    src="https://leadmk.com/wp-content/uploads/2025/04/image-5-removebg-preview.png"
+                    alt="Leadmark Contracting"
+                    className="h-16 object-contain mb-3"
+                  />
+                  <p className="text-gray-600 dark:text-gray-400 text-sm mb-3">
+                    Premier Home Improvement Contractors - Northern Virginia
                   </p>
+                  <a
+                    href="https://leadmk.com/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-block text-mbjj-blue hover:text-mbjj-red font-heading font-bold text-sm transition"
+                  >
+                    Visit Website →
+                  </a>
+                </div>
+              </div>
+
+              {/* Precision Lawn & Landscape */}
+              <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden border-t-4 border-mbjj-blue hover:shadow-xl transition">
+                <div className="bg-mbjj-dark text-white p-4 text-center">
+                  <h4 className="text-2xl font-heading font-bold">PRECISION LAWN & LANDSCAPE</h4>
+                </div>
+                <div className="p-4 text-center flex flex-col items-center">
+                  <img
+                    src="https://precisionlawnandlandscape.com/wp-content/uploads/2023/12/logo.webp"
+                    alt="Precision Lawn & Landscape"
+                    className="h-16 object-contain mb-3"
+                  />
+                  <p className="text-gray-600 dark:text-gray-400 text-sm mb-3">
+                    Lawn & Landscaping Services - Woodbridge, VA
+                  </p>
+                  <a
+                    href="https://precisionlawnandlandscape.com/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-block text-mbjj-blue hover:text-mbjj-red font-heading font-bold text-sm transition"
+                  >
+                    Visit Website →
+                  </a>
                 </div>
               </div>
 
