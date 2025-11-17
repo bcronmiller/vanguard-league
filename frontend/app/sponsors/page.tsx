@@ -140,7 +140,7 @@ export default function SponsorsPage() {
           <div className="grid md:grid-cols-2 gap-8">
             {/* Leadmark Contracting */}
             <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden border-t-4 border-mbjj-blue">
-              <div className="bg-gradient-to-r from-mbjj-blue to-mbjj-accent-light text-white p-6 text-center">
+              <div className="bg-gradient-to-r from-gray-700 to-gray-900 text-white p-6 text-center">
                 <div className="flex items-center justify-center mb-3">
                   <img
                     src="https://leadmk.com/wp-content/uploads/2025/04/image-5-removebg-preview.png"
@@ -177,7 +177,7 @@ export default function SponsorsPage() {
 
             {/* Precision Lawn & Landscape */}
             <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden border-t-4 border-mbjj-blue">
-              <div className="bg-gradient-to-r from-mbjj-blue to-mbjj-accent-light text-white p-6 text-center">
+              <div className="bg-gradient-to-r from-gray-700 to-gray-900 text-white p-6 text-center">
                 <div className="flex items-center justify-center mb-3">
                   <img
                     src="https://precisionlawnandlandscape.com/wp-content/uploads/2023/12/logo.webp"
@@ -217,7 +217,7 @@ export default function SponsorsPage() {
 
             {/* Halse Construction */}
             <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden border-t-4 border-mbjj-blue">
-              <div className="bg-gradient-to-r from-mbjj-blue to-mbjj-accent-light text-white p-6 text-center">
+              <div className="bg-gradient-to-r from-gray-700 to-gray-900 text-white p-6 text-center">
                 <h4 className="text-3xl font-heading font-bold">
                   HALSE CONSTRUCTION
                 </h4>
@@ -236,7 +236,7 @@ export default function SponsorsPage() {
 
             {/* Game Day Men's Health */}
             <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden border-t-4 border-mbjj-blue md:col-span-2">
-              <div className="bg-gradient-to-r from-mbjj-blue to-mbjj-accent-light text-white p-6 text-center">
+              <div className="bg-gradient-to-r from-gray-700 to-gray-900 text-white p-6 text-center">
                 <div className="flex items-center justify-center mb-3">
                   <img
                     src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/ovE9FwuwI54GZrZi1VEF/media/65e7605b3be386aa75f6d014.webp"
@@ -305,7 +305,7 @@ export default function SponsorsPage() {
 
             {/* Attn2DetailMercantile */}
             <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden border-t-4 border-mbjj-blue md:col-span-2 mt-8">
-              <div className="bg-gradient-to-r from-mbjj-blue to-mbjj-accent-light text-white p-6 text-center">
+              <div className="bg-gradient-to-r from-gray-700 to-gray-900 text-white p-6 text-center">
                 <div className="flex items-center justify-center mb-3">
                   <img
                     src="https://attn2detailmercantile.com/cdn/shop/files/Red_Knife_Girl_213x150.png?v=1702409843"
