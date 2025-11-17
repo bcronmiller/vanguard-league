@@ -21,6 +21,12 @@
       "name": "Warrior Spirit",
       "description": "Most matches in a single event (5 at VGL 1)",
       "icon": "\u2764\ufe0f\u200d\ud83d\udd25"
+    },
+    {
+      "type": "fight_of_night",
+      "event_id": 1,
+      "event_name": "VGL 1",
+      "description": "Fight of the Night"
     }
   ],
   "manual_badges": [],

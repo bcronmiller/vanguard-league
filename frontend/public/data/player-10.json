@@ -21,12 +21,6 @@
       "name": "Darce Knight",
       "description": "Darce choke submission earned",
       "icon": "\ud83e\udd77"
-    },
-    {
-      "type": "fight_of_night",
-      "event_id": 1,
-      "event_name": "VGL 1",
-      "description": "Fight of the Night"
     }
   ],
   "manual_badges": [],
