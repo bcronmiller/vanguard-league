@@ -850,7 +850,7 @@ export default function Home() {
                 </div>
                 <div className="p-4 text-center flex flex-col items-center">
                   <img
-                    src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/ovE9FwuwI54GZrZi1VEF/media/65e7605b3be386aa75f6d014.webp"
+                    src="https://i.imgur.com/TqHjlU1.png"
                     alt="Game Day Men's Health"
                     className="h-16 object-contain mb-3"
                   />

@@ -239,7 +239,7 @@ export default function SponsorsPage() {
               <div className="bg-gradient-to-r from-gray-700 to-gray-900 text-white p-6 text-center">
                 <div className="flex items-center justify-center mb-3">
                   <img
-                    src="https://images.leadconnectorhq.com/image/f_webp/q_80/r_1200/u_https://assets.cdn.filesafe.space/ovE9FwuwI54GZrZi1VEF/media/65e7605b3be386aa75f6d014.webp"
+                    src="https://i.imgur.com/TqHjlU1.png"
                     alt="Game Day Men's Health"
                     className="h-20 object-contain"
                   />
