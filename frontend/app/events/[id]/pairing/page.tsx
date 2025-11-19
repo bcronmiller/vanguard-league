@@ -409,13 +409,13 @@ export default function EventPairingPage({
           <h2 className="text-xl font-bold mb-4">Fighters Needing Matches</h2>
 
           <div className="space-y-4">
-            {stats.fighter_breakdown['0_matches'].count > 0 && (
+            {stats.fighter_breakdown.zero_matches.count > 0 && (
               <div>
                 <h3 className="font-semibold text-red-600 mb-2">
-                  0 Matches ({stats.fighter_breakdown['0_matches'].count})
+                  0 Matches ({stats.fighter_breakdown.zero_matches.count})
                 </h3>
                 <ul className="space-y-1 text-sm">
-                  {stats.fighter_breakdown['0_matches'].fighters.map((f) => (
+                  {stats.fighter_breakdown.zero_matches.fighters.map((f) => (
                     <li key={f.id} className="text-gray-700">
                       {f.name} ({f.weight} lbs)
                     </li>
@@ -424,13 +424,13 @@ export default function EventPairingPage({
               </div>
             )}
 
-            {stats.fighter_breakdown['1_match'].count > 0 && (
+            {stats.fighter_breakdown.one_match.count > 0 && (
               <div>
                 <h3 className="font-semibold text-orange-600 mb-2">
-                  1 Match ({stats.fighter_breakdown['1_match'].count})
+                  1 Match ({stats.fighter_breakdown.one_match.count})
                 </h3>
                 <ul className="space-y-1 text-sm">
-                  {stats.fighter_breakdown['1_match'].fighters.map((f) => (
+                  {stats.fighter_breakdown.one_match.fighters.map((f) => (
                     <li key={f.id} className="text-gray-700">
                       {f.name} ({f.weight} lbs)
                     </li>
