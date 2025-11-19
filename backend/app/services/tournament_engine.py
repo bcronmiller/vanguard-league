@@ -74,9 +74,10 @@ class TournamentEngine:
             return (num_participants // 2) * swiss_rounds
 
         elif format_type == TournamentFormat.GUARANTEED_MATCHES:
-            # Guaranteed matches: everyone gets min_matches
-            # This is configurable, default to 3 matches per person
-            return (num_participants * 3) // 2
+            # Guaranteed matches: everyone gets swiss_rounds (matches per fighter)
+            # Total matches = (num_participants * matches_per_fighter) / 2
+            matches_per_fighter = swiss_rounds if swiss_rounds else 3
+            return (num_participants * matches_per_fighter) // 2
 
         return 0
 
@@ -109,8 +110,8 @@ class TournamentEngine:
             (TournamentFormat.ROUND_ROBIN, "Round Robin", None),
             (TournamentFormat.SINGLE_ELIMINATION, "Single Elimination", None),
             (TournamentFormat.SWISS, "Swiss (3 rounds)", 3),
-            (TournamentFormat.SWISS, "Swiss (4 rounds)", 4),
-            (TournamentFormat.SWISS, "Swiss (5 rounds)", 5),
+            (TournamentFormat.GUARANTEED_MATCHES, "Guaranteed Matches (2 each)", 2),
+            (TournamentFormat.GUARANTEED_MATCHES, "Guaranteed Matches (3 each)", 3),
         ]
 
         # Only include double-elim if we have enough fighters
@@ -118,7 +119,14 @@ class TournamentEngine:
             formats_to_check.insert(2, (TournamentFormat.DOUBLE_ELIMINATION, "Double Elimination", None))
 
         for format_type, format_name, swiss_rounds in formats_to_check:
-            rounds = swiss_rounds if format_type == TournamentFormat.SWISS else 3
+            # For swiss, use swiss_rounds; for guaranteed_matches, use as match_count
+            if format_type == TournamentFormat.SWISS:
+                rounds = swiss_rounds
+            elif format_type == TournamentFormat.GUARANTEED_MATCHES:
+                rounds = swiss_rounds  # This represents matches per fighter for guaranteed_matches
+            else:
+                rounds = 3
+
             match_count = TournamentEngine.calculate_match_count(format_type, num_participants, rounds)
 
             # Skip if no matches
@@ -187,6 +195,9 @@ class TournamentEngine:
             elif format_type == TournamentFormat.SWISS:
                 # Everyone gets the same number of rounds
                 matches_per_fighter = swiss_rounds
+            elif format_type == TournamentFormat.GUARANTEED_MATCHES:
+                # Everyone gets the same guaranteed number of matches
+                matches_per_fighter = rounds  # rounds contains matches-per-fighter for this format
             else:
                 matches_per_fighter = round(match_count / num_participants, 1)
 
@@ -1068,44 +1079,97 @@ class TournamentEngine:
         self.db.add(bracket_round)
         self.db.flush()
 
-        # Pair participants for first round (random or by seed)
-        num_matches = num_participants // 2
+        # Use weight-aware pairing if weight_class_id is None (multi-weight bracket)
+        # Otherwise use simple pairing
+        use_weight_pairing = bracket_format.weight_class_id is None and bracket_format.config.get("weight_based_pairing", True)
 
-        for match_num in range(num_matches):
-            player_a = participants[match_num * 2]
-            player_b = participants[match_num * 2 + 1]
+        if use_weight_pairing:
+            # Create initial standings (everyone 0-0-0 for first round)
+            initial_standings = {
+                p.id: {"wins": 0, "losses": 0, "draws": 0, "points": 0.0, "opponents_faced": set()}
+                for p in participants
+            }
+            matchup_history = {}
 
-            match = Match(
-                event_id=bracket_format.event_id,
-                bracket_round_id=bracket_round.id,
-                weight_class_id=bracket_format.weight_class_id,
-                a_player_id=player_a.id,
-                b_player_id=player_b.id,
-                match_number=match_num + 1,
-                match_status=MatchStatus.READY,
-                requires_winner_a=True,
-                requires_winner_b=True,
+            # Get weight-aware pairings
+            pairings = self._weight_aware_guaranteed_pairing(
+                initial_standings,
+                matchup_history,
+                max_rematches,
+                bracket_format
             )
-            self.db.add(match)
 
-        # Handle odd number of participants (bye in first round)
-        if num_participants % 2 == 1:
-            bye_player = participants[-1]
-            match = Match(
-                event_id=bracket_format.event_id,
-                bracket_round_id=bracket_round.id,
-                weight_class_id=bracket_format.weight_class_id,
-                a_player_id=bye_player.id,
-                b_player_id=None,
-                match_number=num_matches + 1,
-                match_status=MatchStatus.COMPLETED,
-                result=MatchResult.PLAYER_A_WIN,
-                method="Bye",
-                completed_at=datetime.utcnow(),
-                requires_winner_a=True,
-                requires_winner_b=True,
-            )
-            self.db.add(match)
+            # Create matches from pairings
+            for idx, (player_a_id, player_b_id, weight_class_id) in enumerate(pairings):
+                if player_b_id:
+                    # Regular match
+                    match = Match(
+                        event_id=bracket_format.event_id,
+                        bracket_round_id=bracket_round.id,
+                        weight_class_id=weight_class_id,
+                        a_player_id=player_a_id,
+                        b_player_id=player_b_id,
+                        match_number=idx + 1,
+                        match_status=MatchStatus.READY,
+                        requires_winner_a=True,
+                        requires_winner_b=True,
+                    )
+                else:
+                    # Bye match
+                    match = Match(
+                        event_id=bracket_format.event_id,
+                        bracket_round_id=bracket_round.id,
+                        weight_class_id=weight_class_id,
+                        a_player_id=player_a_id,
+                        b_player_id=None,
+                        match_number=idx + 1,
+                        match_status=MatchStatus.COMPLETED,
+                        result=MatchResult.PLAYER_A_WIN,
+                        method="Bye",
+                        completed_at=datetime.utcnow(),
+                        requires_winner_a=True,
+                        requires_winner_b=True,
+                    )
+                self.db.add(match)
+        else:
+            # Simple pairing for single weight class brackets
+            num_matches = num_participants // 2
+
+            for match_num in range(num_matches):
+                player_a = participants[match_num * 2]
+                player_b = participants[match_num * 2 + 1]
+
+                match = Match(
+                    event_id=bracket_format.event_id,
+                    bracket_round_id=bracket_round.id,
+                    weight_class_id=bracket_format.weight_class_id,
+                    a_player_id=player_a.id,
+                    b_player_id=player_b.id,
+                    match_number=match_num + 1,
+                    match_status=MatchStatus.READY,
+                    requires_winner_a=True,
+                    requires_winner_b=True,
+                )
+                self.db.add(match)
+
+            # Handle odd number of participants (bye in first round)
+            if num_participants % 2 == 1:
+                bye_player = participants[-1]
+                match = Match(
+                    event_id=bracket_format.event_id,
+                    bracket_round_id=bracket_round.id,
+                    weight_class_id=bracket_format.weight_class_id,
+                    a_player_id=bye_player.id,
+                    b_player_id=None,
+                    match_number=num_matches + 1,
+                    match_status=MatchStatus.COMPLETED,
+                    result=MatchResult.PLAYER_A_WIN,
+                    method="Bye",
+                    completed_at=datetime.utcnow(),
+                    requires_winner_a=True,
+                    requires_winner_b=True,
+                )
+                self.db.add(match)
 
         self.db.commit()
 
@@ -1604,11 +1668,24 @@ class TournamentEngine:
         }
 
         # Create pairings with rematch limit consideration
-        pairings = self._guaranteed_pairing(
-            filtered_standings,
-            matchup_history,
-            max_rematches
-        )
+        # Use weight-aware pairing if this is a multi-weight bracket
+        use_weight_pairing = bracket_format.weight_class_id is None and bracket_format.config.get("weight_based_pairing", True)
+
+        if use_weight_pairing:
+            pairings = self._weight_aware_guaranteed_pairing(
+                filtered_standings,
+                matchup_history,
+                max_rematches,
+                bracket_format
+            )
+        else:
+            pairings = self._guaranteed_pairing(
+                filtered_standings,
+                matchup_history,
+                max_rematches
+            )
+            # Add None for weight_class_id to match format
+            pairings = [(p[0], p[1], bracket_format.weight_class_id) for p in pairings]
 
         if not pairings:
             # No valid pairings possible (shouldn't happen with rematch limits)
@@ -1629,11 +1706,11 @@ class TournamentEngine:
         self.db.flush()
 
         # Create matches from pairings
-        for idx, (player_a_id, player_b_id) in enumerate(pairings):
+        for idx, (player_a_id, player_b_id, weight_class_id) in enumerate(pairings):
             match = Match(
                 event_id=bracket_format.event_id,
                 bracket_round_id=next_round.id,
-                weight_class_id=bracket_format.weight_class_id,
+                weight_class_id=weight_class_id,
                 a_player_id=player_a_id,
                 b_player_id=player_b_id if player_b_id else None,
                 match_number=idx + 1,
@@ -1750,6 +1827,165 @@ class TournamentEngine:
             else:
                 # Odd number of players remaining, this player gets a bye
                 pairings.append((player_id, None))
+                paired.add(player_id)
+
+        return pairings
+
+    def _weight_aware_guaranteed_pairing(
+        self,
+        standings: Dict[int, Dict],
+        matchup_history: Dict[int, set],
+        max_rematches: int,
+        bracket_format: BracketFormat
+    ) -> List[Tuple[int, Optional[int], Optional[int]]]:
+        """
+        Create pairings for guaranteed matches format with weight-based constraints.
+
+        Pairs fighters based on similar records while respecting weight differences:
+        - Lightweight/Middleweight: Must be within 30 lbs
+        - Heavyweight: Must be within 60 lbs
+        - Fallback: If no valid weight match exists, pair with best available (avoids byes)
+        - Match weight class: Assigned to heavier fighter's weight class
+
+        Args:
+            standings: Current standings {player_id: {wins, losses, draws, points}}
+            matchup_history: History of who has faced whom {player_id: set of opponent_ids}
+            max_rematches: Maximum number of times two fighters can face each other
+            bracket_format: Bracket format for querying player data
+
+        Returns:
+            List of (player_a_id, player_b_id, weight_class_id) tuples
+            player_b_id may be None for bye, weight_class_id is for the match
+        """
+        # Get player weights, weight classes, and ELO from database
+        player_data = {}
+        for player_id in standings.keys():
+            player = self.db.query(Player).filter(Player.id == player_id).first()
+            if player:
+                # Get weight class from entry
+                entry = self.db.query(Entry).filter(
+                    Entry.player_id == player_id,
+                    Entry.event_id == bracket_format.event_id
+                ).first()
+
+                player_data[player_id] = {
+                    'weight': player.weight or 0,
+                    'weight_class_id': entry.weight_class_id if entry else None,
+                    'elo': player.elo_rating or 1500
+                }
+
+        # Count how many times each pair has faced each other
+        rematch_counts = {}
+        for p1 in standings:
+            for p2 in matchup_history.get(p1, set()):
+                pair = tuple(sorted([p1, p2]))
+                rematch_counts[pair] = rematch_counts.get(pair, 0) + 1
+
+        # Sort players by record (points desc, wins desc, then ELO desc)
+        # ELO as tertiary sort creates competitive matchups (similar skill levels)
+        sorted_players = sorted(
+            standings.items(),
+            key=lambda x: (
+                x[1]["points"],
+                x[1]["wins"],
+                player_data.get(x[0], {}).get('elo', 1500)
+            ),
+            reverse=True
+        )
+
+        player_ids = [p[0] for p in sorted_players]
+        paired = set()
+        pairings = []
+
+        def get_weight_limit(weight1: float, weight2: float) -> float:
+            """Determine weight limit based on fighter weights"""
+            # Heavyweight threshold is >200 lbs
+            # 100 lb limit ONLY if BOTH fighters are heavyweight
+            if weight1 > 200 and weight2 > 200:
+                return 100.0  # Both heavyweight: 100 lb limit
+            else:
+                return 30.0  # Otherwise: 30 lb limit
+
+        def is_valid_weight_match(p1_id: int, p2_id: int) -> bool:
+            """Check if two fighters are within acceptable weight range"""
+            w1 = player_data.get(p1_id, {}).get('weight', 0)
+            w2 = player_data.get(p2_id, {}).get('weight', 0)
+
+            if w1 == 0 or w2 == 0:
+                return True  # Allow if weight unknown
+
+            weight_diff = abs(w1 - w2)
+            limit = get_weight_limit(w1, w2)
+            return weight_diff <= limit
+
+        def get_match_weight_class(p1_id: int, p2_id: int) -> Optional[int]:
+            """Get weight class for match based on heavier fighter"""
+            w1 = player_data.get(p1_id, {}).get('weight', 0)
+            w2 = player_data.get(p2_id, {}).get('weight', 0)
+
+            # Assign to heavier fighter's weight class
+            if w1 >= w2:
+                return player_data.get(p1_id, {}).get('weight_class_id')
+            else:
+                return player_data.get(p2_id, {}).get('weight_class_id')
+
+        for i, player_id in enumerate(player_ids):
+            if player_id in paired:
+                continue
+
+            opponent_id = None
+            best_fallback = None
+            best_fallback_diff = float('inf')
+
+            # First pass: try to find opponent within weight limit and rematch limit
+            for j in range(i + 1, len(player_ids)):
+                candidate = player_ids[j]
+                if candidate in paired:
+                    continue
+
+                # Check weight constraint
+                if not is_valid_weight_match(player_id, candidate):
+                    # Track closest fallback by weight difference
+                    w1 = player_data.get(player_id, {}).get('weight', 0)
+                    w2 = player_data.get(candidate, {}).get('weight', 0)
+                    diff = abs(w1 - w2)
+                    if diff < best_fallback_diff:
+                        best_fallback = candidate
+                        best_fallback_diff = diff
+                    continue
+
+                # Check rematch count
+                pair = tuple(sorted([player_id, candidate]))
+                rematch_count = rematch_counts.get(pair, 0)
+
+                if rematch_count < max_rematches:
+                    opponent_id = candidate
+                    break
+
+            # Second pass: if no valid opponent found, try weight-valid but rematch over limit
+            if opponent_id is None:
+                for j in range(i + 1, len(player_ids)):
+                    candidate = player_ids[j]
+                    if candidate in paired:
+                        continue
+
+                    if is_valid_weight_match(player_id, candidate):
+                        opponent_id = candidate
+                        break
+
+            # Third pass (fallback): use best available regardless of weight to avoid byes
+            if opponent_id is None and best_fallback and best_fallback not in paired:
+                opponent_id = best_fallback
+
+            if opponent_id:
+                weight_class_id = get_match_weight_class(player_id, opponent_id)
+                pairings.append((player_id, opponent_id, weight_class_id))
+                paired.add(player_id)
+                paired.add(opponent_id)
+            else:
+                # Odd number of players, this player gets a bye
+                weight_class_id = player_data.get(player_id, {}).get('weight_class_id')
+                pairings.append((player_id, None, weight_class_id))
                 paired.add(player_id)
 
         return pairings

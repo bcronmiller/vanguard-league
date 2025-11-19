@@ -79,6 +79,30 @@ interface MatchModalProps {
   onResultSubmitted: () => void;
 }
 
+// Sponsors data
+const SPONSORS = [
+  {
+    name: 'Neff Bros. Stone',
+    logo: 'https://neffbrothersstone.com/wp-content/uploads/2022/12/cropped-NeffBROSlogo.png',
+  },
+  {
+    name: 'Leadmark Contracting',
+    logo: 'https://leadmk.com/wp-content/uploads/2025/04/image-5-removebg-preview.png',
+  },
+  {
+    name: 'Precision Lawn & Landscape',
+    logo: 'https://precisionlawnandlandscape.com/wp-content/uploads/2023/12/logo.webp',
+  },
+  {
+    name: 'Game Day Men\'s Health',
+    logo: 'https://i.imgur.com/TqHjlU1.png',
+  },
+  {
+    name: 'Attn2DetailMercantile',
+    logo: 'https://attn2detailmercantile.com/cdn/shop/files/Red_Knife_Girl_213x150.png?v=1702409843',
+  },
+];
+
 export default function MatchModal({ matchId, isOpen, onClose, onResultSubmitted }: MatchModalProps) {
   const [taleData, setTaleData] = useState<TaleOfTheTape | null>(null);
   const [loading, setLoading] = useState(true);
@@ -87,6 +111,9 @@ export default function MatchModal({ matchId, isOpen, onClose, onResultSubmitted
   const [durationMinutes, setDurationMinutes] = useState('');
   const [durationSeconds, setDurationSeconds] = useState('');
   const [selectedResult, setSelectedResult] = useState<'a_win' | 'b_win' | 'draw' | null>(null);
+
+  // Distribute sponsors evenly based on match ID
+  const sponsor = SPONSORS[matchId % SPONSORS.length];
 
   useEffect(() => {
     if (isOpen && matchId) {
@@ -345,6 +372,19 @@ export default function MatchModal({ matchId, isOpen, onClose, onResultSubmitted
 
             {/* VS / Head to Head */}
             <div className="flex flex-col items-center justify-center border-x-2 border-gray-200">
+              {/* Sponsor */}
+              <div className="mb-6 text-center">
+                <div className="text-xs text-gray-500 mb-2">SPONSORED BY</div>
+                <img
+                  src={sponsor.logo}
+                  alt={sponsor.name}
+                  className="h-16 w-auto mx-auto object-contain mb-1"
+                />
+                <div className="text-xs font-heading text-gray-600 dark:text-gray-400">
+                  {sponsor.name}
+                </div>
+              </div>
+
               <div className="text-5xl font-heading text-gray-400 mb-4">VS</div>
 
               {head_to_head.total_matches > 0 && (

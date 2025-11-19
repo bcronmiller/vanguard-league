@@ -157,6 +157,8 @@ def get_checkin_status(event_id: int, db: Session = Depends(get_db)):
     """
     Get check-in status for all players registered for an event.
     Returns player info with check-in details.
+
+    If the event has no entries, automatically registers all active fighters.
     """
     event = db.query(Event).filter(Event.id == event_id).first()
     if not event:
@@ -164,6 +166,22 @@ def get_checkin_status(event_id: int, db: Session = Depends(get_db)):
 
     # Get all entries for this event with player info
     entries = db.query(Entry).filter(Entry.event_id == event_id).all()
+
+    # If no entries exist, automatically register all active fighters
+    if len(entries) == 0:
+        active_fighters = db.query(Player).filter(Player.active == True).all()
+        for fighter in active_fighters:
+            entry = Entry(
+                event_id=event_id,
+                player_id=fighter.id,
+                weight_class_id=fighter.weight_class_id,
+                checked_in=False
+            )
+            db.add(entry)
+
+        db.commit()
+        # Re-fetch entries after registration
+        entries = db.query(Entry).filter(Entry.event_id == event_id).all()
 
     result = []
     for entry in entries:
@@ -386,6 +404,50 @@ def delete_event(event_id: int, db: Session = Depends(get_db)):
             "entries": entries_count,
             "weigh_ins": weighins_count
         }
+    }
+
+
+@router.post("/events/{event_id}/register-all")
+async def register_all_active_players(event_id: int, db: Session = Depends(get_db)):
+    """Register all active players for an event"""
+    # Verify event exists
+    event = db.query(Event).filter(Event.id == event_id).first()
+    if not event:
+        raise HTTPException(status_code=404, detail="Event not found")
+
+    # Get all active players
+    active_fighters = db.query(Player).filter(Player.active == True).all()
+
+    registered_count = 0
+    skipped_count = 0
+
+    for fighter in active_fighters:
+        # Check if already registered
+        existing = db.query(Entry).filter(
+            Entry.event_id == event.id,
+            Entry.player_id == fighter.id
+        ).first()
+
+        if existing:
+            skipped_count += 1
+            continue
+
+        entry = Entry(
+            event_id=event.id,
+            player_id=fighter.id,
+            weight_class_id=fighter.weight_class_id,
+            checked_in=False
+        )
+        db.add(entry)
+        registered_count += 1
+
+    db.commit()
+
+    return {
+        "message": f"Registration complete",
+        "registered": registered_count,
+        "skipped": skipped_count,
+        "total_active_players": len(active_fighters)
     }
 
 

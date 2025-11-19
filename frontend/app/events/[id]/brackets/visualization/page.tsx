@@ -43,25 +43,51 @@ export default function BracketVisualization() {
   const [brackets, setBrackets] = useState<BracketFormat[]>([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const loadBrackets = async () => {
-      try {
-        const res = await fetch(`${config.apiUrl}/api/events/${eventId}/brackets`);
-        if (res.ok) {
-          const data = await res.json();
-          setBrackets(data);
-        }
-      } catch (error) {
-        console.error('Failed to load brackets:', error);
-      } finally {
-        setLoading(false);
+  const loadBrackets = async () => {
+    try {
+      const res = await fetch(`${config.apiUrl}/api/events/${eventId}/brackets`);
+      if (res.ok) {
+        const data = await res.json();
+        setBrackets(data);
       }
-    };
+    } catch (error) {
+      console.error('Failed to load brackets:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
+  useEffect(() => {
     if (eventId) {
       loadBrackets();
     }
   }, [eventId]);
+
+  const deleteBracket = async (bracketId: number, formatType: string) => {
+    if (!confirm(`Are you sure you want to delete this ${formatType.replace('_', ' ')} bracket? This will delete all associated rounds and matches. This cannot be undone.`)) {
+      return;
+    }
+
+    try {
+      setLoading(true);
+      const res = await fetch(`${config.apiUrl}/api/tournaments/brackets/${bracketId}`, {
+        method: 'DELETE',
+      });
+
+      if (!res.ok) {
+        const errData = await res.json();
+        throw new Error(errData.detail || 'Failed to delete bracket');
+      }
+
+      const result = await res.json();
+      alert(`Successfully deleted bracket:\n- ${result.deleted_matches} matches\n- ${result.deleted_rounds} rounds${result.elo_recalculated ? '\n- ELO ratings recalculated' : ''}`);
+
+      await loadBrackets();
+    } catch (err) {
+      alert(err instanceof Error ? err.message : 'Unknown error');
+      setLoading(false);
+    }
+  };
 
   const getWinnerName = (match: Match) => {
     if (!match.result) return null;
@@ -281,10 +307,17 @@ export default function BracketVisualization() {
 
         {brackets.map((bracket) => (
           <div key={bracket.id} className="mb-12">
-            <div className="mb-6">
+            <div className="mb-6 flex justify-between items-center">
               <span className="text-sm text-neutral-400 uppercase tracking-wide">
                 {bracket.format_type.replace('_', ' ')}
               </span>
+              <button
+                onClick={() => deleteBracket(bracket.id, bracket.format_type)}
+                className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 font-semibold text-sm"
+                disabled={loading}
+              >
+                Delete Bracket
+              </button>
             </div>
             {renderBracket(bracket)}
           </div>

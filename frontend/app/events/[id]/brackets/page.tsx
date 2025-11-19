@@ -167,6 +167,16 @@ export default function BracketsPage({ params }: { params: { id: string } | Prom
 
     setGenerating(true);
     try {
+      // Find the selected recommendation to get its config
+      const selectedRec = recommendations.find(r => r.format === format);
+      const bracketConfig: any = {};
+
+      // For guaranteed_matches, include match_count
+      if (format === 'guaranteed_matches' && selectedRec) {
+        bracketConfig.match_count = selectedRec.matches_per_fighter;
+        bracketConfig.weight_based_pairing = true;  // Enable weight-based pairing
+      }
+
       // Step 1: Create bracket
       const createRes = await fetch(`${config.apiUrl}/api/tournaments/brackets`, {
         method: 'POST',
@@ -175,7 +185,7 @@ export default function BracketsPage({ params }: { params: { id: string } | Prom
           event_id: parseInt(eventId),
           weight_class_id: selectedWeightClass, // null = all fighters, or specific weight class ID
           format_type: format,
-          config: {},
+          config: bracketConfig,
           min_rest_minutes: 30
         })
       });
