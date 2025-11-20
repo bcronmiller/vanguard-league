@@ -144,30 +144,32 @@ export default function EventDetailPage({ params }: { params: { id: string } }) 
       </header>
 
       <main className="container mx-auto px-4 py-12 max-w-6xl">
-        {/* Admin Actions */}
-        <div className="bg-gray-100 dark:bg-gray-700 rounded-lg p-4 mb-8">
-          <h3 className="text-sm font-semibold text-gray-600 dark:text-gray-400 mb-3">ADMIN TOOLS</h3>
-          <div className="flex flex-wrap gap-3">
-            <a
-              href={`/events/${eventId}/checkin`}
-              className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 font-semibold text-sm"
-            >
-              Check-In
-            </a>
-            <a
-              href={`/events/${eventId}/pairing`}
-              className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 font-semibold text-sm"
-            >
-              Match Pairing
-            </a>
-            <a
-              href={`/events/${eventId}/brackets`}
-              className="px-4 py-2 bg-purple-600 text-white rounded hover:bg-purple-700 font-semibold text-sm"
-            >
-              Brackets
-            </a>
+        {/* Admin Actions - Only show in non-static mode */}
+        {process.env.NEXT_PUBLIC_STATIC_MODE !== 'true' && (
+          <div className="bg-gray-100 dark:bg-gray-700 rounded-lg p-4 mb-8">
+            <h3 className="text-sm font-semibold text-gray-600 dark:text-gray-400 mb-3">ADMIN TOOLS</h3>
+            <div className="flex flex-wrap gap-3">
+              <a
+                href={`/events/${eventId}/checkin`}
+                className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 font-semibold text-sm"
+              >
+                Check-In
+              </a>
+              <a
+                href={`/events/${eventId}/pairing`}
+                className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 font-semibold text-sm"
+              >
+                Match Pairing
+              </a>
+              <a
+                href={`/events/${eventId}/brackets`}
+                className="px-4 py-2 bg-purple-600 text-white rounded hover:bg-purple-700 font-semibold text-sm"
+              >
+                Brackets
+              </a>
+            </div>
           </div>
-        </div>
+        )}
 
         {/* Event Info */}
         <div className="bg-white dark:bg-gray-800 rounded-lg p-8 mb-8 border-t-4 border-mbjj-red">
