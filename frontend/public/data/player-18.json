@@ -1,1 +1,103 @@
-{"name":"Jamie Corzo","belt":"","team":null,"academy":"VanGuard Gym","photo_url":"https://i.imgur.com/kCFCFpU.png","age":24,"bjj_belt_rank":"Blue","weight":167.0,"weight_class_id":2,"elo_rating":1372.5920694136248,"rankade_ree_score":null,"id":18,"rankade_id":null,"active":true,"created_at":"2025-11-16T11:19:05.320384","updated_at":"2025-11-21T19:57:32.063483","weight_class_name":"Middleweight","badges":[],"manual_badges":[]}
+{
+  "name": "Jamie Corzo",
+  "belt": "",
+  "team": null,
+  "academy": "VanGuard Gym",
+  "photo_url": "https://i.imgur.com/kCFCFpU.png",
+  "age": 24,
+  "bjj_belt_rank": "Blue",
+  "weight": 167.0,
+  "weight_class_id": 2,
+  "elo_rating": 1372.5920694136248,
+  "rankade_ree_score": null,
+  "id": 18,
+  "rankade_id": null,
+  "active": true,
+  "created_at": "2025-11-16T11:19:05.320384",
+  "updated_at": "2025-11-21T19:57:32.063483",
+  "weight_class_name": "Middleweight",
+  "badges": [],
+  "manual_badges": [],
+  "matches": [
+    {
+      "match_id": 738,
+      "event_id": 2,
+      "event_name": "VGL 2",
+      "event_date": "2025-11-14T19:00:00",
+      "opponent": {
+        "id": 8,
+        "name": "John Michael El Mapache Rodriguez Uhweta",
+        "photo_url": "https://i.imgur.com/kX7wqFU.jpg"
+      },
+      "result": "loss",
+      "method": "Guillotine",
+      "duration_seconds": 370,
+      "match_number": 627,
+      "belt_rank": null,
+      "weight": null,
+      "weight_class": "Lightweight",
+      "elo_change": -7
+    },
+    {
+      "match_id": 737,
+      "event_id": 2,
+      "event_name": "VGL 2",
+      "event_date": "2025-11-14T19:00:00",
+      "opponent": {
+        "id": 3,
+        "name": "Hussain Samir",
+        "photo_url": "https://i.imgur.com/OnbmNBi.jpg"
+      },
+      "result": "loss",
+      "method": "Kneebar",
+      "duration_seconds": 150,
+      "match_number": 623,
+      "belt_rank": null,
+      "weight": null,
+      "weight_class": "Lightweight",
+      "elo_change": -15
+    },
+    {
+      "match_id": 733,
+      "event_id": 2,
+      "event_name": "VGL 2",
+      "event_date": "2025-11-14T19:00:00",
+      "opponent": {
+        "id": 2,
+        "name": "Alex Stewart",
+        "photo_url": "https://i.imgur.com/xzfxRkA.jpg"
+      },
+      "result": "loss",
+      "method": "Ankle Lock",
+      "duration_seconds": 90,
+      "match_number": 645,
+      "belt_rank": null,
+      "weight": null,
+      "weight_class": "Lightweight",
+      "elo_change": -7
+    }
+  ],
+  "divisions": {
+    "player_id": 18,
+    "player_name": "Jamie Corzo",
+    "overall": {
+      "wins": 0,
+      "losses": 3,
+      "draws": 0,
+      "elo_rating": 1372.5920694136248,
+      "elo_change": -27.407930586375187
+    },
+    "divisions": [
+      {
+        "weight_class_id": 1,
+        "weight_class_name": "Lightweight",
+        "wins": 0,
+        "losses": 3,
+        "draws": 0,
+        "elo_rating": 1371.9548740021376,
+        "initial_elo_rating": 1400.0,
+        "elo_change": -28.045125997862442
+      }
+    ]
+  }
+}

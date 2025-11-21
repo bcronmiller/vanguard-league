@@ -1,1 +1,187 @@
-{"name":"Alex Stewart","belt":null,"team":null,"academy":"VanGuard Gym","photo_url":"https://i.imgur.com/xzfxRkA.jpg","age":null,"bjj_belt_rank":"Purple","weight":148.0,"weight_class_id":1,"elo_rating":1650.2514100360218,"rankade_ree_score":null,"id":2,"rankade_id":"5K10Z3DljGp","active":true,"created_at":"2025-11-09T18:57:19.336246","updated_at":"2025-11-21T15:37:57.519334","weight_class_name":"Lightweight","badges":[{"icon":"🛡️","name":"Undefeated","description":"Maintained undefeated record"},{"name":"Footsie","description":"Leg lock submission earned","icon":"🦶"},{"name":"Triangle","description":"Triangle submission earned","icon":"🔺"},{"name":"Armbar","description":"Armbar submission earned","icon":"🦴"}],"manual_badges":[{"icon":"🛡️","name":"Undefeated","description":"Maintained undefeated record"}]}
+{
+  "name": "Alex Stewart",
+  "belt": null,
+  "team": null,
+  "academy": "VanGuard Gym",
+  "photo_url": "https://i.imgur.com/xzfxRkA.jpg",
+  "age": null,
+  "bjj_belt_rank": "Purple",
+  "weight": 148.0,
+  "weight_class_id": 1,
+  "elo_rating": 1650.2514100360218,
+  "rankade_ree_score": null,
+  "id": 2,
+  "rankade_id": "5K10Z3DljGp",
+  "active": true,
+  "created_at": "2025-11-09T18:57:19.336246",
+  "updated_at": "2025-11-21T15:37:57.519334",
+  "weight_class_name": "Lightweight",
+  "badges": [
+    {
+      "icon": "\ud83d\udee1\ufe0f",
+      "name": "Undefeated",
+      "description": "Maintained undefeated record"
+    },
+    {
+      "name": "Footsie",
+      "description": "Leg lock submission earned",
+      "icon": "\ud83e\uddb6"
+    },
+    {
+      "name": "Triangle",
+      "description": "Triangle submission earned",
+      "icon": "\ud83d\udd3a"
+    },
+    {
+      "name": "Armbar",
+      "description": "Armbar submission earned",
+      "icon": "\ud83e\uddb4"
+    }
+  ],
+  "manual_badges": [
+    {
+      "icon": "\ud83d\udee1\ufe0f",
+      "name": "Undefeated",
+      "description": "Maintained undefeated record"
+    }
+  ],
+  "matches": [
+    {
+      "match_id": 11,
+      "event_id": 1,
+      "event_name": "VGL 1",
+      "event_date": "2025-11-07T19:00:00",
+      "opponent": {
+        "id": 3,
+        "name": "Hussain Samir",
+        "photo_url": "https://i.imgur.com/OnbmNBi.jpg"
+      },
+      "result": "win",
+      "method": "Knee Bar",
+      "duration_seconds": 30,
+      "match_number": null,
+      "belt_rank": "Blue",
+      "weight": 149.7,
+      "weight_class": "Lightweight",
+      "elo_change": 8
+    },
+    {
+      "match_id": 15,
+      "event_id": 1,
+      "event_name": "VGL 1",
+      "event_date": "2025-11-07T19:00:00",
+      "opponent": {
+        "id": 6,
+        "name": "Josh Rivera",
+        "photo_url": "https://i.imgur.com/9SPGfFG.jpg"
+      },
+      "result": "win",
+      "method": "Heel Hook",
+      "duration_seconds": 210,
+      "match_number": null,
+      "belt_rank": "Blue",
+      "weight": 149.7,
+      "weight_class": "Lightweight",
+      "elo_change": 7
+    },
+    {
+      "match_id": 75,
+      "event_id": 1,
+      "event_name": "VGL 1",
+      "event_date": "2025-11-07T19:00:00",
+      "opponent": {
+        "id": 8,
+        "name": "John Michael El Mapache Rodriguez Uhweta",
+        "photo_url": "https://i.imgur.com/kX7wqFU.jpg"
+      },
+      "result": "win",
+      "method": "Reverse Triangle Cutting Armbar",
+      "duration_seconds": 180,
+      "match_number": null,
+      "belt_rank": "Blue",
+      "weight": 149.7,
+      "weight_class": "Lightweight",
+      "elo_change": 16
+    },
+    {
+      "match_id": 740,
+      "event_id": 2,
+      "event_name": "VGL 2",
+      "event_date": "2025-11-14T19:00:00",
+      "opponent": {
+        "id": 15,
+        "name": "George Battistelli",
+        "photo_url": "https://i.imgur.com/w6vvxqV.jpg"
+      },
+      "result": "win",
+      "method": "Triangle",
+      "duration_seconds": 120,
+      "match_number": 629,
+      "belt_rank": "Purple",
+      "weight": 149.7,
+      "weight_class": "Middleweight",
+      "elo_change": 14
+    },
+    {
+      "match_id": 735,
+      "event_id": 2,
+      "event_name": "VGL 2",
+      "event_date": "2025-11-14T19:00:00",
+      "opponent": {
+        "id": 8,
+        "name": "John Michael El Mapache Rodriguez Uhweta",
+        "photo_url": "https://i.imgur.com/kX7wqFU.jpg"
+      },
+      "result": "draw",
+      "method": null,
+      "duration_seconds": 600,
+      "match_number": 621,
+      "belt_rank": "Purple",
+      "weight": 149.7,
+      "weight_class": "Lightweight",
+      "elo_change": -1
+    },
+    {
+      "match_id": 733,
+      "event_id": 2,
+      "event_name": "VGL 2",
+      "event_date": "2025-11-14T19:00:00",
+      "opponent": {
+        "id": 18,
+        "name": "Jamie Corzo",
+        "photo_url": "https://i.imgur.com/kCFCFpU.png"
+      },
+      "result": "win",
+      "method": "Ankle Lock",
+      "duration_seconds": 90,
+      "match_number": 645,
+      "belt_rank": "Purple",
+      "weight": 149.7,
+      "weight_class": "Lightweight",
+      "elo_change": 7
+    }
+  ],
+  "divisions": {
+    "player_id": 2,
+    "player_name": "Alex Stewart",
+    "overall": {
+      "wins": 5,
+      "losses": 0,
+      "draws": 1,
+      "elo_rating": 1650.2514100360218,
+      "elo_change": 50.25141003602175
+    },
+    "divisions": [
+      {
+        "weight_class_id": 1,
+        "weight_class_name": "Lightweight",
+        "wins": 5,
+        "losses": 0,
+        "draws": 1,
+        "elo_rating": 1649.717368512587,
+        "initial_elo_rating": 1600.0,
+        "elo_change": 49.71736851258697
+      }
+    ]
+  }
+}
