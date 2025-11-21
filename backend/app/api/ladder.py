@@ -11,6 +11,7 @@ from app.models.match import Match, MatchResult
 from app.models.event import Event
 from app.models.weight_class import WeightClass
 from app.models.entry import Entry
+from app.services.elo_service import get_starting_elo
 
 
 router = APIRouter()
@@ -48,18 +49,6 @@ class LadderResponse(BaseModel):
     event_name: str
     event_date: datetime
     standings: List[LadderEntry]
-
-
-def get_initial_elo(belt_rank: str | None) -> float:
-    """Get starting ELO rating based on belt rank (200pt increments)"""
-    belt_elos = {
-        "Black": 2000.0,
-        "Brown": 1800.0,
-        "Purple": 1600.0,
-        "Blue": 1400.0,
-        "White": 1200.0
-    }
-    return belt_elos.get(belt_rank or "White", 1400.0)  # Default to Blue belt rating
 
 
 def build_head_to_head_lookup(matches: List[Match]) -> dict:
@@ -244,7 +233,7 @@ def get_overall_ladder(db: Session = Depends(get_db)):
             weight_class_name = player.weight_class.name
 
         # For P4P (overall), use belt-based starting ELO
-        initial_elo = get_initial_elo(player.bjj_belt_rank)
+        initial_elo = get_starting_elo(player.bjj_belt_rank)
 
         standings.append({
             "player": {
@@ -341,7 +330,7 @@ async def get_ladder(event_id: int, db: Session = Depends(get_db)):
         # Initialize player A if not seen
         if match.a_player_id not in player_records and match.player_a:
             player_a = match.player_a
-            initial_elo = get_initial_elo(player_a.bjj_belt_rank)
+            initial_elo = get_starting_elo(player_a.bjj_belt_rank)
             player_records[match.a_player_id] = {
                 'player_id': player_a.id,
                 'player_name': player_a.name,
@@ -357,7 +346,7 @@ async def get_ladder(event_id: int, db: Session = Depends(get_db)):
         # Initialize player B if not seen
         if match.b_player_id not in player_records and match.player_b:
             player_b = match.player_b
-            initial_elo = get_initial_elo(player_b.bjj_belt_rank)
+            initial_elo = get_starting_elo(player_b.bjj_belt_rank)
             player_records[match.b_player_id] = {
                 'player_id': player_b.id,
                 'player_name': player_b.name,
@@ -494,8 +483,8 @@ async def get_cumulative_ladder_by_weight_class(
         # Initialize player A if not seen
         if match.a_player_id not in player_records and match.player_a:
             player_a = match.player_a
-            current_elo = getattr(player_a, elo_field, None) or get_initial_elo(player_a.bjj_belt_rank)
-            initial_elo = getattr(player_a, initial_elo_field, None) if initial_elo_field else get_initial_elo(player_a.bjj_belt_rank)
+            current_elo = getattr(player_a, elo_field, None) or get_starting_elo(player_a.bjj_belt_rank)
+            initial_elo = getattr(player_a, initial_elo_field, None) if initial_elo_field else get_starting_elo(player_a.bjj_belt_rank)
             player_records[match.a_player_id] = {
                 'player_id': player_a.id,
                 'player_name': player_a.name,
@@ -511,8 +500,8 @@ async def get_cumulative_ladder_by_weight_class(
         # Initialize player B if not seen
         if match.b_player_id not in player_records and match.player_b:
             player_b = match.player_b
-            current_elo = getattr(player_b, elo_field, None) or get_initial_elo(player_b.bjj_belt_rank)
-            initial_elo = getattr(player_b, initial_elo_field, None) if initial_elo_field else get_initial_elo(player_b.bjj_belt_rank)
+            current_elo = getattr(player_b, elo_field, None) or get_starting_elo(player_b.bjj_belt_rank)
+            initial_elo = getattr(player_b, initial_elo_field, None) if initial_elo_field else get_starting_elo(player_b.bjj_belt_rank)
             player_records[match.b_player_id] = {
                 'player_id': player_b.id,
                 'player_name': player_b.name,
@@ -645,8 +634,8 @@ async def get_ladder_by_weight_class(
         # Initialize player A if not seen
         if match.a_player_id not in player_records and match.player_a:
             player_a = match.player_a
-            current_elo = getattr(player_a, elo_field, None) or get_initial_elo(player_a.bjj_belt_rank)
-            initial_elo = getattr(player_a, initial_elo_field, None) if initial_elo_field else get_initial_elo(player_a.bjj_belt_rank)
+            current_elo = getattr(player_a, elo_field, None) or get_starting_elo(player_a.bjj_belt_rank)
+            initial_elo = getattr(player_a, initial_elo_field, None) if initial_elo_field else get_starting_elo(player_a.bjj_belt_rank)
             player_records[match.a_player_id] = {
                 'player_id': player_a.id,
                 'player_name': player_a.name,
@@ -662,8 +651,8 @@ async def get_ladder_by_weight_class(
         # Initialize player B if not seen
         if match.b_player_id not in player_records and match.player_b:
             player_b = match.player_b
-            current_elo = getattr(player_b, elo_field, None) or get_initial_elo(player_b.bjj_belt_rank)
-            initial_elo = getattr(player_b, initial_elo_field, None) if initial_elo_field else get_initial_elo(player_b.bjj_belt_rank)
+            current_elo = getattr(player_b, elo_field, None) or get_starting_elo(player_b.bjj_belt_rank)
+            initial_elo = getattr(player_b, initial_elo_field, None) if initial_elo_field else get_starting_elo(player_b.bjj_belt_rank)
             player_records[match.b_player_id] = {
                 'player_id': player_b.id,
                 'player_name': player_b.name,

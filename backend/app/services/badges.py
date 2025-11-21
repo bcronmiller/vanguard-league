@@ -14,27 +14,29 @@ def get_player_match_results(player_id: int, db: Session) -> List[Tuple[str, Mat
     Get all match results for a player in chronological order
     Returns list of tuples: (result, match) where result is 'win', 'loss', or 'draw'
     """
-    # Get all matches involving this player
-    matches_as_a = db.query(Match).filter(Match.a_player_id == player_id).all()
-    matches_as_b = db.query(Match).filter(Match.b_player_id == player_id).all()
+    # Get all matches involving this player (single query instead of two)
+    all_matches = db.query(Match).filter(
+        or_(Match.a_player_id == player_id, Match.b_player_id == player_id)
+    ).all()
 
     results = []
 
-    for match in matches_as_a:
-        if match.result == MatchResult.PLAYER_A_WIN:
-            results.append(('win', match))
-        elif match.result == MatchResult.PLAYER_B_WIN:
-            results.append(('loss', match))
-        elif match.result == MatchResult.DRAW:
-            results.append(('draw', match))
-
-    for match in matches_as_b:
-        if match.result == MatchResult.PLAYER_B_WIN:
-            results.append(('win', match))
-        elif match.result == MatchResult.PLAYER_A_WIN:
-            results.append(('loss', match))
-        elif match.result == MatchResult.DRAW:
-            results.append(('draw', match))
+    for match in all_matches:
+        is_player_a = match.a_player_id == player_id
+        if is_player_a:
+            if match.result == MatchResult.PLAYER_A_WIN:
+                results.append(('win', match))
+            elif match.result == MatchResult.PLAYER_B_WIN:
+                results.append(('loss', match))
+            elif match.result == MatchResult.DRAW:
+                results.append(('draw', match))
+        else:
+            if match.result == MatchResult.PLAYER_B_WIN:
+                results.append(('win', match))
+            elif match.result == MatchResult.PLAYER_A_WIN:
+                results.append(('loss', match))
+            elif match.result == MatchResult.DRAW:
+                results.append(('draw', match))
 
     # Sort by event ID and match number to get chronological order
     # Note: This assumes matches within an event are sequential

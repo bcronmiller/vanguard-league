@@ -144,27 +144,36 @@ def get_checkin_status(event_id: int, db: Session = Depends(get_db)):
 
     # Get all active players
     players = db.query(Player).filter(Player.active == True).all()
+    player_ids = [p.id for p in players]
+
+    # Batch load all entries for this event (single query instead of N)
+    entries = db.query(Entry).filter(
+        Entry.event_id == event_id,
+        Entry.player_id.in_(player_ids)
+    ).all()
+    entries_by_player = {e.player_id: e for e in entries}
+
+    # Batch load all weigh-ins for this event (single query instead of N)
+    weigh_ins = db.query(WeighIn).filter(
+        WeighIn.event_id == event_id,
+        WeighIn.player_id.in_(player_ids)
+    ).order_by(WeighIn.weighed_at.desc()).all()
+    # Keep only most recent weigh-in per player
+    weigh_ins_by_player = {}
+    for wi in weigh_ins:
+        if wi.player_id not in weigh_ins_by_player:
+            weigh_ins_by_player[wi.player_id] = wi
+
+    # Batch load all weight classes (single query instead of N)
+    weight_class_ids = set(p.weight_class_id for p in players if p.weight_class_id)
+    weight_classes = db.query(WeightClass).filter(WeightClass.id.in_(weight_class_ids)).all()
+    wc_by_id = {wc.id: wc.name for wc in weight_classes}
 
     result = []
     for player in players:
-        # Check if player has an entry for this event
-        entry = db.query(Entry).filter(
-            Entry.event_id == event_id,
-            Entry.player_id == player.id
-        ).first()
-
-        # Get most recent weigh-in for this event
-        weigh_in = db.query(WeighIn).filter(
-            WeighIn.event_id == event_id,
-            WeighIn.player_id == player.id
-        ).order_by(WeighIn.weighed_at.desc()).first()
-
-        # Get weight class name
-        weight_class_name = None
-        if player.weight_class_id:
-            wc = db.query(WeightClass).filter_by(id=player.weight_class_id).first()
-            if wc:
-                weight_class_name = wc.name
+        entry = entries_by_player.get(player.id)
+        weigh_in = weigh_ins_by_player.get(player.id)
+        weight_class_name = wc_by_id.get(player.weight_class_id)
 
         result.append(PlayerCheckInStatus(
             id=player.id,

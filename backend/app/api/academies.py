@@ -1,8 +1,11 @@
+import logging
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 from app.core.database import get_db
 from app.models import Player
 from sqlalchemy import text
+
+logger = logging.getLogger(__name__)
 
 router = APIRouter()
 
@@ -104,8 +107,8 @@ async def get_all_academies(db: Session = Depends(get_db)):
                 if academy['academy_name'] == row[0]:
                     academy['logo_url'] = row[1]
                     academy['website'] = row[2]
-    except:
-        pass
+    except Exception as e:
+        logger.warning(f"Failed to fetch academy metadata: {e}")
 
     # Sort alphabetically
     academies.sort(key=lambda x: x['academy_name'])
@@ -223,9 +226,9 @@ async def get_academy_rankings(db: Session = Depends(get_db)):
                 if academy['academy_name'] == row[0]:
                     academy['logo_url'] = row[1]
                     academy['website'] = row[2]
-    except:
-        pass
-    
+    except Exception as e:
+        logger.warning(f"Failed to fetch academy metadata: {e}")
+
     # Sort by average ELO change descending
     academies.sort(key=lambda x: x['avg_elo_change'], reverse=True)
     
