@@ -44,7 +44,7 @@
     },
     {
       "name": "Multi-Division",
-      "description": "Competed in 2 weight classes",
+      "description": "Competed in 3 weight classes",
       "icon": "\u2696\ufe0f"
     }
   ],
@@ -204,12 +204,22 @@
       {
         "weight_class_id": 1,
         "weight_class_name": "Lightweight",
-        "wins": 4,
+        "wins": 3,
         "losses": 2,
         "draws": 0,
         "elo_rating": 1451.192746137198,
         "initial_elo_rating": 1400.0,
         "elo_change": 51.1927461371979
+      },
+      {
+        "weight_class_id": 2,
+        "weight_class_name": "Middleweight",
+        "wins": 1,
+        "losses": 0,
+        "draws": 0,
+        "elo_rating": 1400.0,
+        "initial_elo_rating": 1400.0,
+        "elo_change": 0.0
       },
       {
         "weight_class_id": 3,

@@ -26,6 +26,11 @@
       "name": "Footsie",
       "description": "Leg lock submission earned",
       "icon": "\ud83e\uddb6"
+    },
+    {
+      "name": "Multi-Division",
+      "description": "Competed in 2 weight classes",
+      "icon": "\u2696\ufe0f"
     }
   ],
   "manual_badges": [
@@ -109,11 +114,21 @@
         "weight_class_id": 1,
         "weight_class_name": "Lightweight",
         "wins": 1,
-        "losses": 2,
+        "losses": 1,
         "draws": 0,
         "elo_rating": 1569.401925012225,
         "initial_elo_rating": 1600.0,
         "elo_change": -30.598074987774908
+      },
+      {
+        "weight_class_id": 2,
+        "weight_class_name": "Middleweight",
+        "wins": 0,
+        "losses": 1,
+        "draws": 0,
+        "elo_rating": 1600.0,
+        "initial_elo_rating": 1600.0,
+        "elo_change": 0.0
       }
     ]
   }
