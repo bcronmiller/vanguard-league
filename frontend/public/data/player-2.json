@@ -14,7 +14,7 @@
   "rankade_id": "5K10Z3DljGp",
   "active": true,
   "created_at": "2025-11-09T18:57:19.336246",
-  "updated_at": "2025-11-21T15:37:57.519334",
+  "updated_at": "2025-11-21T21:00:38.418740",
   "weight_class_name": "Lightweight",
   "badges": [
     {
@@ -125,7 +125,7 @@
       "belt_rank": "Purple",
       "weight": 149.7,
       "weight_class": "Middleweight",
-      "elo_change": 14
+      "elo_change": 15
     },
     {
       "match_id": 735,
@@ -183,9 +183,9 @@
         "wins": 4,
         "losses": 0,
         "draws": 1,
-        "elo_rating": 1649.717368512587,
+        "elo_rating": 1636.1472324830254,
         "initial_elo_rating": 1600.0,
-        "elo_change": 49.71736851258697
+        "elo_change": 36.14723248302539
       },
       {
         "weight_class_id": 2,
@@ -193,9 +193,9 @@
         "wins": 1,
         "losses": 0,
         "draws": 0,
-        "elo_rating": 1600.0,
+        "elo_rating": 1615.2739436808304,
         "initial_elo_rating": 1600.0,
-        "elo_change": 0.0
+        "elo_change": 15.27394368083037
       }
     ]
   }

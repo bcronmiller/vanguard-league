@@ -14,7 +14,7 @@
   "rankade_id": null,
   "active": true,
   "created_at": "2025-11-16T11:19:05.320384",
-  "updated_at": "2025-11-21T19:57:32.063483",
+  "updated_at": "2025-11-21T21:00:38.425164",
   "weight_class_name": "Middleweight",
   "badges": [],
   "manual_badges": [],
@@ -55,7 +55,7 @@
       "belt_rank": null,
       "weight": null,
       "weight_class": "Lightweight",
-      "elo_change": -15
+      "elo_change": -16
     },
     {
       "match_id": 733,
@@ -94,9 +94,9 @@
         "wins": 0,
         "losses": 3,
         "draws": 0,
-        "elo_rating": 1371.9548740021376,
+        "elo_rating": 1370.8733482126602,
         "initial_elo_rating": 1400.0,
-        "elo_change": -28.045125997862442
+        "elo_change": -29.126651787339824
       }
     ]
   }

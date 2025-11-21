@@ -14,7 +14,7 @@
   "rankade_id": null,
   "active": true,
   "created_at": "2025-11-12T19:06:19.851150",
-  "updated_at": "2025-11-21T15:37:57.523755",
+  "updated_at": "2025-11-21T21:00:38.424290",
   "weight_class_name": "Middleweight",
   "badges": [
     {
@@ -26,11 +26,6 @@
       "name": "Footsie",
       "description": "Leg lock submission earned",
       "icon": "\ud83e\uddb6"
-    },
-    {
-      "name": "Multi-Division",
-      "description": "Competed in 2 weight classes",
-      "icon": "\u2696\ufe0f"
     }
   ],
   "manual_badges": [
@@ -58,7 +53,7 @@
       "belt_rank": "Purple",
       "weight": 185.0,
       "weight_class": "Middleweight",
-      "elo_change": -14
+      "elo_change": -15
     },
     {
       "match_id": 736,
@@ -77,7 +72,7 @@
       "belt_rank": "Purple",
       "weight": 185.0,
       "weight_class": "Middleweight",
-      "elo_change": 7
+      "elo_change": 9
     },
     {
       "match_id": 732,
@@ -111,24 +106,14 @@
     },
     "divisions": [
       {
-        "weight_class_id": 1,
-        "weight_class_name": "Lightweight",
-        "wins": 1,
-        "losses": 0,
-        "draws": 0,
-        "elo_rating": 1569.401925012225,
-        "initial_elo_rating": 1600.0,
-        "elo_change": -30.598074987774908
-      },
-      {
         "weight_class_id": 2,
         "weight_class_name": "Middleweight",
-        "wins": 0,
+        "wins": 1,
         "losses": 2,
         "draws": 0,
-        "elo_rating": 1600.0,
+        "elo_rating": 1568.9491083677417,
         "initial_elo_rating": 1600.0,
-        "elo_change": 0.0
+        "elo_change": -31.0508916322583
       }
     ]
   }
