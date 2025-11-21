@@ -36,6 +36,11 @@
       "name": "Armbar",
       "description": "Armbar submission earned",
       "icon": "\ud83e\uddb4"
+    },
+    {
+      "name": "Multi-Division",
+      "description": "Competed in 2 weight classes",
+      "icon": "\u2696\ufe0f"
     }
   ],
   "manual_badges": [
@@ -175,12 +180,22 @@
       {
         "weight_class_id": 1,
         "weight_class_name": "Lightweight",
-        "wins": 5,
+        "wins": 4,
         "losses": 0,
         "draws": 1,
         "elo_rating": 1649.717368512587,
         "initial_elo_rating": 1600.0,
         "elo_change": 49.71736851258697
+      },
+      {
+        "weight_class_id": 2,
+        "weight_class_name": "Middleweight",
+        "wins": 1,
+        "losses": 0,
+        "draws": 0,
+        "elo_rating": 1600.0,
+        "initial_elo_rating": 1600.0,
+        "elo_change": 0.0
       }
     ]
   }
