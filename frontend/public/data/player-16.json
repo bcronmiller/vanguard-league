@@ -14,7 +14,7 @@
   "rankade_id": null,
   "active": true,
   "created_at": "2025-11-13T18:26:23.396967",
-  "updated_at": "2025-11-21T21:00:38.424292",
+  "updated_at": "2025-11-21T21:27:30.247473",
   "weight_class_name": "Heavyweight",
   "badges": [],
   "manual_badges": [],
@@ -55,7 +55,7 @@
       "belt_rank": "Brown",
       "weight": 280.0,
       "weight_class": "Heavyweight",
-      "elo_change": -16
+      "elo_change": -17
     }
   ],
   "divisions": {
@@ -70,14 +70,14 @@
     },
     "divisions": [
       {
-        "weight_class_id": 2,
-        "weight_class_name": "Middleweight",
+        "weight_class_id": 3,
+        "weight_class_name": "Heavyweight",
         "wins": 0,
         "losses": 2,
         "draws": 0,
-        "elo_rating": 1776.8682903334025,
+        "elo_rating": 1776.075940858658,
         "initial_elo_rating": 1800.0,
-        "elo_change": -23.131709666597544
+        "elo_change": -23.924059141342013
       }
     ]
   }

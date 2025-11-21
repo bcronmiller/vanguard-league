@@ -14,15 +14,9 @@
   "rankade_id": "MLjykZrJ14k",
   "active": true,
   "created_at": "2025-11-09T18:57:19.336255",
-  "updated_at": "2025-11-21T21:00:38.422771",
+  "updated_at": "2025-11-21T21:27:30.245525",
   "weight_class_name": "Heavyweight",
-  "badges": [
-    {
-      "name": "Multi-Division",
-      "description": "Competed in 2 weight classes",
-      "icon": "\u2696\ufe0f"
-    }
-  ],
+  "badges": [],
   "manual_badges": [],
   "matches": [
     {
@@ -137,7 +131,7 @@
       "belt_rank": "Brown",
       "weight": 259.0,
       "weight_class": "Heavyweight",
-      "elo_change": -8
+      "elo_change": -7
     },
     {
       "match_id": 727,
@@ -156,7 +150,7 @@
       "belt_rank": "Brown",
       "weight": 259.0,
       "weight_class": "Heavyweight",
-      "elo_change": 16
+      "elo_change": 17
     }
   ],
   "divisions": {
@@ -171,24 +165,14 @@
     },
     "divisions": [
       {
-        "weight_class_id": 2,
-        "weight_class_name": "Middleweight",
-        "wins": 1,
-        "losses": 1,
-        "draws": 1,
-        "elo_rating": 1794.8181749076316,
-        "initial_elo_rating": 1800.0,
-        "elo_change": -5.181825092368399
-      },
-      {
         "weight_class_id": 3,
         "weight_class_name": "Heavyweight",
-        "wins": 1,
-        "losses": 2,
-        "draws": 1,
-        "elo_rating": 1775.7929184382822,
+        "wins": 2,
+        "losses": 3,
+        "draws": 2,
+        "elo_rating": 1773.1096146254324,
         "initial_elo_rating": 1800.0,
-        "elo_change": -24.207081561717814
+        "elo_change": -26.890385374567586
       }
     ]
   }
