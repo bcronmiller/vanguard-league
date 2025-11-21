@@ -831,15 +831,28 @@ export default function Home() {
                 </div>
               </div>
 
-              {/* Halse Construction */}
+              {/* Halse Remodeling */}
               <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden border-t-4 border-mbjj-blue hover:shadow-xl transition">
                 <div className="bg-mbjj-dark text-white p-4 text-center">
-                  <h4 className="text-2xl font-heading font-bold">HALSE CONSTRUCTION</h4>
+                  <h4 className="text-2xl font-heading font-bold">HALSE REMODELING</h4>
                 </div>
-                <div className="p-4 text-center">
-                  <p className="text-gray-600 dark:text-gray-400 text-sm">
-                    Quality Construction Services
+                <div className="p-4 text-center flex flex-col items-center">
+                  <img
+                    src="https://i.imgur.com/IEPYlNV.png"
+                    alt="Halse Remodeling"
+                    className="h-16 object-contain mb-3"
+                  />
+                  <p className="text-gray-600 dark:text-gray-400 text-sm mb-3">
+                    Design-Build Firm - 35+ Years Experience
                   </p>
+                  <a
+                    href="https://www.houzz.com/professionals/design-build-firms/sean-halse-pfvwus-pf~504027124"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-block text-mbjj-blue hover:text-mbjj-red font-heading font-bold text-sm transition"
+                  >
+                    View on Houzz →
+                  </a>
                 </div>
               </div>
 

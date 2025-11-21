@@ -101,6 +101,10 @@ const SPONSORS = [
     name: 'Attn2DetailMercantile',
     logo: 'https://attn2detailmercantile.com/cdn/shop/files/Red_Knife_Girl_213x150.png?v=1702409843',
   },
+  {
+    name: 'Halse Remodeling',
+    logo: 'https://i.imgur.com/IEPYlNV.png',
+  },
 ];
 
 export default function MatchModal({ matchId, isOpen, onClose, onResultSubmitted }: MatchModalProps) {
