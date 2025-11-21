@@ -1898,13 +1898,20 @@ class TournamentEngine:
         pairings = []
 
         def get_weight_limit(weight1: float, weight2: float) -> float:
-            """Determine weight limit based on fighter weights"""
-            # Heavyweight threshold is >200 lbs
-            # 100 lb limit ONLY if BOTH fighters are heavyweight
-            if weight1 > 200 and weight2 > 200:
-                return 100.0  # Both heavyweight: 100 lb limit
+            """Determine weight limit based on fighter weights
+
+            Rules:
+            - Heavy vs Heavy (both >200): No limit - any heavyweight can fight any heavyweight
+            - Heavy vs Non-heavy: 30 lb limit - only allows if within 30 lbs
+            - Non-heavy vs Non-heavy: 30 lb limit
+            """
+            is_heavy1 = weight1 > 200
+            is_heavy2 = weight2 > 200
+
+            if is_heavy1 and is_heavy2:
+                return float("inf")  # Heavyweights can fight any other heavyweight
             else:
-                return 30.0  # Otherwise: 30 lb limit
+                return 30.0  # All other combinations: 30 lb limit
 
         def is_valid_weight_match(p1_id: int, p2_id: int) -> bool:
             """Check if two fighters are within acceptable weight range"""
