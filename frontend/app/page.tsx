@@ -838,7 +838,7 @@ export default function Home() {
                 </div>
                 <div className="p-4 text-center flex flex-col items-center">
                   <img
-                    src="https://i.imgur.com/IEPYlNV.png"
+                    src="/sponsors/HalseRemodeling.png"
                     alt="Halse Remodeling"
                     className="h-16 object-contain mb-3"
                   />
