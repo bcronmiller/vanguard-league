@@ -220,7 +220,7 @@ export default function SponsorsPage() {
               <div className="bg-gradient-to-r from-gray-700 to-gray-900 text-white p-6 text-center">
                 <div className="flex items-center justify-center mb-3">
                   <img
-                    src="/sponsors/HalseRemodeling.png"
+                    src="https://i.imgur.com/hTMFjyj.png"
                     alt="Halse Remodeling"
                     className="h-20 object-contain"
                   />

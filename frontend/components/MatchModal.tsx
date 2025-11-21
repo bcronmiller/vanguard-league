@@ -103,7 +103,7 @@ const SPONSORS = [
   },
   {
     name: 'Halse Remodeling',
-    logo: '/sponsors/HalseRemodeling.png',
+    logo: 'https://i.imgur.com/hTMFjyj.png',
   },
 ];
 
