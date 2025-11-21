@@ -1,1 +1,171 @@
-{"name":"John Michael El Mapache Rodriguez Uhweta","belt":null,"team":null,"academy":"Kaizen MMA","photo_url":"https://i.imgur.com/kX7wqFU.jpg","age":null,"bjj_belt_rank":"Purple","weight":158.0,"weight_class_id":1,"elo_rating":1614.4200933936636,"rankade_ree_score":null,"id":8,"rankade_id":"5lW7md3XgaZ","active":true,"created_at":"2025-11-09T18:57:19.336257","updated_at":"2025-11-21T21:27:30.245830","weight_class_name":"Lightweight","badges":[{"name":"Guillotine","description":"Guillotine submission earned","icon":"⚔️"},{"name":"Armbar","description":"Armbar submission earned","icon":"🦴"}],"manual_badges":[]}
+{
+  "name": "John Michael El Mapache Rodriguez Uhweta",
+  "belt": null,
+  "team": null,
+  "academy": "Kaizen MMA",
+  "photo_url": "https://i.imgur.com/kX7wqFU.jpg",
+  "age": null,
+  "bjj_belt_rank": "Purple",
+  "weight": 158.0,
+  "weight_class_id": 1,
+  "elo_rating": 1614.4200933936636,
+  "rankade_ree_score": null,
+  "id": 8,
+  "rankade_id": "5lW7md3XgaZ",
+  "active": true,
+  "created_at": "2025-11-09T18:57:19.336257",
+  "updated_at": "2025-11-21T21:27:30.245830",
+  "weight_class_name": "Lightweight",
+  "badges": [
+    {
+      "name": "Guillotine",
+      "description": "Guillotine submission earned",
+      "icon": "\u2694\ufe0f"
+    },
+    {
+      "name": "Armbar",
+      "description": "Armbar submission earned",
+      "icon": "\ud83e\uddb4"
+    }
+  ],
+  "manual_badges": [],
+  "matches": [
+    {
+      "match_id": 10,
+      "event_id": 1,
+      "event_name": "VGL 1",
+      "event_date": "2025-11-07T19:00:00",
+      "opponent": {
+        "id": 6,
+        "name": "Josh Rivera",
+        "photo_url": "https://i.imgur.com/9SPGfFG.jpg"
+      },
+      "result": "win",
+      "method": "Head and Arm Choke",
+      "duration_seconds": 160,
+      "match_number": null,
+      "belt_rank": "Blue",
+      "weight": 156.0,
+      "weight_class": "Lightweight",
+      "elo_change": 7
+    },
+    {
+      "match_id": 17,
+      "event_id": 1,
+      "event_name": "VGL 1",
+      "event_date": "2025-11-07T19:00:00",
+      "opponent": {
+        "id": 3,
+        "name": "Hussain Samir",
+        "photo_url": "https://i.imgur.com/OnbmNBi.jpg"
+      },
+      "result": "win",
+      "method": "Americana",
+      "duration_seconds": 300,
+      "match_number": null,
+      "belt_rank": "Blue",
+      "weight": 156.0,
+      "weight_class": "Lightweight",
+      "elo_change": 8
+    },
+    {
+      "match_id": 75,
+      "event_id": 1,
+      "event_name": "VGL 1",
+      "event_date": "2025-11-07T19:00:00",
+      "opponent": {
+        "id": 2,
+        "name": "Alex Stewart",
+        "photo_url": "https://i.imgur.com/xzfxRkA.jpg"
+      },
+      "result": "loss",
+      "method": "Reverse Triangle Cutting Armbar",
+      "duration_seconds": 180,
+      "match_number": null,
+      "belt_rank": "Blue",
+      "weight": 156.0,
+      "weight_class": "Lightweight",
+      "elo_change": -16
+    },
+    {
+      "match_id": 738,
+      "event_id": 2,
+      "event_name": "VGL 2",
+      "event_date": "2025-11-14T19:00:00",
+      "opponent": {
+        "id": 18,
+        "name": "Jamie Corzo",
+        "photo_url": "https://i.imgur.com/kCFCFpU.png"
+      },
+      "result": "win",
+      "method": "Guillotine",
+      "duration_seconds": 370,
+      "match_number": 627,
+      "belt_rank": "Purple",
+      "weight": 156.0,
+      "weight_class": "Lightweight",
+      "elo_change": 7
+    },
+    {
+      "match_id": 735,
+      "event_id": 2,
+      "event_name": "VGL 2",
+      "event_date": "2025-11-14T19:00:00",
+      "opponent": {
+        "id": 2,
+        "name": "Alex Stewart",
+        "photo_url": "https://i.imgur.com/xzfxRkA.jpg"
+      },
+      "result": "draw",
+      "method": null,
+      "duration_seconds": 600,
+      "match_number": 621,
+      "belt_rank": "Purple",
+      "weight": 156.0,
+      "weight_class": "Lightweight",
+      "elo_change": 1
+    },
+    {
+      "match_id": 734,
+      "event_id": 2,
+      "event_name": "VGL 2",
+      "event_date": "2025-11-14T19:00:00",
+      "opponent": {
+        "id": 6,
+        "name": "Josh Rivera",
+        "photo_url": "https://i.imgur.com/9SPGfFG.jpg"
+      },
+      "result": "win",
+      "method": "Armbar",
+      "duration_seconds": 270,
+      "match_number": 644,
+      "belt_rank": "Purple",
+      "weight": 156.0,
+      "weight_class": "Lightweight",
+      "elo_change": 7
+    }
+  ],
+  "divisions": {
+    "player_id": 8,
+    "player_name": "John Michael El Mapache Rodriguez Uhweta",
+    "overall": {
+      "wins": 4,
+      "losses": 1,
+      "draws": 1,
+      "elo_rating": 1614.4200933936636,
+      "elo_change": 14.420093393663592
+    },
+    "divisions": [
+      {
+        "weight_class_id": 1,
+        "weight_class_name": "Lightweight",
+        "wins": 4,
+        "losses": 1,
+        "draws": 1,
+        "elo_rating": 1613.8468278994633,
+        "initial_elo_rating": 1600.0,
+        "elo_change": 13.846827899463278
+      }
+    ]
+  }
+}
