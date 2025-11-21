@@ -201,6 +201,15 @@ def get_player_badges(player_id: int, db: Session) -> List[Dict]:
                 "icon": "💀"  # Skull - you collect bones!
             })
 
+        # EVIL - Wristlock submission
+        wristlock_methods = ['wrist lock', 'wristlock', 'wrist-lock']
+        if any(any(wl in method for wl in wristlock_methods) for method in submission_methods):
+            badges.append({
+                "name": "Evil",
+                "description": "Wristlock submission earned",
+                "icon": "😈"  # Devil emoji
+            })
+
     # THE STRANGLER BADGE - 5+ choke submissions
     if len(submission_methods) > 0:
         choke_methods = ['rear naked', 'rnc', 'darce', 'guillotine', 'triangle', 'ezekiel', 'anaconda', 'bow and arrow', 'collar choke', 'loop choke', 'baseball choke']

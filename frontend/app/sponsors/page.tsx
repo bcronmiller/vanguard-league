@@ -382,10 +382,10 @@ export default function SponsorsPage() {
                   <div className="bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-900 dark:to-gray-800 rounded-lg p-6 border-l-4 border-mbjj-blue text-center">
                     <div className="text-4xl mb-3">🇺🇸</div>
                     <h5 className="font-heading font-bold text-xl text-gray-900 dark:text-white mb-2">
-                      MADE IN USA
+                      MADE IN 🇺🇸 USA
                     </h5>
                     <p className="text-gray-700 dark:text-gray-300 text-sm">
-                      All parts made, assembled, and finished in the USA
+                      All parts made, assembled, and finished in the 🇺🇸 USA
                     </p>
                   </div>
                 </div>
