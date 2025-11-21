@@ -2,24 +2,8 @@
 
 import { useState, useEffect } from 'react';
 import { config } from '@/lib/config';
+import { Fighter } from '@/lib/types';
 import Link from 'next/link';
-
-interface Fighter {
-  player: {
-    id: number;
-    name: string;
-    bjj_belt_rank: string | null;
-    weight: number | null;
-    weight_class_name: string | null;
-    elo_rating: number;
-    initial_elo_rating?: number;
-    photo_url: string | null;
-    academy: string | null;
-  };
-  wins: number;
-  losses: number;
-  draws: number;
-}
 
 export default function LightweightPage() {
   const [fighters, setFighters] = useState<Fighter[]>([]);
