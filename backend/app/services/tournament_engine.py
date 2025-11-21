@@ -1903,6 +1903,7 @@ class TournamentEngine:
             Rules:
             - Heavy vs Heavy (both >200): No limit - any heavyweight can fight any heavyweight
             - Heavy vs Non-heavy: 30 lb limit - only allows if within 30 lbs
+              (e.g., a 205 lb fighter can face a 175 lb fighter, but a 250 lb cannot)
             - Non-heavy vs Non-heavy: 30 lb limit
             """
             is_heavy1 = weight1 > 200
@@ -1941,8 +1942,6 @@ class TournamentEngine:
                 continue
 
             opponent_id = None
-            best_fallback = None
-            best_fallback_diff = float('inf')
 
             # First pass: try to find opponent within weight limit and rematch limit
             for j in range(i + 1, len(player_ids)):
@@ -1950,15 +1949,8 @@ class TournamentEngine:
                 if candidate in paired:
                     continue
 
-                # Check weight constraint
+                # Check weight constraint - skip if not within weight limit
                 if not is_valid_weight_match(player_id, candidate):
-                    # Track closest fallback by weight difference
-                    w1 = player_data.get(player_id, {}).get('weight', 0)
-                    w2 = player_data.get(candidate, {}).get('weight', 0)
-                    diff = abs(w1 - w2)
-                    if diff < best_fallback_diff:
-                        best_fallback = candidate
-                        best_fallback_diff = diff
                     continue
 
                 # Check rematch count
@@ -1980,9 +1972,7 @@ class TournamentEngine:
                         opponent_id = candidate
                         break
 
-            # Third pass (fallback): use best available regardless of weight to avoid byes
-            if opponent_id is None and best_fallback and best_fallback not in paired:
-                opponent_id = best_fallback
+            # No fallback - never exceed weight limits (fighter gets bye instead)
 
             if opponent_id:
                 weight_class_id = get_match_weight_class(player_id, opponent_id)
