@@ -233,7 +233,13 @@ export default function SponsorsPage() {
               <div className="p-6">
                 <div className="text-gray-700 dark:text-gray-300">
                   <p className="text-base mb-4 leading-relaxed">
-                    Halse Remodeling specializes in quality home renovation and remodeling services. From kitchens and bathrooms to full home renovations, we bring expert craftsmanship to every project.
+                    A family owned and operated Design Build Firm serving Northern Virginia, specializing in additions, kitchens and bathrooms. Halse Remodeling has a VA Class A Builders License, is fully insured, and has over 35 years of experience.
+                  </p>
+                  <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
+                    <strong>Services:</strong> Bathroom Remodeling, Building Design, Deck Building, Home Additions, Home Remodeling, Kitchen Remodeling
+                  </p>
+                  <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
+                    <strong>Serving:</strong> Manassas, Bristow, Centreville, Chantilly, Clifton, Fairfax, Gainesville, Haymarket, and all of Northern Virginia
                   </p>
                   <div className="text-center mt-6 space-y-3">
                     <a
