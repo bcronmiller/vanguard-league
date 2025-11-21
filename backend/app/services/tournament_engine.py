@@ -1841,11 +1841,22 @@ class TournamentEngine:
         """
         Create pairings for guaranteed matches format with weight-based constraints.
 
-        Pairs fighters based on similar records while respecting weight differences:
-        - Lightweight/Middleweight: Must be within 30 lbs
-        - Heavyweight: Must be within 60 lbs
-        - Fallback: If no valid weight match exists, pair with best available (avoids byes)
-        - Match weight class: Assigned to heavier fighter's weight class
+        Prefers same weight-class opponents before considering cross-class options,
+        while still respecting rematch limits and weight-gap rules.
+
+        Weight rules:
+        - Lightweight/Middleweight (including cross-class): Must be within 30 lbs
+        - Heavyweight vs heavyweight: No weight cap (any heavyweight vs heavyweight allowed)
+        - Heavyweight vs non-heavyweight: Allowed only if within 30 lbs of each other
+        - No fallback: Do not exceed the applicable weight gap; issue a bye if no legal opponent
+
+        Pairing priority:
+        1. Same weight class + within rematch limit
+        2. Cross weight class + within rematch limit
+        3. Same weight class + rematch limit exceeded
+        4. Cross weight class + rematch limit exceeded
+
+        Match weight class: Assigned to heavier fighter's weight class
 
         Args:
             standings: Current standings {player_id: {wins, losses, draws, points}}
@@ -1937,40 +1948,72 @@ class TournamentEngine:
             else:
                 return player_data.get(p2_id, {}).get('weight_class_id')
 
+        def same_weight_class(p1_id: int, p2_id: int) -> bool:
+            """Check if two fighters are in the same weight class"""
+            wc1 = player_data.get(p1_id, {}).get('weight_class_id')
+            wc2 = player_data.get(p2_id, {}).get('weight_class_id')
+            return wc1 is not None and wc1 == wc2
+
         for i, player_id in enumerate(player_ids):
             if player_id in paired:
                 continue
 
             opponent_id = None
 
-            # First pass: try to find opponent within weight limit and rematch limit
+            # Pass 1: Same weight class, within rematch limit and valid weight gap
             for j in range(i + 1, len(player_ids)):
                 candidate = player_ids[j]
                 if candidate in paired:
                     continue
-
-                # Check weight constraint - skip if not within weight limit
+                if not same_weight_class(player_id, candidate):
+                    continue
                 if not is_valid_weight_match(player_id, candidate):
                     continue
-
-                # Check rematch count
                 pair = tuple(sorted([player_id, candidate]))
-                rematch_count = rematch_counts.get(pair, 0)
-
-                if rematch_count < max_rematches:
+                if rematch_counts.get(pair, 0) < max_rematches:
                     opponent_id = candidate
                     break
 
-            # Second pass: if no valid opponent found, try weight-valid but rematch over limit
+            # Pass 2: Cross weight class, within rematch limit but still weight legal
             if opponent_id is None:
                 for j in range(i + 1, len(player_ids)):
                     candidate = player_ids[j]
                     if candidate in paired:
                         continue
-
-                    if is_valid_weight_match(player_id, candidate):
+                    if same_weight_class(player_id, candidate):
+                        continue
+                    if not is_valid_weight_match(player_id, candidate):
+                        continue
+                    pair = tuple(sorted([player_id, candidate]))
+                    if rematch_counts.get(pair, 0) < max_rematches:
                         opponent_id = candidate
                         break
+
+            # Pass 3: Same weight class, weight legal even if rematch limit exceeded
+            if opponent_id is None:
+                for j in range(i + 1, len(player_ids)):
+                    candidate = player_ids[j]
+                    if candidate in paired:
+                        continue
+                    if not same_weight_class(player_id, candidate):
+                        continue
+                    if not is_valid_weight_match(player_id, candidate):
+                        continue
+                    opponent_id = candidate
+                    break
+
+            # Pass 4: Cross weight class, weight legal even if rematch limit exceeded
+            if opponent_id is None:
+                for j in range(i + 1, len(player_ids)):
+                    candidate = player_ids[j]
+                    if candidate in paired:
+                        continue
+                    if same_weight_class(player_id, candidate):
+                        continue
+                    if not is_valid_weight_match(player_id, candidate):
+                        continue
+                    opponent_id = candidate
+                    break
 
             # No fallback - never exceed weight limits (fighter gets bye instead)
 
