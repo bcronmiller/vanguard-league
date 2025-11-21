@@ -765,7 +765,7 @@ export default function Home() {
                   <img
                     src="https://neffbrothersstone.com/wp-content/uploads/2022/12/cropped-NeffBROSlogo.png"
                     alt="Neff Bros. Stone"
-                    className="h-16 object-contain mb-3"
+                    className="h-32 w-full object-contain mb-3"
                   />
                   <p className="text-gray-600 dark:text-gray-400 text-sm mb-3">
                     Pavers, Walls, Stone & Aggregates
@@ -840,7 +840,7 @@ export default function Home() {
                   <img
                     src="https://i.imgur.com/hTMFjyj.png"
                     alt="Halse Remodeling"
-                    className="h-24 object-contain mb-3"
+                    className="h-32 w-full object-contain mb-3"
                   />
                   <p className="text-gray-600 dark:text-gray-400 text-sm mb-3">
                     Design-Build Firm - 35+ Years Experience
