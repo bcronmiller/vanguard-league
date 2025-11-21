@@ -215,20 +215,43 @@ export default function SponsorsPage() {
               </div>
             </div>
 
-            {/* Halse Construction */}
+            {/* Halse Remodeling */}
             <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden border-t-4 border-mbjj-blue">
               <div className="bg-gradient-to-r from-gray-700 to-gray-900 text-white p-6 text-center">
+                <div className="flex items-center justify-center mb-3">
+                  <img
+                    src="https://i.imgur.com/IEPYlNV.png"
+                    alt="Halse Remodeling"
+                    className="h-20 object-contain"
+                  />
+                </div>
                 <h4 className="text-3xl font-heading font-bold">
-                  HALSE CONSTRUCTION
+                  HALSE REMODELING
                 </h4>
+                <p className="text-gray-200 mt-2">Quality Home Remodeling Services</p>
               </div>
               <div className="p-6">
-                <div className="text-center text-gray-700 dark:text-gray-300">
-                  <p className="text-lg mb-4">
-                    Quality construction services
+                <div className="text-gray-700 dark:text-gray-300">
+                  <p className="text-base mb-4 leading-relaxed">
+                    Halse Remodeling specializes in quality home renovation and remodeling services. From kitchens and bathrooms to full home renovations, we bring expert craftsmanship to every project.
                   </p>
-                  <div className="text-sm text-gray-500 dark:text-gray-400 italic">
-                    Website and details coming soon
+                  <div className="text-center mt-6 space-y-3">
+                    <a
+                      href="https://www.houzz.com/professionals/design-build-firms/sean-halse-pfvwus-pf~504027124"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-block bg-mbjj-blue hover:bg-mbjj-accent-light text-white font-heading font-bold px-6 py-3 rounded-lg transition shadow-md"
+                    >
+                      View on Houzz →
+                    </a>
+                    <div>
+                      <a
+                        href="mailto:halseremodeling@gmail.com"
+                        className="text-mbjj-blue hover:text-mbjj-red font-heading font-bold transition"
+                      >
+                        halseremodeling@gmail.com
+                      </a>
+                    </div>
                   </div>
                 </div>
               </div>
