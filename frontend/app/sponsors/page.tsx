@@ -222,7 +222,7 @@ export default function SponsorsPage() {
                   <img
                     src="https://i.imgur.com/hTMFjyj.png"
                     alt="Halse Remodeling"
-                    className="h-20 object-contain"
+                    className="h-28 object-contain"
                   />
                 </div>
                 <h4 className="text-3xl font-heading font-bold">
