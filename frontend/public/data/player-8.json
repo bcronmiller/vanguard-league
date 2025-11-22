@@ -50,6 +50,25 @@
       "elo_change": 7
     },
     {
+      "match_id": 75,
+      "event_id": 1,
+      "event_name": "VGL 1",
+      "event_date": "2025-11-07T19:00:00",
+      "opponent": {
+        "id": 2,
+        "name": "Alex Stewart",
+        "photo_url": "https://i.imgur.com/xzfxRkA.jpg"
+      },
+      "result": "loss",
+      "method": "Reverse Triangle Cutting Armbar",
+      "duration_seconds": 180,
+      "match_number": null,
+      "belt_rank": "Blue",
+      "weight": 156.0,
+      "weight_class": "Lightweight",
+      "elo_change": -16
+    },
+    {
       "match_id": 17,
       "event_id": 1,
       "event_name": "VGL 1",
@@ -69,23 +88,42 @@
       "elo_change": 8
     },
     {
-      "match_id": 75,
-      "event_id": 1,
-      "event_name": "VGL 1",
-      "event_date": "2025-11-07T19:00:00",
+      "match_id": 756,
+      "event_id": 3,
+      "event_name": "VGL 3",
+      "event_date": "2025-11-22T17:00:00",
       "opponent": {
-        "id": 2,
-        "name": "Alex Stewart",
-        "photo_url": "https://i.imgur.com/xzfxRkA.jpg"
+        "id": 18,
+        "name": "Jamie Corzo",
+        "photo_url": "https://i.imgur.com/kCFCFpU.png"
       },
-      "result": "loss",
-      "method": "Reverse Triangle Cutting Armbar",
-      "duration_seconds": 180,
-      "match_number": null,
-      "belt_rank": "Blue",
-      "weight": 156.0,
+      "result": "draw",
+      "method": null,
+      "duration_seconds": null,
+      "match_number": 2,
+      "belt_rank": "Purple",
+      "weight": 158.0,
       "weight_class": "Lightweight",
-      "elo_change": -16
+      "elo_change": null
+    },
+    {
+      "match_id": 752,
+      "event_id": 3,
+      "event_name": "VGL 3",
+      "event_date": "2025-11-22T17:00:00",
+      "opponent": {
+        "id": 14,
+        "name": "Jack Sudduth",
+        "photo_url": "https://i.imgur.com/CPK4ZYk.png"
+      },
+      "result": "win",
+      "method": "h",
+      "duration_seconds": 600,
+      "match_number": 2,
+      "belt_rank": "Purple",
+      "weight": 158.0,
+      "weight_class": "Lightweight",
+      "elo_change": null
     },
     {
       "match_id": 738,
@@ -149,7 +187,7 @@
     "player_id": 8,
     "player_name": "John Michael El Mapache Rodriguez Uhweta",
     "overall": {
-      "wins": 4,
+      "wins": 5,
       "losses": 1,
       "draws": 1,
       "elo_rating": 1614.4200933936636,
@@ -159,7 +197,7 @@
       {
         "weight_class_id": 1,
         "weight_class_name": "Lightweight",
-        "wins": 4,
+        "wins": 5,
         "losses": 1,
         "draws": 1,
         "elo_rating": 1613.8468278994633,

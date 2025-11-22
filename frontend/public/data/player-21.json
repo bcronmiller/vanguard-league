@@ -23,12 +23,23 @@
     "player_id": 21,
     "player_name": "Josue Gaines",
     "overall": {
-      "wins": 0,
-      "losses": 0,
+      "wins": 1,
+      "losses": 1,
       "draws": 0,
       "elo_rating": 1200.0,
       "elo_change": 0
     },
-    "divisions": []
+    "divisions": [
+      {
+        "weight_class_id": 3,
+        "weight_class_name": "Heavyweight",
+        "wins": 1,
+        "losses": 1,
+        "draws": 0,
+        "elo_rating": null,
+        "initial_elo_rating": null,
+        "elo_change": 0
+      }
+    ]
   }
 }

@@ -23,12 +23,23 @@
     "player_id": 14,
     "player_name": "Jack Sudduth",
     "overall": {
-      "wins": 0,
-      "losses": 0,
+      "wins": 1,
+      "losses": 1,
       "draws": 0,
       "elo_rating": 1600.0,
       "elo_change": 0.0
     },
-    "divisions": []
+    "divisions": [
+      {
+        "weight_class_id": 1,
+        "weight_class_name": "Lightweight",
+        "wins": 1,
+        "losses": 1,
+        "draws": 0,
+        "elo_rating": 1600.0,
+        "initial_elo_rating": 1600.0,
+        "elo_change": 0.0
+      }
+    ]
   }
 }

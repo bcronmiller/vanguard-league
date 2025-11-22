@@ -24,7 +24,7 @@
     },
     {
       "name": "On Fire",
-      "description": "4 wins in a row",
+      "description": "5 wins in a row",
       "icon": "\ud83d\udd25"
     },
     {
@@ -41,6 +41,11 @@
       "name": "Guillotine",
       "description": "Guillotine submission earned",
       "icon": "\u2694\ufe0f"
+    },
+    {
+      "name": "Armbar",
+      "description": "Armbar submission earned",
+      "icon": "\ud83e\uddb4"
     }
   ],
   "manual_badges": [
@@ -71,23 +76,23 @@
       "elo_change": 1
     },
     {
-      "match_id": 9,
+      "match_id": 16,
       "event_id": 1,
       "event_name": "VGL 1",
       "event_date": "2025-11-07T19:00:00",
       "opponent": {
-        "id": 9,
-        "name": "Edrees Saifi",
-        "photo_url": "https://i.imgur.com/TziWaNR.png"
+        "id": 10,
+        "name": "Troy Wittman",
+        "photo_url": "https://i.imgur.com/C1nGrWd.png"
       },
       "result": "win",
-      "method": "Guillotine",
-      "duration_seconds": 200,
+      "method": "Arm Triangle",
+      "duration_seconds": 450,
       "match_number": null,
       "belt_rank": "Black",
       "weight": 203.0,
       "weight_class": "Heavyweight",
-      "elo_change": 1
+      "elo_change": 17
     },
     {
       "match_id": 13,
@@ -109,23 +114,61 @@
       "elo_change": -9
     },
     {
-      "match_id": 16,
+      "match_id": 9,
       "event_id": 1,
       "event_name": "VGL 1",
       "event_date": "2025-11-07T19:00:00",
       "opponent": {
-        "id": 10,
-        "name": "Troy Wittman",
-        "photo_url": "https://i.imgur.com/C1nGrWd.png"
+        "id": 9,
+        "name": "Edrees Saifi",
+        "photo_url": "https://i.imgur.com/TziWaNR.png"
       },
       "result": "win",
-      "method": "Arm Triangle",
-      "duration_seconds": 450,
+      "method": "Guillotine",
+      "duration_seconds": 200,
       "match_number": null,
       "belt_rank": "Black",
       "weight": 203.0,
       "weight_class": "Heavyweight",
-      "elo_change": 17
+      "elo_change": 1
+    },
+    {
+      "match_id": 755,
+      "event_id": 3,
+      "event_name": "VGL 3",
+      "event_date": "2025-11-22T17:00:00",
+      "opponent": {
+        "id": 21,
+        "name": "Josue Gaines",
+        "photo_url": null
+      },
+      "result": "draw",
+      "method": null,
+      "duration_seconds": null,
+      "match_number": 1,
+      "belt_rank": "Black",
+      "weight": 204.0,
+      "weight_class": "Heavyweight",
+      "elo_change": null
+    },
+    {
+      "match_id": 751,
+      "event_id": 3,
+      "event_name": "VGL 3",
+      "event_date": "2025-11-22T17:00:00",
+      "opponent": {
+        "id": 5,
+        "name": "Nick Newbold",
+        "photo_url": "https://i.imgur.com/RXmwkBZ.jpg"
+      },
+      "result": "win",
+      "method": "arm bar",
+      "duration_seconds": 360,
+      "match_number": 1,
+      "belt_rank": "Black",
+      "weight": 204.0,
+      "weight_class": "Heavyweight",
+      "elo_change": null
     },
     {
       "match_id": 730,
@@ -189,7 +232,7 @@
     "player_id": 11,
     "player_name": "Christian Banghart",
     "overall": {
-      "wins": 6,
+      "wins": 7,
       "losses": 0,
       "draws": 1,
       "elo_rating": 2023.8060677371493,
@@ -199,7 +242,7 @@
       {
         "weight_class_id": 3,
         "weight_class_name": "Heavyweight",
-        "wins": 6,
+        "wins": 7,
         "losses": 0,
         "draws": 1,
         "elo_rating": 2023.8060677371493,
