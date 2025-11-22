@@ -8,13 +8,13 @@
   "bjj_belt_rank": "Blue",
   "weight": 285.0,
   "weight_class_id": 3,
-  "elo_rating": 1200.0,
+  "elo_rating": 1401.7162686459776,
   "rankade_ree_score": null,
   "id": 21,
   "rankade_id": null,
   "active": true,
   "created_at": "2025-11-22T17:23:55.502355",
-  "updated_at": "2025-11-22T17:23:55.502355",
+  "updated_at": "2025-11-22T23:50:43.733408",
   "weight_class_name": "Heavyweight",
   "badges": [],
   "manual_badges": [],
@@ -25,8 +25,8 @@
     "overall": {
       "wins": 1,
       "losses": 1,
-      "draws": 0,
-      "elo_rating": 1200.0,
+      "draws": 1,
+      "elo_rating": 1401.7162686459776,
       "elo_change": 0
     },
     "divisions": [
@@ -35,10 +35,10 @@
         "weight_class_name": "Heavyweight",
         "wins": 1,
         "losses": 1,
-        "draws": 0,
-        "elo_rating": null,
-        "initial_elo_rating": null,
-        "elo_change": 0
+        "draws": 1,
+        "elo_rating": 1401.7162686459776,
+        "initial_elo_rating": 1400.0,
+        "elo_change": 1.7162686459776069
       }
     ]
   }

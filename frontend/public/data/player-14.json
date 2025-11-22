@@ -8,37 +8,58 @@
   "bjj_belt_rank": "Purple",
   "weight": 152.0,
   "weight_class_id": 1,
-  "elo_rating": 1600.0,
+  "elo_rating": 1589.3325076363265,
   "rankade_ree_score": null,
   "id": 14,
   "rankade_id": null,
   "active": true,
   "created_at": "2025-11-12T18:00:27.827917",
-  "updated_at": "2025-11-21T19:34:28.584901",
+  "updated_at": "2025-11-22T23:50:43.731943",
   "weight_class_name": "Lightweight",
-  "badges": [],
+  "badges": [
+    {
+      "name": "Warrior Spirit",
+      "description": "Most matches in a single event (4 at VGL 3)",
+      "icon": "\u2764\ufe0f\u200d\ud83d\udd25"
+    },
+    {
+      "name": "Multi-Division",
+      "description": "Competed in 2 weight classes",
+      "icon": "\u2696\ufe0f"
+    }
+  ],
   "manual_badges": [],
   "matches": [],
   "divisions": {
     "player_id": 14,
     "player_name": "Jack Sudduth",
     "overall": {
-      "wins": 1,
-      "losses": 1,
+      "wins": 2,
+      "losses": 2,
       "draws": 0,
-      "elo_rating": 1600.0,
-      "elo_change": 0.0
+      "elo_rating": 1589.3325076363265,
+      "elo_change": -10.667492363673546
     },
     "divisions": [
       {
         "weight_class_id": 1,
         "weight_class_name": "Lightweight",
-        "wins": 1,
+        "wins": 2,
         "losses": 1,
         "draws": 0,
-        "elo_rating": 1600.0,
+        "elo_rating": 1591.6838261130251,
         "initial_elo_rating": 1600.0,
-        "elo_change": 0.0
+        "elo_change": -8.316173886974866
+      },
+      {
+        "weight_class_id": 3,
+        "weight_class_name": "Heavyweight",
+        "wins": 0,
+        "losses": 1,
+        "draws": 0,
+        "elo_rating": 1597.461032378359,
+        "initial_elo_rating": 1600.0,
+        "elo_change": -2.53896762164095
       }
     ]
   }
