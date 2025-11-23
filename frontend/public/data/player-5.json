@@ -29,7 +29,122 @@
     }
   ],
   "manual_badges": [],
-  "matches": [],
+  "matches": [
+    {
+      "match_id": 3,
+      "event_id": 1,
+      "event_name": "VGL 1",
+      "event_date": "2025-11-07T19:00:00",
+      "opponent": {
+        "id": 9,
+        "name": "Edrees Saifi",
+        "photo_url": "https://i.imgur.com/TziWaNR.png"
+      },
+      "result": "win",
+      "method": "Submission",
+      "duration_seconds": 15,
+      "match_number": null,
+      "belt_rank": "Blue",
+      "weight": 206.6,
+      "weight_class": "Heavyweight",
+      "elo_change": 15
+    },
+    {
+      "match_id": 7,
+      "event_id": 1,
+      "event_name": "VGL 1",
+      "event_date": "2025-11-07T19:00:00",
+      "opponent": {
+        "id": 7,
+        "name": "Matt Crawford",
+        "photo_url": "https://i.imgur.com/GeVieX2.png"
+      },
+      "result": "win",
+      "method": "Kneebar",
+      "duration_seconds": 90,
+      "match_number": null,
+      "belt_rank": "Blue",
+      "weight": 206.6,
+      "weight_class": "Heavyweight",
+      "elo_change": 29
+    },
+    {
+      "match_id": 12,
+      "event_id": 1,
+      "event_name": "VGL 1",
+      "event_date": "2025-11-07T19:00:00",
+      "opponent": {
+        "id": 10,
+        "name": "Troy Wittman",
+        "photo_url": "https://i.imgur.com/C1nGrWd.png"
+      },
+      "result": "loss",
+      "method": "Darce",
+      "duration_seconds": 60,
+      "match_number": null,
+      "belt_rank": "Blue",
+      "weight": 206.6,
+      "weight_class": "Heavyweight",
+      "elo_change": -1
+    },
+    {
+      "match_id": 74,
+      "event_id": 1,
+      "event_name": "VGL 1",
+      "event_date": "2025-11-07T19:00:00",
+      "opponent": {
+        "id": 4,
+        "name": "Josue Chevaz",
+        "photo_url": "https://i.imgur.com/f28PYFd.png"
+      },
+      "result": "win",
+      "method": "Americana",
+      "duration_seconds": 300,
+      "match_number": null,
+      "belt_rank": "Blue",
+      "weight": 206.6,
+      "weight_class": "Heavyweight",
+      "elo_change": 14
+    },
+    {
+      "match_id": 751,
+      "event_id": 3,
+      "event_name": "VGL 3",
+      "event_date": "2025-11-22T17:00:00",
+      "opponent": {
+        "id": 11,
+        "name": "Christian Banghart",
+        "photo_url": "https://marketmusclescdn.nyc3.digitaloceanspaces.com/wp-content/uploads/sites/265/2021/07/28171628/christiansmall.jpg"
+      },
+      "result": "loss",
+      "method": "arm bar",
+      "duration_seconds": 360,
+      "match_number": 1,
+      "belt_rank": "Blue",
+      "weight": 206.6,
+      "weight_class": "Heavyweight",
+      "elo_change": -1
+    },
+    {
+      "match_id": 760,
+      "event_id": 3,
+      "event_name": "VGL 3",
+      "event_date": "2025-11-22T17:00:00",
+      "opponent": {
+        "id": 21,
+        "name": "Josue Gaines",
+        "photo_url": null
+      },
+      "result": "draw",
+      "method": "Time expired",
+      "duration_seconds": 600,
+      "match_number": 6,
+      "belt_rank": "Blue",
+      "weight": 206.6,
+      "weight_class": "Heavyweight",
+      "elo_change": -3
+    }
+  ],
   "divisions": {
     "player_id": 5,
     "player_name": "Nick Newbold",

@@ -24,7 +24,103 @@
     }
   ],
   "manual_badges": [],
-  "matches": [],
+  "matches": [
+    {
+      "match_id": 756,
+      "event_id": 3,
+      "event_name": "VGL 3",
+      "event_date": "2025-11-22T17:00:00",
+      "opponent": {
+        "id": 8,
+        "name": "John Michael El Mapache Rodriguez Uhweta",
+        "photo_url": "https://i.imgur.com/vuhvBXu.jpg"
+      },
+      "result": "loss",
+      "method": "guillionet ",
+      "duration_seconds": 480,
+      "match_number": 2,
+      "belt_rank": "Blue",
+      "weight": 167.0,
+      "weight_class": "Lightweight",
+      "elo_change": -6
+    },
+    {
+      "match_id": 759,
+      "event_id": 3,
+      "event_name": "VGL 3",
+      "event_date": "2025-11-22T17:00:00",
+      "opponent": {
+        "id": 14,
+        "name": "Jack Sudduth",
+        "photo_url": "https://i.imgur.com/CPK4ZYk.png"
+      },
+      "result": "loss",
+      "method": "Submission",
+      "duration_seconds": 420,
+      "match_number": 5,
+      "belt_rank": "Blue",
+      "weight": 167.0,
+      "weight_class": "Lightweight",
+      "elo_change": -7
+    },
+    {
+      "match_id": 738,
+      "event_id": 2,
+      "event_name": "VGL 2",
+      "event_date": "2025-11-14T19:00:00",
+      "opponent": {
+        "id": 8,
+        "name": "John Michael El Mapache Rodriguez Uhweta",
+        "photo_url": "https://i.imgur.com/vuhvBXu.jpg"
+      },
+      "result": "loss",
+      "method": "Guillotine",
+      "duration_seconds": 370,
+      "match_number": 627,
+      "belt_rank": null,
+      "weight": null,
+      "weight_class": "Lightweight",
+      "elo_change": -7
+    },
+    {
+      "match_id": 737,
+      "event_id": 2,
+      "event_name": "VGL 2",
+      "event_date": "2025-11-14T19:00:00",
+      "opponent": {
+        "id": 3,
+        "name": "Hussain Samir",
+        "photo_url": "https://i.imgur.com/OnbmNBi.jpg"
+      },
+      "result": "loss",
+      "method": "Kneebar",
+      "duration_seconds": 150,
+      "match_number": 623,
+      "belt_rank": null,
+      "weight": null,
+      "weight_class": "Lightweight",
+      "elo_change": -16
+    },
+    {
+      "match_id": 733,
+      "event_id": 2,
+      "event_name": "VGL 2",
+      "event_date": "2025-11-14T19:00:00",
+      "opponent": {
+        "id": 2,
+        "name": "Alex Stewart",
+        "photo_url": "https://i.imgur.com/xzfxRkA.jpg"
+      },
+      "result": "loss",
+      "method": "Ankle Lock",
+      "duration_seconds": 90,
+      "match_number": 645,
+      "belt_rank": null,
+      "weight": null,
+      "weight_class": "Lightweight",
+      "elo_change": -7
+    }
+  ],
   "divisions": {
     "player_id": 18,
     "player_name": "Jamie Corzo",

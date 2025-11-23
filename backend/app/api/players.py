@@ -206,8 +206,8 @@ async def get_player_match_history(player_id: int, db: Session = Depends(get_db)
         # Get historical belt rank and weight from entry lookup
         entry = entry_lookup.get((match.event_id, player_id))
 
-        # Get opponent's entry to determine match weight class
-        opponent_entry = entry_lookup.get((match.event_id, opponent.id))
+        # Get opponent's entry to determine match weight class (only if opponent exists)
+        opponent_entry = entry_lookup.get((match.event_id, opponent.id)) if opponent else None
 
         # Determine match weight class - use the heavier fighter's weight class
         match_weight_class = None

@@ -29,7 +29,65 @@
     }
   ],
   "manual_badges": [],
-  "matches": [],
+  "matches": [
+    {
+      "match_id": 752,
+      "event_id": 3,
+      "event_name": "VGL 3",
+      "event_date": "2025-11-22T17:00:00",
+      "opponent": {
+        "id": 8,
+        "name": "John Michael El Mapache Rodriguez Uhweta",
+        "photo_url": "https://i.imgur.com/vuhvBXu.jpg"
+      },
+      "result": "loss",
+      "method": "h",
+      "duration_seconds": 600,
+      "match_number": 2,
+      "belt_rank": "Purple",
+      "weight": 152.0,
+      "weight_class": "Lightweight",
+      "elo_change": -15
+    },
+    {
+      "match_id": 762,
+      "event_id": 3,
+      "event_name": "VGL 3",
+      "event_date": "2025-11-22T17:00:00",
+      "opponent": {
+        "id": 11,
+        "name": "Christian Banghart",
+        "photo_url": "https://marketmusclescdn.nyc3.digitaloceanspaces.com/wp-content/uploads/sites/265/2021/07/28171628/christiansmall.jpg"
+      },
+      "result": "loss",
+      "method": "Heel Hook",
+      "duration_seconds": 480,
+      "match_number": 8,
+      "belt_rank": "Purple",
+      "weight": 152.0,
+      "weight_class": "Heavyweight",
+      "elo_change": -3
+    },
+    {
+      "match_id": 759,
+      "event_id": 3,
+      "event_name": "VGL 3",
+      "event_date": "2025-11-22T17:00:00",
+      "opponent": {
+        "id": 18,
+        "name": "Jamie Corzo",
+        "photo_url": "https://i.imgur.com/kCFCFpU.png"
+      },
+      "result": "win",
+      "method": "Submission",
+      "duration_seconds": 420,
+      "match_number": 5,
+      "belt_rank": "Purple",
+      "weight": 152.0,
+      "weight_class": "Lightweight",
+      "elo_change": 7
+    }
+  ],
   "divisions": {
     "player_id": 14,
     "player_name": "Jack Sudduth",

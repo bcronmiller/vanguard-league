@@ -18,7 +18,46 @@
   "weight_class_name": "Heavyweight",
   "badges": [],
   "manual_badges": [],
-  "matches": [],
+  "matches": [
+    {
+      "match_id": 755,
+      "event_id": 3,
+      "event_name": "VGL 3",
+      "event_date": "2025-11-22T17:00:00",
+      "opponent": {
+        "id": 11,
+        "name": "Christian Banghart",
+        "photo_url": "https://marketmusclescdn.nyc3.digitaloceanspaces.com/wp-content/uploads/sites/265/2021/07/28171628/christiansmall.jpg"
+      },
+      "result": "loss",
+      "method": "guilliHead and arm choke",
+      "duration_seconds": 5200,
+      "match_number": 1,
+      "belt_rank": "Blue",
+      "weight": 285.0,
+      "weight_class": "Heavyweight",
+      "elo_change": -1
+    },
+    {
+      "match_id": 760,
+      "event_id": 3,
+      "event_name": "VGL 3",
+      "event_date": "2025-11-22T17:00:00",
+      "opponent": {
+        "id": 5,
+        "name": "Nick Newbold",
+        "photo_url": "https://i.imgur.com/RXmwkBZ.jpg"
+      },
+      "result": "draw",
+      "method": "Time expired",
+      "duration_seconds": 600,
+      "match_number": 6,
+      "belt_rank": "Blue",
+      "weight": 285.0,
+      "weight_class": "Heavyweight",
+      "elo_change": 3
+    }
+  ],
   "divisions": {
     "player_id": 21,
     "player_name": "Josue Gaines",
