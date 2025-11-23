@@ -14,15 +14,9 @@
   "rankade_id": null,
   "active": true,
   "created_at": "2025-11-16T11:19:05.320384",
-  "updated_at": "2025-11-23T03:17:43.846872",
+  "updated_at": "2025-11-23T03:20:59.027681",
   "weight_class_name": "Lightweight",
-  "badges": [
-    {
-      "name": "Comeback Kid",
-      "description": "Won after losing 2+ matches",
-      "icon": "\ud83d\udcaa"
-    }
-  ],
+  "badges": [],
   "manual_badges": [],
   "matches": [
     {
@@ -125,7 +119,7 @@
     "player_id": 18,
     "player_name": "Jamie Corzo",
     "overall": {
-      "wins": 1,
+      "wins": 0,
       "losses": 5,
       "draws": 0,
       "elo_rating": 1359.5609810245003,
@@ -135,7 +129,7 @@
       {
         "weight_class_id": 1,
         "weight_class_name": "Lightweight",
-        "wins": 1,
+        "wins": 0,
         "losses": 5,
         "draws": 0,
         "elo_rating": 1357.9274294304246,
