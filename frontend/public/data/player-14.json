@@ -14,14 +14,9 @@
   "rankade_id": null,
   "active": true,
   "created_at": "2025-11-12T18:00:27.827917",
-  "updated_at": "2025-11-23T02:19:42.298615",
+  "updated_at": "2025-11-23T03:17:43.845568",
   "weight_class_name": "Lightweight",
   "badges": [
-    {
-      "name": "Warrior Spirit",
-      "description": "Most matches in a single event (4 at VGL 3)",
-      "icon": "\u2764\ufe0f\u200d\ud83d\udd25"
-    },
     {
       "name": "Multi-Division",
       "description": "Competed in 2 weight classes",
@@ -92,7 +87,7 @@
     "player_id": 14,
     "player_name": "Jack Sudduth",
     "overall": {
-      "wins": 2,
+      "wins": 1,
       "losses": 2,
       "draws": 0,
       "elo_rating": 1589.3325076363265,
@@ -102,7 +97,7 @@
       {
         "weight_class_id": 1,
         "weight_class_name": "Lightweight",
-        "wins": 2,
+        "wins": 1,
         "losses": 1,
         "draws": 0,
         "elo_rating": 1591.6838261130251,
