@@ -43,6 +43,9 @@ const EVENT_VIDEOS: { [key: number]: string } = {
 
 // Map event IDs to Google Form URLs (for registration)
 const EVENT_FORMS: { [key: number]: string } = {
+  15: 'https://forms.gle/2HzZfk8VuGBVNfnx5', // VGL 4
+  16: 'https://forms.gle/2HzZfk8VuGBVNfnx5', // VGL 5
+  17: 'https://forms.gle/2HzZfk8VuGBVNfnx5', // VGL 6
   // Add event registration forms here
 };
 
