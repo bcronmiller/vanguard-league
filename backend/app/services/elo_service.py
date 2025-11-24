@@ -214,9 +214,33 @@ def get_head_to_head(db: Session, player_a_id: int, player_b_id: int) -> dict:
                 draws += 1
                 result = "draw"
 
+        # Get event name
+        event_name = None
+        try:
+            if match.event_id:
+                from app.models.event import Event
+                event = db.query(Event).filter(Event.id == match.event_id).first()
+                if event:
+                    event_name = event.name
+        except Exception:
+            pass
+
+        # Get round name
+        round_name = None
+        try:
+            if match.bracket_round_id:
+                from app.models.tournament import BracketRound
+                bracket_round = db.query(BracketRound).filter(BracketRound.id == match.bracket_round_id).first()
+                if bracket_round:
+                    round_name = bracket_round.round_name
+        except Exception:
+            pass
+
         recent_matches.append({
             "match_id": match.id,
             "event_id": match.event_id,
+            "event_name": event_name,
+            "round_name": round_name,
             "result": result,
             "method": match.method,
             "duration_seconds": match.duration_seconds,

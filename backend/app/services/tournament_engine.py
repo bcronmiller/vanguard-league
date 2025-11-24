@@ -1047,133 +1047,157 @@ class TournamentEngine:
         participants: List[Player]
     ) -> List[BracketRound]:
         """
-        Generate guaranteed matches format (ladder-style).
+        Generate guaranteed matches format with all rounds pre-generated.
 
-        Creates a ladder-style tournament where:
+        Creates a tournament where:
         - Each participant is guaranteed a specific number of matches
-        - Pairings are made based on current records (similar to Swiss)
-        - No elimination - everyone competes in all rounds
-        - Allows rematches up to a configurable limit
+        - All rounds and matches are pre-generated upfront (no dynamic generation)
+        - No bye matches - if odd number, some fighters compete more times
+        - Complete bracket visible before event starts
+        - Pairings don't depend on match outcomes
+        - Everyone gets at least min_matches, some may get more to balance bracket
         """
         num_participants = len(participants)
 
         # Get configuration
-        match_count = bracket_format.config.get("match_count", 3)  # Default: 3 matches per fighter
-        max_rematches = bracket_format.config.get("max_rematches", 1)  # Allow one rematch by default
+        min_matches = bracket_format.config.get("match_count", 3)  # Minimum matches per fighter
+        max_rematches = bracket_format.config.get("max_rematches", 1)
 
         if bracket_format.config.get("seeding_method") == "random":
             random.shuffle(participants)
 
-        # Create first round only (subsequent rounds generated dynamically)
-        bracket_round = BracketRound(
-            bracket_format_id=bracket_format.id,
-            round_number=1,
-            round_name="Round 1",
-            status=RoundStatus.IN_PROGRESS,
-            round_data={
-                "format": "guaranteed_matches",
-                "total_matches_per_fighter": match_count,
-                "max_rematches": max_rematches
-            }
-        )
-        self.db.add(bracket_round)
-        self.db.flush()
+        # Track match counts for each fighter
+        fighter_match_counts = {p.id: 0 for p in participants}
+        matchup_history = {p.id: set() for p in participants}
 
-        # Use weight-aware pairing if weight_class_id is None (multi-weight bracket)
-        # Otherwise use simple pairing
+        # Use weight-aware pairing if multi-weight bracket
         use_weight_pairing = bracket_format.weight_class_id is None and bracket_format.config.get("weight_based_pairing", True)
 
-        if use_weight_pairing:
-            # Create initial standings (everyone 0-0-0 for first round)
-            initial_standings = {
-                p.id: {"wins": 0, "losses": 0, "draws": 0, "points": 0.0, "opponents_faced": set()}
+        # Generate all rounds upfront
+        rounds = []
+        round_number = 1
+
+        # Continue generating rounds until everyone has min_matches
+        while any(count < min_matches for count in fighter_match_counts.values()):
+            # Create standings for pairing (everyone 0-0-0 since outcomes don't matter for pre-gen)
+            standings = {
+                p.id: {
+                    "wins": 0,
+                    "losses": 0,
+                    "draws": 0,
+                    "points": 0.0,
+                    "opponents_faced": matchup_history[p.id].copy()
+                }
                 for p in participants
             }
-            matchup_history = {}
 
-            # Get weight-aware pairings
-            pairings = self._weight_aware_guaranteed_pairing(
-                initial_standings,
-                matchup_history,
-                max_rematches,
-                bracket_format
+            # Strategy: Try to maximize fighters per round to minimize sitting out
+            # Separate fighters into priority groups:
+            # 1. Those who NEED more matches (below min) - PRIORITY
+            # 2. Those who HAVE enough but can fill gaps (at/above min)
+            fighters_needing_matches = [
+                pid for pid, count in fighter_match_counts.items()
+                if count < min_matches
+            ]
+            fighters_with_enough = [
+                pid for pid, count in fighter_match_counts.items()
+                if count >= min_matches
+            ]
+
+            if not fighters_needing_matches:
+                break
+
+            # For better distribution: if we have enough fighters needing matches for a full round,
+            # prioritize pairing them all rather than leaving some out
+            # Create standings including ALL fighters who need matches (not filtered yet)
+            all_needing_standings = {
+                pid: data for pid, data in standings.items()
+                if pid in fighters_needing_matches
+            }
+
+            # Get pairings (no bye matches allowed)
+            if use_weight_pairing:
+                pairings = self._weight_aware_guaranteed_pairing_no_byes(
+                    all_needing_standings,
+                    matchup_history,
+                    max_rematches,
+                    bracket_format,
+                    fighters_with_enough,
+                    standings
+                )
+            else:
+                pairings = self._guaranteed_pairing_no_byes(
+                    all_needing_standings,
+                    matchup_history,
+                    max_rematches,
+                    bracket_format.weight_class_id,
+                    fighters_with_enough,
+                    standings
+                )
+
+            if not pairings:
+                # Log for debugging
+                import logging
+                logger = logging.getLogger(__name__)
+                logger.warning(f"No pairings found for round {round_number}. Fighters needing matches: {len(fighters_needing_matches)}, Match counts: {fighter_match_counts}")
+                break
+
+            # Create round
+            bracket_round = BracketRound(
+                bracket_format_id=bracket_format.id,
+                round_number=round_number,
+                round_name=f"Round {round_number}",
+                status=RoundStatus.IN_PROGRESS if round_number == 1 else RoundStatus.PENDING,
+                round_data={
+                    "format": "guaranteed_matches",
+                    "total_matches_per_fighter": min_matches,
+                    "max_rematches": max_rematches
+                }
             )
+            self.db.add(bracket_round)
+            self.db.flush()
 
-            # Create matches from pairings
+            # Create matches
+            import logging
+            logger = logging.getLogger(__name__)
+            logger.info(f"Creating {len(pairings)} matches for Round {round_number}")
+
             for idx, (player_a_id, player_b_id, weight_class_id) in enumerate(pairings):
-                if player_b_id:
-                    # Regular match
-                    match = Match(
-                        event_id=bracket_format.event_id,
-                        bracket_round_id=bracket_round.id,
-                        weight_class_id=weight_class_id,
-                        a_player_id=player_a_id,
-                        b_player_id=player_b_id,
-                        match_number=idx + 1,
-                        match_status=MatchStatus.READY,
-                        requires_winner_a=True,
-                        requires_winner_b=True,
-                    )
-                else:
-                    # Bye match
-                    match = Match(
-                        event_id=bracket_format.event_id,
-                        bracket_round_id=bracket_round.id,
-                        weight_class_id=weight_class_id,
-                        a_player_id=player_a_id,
-                        b_player_id=None,
-                        match_number=idx + 1,
-                        match_status=MatchStatus.COMPLETED,
-                        result=MatchResult.PLAYER_A_WIN,
-                        method="Bye",
-                        completed_at=datetime.utcnow(),
-                        requires_winner_a=True,
-                        requires_winner_b=True,
-                    )
-                self.db.add(match)
-        else:
-            # Simple pairing for single weight class brackets
-            num_matches = num_participants // 2
+                # Validate player IDs before creating match
+                if player_a_id is None or player_b_id is None:
+                    logger.error(f"CRITICAL: Pairing {idx} has NULL player! player_a_id={player_a_id}, player_b_id={player_b_id}, weight_class_id={weight_class_id}")
+                    continue  # Skip this pairing instead of creating invalid match
 
-            for match_num in range(num_matches):
-                player_a = participants[match_num * 2]
-                player_b = participants[match_num * 2 + 1]
+                logger.info(f"  Match {idx+1}: Player {player_a_id} vs Player {player_b_id} (WC: {weight_class_id})")
 
                 match = Match(
                     event_id=bracket_format.event_id,
                     bracket_round_id=bracket_round.id,
-                    weight_class_id=bracket_format.weight_class_id,
-                    a_player_id=player_a.id,
-                    b_player_id=player_b.id,
-                    match_number=match_num + 1,
+                    weight_class_id=weight_class_id,
+                    a_player_id=player_a_id,
+                    b_player_id=player_b_id,
+                    match_number=idx + 1,
                     match_status=MatchStatus.READY,
                     requires_winner_a=True,
                     requires_winner_b=True,
                 )
                 self.db.add(match)
 
-            # Handle odd number of participants (bye in first round)
-            if num_participants % 2 == 1:
-                bye_player = participants[-1]
-                match = Match(
-                    event_id=bracket_format.event_id,
-                    bracket_round_id=bracket_round.id,
-                    weight_class_id=bracket_format.weight_class_id,
-                    a_player_id=bye_player.id,
-                    b_player_id=None,
-                    match_number=num_matches + 1,
-                    match_status=MatchStatus.COMPLETED,
-                    result=MatchResult.PLAYER_A_WIN,
-                    method="Bye",
-                    completed_at=datetime.utcnow(),
-                    requires_winner_a=True,
-                    requires_winner_b=True,
-                )
-                self.db.add(match)
+                # Update match counts and history
+                fighter_match_counts[player_a_id] += 1
+                fighter_match_counts[player_b_id] += 1
+                matchup_history[player_a_id].add(player_b_id)
+                matchup_history[player_b_id].add(player_a_id)
+
+            rounds.append(bracket_round)
+            round_number += 1
+
+            # Safety check to prevent infinite loops
+            if round_number > min_matches + 2:
+                break
 
         self.db.commit()
-
-        return [bracket_round]
+        return rounds
 
     def update_match_result(
         self,
@@ -1352,7 +1376,10 @@ class TournamentEngine:
 
     def _generate_next_round(self, completed_round: BracketRound):
         """
-        Generate the next round after a round completes.
+        Generate or activate the next round after a round completes.
+
+        For formats with pre-generated rounds (GUARANTEED_MATCHES), activates the next pending round.
+        For dynamic formats (SWISS), generates the next round on-the-fly.
 
         Args:
             completed_round: The completed BracketRound
@@ -1367,7 +1394,8 @@ class TournamentEngine:
         if bracket_format.format_type == TournamentFormat.SWISS:
             self._generate_next_swiss_round(completed_round)
         elif bracket_format.format_type == TournamentFormat.GUARANTEED_MATCHES:
-            self._generate_next_guaranteed_round(completed_round)
+            # For guaranteed matches, activate next pre-generated round
+            self._activate_next_guaranteed_round(completed_round)
         elif bracket_format.format_type == TournamentFormat.DOUBLE_ELIMINATION:
             self._generate_next_double_elim_round(completed_round)
         elif bracket_format.format_type == TournamentFormat.ROUND_ROBIN:
@@ -1627,9 +1655,41 @@ class TournamentEngine:
 
         self.db.commit()
 
+    def _activate_next_guaranteed_round(self, completed_round: BracketRound):
+        """
+        Activate the next pre-generated round for guaranteed matches format.
+
+        With the new pre-generation system, all rounds are created upfront.
+        This function simply changes the next PENDING round to IN_PROGRESS.
+
+        Args:
+            completed_round: The completed BracketRound
+        """
+        bracket_format = completed_round.bracket_format
+
+        # Find the next pending round
+        next_round = self.db.query(BracketRound).filter(
+            BracketRound.bracket_format_id == bracket_format.id,
+            BracketRound.round_number == completed_round.round_number + 1,
+            BracketRound.status == RoundStatus.PENDING
+        ).first()
+
+        if next_round:
+            # Activate the round
+            next_round.status = RoundStatus.IN_PROGRESS
+            self.db.commit()
+        else:
+            # No more rounds - tournament is complete
+            bracket_format.is_finalized = True
+            self.db.commit()
+
     def _generate_next_guaranteed_round(self, completed_round: BracketRound):
         """
-        Generate next round for guaranteed matches format.
+        DEPRECATED: Generate next round for guaranteed matches format dynamically.
+
+        This function is kept for backwards compatibility but is no longer used
+        in the new pre-generation system. All rounds are now generated upfront
+        by _generate_guaranteed_matches().
 
         Ensures each player reaches their guaranteed match count.
         Pairs fighters based on similar records (Swiss-style) while
@@ -2027,6 +2087,349 @@ class TournamentEngine:
                 weight_class_id = player_data.get(player_id, {}).get('weight_class_id')
                 pairings.append((player_id, None, weight_class_id))
                 paired.add(player_id)
+
+        return pairings
+
+    def _weight_aware_guaranteed_pairing_no_byes(
+        self,
+        standings: Dict[int, Dict],
+        matchup_history: Dict[int, set],
+        max_rematches: int,
+        bracket_format: BracketFormat,
+        fighters_with_enough: List[int],
+        all_standings: Dict[int, Dict]
+    ) -> List[Tuple[int, int, Optional[int]]]:
+        """
+        Create pairings for guaranteed matches WITHOUT bye matches.
+
+        If odd number of fighters needing matches, pulls in a fighter who already has
+        enough matches to fill the gap. This ensures no bye matches are created.
+
+        Args:
+            standings: Standings for fighters who need more matches
+            matchup_history: History of who has faced whom
+            max_rematches: Maximum rematches allowed
+            bracket_format: Bracket format for querying player data
+            fighters_with_enough: List of fighter IDs who already have enough matches
+            all_standings: Complete standings including fighters_with_enough
+
+        Returns:
+            List of (player_a_id, player_b_id, weight_class_id) tuples (no None values)
+        """
+        # Get player weights, weight classes, and ELO from database
+        player_data = {}
+        all_fighter_ids = list(standings.keys()) + fighters_with_enough
+
+        for player_id in all_fighter_ids:
+            player = self.db.query(Player).filter(Player.id == player_id).first()
+            if player:
+                entry = self.db.query(Entry).filter(
+                    Entry.player_id == player_id,
+                    Entry.event_id == bracket_format.event_id
+                ).first()
+
+                player_data[player_id] = {
+                    'weight': player.weight or 0,
+                    'weight_class_id': entry.weight_class_id if entry else None,
+                    'elo': player.elo_rating or 1500
+                }
+
+        # Count rematches
+        rematch_counts = {}
+        for p1 in all_fighter_ids:
+            for p2 in matchup_history.get(p1, set()):
+                pair = tuple(sorted([p1, p2]))
+                rematch_counts[pair] = rematch_counts.get(pair, 0) + 1
+
+        # Sort fighters by weight class for efficient pairing
+        # Group by weight class to ensure we can find valid pairings
+        from collections import defaultdict
+        by_weight_class = defaultdict(list)
+        for player_id in standings.keys():
+            wc = player_data.get(player_id, {}).get('weight_class_id')
+            by_weight_class[wc].append(player_id)
+
+        # Shuffle within each weight class for variety
+        for wc_fighters in by_weight_class.values():
+            random.shuffle(wc_fighters)
+
+        # Flatten back to single list, keeping weight classes together
+        player_ids = []
+        for wc in sorted(by_weight_class.keys(), key=lambda x: x or 0):
+            player_ids.extend(by_weight_class[wc])
+
+        paired = set()
+        pairings = []
+
+        def get_weight_limit(weight1: float, weight2: float) -> float:
+            """Determine weight limit based on fighter weights"""
+            is_heavy1 = weight1 > 200
+            is_heavy2 = weight2 > 200
+            if is_heavy1 and is_heavy2:
+                return float("inf")
+            else:
+                return 30.0
+
+        def is_valid_weight_match(p1_id: int, p2_id: int) -> bool:
+            """Check if two fighters are within acceptable weight range"""
+            w1 = player_data.get(p1_id, {}).get('weight', 0)
+            w2 = player_data.get(p2_id, {}).get('weight', 0)
+            if w1 == 0 or w2 == 0:
+                return True
+            weight_diff = abs(w1 - w2)
+            limit = get_weight_limit(w1, w2)
+            return weight_diff <= limit
+
+        def get_match_weight_class(p1_id: int, p2_id: int) -> Optional[int]:
+            """Get weight class for match based on heavier fighter"""
+            w1 = player_data.get(p1_id, {}).get('weight', 0)
+            w2 = player_data.get(p2_id, {}).get('weight', 0)
+            if w1 >= w2:
+                return player_data.get(p1_id, {}).get('weight_class_id')
+            else:
+                return player_data.get(p2_id, {}).get('weight_class_id')
+
+        def same_weight_class(p1_id: int, p2_id: int) -> bool:
+            """Check if two fighters are in the same weight class"""
+            wc1 = player_data.get(p1_id, {}).get('weight_class_id')
+            wc2 = player_data.get(p2_id, {}).get('weight_class_id')
+            return wc1 is not None and wc1 == wc2
+
+        # Try to pair fighters who need matches with each other first
+        for i, player_id in enumerate(player_ids):
+            if player_id in paired:
+                continue
+
+            opponent_id = None
+
+            # Pass 1: Same weight class, within rematch limit
+            for j in range(i + 1, len(player_ids)):
+                candidate = player_ids[j]
+                if candidate in paired:
+                    continue
+                if not same_weight_class(player_id, candidate):
+                    continue
+                if not is_valid_weight_match(player_id, candidate):
+                    continue
+                pair = tuple(sorted([player_id, candidate]))
+                if rematch_counts.get(pair, 0) < max_rematches:
+                    opponent_id = candidate
+                    break
+
+            # Pass 2: Cross weight class, within rematch limit
+            if opponent_id is None:
+                for j in range(i + 1, len(player_ids)):
+                    candidate = player_ids[j]
+                    if candidate in paired:
+                        continue
+                    if same_weight_class(player_id, candidate):
+                        continue
+                    if not is_valid_weight_match(player_id, candidate):
+                        continue
+                    pair = tuple(sorted([player_id, candidate]))
+                    if rematch_counts.get(pair, 0) < max_rematches:
+                        opponent_id = candidate
+                        break
+
+            # Pass 3: Same weight class, allow rematch
+            if opponent_id is None:
+                for j in range(i + 1, len(player_ids)):
+                    candidate = player_ids[j]
+                    if candidate in paired:
+                        continue
+                    if not same_weight_class(player_id, candidate):
+                        continue
+                    if not is_valid_weight_match(player_id, candidate):
+                        continue
+                    opponent_id = candidate
+                    break
+
+            # Pass 4: Cross weight class, allow rematch
+            if opponent_id is None:
+                for j in range(i + 1, len(player_ids)):
+                    candidate = player_ids[j]
+                    if candidate in paired:
+                        continue
+                    if same_weight_class(player_id, candidate):
+                        continue
+                    if not is_valid_weight_match(player_id, candidate):
+                        continue
+                    opponent_id = candidate
+                    break
+
+            # Pass 5: Pull from fighters who have enough matches
+            if opponent_id is None and fighters_with_enough:
+                for candidate in fighters_with_enough:
+                    if candidate in paired:
+                        continue
+                    if not is_valid_weight_match(player_id, candidate):
+                        continue
+                    pair = tuple(sorted([player_id, candidate]))
+                    if rematch_counts.get(pair, 0) < max_rematches:
+                        opponent_id = candidate
+                        break
+
+            # Pass 6: Pull from fighters with enough, allow rematch
+            if opponent_id is None and fighters_with_enough:
+                for candidate in fighters_with_enough:
+                    if candidate in paired:
+                        continue
+                    if not is_valid_weight_match(player_id, candidate):
+                        continue
+                    opponent_id = candidate
+                    break
+
+            # Only create pairing if we found an opponent (no byes)
+            if opponent_id:
+                weight_class_id = get_match_weight_class(player_id, opponent_id)
+                pairings.append((player_id, opponent_id, weight_class_id))
+                paired.add(player_id)
+                paired.add(opponent_id)
+            # Note: If no opponent found, fighter remains unpaired
+            # This is OK - they may get paired when we retry with different shuffling
+
+        # If we have unpaired fighters, try one more time with rematches allowed
+        # to ensure everyone gets their guaranteed matches
+        unpaired = [pid for pid in player_ids if pid not in paired]
+        if len(unpaired) >= 2:
+            # Reshuffle the unpaired fighters and try again within this function call
+            random.shuffle(unpaired)
+            for i, player_id in enumerate(unpaired):
+                if player_id in paired:
+                    continue
+                opponent_id = None
+                # Try to find any valid opponent from remaining unpaired
+                for j in range(i + 1, len(unpaired)):
+                    candidate = unpaired[j]
+                    if candidate in paired:
+                        continue
+                    if not is_valid_weight_match(player_id, candidate):
+                        continue
+                    pair = tuple(sorted([player_id, candidate]))
+                    # Allow rematches if necessary to complete the bracket
+                    opponent_id = candidate
+                    break
+
+                if opponent_id:
+                    weight_class_id = get_match_weight_class(player_id, opponent_id)
+                    pairings.append((player_id, opponent_id, weight_class_id))
+                    paired.add(player_id)
+                    paired.add(opponent_id)
+
+        return pairings
+
+    def _guaranteed_pairing_no_byes(
+        self,
+        standings: Dict[int, Dict],
+        matchup_history: Dict[int, set],
+        max_rematches: int,
+        weight_class_id: Optional[int],
+        fighters_with_enough: List[int],
+        all_standings: Dict[int, Dict]
+    ) -> List[Tuple[int, int, Optional[int]]]:
+        """
+        Create pairings for single weight class brackets WITHOUT bye matches.
+
+        If odd number of fighters needing matches, pulls in a fighter who already has
+        enough matches to fill the gap.
+
+        Args:
+            standings: Standings for fighters who need more matches
+            matchup_history: History of who has faced whom
+            max_rematches: Maximum rematches allowed
+            weight_class_id: Weight class for all matches
+            fighters_with_enough: List of fighter IDs who already have enough matches
+            all_standings: Complete standings including fighters_with_enough
+
+        Returns:
+            List of (player_a_id, player_b_id, weight_class_id) tuples (no None values)
+        """
+        # Count rematches
+        rematch_counts = {}
+        all_fighter_ids = list(standings.keys()) + fighters_with_enough
+
+        for p1 in all_fighter_ids:
+            for p2 in matchup_history.get(p1, set()):
+                pair = tuple(sorted([p1, p2]))
+                rematch_counts[pair] = rematch_counts.get(pair, 0) + 1
+
+        # Shuffle fighters for variety
+        player_ids = list(standings.keys())
+        random.shuffle(player_ids)
+
+        paired = set()
+        pairings = []
+
+        # Pair fighters who need matches
+        for i, player_id in enumerate(player_ids):
+            if player_id in paired:
+                continue
+
+            opponent_id = None
+
+            # Try to find opponent from other fighters needing matches
+            for j in range(i + 1, len(player_ids)):
+                candidate = player_ids[j]
+                if candidate in paired:
+                    continue
+                pair = tuple(sorted([player_id, candidate]))
+                if rematch_counts.get(pair, 0) < max_rematches:
+                    opponent_id = candidate
+                    break
+
+            # Allow rematch if needed
+            if opponent_id is None:
+                for j in range(i + 1, len(player_ids)):
+                    candidate = player_ids[j]
+                    if candidate in paired:
+                        continue
+                    opponent_id = candidate
+                    break
+
+            # Pull from fighters with enough matches
+            if opponent_id is None and fighters_with_enough:
+                for candidate in fighters_with_enough:
+                    if candidate in paired:
+                        continue
+                    pair = tuple(sorted([player_id, candidate]))
+                    if rematch_counts.get(pair, 0) < max_rematches:
+                        opponent_id = candidate
+                        break
+
+            # Allow rematch with fighters who have enough
+            if opponent_id is None and fighters_with_enough:
+                for candidate in fighters_with_enough:
+                    if candidate in paired:
+                        continue
+                    opponent_id = candidate
+                    break
+
+            # Only create pairing if we found an opponent (no byes)
+            if opponent_id:
+                pairings.append((player_id, opponent_id, weight_class_id))
+                paired.add(player_id)
+                paired.add(opponent_id)
+
+        # Retry logic for unpaired fighters - allow rematches and cross-weight matches if within 30lbs
+        unpaired = [pid for pid in player_ids if pid not in paired]
+        if len(unpaired) >= 2:
+            random.shuffle(unpaired)
+            for i, player_id in enumerate(unpaired):
+                if player_id in paired:
+                    continue
+                opponent_id = None
+                for j in range(i + 1, len(unpaired)):
+                    candidate = unpaired[j]
+                    if candidate in paired:
+                        continue
+                    # Allow rematches if necessary
+                    opponent_id = candidate
+                    break
+
+                if opponent_id:
+                    pairings.append((player_id, opponent_id, weight_class_id))
+                    paired.add(player_id)
+                    paired.add(opponent_id)
 
         return pairings
 

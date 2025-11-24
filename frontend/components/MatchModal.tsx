@@ -454,6 +454,74 @@ export default function MatchModal({ matchId, isOpen, onClose, onResultSubmitted
             </div>
           </div>
 
+          {/* Previous Matches History */}
+          {head_to_head.recent_matches && head_to_head.recent_matches.length > 0 && (
+            <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-6 mb-8">
+              <h3 className="text-xl font-heading font-bold mb-4">PREVIOUS MATCHES</h3>
+              <div className="space-y-3">
+                {head_to_head.recent_matches.map((match: any, index: number) => {
+                  // Check result field first, then fall back to winner_id
+                  let isDraw = false;
+                  let isPlayerAWinner = false;
+                  let isPlayerBWinner = false;
+
+                  if (match.result) {
+                    // Use result field if available (player_a_win, player_b_win, draw)
+                    isDraw = match.result === 'draw';
+                    isPlayerAWinner = match.result === 'player_a_win';
+                    isPlayerBWinner = match.result === 'player_b_win';
+                  } else if (match.winner_id) {
+                    // Fall back to winner_id
+                    isPlayerAWinner = match.winner_id === player_a.id;
+                    isPlayerBWinner = match.winner_id === player_b.id;
+                  } else {
+                    isDraw = true;
+                  }
+
+                  return (
+                    <div key={index} className="bg-white dark:bg-gray-800 rounded-lg p-4 border-l-4 border-gray-300">
+                      <div className="flex justify-between items-start mb-2">
+                        <div className="flex-1">
+                          <div className="font-bold">
+                            {isDraw ? (
+                              <span className="text-yellow-600">DRAW</span>
+                            ) : (
+                              <span className={isPlayerAWinner ? 'text-green-600' : 'text-red-600'}>
+                                {isPlayerAWinner ? `${player_a.name} WON` : `${player_b.name} WON`}
+                              </span>
+                            )}
+                          </div>
+                          {match.method && (
+                            <div className="text-sm text-gray-600 dark:text-gray-400">
+                              Method: {match.method}
+                            </div>
+                          )}
+                          {match.duration_seconds && (
+                            <div className="text-sm text-gray-600 dark:text-gray-400">
+                              Time: {Math.floor(match.duration_seconds / 60)}:{(match.duration_seconds % 60).toString().padStart(2, '0')}
+                            </div>
+                          )}
+                        </div>
+                        <div className="text-right">
+                          {match.event_name && (
+                            <div className="text-sm font-bold text-gray-700 dark:text-gray-300">
+                              {match.event_name}
+                            </div>
+                          )}
+                          {match.round_name && (
+                            <div className="text-xs text-gray-500">
+                              {match.round_name}
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+
           {/* ELO Prediction */}
           <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-6 mb-8">
             <h3 className="text-xl font-heading font-bold mb-4">ELO IMPACT - ALL OUTCOMES</h3>
@@ -633,7 +701,7 @@ export default function MatchModal({ matchId, isOpen, onClose, onResultSubmitted
                   value={method}
                   onChange={(e) => setMethod(e.target.value)}
                   placeholder="e.g., Rear Naked Choke"
-                  className="w-full p-3 border-2 border-gray-300 rounded-lg focus:border-mbjj-red focus:outline-none"
+                  className="w-full p-3 border-2 border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg focus:border-mbjj-red focus:outline-none"
                 />
               </div>
 
@@ -646,7 +714,7 @@ export default function MatchModal({ matchId, isOpen, onClose, onResultSubmitted
                     onChange={(e) => setDurationMinutes(e.target.value)}
                     placeholder="0"
                     min="0"
-                    className="w-full p-3 border-2 border-gray-300 rounded-lg focus:border-mbjj-red focus:outline-none"
+                    className="w-full p-3 border-2 border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg focus:border-mbjj-red focus:outline-none"
                   />
                 </div>
 

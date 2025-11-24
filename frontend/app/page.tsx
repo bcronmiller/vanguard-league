@@ -1,7 +1,7 @@
-'use client';
-
-import { useState, useEffect } from 'react';
+import Image from 'next/image';
 import { config } from '@/lib/config';
+
+export const dynamic = 'force-dynamic';
 
 interface Player {
   id: number;
@@ -55,162 +55,132 @@ interface Academy {
   website: string | null;
 }
 
-export default function Home() {
-  const apiUrl = config.apiUrl;
-  const readOnly = config.readOnly;
-  const isStatic = process.env.NEXT_PUBLIC_STATIC_MODE === 'true';
+type FetchResult<T> = { data: T | null; error: string | null };
 
-  const [stats, setStats] = useState({ players: 0, matches: 0 });
-  const [ladderData, setLadderData] = useState<LadderData>({
+const isStatic = process.env.NEXT_PUBLIC_STATIC_MODE === 'true';
+const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+const staticBase = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
+const readOnly = config.readOnly;
+
+const buildEndpoint = (path: string, staticPath: string) =>
+  isStatic ? new URL(staticPath, staticBase).toString() : `${apiUrl}${path}`;
+
+async function fetchJson<T>(url: string, label: string): Promise<FetchResult<T>> {
+  try {
+    const res = await fetch(url, { cache: 'no-store' });
+    if (!res.ok) {
+      return { data: null, error: label };
+    }
+    return { data: (await res.json()) as T, error: null };
+  } catch {
+    return { data: null, error: label };
+  }
+}
+
+async function loadData() {
+  const errors: string[] = [];
+
+  const eventsEndpoint = buildEndpoint('/api/events', '/data/events.json');
+  const playersEndpoint = buildEndpoint('/api/players', '/data/players.json');
+  const lwEndpoint = buildEndpoint('/api/ladder/weight-class/Lightweight', '/data/ladder-lightweight.json');
+  const mwEndpoint = buildEndpoint('/api/ladder/weight-class/Middleweight', '/data/ladder-middleweight.json');
+  const hwEndpoint = buildEndpoint('/api/ladder/weight-class/Heavyweight', '/data/ladder-heavyweight.json');
+  const overallEndpoint = buildEndpoint('/api/ladder/overall', '/data/ladder-overall.json');
+  const academiesEndpoint = buildEndpoint('/api/academies/rankings', '/data/academy-rankings.json');
+
+  const [eventsRes, lwRes, mwRes, hwRes, overallRes, academiesRes, playersRes] = await Promise.all([
+    fetchJson<Event[]>(eventsEndpoint, 'Events'),
+    fetchJson<any>(lwEndpoint, 'Lightweight ladder'),
+    fetchJson<any>(mwEndpoint, 'Middleweight ladder'),
+    fetchJson<any>(hwEndpoint, 'Heavyweight ladder'),
+    fetchJson<any>(overallEndpoint, 'Overall ladder'),
+    fetchJson<{ academies: Academy[] }>(academiesEndpoint, 'Academies'),
+    fetchJson<any[]>(playersEndpoint, 'Players'),
+  ]);
+
+  if (eventsRes.error) errors.push(eventsRes.error);
+  if (lwRes.error) errors.push(lwRes.error);
+  if (mwRes.error) errors.push(mwRes.error);
+  if (hwRes.error) errors.push(hwRes.error);
+  if (overallRes.error) errors.push(overallRes.error);
+  if (academiesRes.error) errors.push(academiesRes.error);
+  if (playersRes.error) errors.push(playersRes.error);
+
+  const events = eventsRes.data || [];
+
+  // Calculate total matches across events
+  let totalMatches = 0;
+  if (events.length > 0) {
+    const matchCounts = await Promise.all(
+      events.map(async (event) => {
+        const matchEndpoint = buildEndpoint(`/api/events/${event.id}/matches`, `/data/matches-event-${event.id}.json`);
+        const res = await fetchJson<any[]>(matchEndpoint, `Event ${event.id} matches`);
+        if (res.error) {
+          errors.push(res.error);
+        }
+        return Array.isArray(res.data) ? res.data.length : 0;
+      })
+    );
+    totalMatches = matchCounts.reduce((sum, count) => sum + count, 0);
+  }
+
+  const convertLadderEntry = (entry: any): LadderStanding => ({
+    player: {
+      id: entry.player_id ?? entry.player?.id,
+      name: entry.player_name ?? entry.player?.name ?? 'Unknown',
+      bjj_belt_rank: entry.belt_rank ?? entry.player?.bjj_belt_rank,
+      weight: entry.player?.weight ?? null,
+      weight_class_name: entry.player?.weight_class_name ?? null,
+      elo_rating: entry.elo_rating ?? entry.player?.elo_rating ?? 0,
+      initial_elo_rating: entry.initial_elo_rating ?? entry.player?.initial_elo_rating ?? 0,
+      photo_url: entry.photo_url ?? entry.player?.photo_url ?? null,
+      academy: entry.player?.academy ?? null,
+    },
+    wins: entry.wins ?? 0,
+    losses: entry.losses ?? 0,
+    draws: entry.draws ?? 0,
+  });
+
+  const ladderData: LadderData = {
     overall: [],
     lightweight: [],
     middleweight: [],
-    heavyweight: []
-  });
-  const [academies, setAcademies] = useState<Academy[]>([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    loadData();
-  }, []);
-
-  const loadData = async () => {
-    try {
-      const eventsEndpoint = isStatic ? '/data/events.json' : `${apiUrl}/api/events`;
-      const playersEndpoint = isStatic ? '/data/players.json' : `${apiUrl}/api/players`;
-      const lwEndpoint = isStatic ? '/data/ladder-lightweight.json' : `${apiUrl}/api/ladder/weight-class/Lightweight`;
-      const mwEndpoint = isStatic ? '/data/ladder-middleweight.json' : `${apiUrl}/api/ladder/weight-class/Middleweight`;
-      const hwEndpoint = isStatic ? '/data/ladder-heavyweight.json' : `${apiUrl}/api/ladder/weight-class/Heavyweight`;
-      const overallEndpoint = isStatic ? '/data/ladder-overall.json' : `${apiUrl}/api/ladder/overall`;
-      const academiesEndpoint = isStatic ? '/data/academy-rankings.json' : `${apiUrl}/api/academies/rankings`;
-
-      // Fetch events, weight class ladders, overall ladder, academies, and all players in parallel
-      const [eventsRes, lwRes, mwRes, hwRes, overallRes, academiesRes, playersRes] = await Promise.all([
-        fetch(eventsEndpoint, { cache: 'no-store' }),
-        fetch(lwEndpoint, { cache: 'no-store' }),
-        fetch(mwEndpoint, { cache: 'no-store' }),
-        fetch(hwEndpoint, { cache: 'no-store' }),
-        fetch(overallEndpoint, { cache: 'no-store' }),
-        fetch(academiesEndpoint, { cache: 'no-store' }),
-        fetch(playersEndpoint, { cache: 'no-store' })
-      ]);
-
-      // Process matches from all events in parallel
-      if (eventsRes.ok) {
-        const events: Event[] = await eventsRes.json();
-
-        // Fetch all event matches in parallel
-        const matchPromises = events.map(async (event) => {
-          try {
-            const matchEndpoint = isStatic
-              ? `/data/matches-event-${event.id}.json`
-              : `${apiUrl}/api/events/${event.id}/matches`;
-            const matchRes = await fetch(matchEndpoint, { cache: 'no-store' });
-            if (matchRes.ok) {
-              const data = await matchRes.json();
-              return Array.isArray(data) ? data.length : 0;
-            }
-            return 0;
-          } catch {
-            return 0;
-          }
-        });
-
-        const matchCounts = await Promise.all(matchPromises);
-        const totalMatches = matchCounts.reduce((sum, count) => sum + count, 0);
-        setStats(prev => ({ ...prev, matches: totalMatches }));
-      }
-
-      // Process weight class ladder data
-      const convertLadderEntry = (entry: any): LadderStanding => ({
-        player: {
-          id: entry.player_id,
-          name: entry.player_name,
-          bjj_belt_rank: entry.belt_rank,
-          weight: null,
-          weight_class_name: null,
-          elo_rating: entry.elo_rating,
-          initial_elo_rating: entry.initial_elo_rating,
-          photo_url: entry.photo_url,
-          academy: null
-        },
-        wins: entry.wins,
-        losses: entry.losses,
-        draws: entry.draws
-      });
-
-      const lightweight: LadderStanding[] = [];
-      const middleweight: LadderStanding[] = [];
-      const heavyweight: LadderStanding[] = [];
-      const overall: LadderStanding[] = [];
-
-      if (lwRes.ok) {
-        const lwData = await lwRes.json();
-        const standings = isStatic ? lwData.standings : lwData.standings || [];
-        lightweight.push(...standings.map(convertLadderEntry));
-      }
-
-      if (mwRes.ok) {
-        const mwData = await mwRes.json();
-        const standings = isStatic ? mwData.standings : mwData.standings || [];
-        middleweight.push(...standings.map(convertLadderEntry));
-      }
-
-      if (hwRes.ok) {
-        const hwData = await hwRes.json();
-        const standings = isStatic ? hwData.standings : hwData.standings || [];
-        heavyweight.push(...standings.map(convertLadderEntry));
-      }
-
-      // Load overall ladder (already sorted by ELO improvement)
-      if (overallRes.ok) {
-        const overallData = await overallRes.json();
-        if (Array.isArray(overallData)) {
-          overall.push(...overallData.map((entry: any) => ({
-            player: {
-              id: entry.player.id,
-              name: entry.player.name,
-              bjj_belt_rank: entry.player.bjj_belt_rank,
-              weight: entry.player.weight,
-              weight_class_name: entry.player.weight_class_name,
-              elo_rating: entry.player.elo_rating,
-              initial_elo_rating: entry.player.initial_elo_rating,
-              photo_url: entry.player.photo_url,
-              academy: entry.player.academy
-            },
-            wins: entry.wins,
-            losses: entry.losses,
-            draws: entry.draws
-          })));
-        }
-      }
-
-      setLadderData({
-        overall,
-        lightweight,
-        middleweight,
-        heavyweight
-      });
-
-      // Count total registered fighters (all players)
-      if (playersRes.ok) {
-        const allPlayers = await playersRes.json();
-        setStats(prev => ({ ...prev, players: allPlayers.length }));
-      }
-
-      // Load academy rankings
-      if (academiesRes.ok) {
-        const academyData = await academiesRes.json();
-        if (academyData.academies && Array.isArray(academyData.academies)) {
-          setAcademies(academyData.academies);
-        }
-      }
-    } catch (e) {
-      console.error('Failed to load data:', e);
-    } finally {
-      setLoading(false);
-    }
+    heavyweight: [],
   };
+
+  if (lwRes.data) {
+    const standings = isStatic ? lwRes.data.standings : lwRes.data.standings || [];
+    ladderData.lightweight.push(...standings.map(convertLadderEntry));
+  }
+
+  if (mwRes.data) {
+    const standings = isStatic ? mwRes.data.standings : mwRes.data.standings || [];
+    ladderData.middleweight.push(...standings.map(convertLadderEntry));
+  }
+
+  if (hwRes.data) {
+    const standings = isStatic ? hwRes.data.standings : hwRes.data.standings || [];
+    ladderData.heavyweight.push(...standings.map(convertLadderEntry));
+  }
+
+  if (overallRes.data && Array.isArray(overallRes.data)) {
+    ladderData.overall.push(...overallRes.data.map(convertLadderEntry));
+  }
+
+  const stats = {
+    players: Array.isArray(playersRes.data) ? playersRes.data.length : 0,
+    matches: totalMatches,
+  };
+
+  const academies = academiesRes.data?.academies && Array.isArray(academiesRes.data.academies)
+    ? academiesRes.data.academies
+    : [];
+
+  return { ladderData, stats, academies, errors };
+}
+
+export default async function Home() {
+  const { ladderData, stats, academies, errors } = await loadData();
 
   return (
     <div className="min-h-screen flex flex-col bg-white dark:bg-mbjj-dark">
@@ -220,9 +190,12 @@ export default function Home() {
           <div className="text-center">
             {/* VGG Logo */}
             <div className="flex justify-center mb-4">
-              <img
+              <Image
                 src="/vgg-logo.png"
                 alt="VanGuard Gym"
+                width={320}
+                height={160}
+                priority
                 className="h-24 md:h-32 w-auto"
               />
             </div>
@@ -252,14 +225,21 @@ export default function Home() {
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
             <div className="text-center p-6 bg-black/20 rounded-lg backdrop-blur">
-              <div className="text-6xl font-heading font-bold mb-2">{stats.players}</div>
+              <div className="text-6xl font-heading font-bold mb-2">
+                {stats.players ?? 0}
+              </div>
               <div className="text-xl font-heading uppercase tracking-wide">Registered Fighters</div>
-              <a href="/players" className="inline-block mt-4 px-6 py-2 bg-white text-mbjj-red font-heading font-bold rounded hover:bg-gray-100 transition">
+              <a
+                href="/players"
+                className="inline-block mt-4 px-6 py-2 bg-white text-mbjj-red font-heading font-bold rounded hover:bg-gray-100 transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+              >
                 VIEW ROSTER →
               </a>
             </div>
             <div className="text-center p-6 bg-black/20 rounded-lg backdrop-blur">
-              <div className="text-6xl font-heading font-bold mb-2">{stats.matches}</div>
+              <div className="text-6xl font-heading font-bold mb-2">
+                {stats.matches ?? 0}
+              </div>
               <div className="text-xl font-heading uppercase tracking-wide">Matches Recorded</div>
               <div className="mt-4 text-gray-200">
                 Since November 2025
@@ -268,13 +248,27 @@ export default function Home() {
             <div className="text-center p-6 bg-black/20 rounded-lg backdrop-blur">
               <div className="text-6xl font-heading font-bold mb-2">📹</div>
               <div className="text-xl font-heading uppercase tracking-wide">Events</div>
-              <a href="/schedule" className="inline-block mt-4 px-6 py-2 bg-white text-mbjj-red font-heading font-bold rounded hover:bg-gray-100 transition">
+              <a
+                href="/schedule"
+                className="inline-block mt-4 px-6 py-2 bg-white text-mbjj-red font-heading font-bold rounded hover:bg-gray-100 transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+              >
                 VIEW SCHEDULE →
               </a>
             </div>
           </div>
         </div>
       </section>
+
+      {errors.length > 0 && (
+        <div className="bg-red-50 text-red-900 border border-red-200 px-4 py-3">
+          <div className="container mx-auto px-2">
+            <p className="font-heading font-bold">Some data failed to load.</p>
+            <p className="text-sm">
+              Issues: {errors.join(', ')}. Showing what is available; retry or refresh once APIs are up.
+            </p>
+          </div>
+        </div>
+      )}
 
       <main className="flex-1 container mx-auto px-4 py-12">
         {/* About Section */}
@@ -402,7 +396,7 @@ export default function Home() {
               href="https://forms.gle/2HzZfk8VuGBVNfnx5"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-block bg-mbjj-red hover:bg-mbjj-accent-light text-white font-heading font-bold text-lg px-8 py-3 rounded-lg transition shadow-md"
+              className="inline-block bg-mbjj-red hover:bg-mbjj-accent-light text-white font-heading font-bold text-lg px-8 py-3 rounded-lg transition shadow-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mbjj-red"
             >
               PRE-REGISTER FOR NEXT EVENT →
             </a>
@@ -425,7 +419,10 @@ export default function Home() {
 
               <div className="grid md:grid-cols-3 gap-6">
                 {/* Events */}
-                <a href="/events" className="bg-white/10 hover:bg-white/20 border-2 border-mbjj-red rounded-lg p-8 text-center transition group">
+                <a
+                  href="/events"
+                  className="bg-white/10 hover:bg-white/20 border-2 border-mbjj-red rounded-lg p-8 text-center transition group focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mbjj-accent-light"
+                >
                   <div className="text-5xl mb-4">📅</div>
                   <h3 className="text-2xl font-heading font-bold mb-2 group-hover:text-mbjj-accent-light">
                     EVENTS
@@ -436,7 +433,10 @@ export default function Home() {
                 </a>
 
                 {/* Players */}
-                <a href="/players" className="bg-white/10 hover:bg-white/20 border-2 border-mbjj-blue rounded-lg p-8 text-center transition group">
+                <a
+                  href="/players"
+                  className="bg-white/10 hover:bg-white/20 border-2 border-mbjj-blue rounded-lg p-8 text-center transition group focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mbjj-accent-light"
+                >
                   <div className="text-5xl mb-4">👥</div>
                   <h3 className="text-2xl font-heading font-bold mb-2 group-hover:text-mbjj-accent-light">
                     PLAYERS
@@ -447,7 +447,10 @@ export default function Home() {
                 </a>
 
                 {/* Register Fighter */}
-                <a href="/register" className="bg-white/10 hover:bg-white/20 border-2 border-mbjj-accent-light rounded-lg p-8 text-center transition group">
+                <a
+                  href="/register"
+                  className="bg-white/10 hover:bg-white/20 border-2 border-mbjj-accent-light rounded-lg p-8 text-center transition group focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mbjj-accent-light"
+                >
                   <div className="text-5xl mb-4">➕</div>
                   <h3 className="text-2xl font-heading font-bold mb-2 group-hover:text-mbjj-accent-light">
                     REGISTER
@@ -458,7 +461,10 @@ export default function Home() {
                 </a>
 
                 {/* Quick Access */}
-                <a href="/events/2/checkin" className="bg-white/10 hover:bg-white/20 border-2 border-mbjj-red rounded-lg p-8 text-center transition group">
+                <a
+                  href="/events/2/checkin"
+                  className="bg-white/10 hover:bg-white/20 border-2 border-mbjj-red rounded-lg p-8 text-center transition group focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mbjj-accent-light"
+                >
                   <div className="text-5xl mb-4">⚡</div>
                   <h3 className="text-2xl font-heading font-bold mb-2 group-hover:text-mbjj-accent-light">
                     VGL 2
@@ -514,7 +520,7 @@ export default function Home() {
                     </div>
                   </div>
                 ) : (
-                  <p className="text-center text-gray-500 py-4">No fighters yet</p>
+                  <div className="text-center text-gray-500 py-4">No fighters yet</div>
                 )}
               </div>
             </a>
@@ -640,103 +646,113 @@ export default function Home() {
             Ranked by average ELO increase of improving fighters only
           </p>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-            {academies.map((academy, idx) => (
-              <div key={academy.academy_name} className="bg-white dark:bg-gray-800 rounded-lg shadow-lg border-t-4 border-mbjj-blue overflow-hidden hover:shadow-2xl transition">
-                <div className="bg-gradient-to-r from-mbjj-blue to-mbjj-accent-light text-white p-4">
-                  <div className="flex items-center justify-between">
-                    <div className="flex-1">
-                      <h3 className="font-heading font-bold text-lg">
-                        {academy.academy_name}
-                      </h3>
-                      <p className="text-xs text-gray-200">
-                        {academy.fighter_count} fighter{academy.fighter_count !== 1 ? 's' : ''}
-                      </p>
+            {academies.length === 0 ? (
+              <div className="md:col-span-2 lg:col-span-3 text-center text-gray-500">No academies yet</div>
+            ) : (
+              academies.map((academy) => (
+                <div key={academy.academy_name} className="bg-white dark:bg-gray-800 rounded-lg shadow-lg border-t-4 border-mbjj-blue overflow-hidden hover:shadow-2xl transition">
+                  <div className="bg-gradient-to-r from-mbjj-blue to-mbjj-accent-light text-white p-4">
+                    <div className="flex items-center justify-between">
+                      <div className="flex-1">
+                        <h3 className="font-heading font-bold text-lg">
+                          {academy.academy_name}
+                        </h3>
+                        <p className="text-xs text-gray-200">
+                          {academy.fighter_count} fighter{academy.fighter_count !== 1 ? 's' : ''}
+                        </p>
+                      </div>
+                      {academy.logo_url && (
+                        <Image
+                          src={academy.logo_url}
+                          alt={academy.academy_name}
+                          loading="lazy"
+                          width={48}
+                          height={48}
+                          className="w-12 h-12 rounded-full bg-white p-1 object-contain"
+                        />
+                      )}
                     </div>
-                    {academy.logo_url && (
-                      <img
-                        src={academy.logo_url}
-                        alt={academy.academy_name}
-                        className="w-12 h-12 rounded-full bg-white p-1 object-contain"
-                      />
+                  </div>
+                  <div className="p-6">
+                    <div className="mb-4">
+                      <div className="text-center mb-3">
+                        <div className={`text-4xl font-heading font-bold ${
+                          academy.climber_count > 0
+                            ? 'text-green-600 dark:text-green-400'
+                            : 'text-gray-400 dark:text-gray-500'
+                        }`}>
+                          {academy.climber_count > 0 ? '+' : ''}
+                          {academy.avg_elo_change.toFixed(1)}
+                        </div>
+                        <div className="text-xs text-gray-500 dark:text-gray-400 uppercase tracking-wide">
+                          Avg ELO Increase
+                        </div>
+                        <div className="text-xs text-gray-400 dark:text-gray-500 mt-1">
+                          {academy.climber_count > 0 ? (
+                            <span>{academy.climber_count} climber{academy.climber_count !== 1 ? 's' : ''}</span>
+                          ) : (
+                            <span className="italic">No climbers yet</span>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Top 3 Fighters */}
+                    <div className="space-y-2">
+                      <div className="text-xs font-heading font-bold text-gray-600 dark:text-gray-400 uppercase mb-2">
+                        Top Fighters
+                      </div>
+                      {academy.fighters
+                        .sort((a, b) => b.elo_change - a.elo_change)
+                        .slice(0, 3)
+                        .map((fighter) => (
+                          <div key={fighter.id} className="flex items-center justify-between text-sm">
+                            <div className="flex items-center gap-2">
+                              {fighter.photo_url ? (
+                                <Image
+                                  src={fighter.photo_url}
+                                  alt={fighter.name}
+                                  loading="lazy"
+                                  width={24}
+                                  height={24}
+                                  className="w-6 h-6 rounded-full border border-gray-300 object-cover"
+                                />
+                              ) : (
+                                <div className="w-6 h-6 rounded-full bg-gray-300 dark:bg-gray-600 flex items-center justify-center text-xs">
+                                  {fighter.name.charAt(0)}
+                                </div>
+                              )}
+                              <span className="text-gray-700 dark:text-gray-300 truncate max-w-[120px]">
+                                {fighter.name.split(' ')[0]} {fighter.name.split(' ').slice(-1)[0].charAt(0)}.
+                              </span>
+                            </div>
+                            <span className={`font-heading font-bold ${
+                              fighter.elo_change >= 0
+                                ? 'text-green-600 dark:text-green-400'
+                                : 'text-red-600 dark:text-red-400'
+                            }`}>
+                              {fighter.elo_change >= 0 ? '+' : ''}{Math.round(fighter.elo_change)}
+                            </span>
+                          </div>
+                        ))}
+                    </div>
+
+                    {academy.website && (
+                      <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+                        <a
+                          href={academy.website}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-mbjj-blue hover:text-mbjj-red text-xs font-heading font-bold transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mbjj-blue"
+                        >
+                          Visit Website →
+                        </a>
+                      </div>
                     )}
                   </div>
                 </div>
-                <div className="p-6">
-                  <div className="mb-4">
-                    <div className="text-center mb-3">
-                      <div className={`text-4xl font-heading font-bold ${
-                        academy.climber_count > 0
-                          ? 'text-green-600 dark:text-green-400'
-                          : 'text-gray-400 dark:text-gray-500'
-                      }`}>
-                        {academy.climber_count > 0 ? '+' : ''}
-                        {academy.avg_elo_change.toFixed(1)}
-                      </div>
-                      <div className="text-xs text-gray-500 dark:text-gray-400 uppercase tracking-wide">
-                        Avg ELO Increase
-                      </div>
-                      <div className="text-xs text-gray-400 dark:text-gray-500 mt-1">
-                        {academy.climber_count > 0 ? (
-                          <span>{academy.climber_count} climber{academy.climber_count !== 1 ? 's' : ''}</span>
-                        ) : (
-                          <span className="italic">No climbers yet</span>
-                        )}
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Top 3 Fighters */}
-                  <div className="space-y-2">
-                    <div className="text-xs font-heading font-bold text-gray-600 dark:text-gray-400 uppercase mb-2">
-                      Top Fighters
-                    </div>
-                    {academy.fighters
-                      .sort((a, b) => b.elo_change - a.elo_change)
-                      .slice(0, 3)
-                      .map((fighter, fighterIdx) => (
-                        <div key={fighter.id} className="flex items-center justify-between text-sm">
-                          <div className="flex items-center gap-2">
-                            {fighter.photo_url ? (
-                              <img
-                                src={fighter.photo_url}
-                                alt={fighter.name}
-                                className="w-6 h-6 rounded-full border border-gray-300 object-cover"
-                              />
-                            ) : (
-                              <div className="w-6 h-6 rounded-full bg-gray-300 dark:bg-gray-600 flex items-center justify-center text-xs">
-                                {fighter.name.charAt(0)}
-                              </div>
-                            )}
-                            <span className="text-gray-700 dark:text-gray-300 truncate max-w-[120px]">
-                              {fighter.name.split(' ')[0]} {fighter.name.split(' ').slice(-1)[0].charAt(0)}.
-                            </span>
-                          </div>
-                          <span className={`font-heading font-bold ${
-                            fighter.elo_change >= 0
-                              ? 'text-green-600 dark:text-green-400'
-                              : 'text-red-600 dark:text-red-400'
-                          }`}>
-                            {fighter.elo_change >= 0 ? '+' : ''}{Math.round(fighter.elo_change)}
-                          </span>
-                        </div>
-                      ))}
-                  </div>
-
-                  {academy.website && (
-                    <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
-                      <a
-                        href={academy.website}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-mbjj-blue hover:text-mbjj-red text-xs font-heading font-bold transition"
-                      >
-                        Visit Website →
-                      </a>
-                    </div>
-                  )}
-                </div>
-              </div>
-            ))}
+              ))
+            )}
           </div>
 
           <div className="text-center mt-8">
@@ -762,9 +778,11 @@ export default function Home() {
                   <h4 className="text-2xl font-heading font-bold">NEFF BROS. STONE</h4>
                 </div>
                 <div className="p-4 text-center flex flex-col items-center">
-                  <img
+                  <Image
                     src="https://neffbrothersstone.com/wp-content/uploads/2022/12/cropped-NeffBROSlogo.png"
                     alt="Neff Bros. Stone"
+                    width={360}
+                    height={128}
                     className="h-32 w-full object-contain mb-3"
                   />
                   <p className="text-gray-600 dark:text-gray-400 text-sm mb-3">
@@ -787,9 +805,11 @@ export default function Home() {
                   <h4 className="text-2xl font-heading font-bold">LEADMARK CONTRACTING</h4>
                 </div>
                 <div className="p-4 text-center flex flex-col items-center">
-                  <img
+                  <Image
                     src="https://leadmk.com/wp-content/uploads/2025/04/image-5-removebg-preview.png"
                     alt="Leadmark Contracting"
+                    width={320}
+                    height={100}
                     className="h-16 object-contain mb-3"
                   />
                   <p className="text-gray-600 dark:text-gray-400 text-sm mb-3">
@@ -812,9 +832,11 @@ export default function Home() {
                   <h4 className="text-2xl font-heading font-bold">PRECISION LAWN & LANDSCAPE</h4>
                 </div>
                 <div className="p-4 text-center flex flex-col items-center">
-                  <img
+                  <Image
                     src="https://precisionlawnandlandscape.com/wp-content/uploads/2023/12/logo.webp"
                     alt="Precision Lawn & Landscape"
+                    width={320}
+                    height={100}
                     className="h-16 object-contain mb-3"
                   />
                   <p className="text-gray-600 dark:text-gray-400 text-sm mb-3">
@@ -837,9 +859,11 @@ export default function Home() {
                   <h4 className="text-2xl font-heading font-bold">HALSE REMODELING</h4>
                 </div>
                 <div className="p-4 text-center flex flex-col items-center">
-                  <img
+                  <Image
                     src="https://i.imgur.com/hTMFjyj.png"
                     alt="Halse Remodeling"
+                    width={360}
+                    height={128}
                     className="h-32 w-full object-contain mb-3"
                   />
                   <p className="text-gray-600 dark:text-gray-400 text-sm mb-3">
@@ -862,9 +886,11 @@ export default function Home() {
                   <h4 className="text-2xl font-heading font-bold">GAME DAY MEN'S HEALTH</h4>
                 </div>
                 <div className="p-4 text-center flex flex-col items-center">
-                  <img
+                  <Image
                     src="https://i.imgur.com/TqHjlU1.png"
                     alt="Game Day Men's Health"
+                    width={320}
+                    height={100}
                     className="h-16 object-contain mb-3"
                   />
                   <p className="text-gray-600 dark:text-gray-400 text-sm mb-3">
@@ -887,9 +913,11 @@ export default function Home() {
                   <h4 className="text-2xl font-heading font-bold">ATTN2DETAIL MERCANTILE</h4>
                 </div>
                 <div className="p-4 text-center flex flex-col items-center">
-                  <img
+                  <Image
                     src="https://attn2detailmercantile.com/cdn/shop/files/Red_Knife_Girl_213x150.png?v=1702409843"
                     alt="Attn2DetailMercantile"
+                    width={320}
+                    height={120}
                     className="h-16 object-contain mb-3"
                   />
                   <p className="text-gray-600 dark:text-gray-400 text-sm mb-3">

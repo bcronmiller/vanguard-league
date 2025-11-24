@@ -56,7 +56,7 @@ export default function BracketsPage({ params }: { params: { id: string } | Prom
   const [players, setPlayers] = useState<Record<number, Player>>({});
   const [loading, setLoading] = useState(true);
   const [generating, setGenerating] = useState(false);
-  const [format, setFormat] = useState<'single_elimination' | 'double_elimination' | 'swiss' | 'round_robin' | 'guaranteed_matches'>('single_elimination');
+  const [selectedRecommendation, setSelectedRecommendation] = useState<any | null>(null);
   const [selectedWeightClass, setSelectedWeightClass] = useState<number | null>(null); // null = all fighters
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedMatchId, setSelectedMatchId] = useState<number | null>(null);
@@ -159,21 +159,24 @@ export default function BracketsPage({ params }: { params: { id: string } | Prom
   };
 
   const createAndGenerateBracket = async () => {
+    if (!selectedRecommendation) {
+      alert('Please select a bracket format');
+      return;
+    }
+
     const weightClassName = selectedWeightClass === 1 ? 'Lightweight' :
                            selectedWeightClass === 2 ? 'Middleweight' :
                            selectedWeightClass === 3 ? 'Heavyweight' : 'All Fighters';
 
-    if (!confirm(`Generate ${format.replace(/_/g, ' ')} bracket for ${weightClassName}?\n\nThis will create match pairings.`)) return;
+    if (!confirm(`Generate ${selectedRecommendation.format_name} bracket for ${weightClassName}?\n\nThis will create match pairings.`)) return;
 
     setGenerating(true);
     try {
-      // Find the selected recommendation to get its config
-      const selectedRec = recommendations.find(r => r.format === format);
       const bracketConfig: any = {};
 
       // For guaranteed_matches, include match_count
-      if (format === 'guaranteed_matches' && selectedRec) {
-        bracketConfig.match_count = selectedRec.matches_per_fighter;
+      if (selectedRecommendation.format === 'guaranteed_matches') {
+        bracketConfig.match_count = selectedRecommendation.matches_per_fighter;
         bracketConfig.weight_based_pairing = true;  // Enable weight-based pairing
       }
 
@@ -184,7 +187,7 @@ export default function BracketsPage({ params }: { params: { id: string } | Prom
         body: JSON.stringify({
           event_id: parseInt(eventId),
           weight_class_id: selectedWeightClass, // null = all fighters, or specific weight class ID
-          format_type: format,
+          format_type: selectedRecommendation.format,
           config: bracketConfig,
           min_rest_minutes: 30
         })
@@ -332,14 +335,14 @@ export default function BracketsPage({ params }: { params: { id: string } | Prom
 
             {/* Format Recommendations */}
             <div className="max-w-2xl mx-auto space-y-3 mb-8">
-              {recommendations.map((rec) => {
-                const isSelected = format === rec.format;
+              {recommendations.map((rec, index) => {
+                const isSelected = selectedRecommendation?.format === rec.format && selectedRecommendation?.matches_per_fighter === rec.matches_per_fighter;
                 const fitsInBudget = rec.fits_in_budget !== undefined ? rec.fits_in_budget : rec.in_range;
 
                 return (
                   <button
-                    key={rec.format}
-                    onClick={() => setFormat(rec.format as any)}
+                    key={`${rec.format}-${rec.matches_per_fighter || index}`}
+                    onClick={() => setSelectedRecommendation(rec)}
                     className={`w-full p-4 rounded-lg border-2 font-heading text-left transition ${
                       isSelected
                         ? 'border-mbjj-red bg-mbjj-red text-white'
