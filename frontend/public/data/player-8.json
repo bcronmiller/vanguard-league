@@ -6,7 +6,7 @@
   "photo_url": "https://i.imgur.com/vuhvBXu.jpg",
   "age": null,
   "bjj_belt_rank": "Purple",
-  "weight": 157.0,
+  "weight": 157,
   "weight_class_id": 1,
   "elo_rating": 1635.6883571114633,
   "rankade_ree_score": null,
@@ -20,17 +20,17 @@
     {
       "name": "On Fire",
       "description": "3 wins in a row",
-      "icon": "\ud83d\udd25"
+      "icon": "🔥"
     },
     {
       "name": "Guillotine",
       "description": "Guillotine submission earned",
-      "icon": "\u2694\ufe0f"
+      "icon": "⚔️"
     },
     {
       "name": "Armbar",
       "description": "Armbar submission earned",
-      "icon": "\ud83e\uddb4"
+      "icon": "🦴"
     }
   ],
   "manual_badges": [],
@@ -50,7 +50,7 @@
       "duration_seconds": 180,
       "match_number": null,
       "belt_rank": "Blue",
-      "weight": 156.0,
+      "weight": 156,
       "weight_class": "Lightweight",
       "elo_change": -16
     },
@@ -69,7 +69,7 @@
       "duration_seconds": 160,
       "match_number": null,
       "belt_rank": "Blue",
-      "weight": 156.0,
+      "weight": 156,
       "weight_class": "Lightweight",
       "elo_change": 7
     },
@@ -88,7 +88,7 @@
       "duration_seconds": 300,
       "match_number": null,
       "belt_rank": "Blue",
-      "weight": 156.0,
+      "weight": 156,
       "weight_class": "Lightweight",
       "elo_change": 8
     },
@@ -107,7 +107,7 @@
       "duration_seconds": 480,
       "match_number": 2,
       "belt_rank": "Purple",
-      "weight": 158.0,
+      "weight": 158,
       "weight_class": "Lightweight",
       "elo_change": 6
     },
@@ -126,7 +126,7 @@
       "duration_seconds": 600,
       "match_number": 2,
       "belt_rank": "Purple",
-      "weight": 158.0,
+      "weight": 158,
       "weight_class": "Lightweight",
       "elo_change": 15
     },
@@ -145,7 +145,7 @@
       "duration_seconds": 370,
       "match_number": 627,
       "belt_rank": "Purple",
-      "weight": 156.0,
+      "weight": 156,
       "weight_class": "Lightweight",
       "elo_change": 7
     },
@@ -164,7 +164,7 @@
       "duration_seconds": 600,
       "match_number": 621,
       "belt_rank": "Purple",
-      "weight": 156.0,
+      "weight": 156,
       "weight_class": "Lightweight",
       "elo_change": 1
     },
@@ -183,7 +183,7 @@
       "duration_seconds": 270,
       "match_number": 644,
       "belt_rank": "Purple",
-      "weight": 156.0,
+      "weight": 156,
       "weight_class": "Lightweight",
       "elo_change": 7
     }
@@ -206,7 +206,7 @@
         "losses": 1,
         "draws": 1,
         "elo_rating": 1635.1089205686737,
-        "initial_elo_rating": 1600.0,
+        "initial_elo_rating": 1600,
         "elo_change": 35.10892056867374
       }
     ]

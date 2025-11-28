@@ -1,1 +1,122 @@
-{"name":"Edrees Saifi","belt":null,"team":null,"academy":"VanGuard Gym","photo_url":"https://i.imgur.com/TziWaNR.png","age":null,"bjj_belt_rank":"Blue","weight":207.0,"weight_class_id":3,"elo_rating":1369.1713937521972,"rankade_ree_score":null,"id":9,"rankade_id":"DV19D033gXK","active":true,"created_at":"2025-11-09T18:57:19.336259","updated_at":"2025-11-23T02:19:42.297882","weight_class_name":"Heavyweight","badges":[],"manual_badges":[]}
+{
+  "name": "Edrees Saifi",
+  "belt": null,
+  "team": null,
+  "academy": "VanGuard Gym",
+  "photo_url": "https://i.imgur.com/TziWaNR.png",
+  "age": null,
+  "bjj_belt_rank": "Blue",
+  "weight": 207,
+  "weight_class_id": 3,
+  "elo_rating": 1369.1713937521972,
+  "rankade_ree_score": null,
+  "id": 9,
+  "rankade_id": "DV19D033gXK",
+  "active": true,
+  "created_at": "2025-11-09T18:57:19.336259",
+  "updated_at": "2025-11-23T03:20:59.025370",
+  "weight_class_name": "Heavyweight",
+  "badges": [],
+  "manual_badges": [],
+  "matches": [
+    {
+      "match_id": 1,
+      "event_id": 1,
+      "event_name": "VGL 1",
+      "event_date": "2025-11-07T19:00:00",
+      "opponent": {
+        "id": 3,
+        "name": "Hussain Samir",
+        "photo_url": "https://i.imgur.com/OnbmNBi.jpg"
+      },
+      "result": "loss",
+      "method": "Ankle Lock",
+      "duration_seconds": 15,
+      "match_number": null,
+      "belt_rank": "Blue",
+      "weight": 207,
+      "weight_class": "Heavyweight",
+      "elo_change": -16
+    },
+    {
+      "match_id": 3,
+      "event_id": 1,
+      "event_name": "VGL 1",
+      "event_date": "2025-11-07T19:00:00",
+      "opponent": {
+        "id": 5,
+        "name": "Nick Newbold",
+        "photo_url": "https://i.imgur.com/RXmwkBZ.jpg"
+      },
+      "result": "loss",
+      "method": "Submission",
+      "duration_seconds": 15,
+      "match_number": null,
+      "belt_rank": "Blue",
+      "weight": 207,
+      "weight_class": "Heavyweight",
+      "elo_change": -15
+    },
+    {
+      "match_id": 9,
+      "event_id": 1,
+      "event_name": "VGL 1",
+      "event_date": "2025-11-07T19:00:00",
+      "opponent": {
+        "id": 11,
+        "name": "Christian Banghart",
+        "photo_url": "https://marketmusclescdn.nyc3.digitaloceanspaces.com/wp-content/uploads/sites/265/2021/07/28171628/christiansmall.jpg"
+      },
+      "result": "loss",
+      "method": "Guillotine",
+      "duration_seconds": 200,
+      "match_number": null,
+      "belt_rank": "Blue",
+      "weight": 207,
+      "weight_class": "Heavyweight",
+      "elo_change": -1
+    },
+    {
+      "match_id": 14,
+      "event_id": 1,
+      "event_name": "VGL 1",
+      "event_date": "2025-11-07T19:00:00",
+      "opponent": {
+        "id": 4,
+        "name": "Josue Chevaz",
+        "photo_url": "https://i.imgur.com/f28PYFd.png"
+      },
+      "result": "draw",
+      "method": "Darce",
+      "duration_seconds": 120,
+      "match_number": null,
+      "belt_rank": "Blue",
+      "weight": 207,
+      "weight_class": "Heavyweight",
+      "elo_change": 1
+    }
+  ],
+  "divisions": {
+    "player_id": 9,
+    "player_name": "Edrees Saifi",
+    "overall": {
+      "wins": 0,
+      "losses": 3,
+      "draws": 1,
+      "elo_rating": 1369.1713937521972,
+      "elo_change": -30.82860624780278
+    },
+    "divisions": [
+      {
+        "weight_class_id": 3,
+        "weight_class_name": "Heavyweight",
+        "wins": 0,
+        "losses": 3,
+        "draws": 1,
+        "elo_rating": 1369.1713937521972,
+        "initial_elo_rating": 1400,
+        "elo_change": -30.82860624780278
+      }
+    ]
+  }
+}

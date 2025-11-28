@@ -1,1 +1,147 @@
-{"name":"Josue Chevaz","belt":null,"team":null,"academy":"VanGuard Gym","photo_url":"https://i.imgur.com/f28PYFd.png","age":null,"bjj_belt_rank":"Blue","weight":194.9,"weight_class_id":2,"elo_rating":1380.1891621285608,"rankade_ree_score":null,"id":4,"rankade_id":"BMgevY5x18Y","active":true,"created_at":"2025-11-09T18:57:19.336249","updated_at":"2025-11-23T02:19:42.296306","weight_class_name":"Middleweight","badges":[{"name":"Warrior Spirit","description":"Most matches in a single event (5 at VGL 1)","icon":"❤️‍🔥"}],"manual_badges":[]}
+{
+  "name": "Josue Chevaz",
+  "belt": null,
+  "team": null,
+  "academy": "VanGuard Gym",
+  "photo_url": "https://i.imgur.com/f28PYFd.png",
+  "age": null,
+  "bjj_belt_rank": "Blue",
+  "weight": 194.9,
+  "weight_class_id": 2,
+  "elo_rating": 1380.1891621285608,
+  "rankade_ree_score": null,
+  "id": 4,
+  "rankade_id": "BMgevY5x18Y",
+  "active": true,
+  "created_at": "2025-11-09T18:57:19.336249",
+  "updated_at": "2025-11-23T03:20:59.023557",
+  "weight_class_name": "Middleweight",
+  "badges": [
+    {
+      "name": "Warrior Spirit",
+      "description": "Most matches in a single event (5 at VGL 1)",
+      "icon": "❤️‍🔥"
+    }
+  ],
+  "manual_badges": [],
+  "matches": [
+    {
+      "match_id": 2,
+      "event_id": 1,
+      "event_name": "VGL 1",
+      "event_date": "2025-11-07T19:00:00",
+      "opponent": {
+        "id": 7,
+        "name": "Matt Crawford",
+        "photo_url": "https://i.imgur.com/GeVieX2.png"
+      },
+      "result": "loss",
+      "method": null,
+      "duration_seconds": null,
+      "match_number": null,
+      "belt_rank": "Blue",
+      "weight": 194.9,
+      "weight_class": "Heavyweight",
+      "elo_change": -3
+    },
+    {
+      "match_id": 4,
+      "event_id": 1,
+      "event_name": "VGL 1",
+      "event_date": "2025-11-07T19:00:00",
+      "opponent": {
+        "id": 11,
+        "name": "Christian Banghart",
+        "photo_url": "https://marketmusclescdn.nyc3.digitaloceanspaces.com/wp-content/uploads/sites/265/2021/07/28171628/christiansmall.jpg"
+      },
+      "result": "loss",
+      "method": null,
+      "duration_seconds": null,
+      "match_number": null,
+      "belt_rank": "Blue",
+      "weight": 194.9,
+      "weight_class": "Heavyweight",
+      "elo_change": -1
+    },
+    {
+      "match_id": 8,
+      "event_id": 1,
+      "event_name": "VGL 1",
+      "event_date": "2025-11-07T19:00:00",
+      "opponent": {
+        "id": 10,
+        "name": "Troy Wittman",
+        "photo_url": "https://i.imgur.com/C1nGrWd.png"
+      },
+      "result": "loss",
+      "method": "Darce",
+      "duration_seconds": 90,
+      "match_number": null,
+      "belt_rank": "Blue",
+      "weight": 194.9,
+      "weight_class": "Heavyweight",
+      "elo_change": -1
+    },
+    {
+      "match_id": 14,
+      "event_id": 1,
+      "event_name": "VGL 1",
+      "event_date": "2025-11-07T19:00:00",
+      "opponent": {
+        "id": 9,
+        "name": "Edrees Saifi",
+        "photo_url": "https://i.imgur.com/TziWaNR.png"
+      },
+      "result": "draw",
+      "method": "Darce",
+      "duration_seconds": 120,
+      "match_number": null,
+      "belt_rank": "Blue",
+      "weight": 194.9,
+      "weight_class": "Heavyweight",
+      "elo_change": -1
+    },
+    {
+      "match_id": 74,
+      "event_id": 1,
+      "event_name": "VGL 1",
+      "event_date": "2025-11-07T19:00:00",
+      "opponent": {
+        "id": 5,
+        "name": "Nick Newbold",
+        "photo_url": "https://i.imgur.com/RXmwkBZ.jpg"
+      },
+      "result": "loss",
+      "method": "Americana",
+      "duration_seconds": 300,
+      "match_number": null,
+      "belt_rank": "Blue",
+      "weight": 194.9,
+      "weight_class": "Heavyweight",
+      "elo_change": -14
+    }
+  ],
+  "divisions": {
+    "player_id": 4,
+    "player_name": "Josue Chevaz",
+    "overall": {
+      "wins": 0,
+      "losses": 4,
+      "draws": 1,
+      "elo_rating": 1380.1891621285608,
+      "elo_change": -19.810837871439162
+    },
+    "divisions": [
+      {
+        "weight_class_id": 3,
+        "weight_class_name": "Heavyweight",
+        "wins": 0,
+        "losses": 4,
+        "draws": 1,
+        "elo_rating": 1380.1891621285608,
+        "initial_elo_rating": 1400,
+        "elo_change": -19.810837871439162
+      }
+    ]
+  }
+}

@@ -6,7 +6,7 @@
   "photo_url": "https://marketmusclescdn.nyc3.digitaloceanspaces.com/wp-content/uploads/sites/265/2021/07/28171628/christiansmall.jpg",
   "age": null,
   "bjj_belt_rank": "Black",
-  "weight": 203.0,
+  "weight": 203,
   "weight_class_id": 3,
   "elo_rating": 2028.2666365763462,
   "rankade_ree_score": null,
@@ -18,44 +18,44 @@
   "weight_class_name": "Heavyweight",
   "badges": [
     {
-      "icon": "\ud83d\udee1\ufe0f",
+      "icon": "🛡️",
       "name": "Undefeated",
       "description": "Maintained undefeated record"
     },
     {
       "name": "On Fire",
       "description": "7 wins in a row",
-      "icon": "\ud83d\udd25"
+      "icon": "🔥"
     },
     {
       "name": "Footsie",
       "description": "Leg lock submission earned",
-      "icon": "\ud83e\uddb6"
+      "icon": "🦶"
     },
     {
       "name": "Triangle",
       "description": "Triangle submission earned",
-      "icon": "\ud83d\udd3a"
+      "icon": "🔺"
     },
     {
       "name": "Darce Knight",
       "description": "Darce choke submission earned",
-      "icon": "\ud83e\udd77"
+      "icon": "🥷"
     },
     {
       "name": "Guillotine",
       "description": "Guillotine submission earned",
-      "icon": "\u2694\ufe0f"
+      "icon": "⚔️"
     },
     {
       "name": "Armbar",
       "description": "Armbar submission earned",
-      "icon": "\ud83e\uddb4"
+      "icon": "🦴"
     }
   ],
   "manual_badges": [
     {
-      "icon": "\ud83d\udee1\ufe0f",
+      "icon": "🛡️",
       "name": "Undefeated",
       "description": "Maintained undefeated record"
     }
@@ -76,7 +76,7 @@
       "duration_seconds": null,
       "match_number": null,
       "belt_rank": "Black",
-      "weight": 203.0,
+      "weight": 203,
       "weight_class": "Heavyweight",
       "elo_change": 1
     },
@@ -95,7 +95,7 @@
       "duration_seconds": 450,
       "match_number": null,
       "belt_rank": "Black",
-      "weight": 203.0,
+      "weight": 203,
       "weight_class": "Heavyweight",
       "elo_change": 17
     },
@@ -114,7 +114,7 @@
       "duration_seconds": 90,
       "match_number": null,
       "belt_rank": "Black",
-      "weight": 203.0,
+      "weight": 203,
       "weight_class": "Heavyweight",
       "elo_change": -9
     },
@@ -133,7 +133,7 @@
       "duration_seconds": 200,
       "match_number": null,
       "belt_rank": "Black",
-      "weight": 203.0,
+      "weight": 203,
       "weight_class": "Heavyweight",
       "elo_change": 1
     },
@@ -152,7 +152,7 @@
       "duration_seconds": 480,
       "match_number": 1,
       "belt_rank": "Black",
-      "weight": 204.0,
+      "weight": 204,
       "weight_class": "Heavyweight",
       "elo_change": 1
     },
@@ -171,7 +171,7 @@
       "duration_seconds": 360,
       "match_number": 1,
       "belt_rank": "Black",
-      "weight": 204.0,
+      "weight": 204,
       "weight_class": "Heavyweight",
       "elo_change": 1
     },
@@ -190,7 +190,7 @@
       "duration_seconds": 480,
       "match_number": 8,
       "belt_rank": "Black",
-      "weight": 204.0,
+      "weight": 204,
       "weight_class": "Heavyweight",
       "elo_change": 3
     },
@@ -209,7 +209,7 @@
       "duration_seconds": 450,
       "match_number": 640,
       "belt_rank": "Black",
-      "weight": 203.0,
+      "weight": 203,
       "weight_class": "Heavyweight",
       "elo_change": 7
     },
@@ -228,7 +228,7 @@
       "duration_seconds": 390,
       "match_number": 639,
       "belt_rank": "Black",
-      "weight": 203.0,
+      "weight": 203,
       "weight_class": "Heavyweight",
       "elo_change": 7
     },
@@ -247,7 +247,7 @@
       "duration_seconds": 360,
       "match_number": 637,
       "belt_rank": "Black",
-      "weight": 203.0,
+      "weight": 203,
       "weight_class": "Heavyweight",
       "elo_change": 1
     }
@@ -270,7 +270,7 @@
         "losses": 0,
         "draws": 1,
         "elo_rating": 2028.3752871629888,
-        "initial_elo_rating": 2000.0,
+        "initial_elo_rating": 2000,
         "elo_change": 28.375287162988798
       }
     ]

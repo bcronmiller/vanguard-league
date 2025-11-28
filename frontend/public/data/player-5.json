@@ -20,12 +20,12 @@
     {
       "name": "Footsie",
       "description": "Leg lock submission earned",
-      "icon": "\ud83e\uddb6"
+      "icon": "🦶"
     },
     {
       "name": "The Spoiler",
       "description": "Defeated an opponent two or more belt ranks above you",
-      "icon": "\ud83e\udd2f"
+      "icon": "🤯"
     }
   ],
   "manual_badges": [],
@@ -163,7 +163,7 @@
         "losses": 2,
         "draws": 1,
         "elo_rating": 1452.856132762326,
-        "initial_elo_rating": 1400.0,
+        "initial_elo_rating": 1400,
         "elo_change": 52.85613276232607
       }
     ]

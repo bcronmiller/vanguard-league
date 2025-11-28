@@ -6,7 +6,7 @@
   "photo_url": "https://i.imgur.com/xzfxRkA.jpg",
   "age": null,
   "bjj_belt_rank": "Purple",
-  "weight": 148.0,
+  "weight": 148,
   "weight_class_id": 1,
   "elo_rating": 1650.2514100360218,
   "rankade_ree_score": null,
@@ -18,34 +18,34 @@
   "weight_class_name": "Lightweight",
   "badges": [
     {
-      "icon": "\ud83d\udee1\ufe0f",
+      "icon": "🛡️",
       "name": "Undefeated",
       "description": "Maintained undefeated record"
     },
     {
       "name": "Footsie",
       "description": "Leg lock submission earned",
-      "icon": "\ud83e\uddb6"
+      "icon": "🦶"
     },
     {
       "name": "Triangle",
       "description": "Triangle submission earned",
-      "icon": "\ud83d\udd3a"
+      "icon": "🔺"
     },
     {
       "name": "Armbar",
       "description": "Armbar submission earned",
-      "icon": "\ud83e\uddb4"
+      "icon": "🦴"
     },
     {
       "name": "Multi-Division",
       "description": "Competed in 2 weight classes",
-      "icon": "\u2696\ufe0f"
+      "icon": "⚖️"
     }
   ],
   "manual_badges": [
     {
-      "icon": "\ud83d\udee1\ufe0f",
+      "icon": "🛡️",
       "name": "Undefeated",
       "description": "Maintained undefeated record"
     }
@@ -184,7 +184,7 @@
         "losses": 0,
         "draws": 1,
         "elo_rating": 1636.1472324830254,
-        "initial_elo_rating": 1600.0,
+        "initial_elo_rating": 1600,
         "elo_change": 36.14723248302539
       },
       {
@@ -194,7 +194,7 @@
         "losses": 0,
         "draws": 0,
         "elo_rating": 1615.2739436808304,
-        "initial_elo_rating": 1600.0,
+        "initial_elo_rating": 1600,
         "elo_change": 15.27394368083037
       }
     ]

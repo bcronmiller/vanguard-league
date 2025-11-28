@@ -6,9 +6,9 @@
   "photo_url": "https://i.imgur.com/4Byp9fT.jpg",
   "age": null,
   "bjj_belt_rank": "Black",
-  "weight": 250.0,
+  "weight": 250,
   "weight_class_id": 3,
-  "elo_rating": 2000.0,
+  "elo_rating": 2000,
   "rankade_ree_score": null,
   "id": 1,
   "rankade_id": "Vk1OPQEyWov",
@@ -26,8 +26,8 @@
       "wins": 0,
       "losses": 0,
       "draws": 0,
-      "elo_rating": 2000.0,
-      "elo_change": 0.0
+      "elo_rating": 2000,
+      "elo_change": 0
     },
     "divisions": []
   }

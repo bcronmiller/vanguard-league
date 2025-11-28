@@ -6,7 +6,7 @@
   "photo_url": "https://i.imgur.com/OnbmNBi.jpg",
   "age": null,
   "bjj_belt_rank": "Blue",
-  "weight": 166.0,
+  "weight": 166,
   "weight_class_id": 1,
   "elo_rating": 1463.7552435139814,
   "rankade_ree_score": null,
@@ -18,39 +18,39 @@
   "weight_class_name": "Lightweight",
   "badges": [
     {
-      "icon": "\ud83c\udf51",
+      "icon": "🍑",
       "name": "Buttscooter",
       "description": "Master of the legendary butt scoot technique"
     },
     {
       "name": "On Fire",
       "description": "3 wins in a row",
-      "icon": "\ud83d\udd25"
+      "icon": "🔥"
     },
     {
       "name": "Comeback Kid",
       "description": "Won after losing 2+ matches",
-      "icon": "\ud83d\udcaa"
+      "icon": "💪"
     },
     {
       "name": "Footsie",
       "description": "Leg lock submission earned",
-      "icon": "\ud83e\uddb6"
+      "icon": "🦶"
     },
     {
       "name": "Darce Knight",
       "description": "Darce choke submission earned",
-      "icon": "\ud83e\udd77"
+      "icon": "🥷"
     },
     {
       "name": "Multi-Division",
       "description": "Competed in 3 weight classes",
-      "icon": "\u2696\ufe0f"
+      "icon": "⚖️"
     }
   ],
   "manual_badges": [
     {
-      "icon": "\ud83c\udf51",
+      "icon": "🍑",
       "name": "Buttscooter",
       "description": "Master of the legendary butt scoot technique"
     }
@@ -208,7 +208,7 @@
         "losses": 2,
         "draws": 0,
         "elo_rating": 1429.34930921836,
-        "initial_elo_rating": 1400.0,
+        "initial_elo_rating": 1400,
         "elo_change": 29.349309218360077
       },
       {
@@ -218,7 +218,7 @@
         "losses": 0,
         "draws": 0,
         "elo_rating": 1424.3119016527346,
-        "initial_elo_rating": 1400.0,
+        "initial_elo_rating": 1400,
         "elo_change": 24.311901652734605
       },
       {
@@ -227,9 +227,9 @@
         "wins": 1,
         "losses": 0,
         "draws": 0,
-        "elo_rating": 1416.0,
-        "initial_elo_rating": 1400.0,
-        "elo_change": 16.0
+        "elo_rating": 1416,
+        "initial_elo_rating": 1400,
+        "elo_change": 16
       }
     ]
   }

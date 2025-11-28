@@ -20,7 +20,7 @@
     {
       "name": "Multi-Division",
       "description": "Competed in 2 weight classes",
-      "icon": "\u2696\ufe0f"
+      "icon": "⚖️"
     }
   ],
   "manual_badges": [],
@@ -40,7 +40,7 @@
       "duration_seconds": 600,
       "match_number": 2,
       "belt_rank": "Purple",
-      "weight": 152.0,
+      "weight": 152,
       "weight_class": "Lightweight",
       "elo_change": -15
     },
@@ -59,7 +59,7 @@
       "duration_seconds": 480,
       "match_number": 8,
       "belt_rank": "Purple",
-      "weight": 152.0,
+      "weight": 152,
       "weight_class": "Heavyweight",
       "elo_change": -3
     },
@@ -78,7 +78,7 @@
       "duration_seconds": 420,
       "match_number": 5,
       "belt_rank": "Purple",
-      "weight": 152.0,
+      "weight": 152,
       "weight_class": "Lightweight",
       "elo_change": 7
     }
@@ -101,7 +101,7 @@
         "losses": 1,
         "draws": 0,
         "elo_rating": 1591.6838261130251,
-        "initial_elo_rating": 1600.0,
+        "initial_elo_rating": 1600,
         "elo_change": -8.316173886974866
       },
       {
@@ -111,7 +111,7 @@
         "losses": 1,
         "draws": 0,
         "elo_rating": 1597.461032378359,
-        "initial_elo_rating": 1600.0,
+        "initial_elo_rating": 1600,
         "elo_change": -2.53896762164095
       }
     ]

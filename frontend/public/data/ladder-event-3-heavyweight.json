@@ -1,6 +1,6 @@
 {
   "event_id": 3,
-  "event_name": "VGL 3",
+  "event_name": "VGL 3 - Heavyweight",
   "event_date": "2025-11-22T17:00:00",
   "standings": [
     {
@@ -18,19 +18,6 @@
     },
     {
       "rank": 2,
-      "player_id": 8,
-      "player_name": "John Michael El Mapache Rodriguez Uhweta",
-      "photo_url": "https://i.imgur.com/vuhvBXu.jpg",
-      "belt_rank": "Purple",
-      "wins": 2,
-      "losses": 0,
-      "draws": 0,
-      "win_rate": 1,
-      "elo_rating": 1635.6883571114633,
-      "initial_elo_rating": 1600
-    },
-    {
-      "rank": 3,
       "player_id": 11,
       "player_name": "Christian Banghart",
       "photo_url": "https://marketmusclescdn.nyc3.digitaloceanspaces.com/wp-content/uploads/sites/265/2021/07/28171628/christiansmall.jpg",
@@ -39,11 +26,11 @@
       "losses": 0,
       "draws": 0,
       "win_rate": 1,
-      "elo_rating": 2028.2666365763462,
+      "elo_rating": 2028.3752871629888,
       "initial_elo_rating": 2000
     },
     {
-      "rank": 4,
+      "rank": 3,
       "player_id": 21,
       "player_name": "Josue Gaines",
       "photo_url": null,
@@ -56,30 +43,17 @@
       "initial_elo_rating": 1400
     },
     {
-      "rank": 5,
+      "rank": 4,
       "player_id": 14,
       "player_name": "Jack Sudduth",
       "photo_url": "https://i.imgur.com/CPK4ZYk.png",
       "belt_rank": "Purple",
-      "wins": 1,
-      "losses": 2,
-      "draws": 0,
-      "win_rate": 0.3333333333333333,
-      "elo_rating": 1589.3325076363265,
-      "initial_elo_rating": 1600
-    },
-    {
-      "rank": 6,
-      "player_id": 18,
-      "player_name": "Jamie Corzo",
-      "photo_url": "https://i.imgur.com/kCFCFpU.png",
-      "belt_rank": "Blue",
       "wins": 0,
-      "losses": 2,
+      "losses": 1,
       "draws": 0,
       "win_rate": 0,
-      "elo_rating": 1359.5609810245003,
-      "initial_elo_rating": 1400
+      "elo_rating": 1597.461032378359,
+      "initial_elo_rating": 1600
     }
   ]
 }

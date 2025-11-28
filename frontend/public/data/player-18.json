@@ -6,7 +6,7 @@
   "photo_url": "https://i.imgur.com/kCFCFpU.png",
   "age": 24,
   "bjj_belt_rank": "Blue",
-  "weight": 169.0,
+  "weight": 169,
   "weight_class_id": 1,
   "elo_rating": 1359.5609810245003,
   "rankade_ree_score": null,
@@ -34,7 +34,7 @@
       "duration_seconds": 480,
       "match_number": 2,
       "belt_rank": "Blue",
-      "weight": 167.0,
+      "weight": 167,
       "weight_class": "Lightweight",
       "elo_change": -6
     },
@@ -53,7 +53,7 @@
       "duration_seconds": 420,
       "match_number": 5,
       "belt_rank": "Blue",
-      "weight": 167.0,
+      "weight": 167,
       "weight_class": "Lightweight",
       "elo_change": -7
     },
@@ -133,7 +133,7 @@
         "losses": 5,
         "draws": 0,
         "elo_rating": 1357.9274294304246,
-        "initial_elo_rating": 1400.0,
+        "initial_elo_rating": 1400,
         "elo_change": -42.07257056957542
       }
     ]

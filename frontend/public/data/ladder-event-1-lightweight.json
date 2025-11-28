@@ -1,1 +1,59 @@
-{"event_id":1,"event_name":"VGL 1 - Lightweight","event_date":"2025-11-07T19:00:00","standings":[{"rank":1,"player_id":2,"player_name":"Alex Stewart","photo_url":null,"belt_rank":"Purple","wins":3,"losses":0,"draws":0,"win_rate":1.0,"elo_rating":1635.5072814053065,"initial_elo_rating":1600.0},{"rank":2,"player_id":3,"player_name":"Hussain Samir","photo_url":null,"belt_rank":"Blue","wins":1,"losses":2,"draws":0,"win_rate":0.3333333333333333,"elo_rating":1429.949106578004,"initial_elo_rating":1400.0},{"rank":3,"player_id":8,"player_name":"John Michael El Mapache Rodriguez Uhweta","photo_url":null,"belt_rank":"Purple","wins":2,"losses":1,"draws":0,"win_rate":0.6666666666666666,"elo_rating":1613.5957202882882,"initial_elo_rating":1600.0},{"rank":4,"player_id":6,"player_name":"Josh Rivera","photo_url":null,"belt_rank":"Blue","wins":0,"losses":3,"draws":0,"win_rate":0.0,"elo_rating":1350.1576050855338,"initial_elo_rating":1400.0}]}
+{
+  "event_id": 1,
+  "event_name": "VGL 1 - Lightweight",
+  "event_date": "2025-11-07T19:00:00",
+  "standings": [
+    {
+      "rank": 1,
+      "player_id": 2,
+      "player_name": "Alex Stewart",
+      "photo_url": "https://i.imgur.com/xzfxRkA.jpg",
+      "belt_rank": "Purple",
+      "wins": 3,
+      "losses": 0,
+      "draws": 0,
+      "win_rate": 1,
+      "elo_rating": 1636.1472324830254,
+      "initial_elo_rating": 1600
+    },
+    {
+      "rank": 2,
+      "player_id": 8,
+      "player_name": "John Michael El Mapache Rodriguez Uhweta",
+      "photo_url": "https://i.imgur.com/vuhvBXu.jpg",
+      "belt_rank": "Purple",
+      "wins": 2,
+      "losses": 1,
+      "draws": 0,
+      "win_rate": 0.6666666666666666,
+      "elo_rating": 1635.1089205686737,
+      "initial_elo_rating": 1600
+    },
+    {
+      "rank": 3,
+      "player_id": 3,
+      "player_name": "Hussain Samir",
+      "photo_url": "https://i.imgur.com/OnbmNBi.jpg",
+      "belt_rank": "Blue",
+      "wins": 1,
+      "losses": 2,
+      "draws": 0,
+      "win_rate": 0.3333333333333333,
+      "elo_rating": 1429.34930921836,
+      "initial_elo_rating": 1400
+    },
+    {
+      "rank": 4,
+      "player_id": 6,
+      "player_name": "Josh Rivera",
+      "photo_url": "https://i.imgur.com/9SPGfFG.jpg",
+      "belt_rank": "Blue",
+      "wins": 0,
+      "losses": 3,
+      "draws": 0,
+      "win_rate": 0,
+      "elo_rating": 1349.783282186491,
+      "initial_elo_rating": 1400
+    }
+  ]
+}

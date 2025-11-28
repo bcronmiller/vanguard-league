@@ -1,1 +1,344 @@
-[{"id":1,"match_number":1,"player_a":{"id":3,"name":"Hussain Samir","photo_url":"https://i.imgur.com/OnbmNBi.jpg"},"player_b":{"id":9,"name":"Edrees Saifi","photo_url":null},"result":"a_win","method":"Ankle Lock","duration_seconds":15,"synced_to_rankade":null},{"id":2,"match_number":2,"player_a":{"id":7,"name":"Matt Crawford","photo_url":null},"player_b":{"id":4,"name":"Josue Chevaz","photo_url":null},"result":"a_win","method":null,"duration_seconds":null,"synced_to_rankade":null},{"id":3,"match_number":3,"player_a":{"id":5,"name":"Nick Newbold","photo_url":"https://i.imgur.com/RXmwkBZ.jpg"},"player_b":{"id":9,"name":"Edrees Saifi","photo_url":null},"result":"a_win","method":"Submission","duration_seconds":15,"synced_to_rankade":null},{"id":4,"match_number":4,"player_a":{"id":11,"name":"Christian Banghart","photo_url":"https://marketmusclescdn.nyc3.digitaloceanspaces.com/wp-content/uploads/sites/265/2021/07/28171628/christiansmall.jpg"},"player_b":{"id":4,"name":"Josue Chevaz","photo_url":null},"result":"a_win","method":null,"duration_seconds":null,"synced_to_rankade":null},{"id":5,"match_number":5,"player_a":{"id":10,"name":"Troy Wittman","photo_url":null},"player_b":{"id":7,"name":"Matt Crawford","photo_url":null},"result":"a_win","method":"Darce","duration_seconds":null,"synced_to_rankade":null},{"id":6,"match_number":6,"player_a":{"id":3,"name":"Hussain Samir","photo_url":"https://i.imgur.com/OnbmNBi.jpg"},"player_b":{"id":6,"name":"Josh Rivera","photo_url":"https://i.imgur.com/9SPGfFG.jpg"},"result":"a_win","method":"Darce","duration_seconds":140,"synced_to_rankade":null},{"id":7,"match_number":7,"player_a":{"id":5,"name":"Nick Newbold","photo_url":"https://i.imgur.com/RXmwkBZ.jpg"},"player_b":{"id":7,"name":"Matt Crawford","photo_url":null},"result":"a_win","method":"Kneebar","duration_seconds":90,"synced_to_rankade":null},{"id":8,"match_number":8,"player_a":{"id":10,"name":"Troy Wittman","photo_url":null},"player_b":{"id":4,"name":"Josue Chevaz","photo_url":null},"result":"a_win","method":"Darce","duration_seconds":90,"synced_to_rankade":null},{"id":9,"match_number":9,"player_a":{"id":11,"name":"Christian Banghart","photo_url":"https://marketmusclescdn.nyc3.digitaloceanspaces.com/wp-content/uploads/sites/265/2021/07/28171628/christiansmall.jpg"},"player_b":{"id":9,"name":"Edrees Saifi","photo_url":null},"result":"a_win","method":"Guillotine","duration_seconds":200,"synced_to_rankade":null},{"id":10,"match_number":10,"player_a":{"id":8,"name":"John Michael El Mapache Rodriguez Uhweta","photo_url":"https://i.imgur.com/kX7wqFU.jpg"},"player_b":{"id":6,"name":"Josh Rivera","photo_url":"https://i.imgur.com/9SPGfFG.jpg"},"result":"a_win","method":"Head and Arm Choke","duration_seconds":160,"synced_to_rankade":null},{"id":11,"match_number":11,"player_a":{"id":2,"name":"Alex Stewart","photo_url":"https://i.imgur.com/xzfxRkA.jpg"},"player_b":{"id":3,"name":"Hussain Samir","photo_url":"https://i.imgur.com/OnbmNBi.jpg"},"result":"a_win","method":"Knee Bar","duration_seconds":30,"synced_to_rankade":null},{"id":12,"match_number":12,"player_a":{"id":10,"name":"Troy Wittman","photo_url":null},"player_b":{"id":5,"name":"Nick Newbold","photo_url":"https://i.imgur.com/RXmwkBZ.jpg"},"result":"a_win","method":"Darce","duration_seconds":60,"synced_to_rankade":null},{"id":13,"match_number":13,"player_a":{"id":7,"name":"Matt Crawford","photo_url":null},"player_b":{"id":11,"name":"Christian Banghart","photo_url":"https://marketmusclescdn.nyc3.digitaloceanspaces.com/wp-content/uploads/sites/265/2021/07/28171628/christiansmall.jpg"},"result":"draw","method":"Triangle","duration_seconds":90,"synced_to_rankade":null},{"id":14,"match_number":14,"player_a":{"id":4,"name":"Josue Chevaz","photo_url":null},"player_b":{"id":9,"name":"Edrees Saifi","photo_url":null},"result":"draw","method":"Darce","duration_seconds":120,"synced_to_rankade":null},{"id":15,"match_number":15,"player_a":{"id":2,"name":"Alex Stewart","photo_url":"https://i.imgur.com/xzfxRkA.jpg"},"player_b":{"id":6,"name":"Josh Rivera","photo_url":"https://i.imgur.com/9SPGfFG.jpg"},"result":"a_win","method":"Heel Hook","duration_seconds":210,"synced_to_rankade":null},{"id":16,"match_number":16,"player_a":{"id":11,"name":"Christian Banghart","photo_url":"https://marketmusclescdn.nyc3.digitaloceanspaces.com/wp-content/uploads/sites/265/2021/07/28171628/christiansmall.jpg"},"player_b":{"id":10,"name":"Troy Wittman","photo_url":null},"result":"a_win","method":"Arm Triangle","duration_seconds":450,"synced_to_rankade":null},{"id":17,"match_number":17,"player_a":{"id":8,"name":"John Michael El Mapache Rodriguez Uhweta","photo_url":"https://i.imgur.com/kX7wqFU.jpg"},"player_b":{"id":3,"name":"Hussain Samir","photo_url":"https://i.imgur.com/OnbmNBi.jpg"},"result":"a_win","method":"Americana","duration_seconds":300,"synced_to_rankade":null},{"id":74,"match_number":74,"player_a":{"id":5,"name":"Nick Newbold","photo_url":"https://i.imgur.com/RXmwkBZ.jpg"},"player_b":{"id":4,"name":"Josue Chevaz","photo_url":null},"result":"a_win","method":"Americana","duration_seconds":300,"synced_to_rankade":null},{"id":75,"match_number":75,"player_a":{"id":2,"name":"Alex Stewart","photo_url":"https://i.imgur.com/xzfxRkA.jpg"},"player_b":{"id":8,"name":"John Michael El Mapache Rodriguez Uhweta","photo_url":"https://i.imgur.com/kX7wqFU.jpg"},"result":"a_win","method":"Reverse Triangle Cutting Armbar","duration_seconds":180,"synced_to_rankade":null}]
+[
+  {
+    "id": 1,
+    "match_number": 1,
+    "player_a": {
+      "id": 3,
+      "name": "Hussain Samir",
+      "photo_url": "https://i.imgur.com/OnbmNBi.jpg"
+    },
+    "player_b": {
+      "id": 9,
+      "name": "Edrees Saifi",
+      "photo_url": "https://i.imgur.com/TziWaNR.png"
+    },
+    "result": "a_win",
+    "method": "Ankle Lock",
+    "duration_seconds": 15,
+    "synced_to_rankade": null
+  },
+  {
+    "id": 2,
+    "match_number": 2,
+    "player_a": {
+      "id": 7,
+      "name": "Matt Crawford",
+      "photo_url": "https://i.imgur.com/GeVieX2.png"
+    },
+    "player_b": {
+      "id": 4,
+      "name": "Josue Chevaz",
+      "photo_url": "https://i.imgur.com/f28PYFd.png"
+    },
+    "result": "a_win",
+    "method": null,
+    "duration_seconds": null,
+    "synced_to_rankade": null
+  },
+  {
+    "id": 3,
+    "match_number": 3,
+    "player_a": {
+      "id": 5,
+      "name": "Nick Newbold",
+      "photo_url": "https://i.imgur.com/RXmwkBZ.jpg"
+    },
+    "player_b": {
+      "id": 9,
+      "name": "Edrees Saifi",
+      "photo_url": "https://i.imgur.com/TziWaNR.png"
+    },
+    "result": "a_win",
+    "method": "Submission",
+    "duration_seconds": 15,
+    "synced_to_rankade": null
+  },
+  {
+    "id": 4,
+    "match_number": 4,
+    "player_a": {
+      "id": 11,
+      "name": "Christian Banghart",
+      "photo_url": "https://marketmusclescdn.nyc3.digitaloceanspaces.com/wp-content/uploads/sites/265/2021/07/28171628/christiansmall.jpg"
+    },
+    "player_b": {
+      "id": 4,
+      "name": "Josue Chevaz",
+      "photo_url": "https://i.imgur.com/f28PYFd.png"
+    },
+    "result": "a_win",
+    "method": null,
+    "duration_seconds": null,
+    "synced_to_rankade": null
+  },
+  {
+    "id": 5,
+    "match_number": 5,
+    "player_a": {
+      "id": 10,
+      "name": "Troy Wittman",
+      "photo_url": "https://i.imgur.com/C1nGrWd.png"
+    },
+    "player_b": {
+      "id": 7,
+      "name": "Matt Crawford",
+      "photo_url": "https://i.imgur.com/GeVieX2.png"
+    },
+    "result": "a_win",
+    "method": "Darce",
+    "duration_seconds": null,
+    "synced_to_rankade": null
+  },
+  {
+    "id": 6,
+    "match_number": 6,
+    "player_a": {
+      "id": 3,
+      "name": "Hussain Samir",
+      "photo_url": "https://i.imgur.com/OnbmNBi.jpg"
+    },
+    "player_b": {
+      "id": 6,
+      "name": "Josh Rivera",
+      "photo_url": "https://i.imgur.com/9SPGfFG.jpg"
+    },
+    "result": "a_win",
+    "method": "Darce",
+    "duration_seconds": 140,
+    "synced_to_rankade": null
+  },
+  {
+    "id": 7,
+    "match_number": 7,
+    "player_a": {
+      "id": 5,
+      "name": "Nick Newbold",
+      "photo_url": "https://i.imgur.com/RXmwkBZ.jpg"
+    },
+    "player_b": {
+      "id": 7,
+      "name": "Matt Crawford",
+      "photo_url": "https://i.imgur.com/GeVieX2.png"
+    },
+    "result": "a_win",
+    "method": "Kneebar",
+    "duration_seconds": 90,
+    "synced_to_rankade": null
+  },
+  {
+    "id": 8,
+    "match_number": 8,
+    "player_a": {
+      "id": 10,
+      "name": "Troy Wittman",
+      "photo_url": "https://i.imgur.com/C1nGrWd.png"
+    },
+    "player_b": {
+      "id": 4,
+      "name": "Josue Chevaz",
+      "photo_url": "https://i.imgur.com/f28PYFd.png"
+    },
+    "result": "a_win",
+    "method": "Darce",
+    "duration_seconds": 90,
+    "synced_to_rankade": null
+  },
+  {
+    "id": 9,
+    "match_number": 9,
+    "player_a": {
+      "id": 11,
+      "name": "Christian Banghart",
+      "photo_url": "https://marketmusclescdn.nyc3.digitaloceanspaces.com/wp-content/uploads/sites/265/2021/07/28171628/christiansmall.jpg"
+    },
+    "player_b": {
+      "id": 9,
+      "name": "Edrees Saifi",
+      "photo_url": "https://i.imgur.com/TziWaNR.png"
+    },
+    "result": "a_win",
+    "method": "Guillotine",
+    "duration_seconds": 200,
+    "synced_to_rankade": null
+  },
+  {
+    "id": 10,
+    "match_number": 10,
+    "player_a": {
+      "id": 8,
+      "name": "John Michael El Mapache Rodriguez Uhweta",
+      "photo_url": "https://i.imgur.com/vuhvBXu.jpg"
+    },
+    "player_b": {
+      "id": 6,
+      "name": "Josh Rivera",
+      "photo_url": "https://i.imgur.com/9SPGfFG.jpg"
+    },
+    "result": "a_win",
+    "method": "Head and Arm Choke",
+    "duration_seconds": 160,
+    "synced_to_rankade": null
+  },
+  {
+    "id": 11,
+    "match_number": 11,
+    "player_a": {
+      "id": 2,
+      "name": "Alex Stewart",
+      "photo_url": "https://i.imgur.com/xzfxRkA.jpg"
+    },
+    "player_b": {
+      "id": 3,
+      "name": "Hussain Samir",
+      "photo_url": "https://i.imgur.com/OnbmNBi.jpg"
+    },
+    "result": "a_win",
+    "method": "Knee Bar",
+    "duration_seconds": 30,
+    "synced_to_rankade": null
+  },
+  {
+    "id": 12,
+    "match_number": 12,
+    "player_a": {
+      "id": 10,
+      "name": "Troy Wittman",
+      "photo_url": "https://i.imgur.com/C1nGrWd.png"
+    },
+    "player_b": {
+      "id": 5,
+      "name": "Nick Newbold",
+      "photo_url": "https://i.imgur.com/RXmwkBZ.jpg"
+    },
+    "result": "a_win",
+    "method": "Darce",
+    "duration_seconds": 60,
+    "synced_to_rankade": null
+  },
+  {
+    "id": 13,
+    "match_number": 13,
+    "player_a": {
+      "id": 7,
+      "name": "Matt Crawford",
+      "photo_url": "https://i.imgur.com/GeVieX2.png"
+    },
+    "player_b": {
+      "id": 11,
+      "name": "Christian Banghart",
+      "photo_url": "https://marketmusclescdn.nyc3.digitaloceanspaces.com/wp-content/uploads/sites/265/2021/07/28171628/christiansmall.jpg"
+    },
+    "result": "draw",
+    "method": "Triangle",
+    "duration_seconds": 90,
+    "synced_to_rankade": null
+  },
+  {
+    "id": 14,
+    "match_number": 14,
+    "player_a": {
+      "id": 4,
+      "name": "Josue Chevaz",
+      "photo_url": "https://i.imgur.com/f28PYFd.png"
+    },
+    "player_b": {
+      "id": 9,
+      "name": "Edrees Saifi",
+      "photo_url": "https://i.imgur.com/TziWaNR.png"
+    },
+    "result": "draw",
+    "method": "Darce",
+    "duration_seconds": 120,
+    "synced_to_rankade": null
+  },
+  {
+    "id": 15,
+    "match_number": 15,
+    "player_a": {
+      "id": 2,
+      "name": "Alex Stewart",
+      "photo_url": "https://i.imgur.com/xzfxRkA.jpg"
+    },
+    "player_b": {
+      "id": 6,
+      "name": "Josh Rivera",
+      "photo_url": "https://i.imgur.com/9SPGfFG.jpg"
+    },
+    "result": "a_win",
+    "method": "Heel Hook",
+    "duration_seconds": 210,
+    "synced_to_rankade": null
+  },
+  {
+    "id": 16,
+    "match_number": 16,
+    "player_a": {
+      "id": 11,
+      "name": "Christian Banghart",
+      "photo_url": "https://marketmusclescdn.nyc3.digitaloceanspaces.com/wp-content/uploads/sites/265/2021/07/28171628/christiansmall.jpg"
+    },
+    "player_b": {
+      "id": 10,
+      "name": "Troy Wittman",
+      "photo_url": "https://i.imgur.com/C1nGrWd.png"
+    },
+    "result": "a_win",
+    "method": "Arm Triangle",
+    "duration_seconds": 450,
+    "synced_to_rankade": null
+  },
+  {
+    "id": 17,
+    "match_number": 17,
+    "player_a": {
+      "id": 8,
+      "name": "John Michael El Mapache Rodriguez Uhweta",
+      "photo_url": "https://i.imgur.com/vuhvBXu.jpg"
+    },
+    "player_b": {
+      "id": 3,
+      "name": "Hussain Samir",
+      "photo_url": "https://i.imgur.com/OnbmNBi.jpg"
+    },
+    "result": "a_win",
+    "method": "Americana",
+    "duration_seconds": 300,
+    "synced_to_rankade": null
+  },
+  {
+    "id": 74,
+    "match_number": 74,
+    "player_a": {
+      "id": 5,
+      "name": "Nick Newbold",
+      "photo_url": "https://i.imgur.com/RXmwkBZ.jpg"
+    },
+    "player_b": {
+      "id": 4,
+      "name": "Josue Chevaz",
+      "photo_url": "https://i.imgur.com/f28PYFd.png"
+    },
+    "result": "a_win",
+    "method": "Americana",
+    "duration_seconds": 300,
+    "synced_to_rankade": null
+  },
+  {
+    "id": 75,
+    "match_number": 75,
+    "player_a": {
+      "id": 2,
+      "name": "Alex Stewart",
+      "photo_url": "https://i.imgur.com/xzfxRkA.jpg"
+    },
+    "player_b": {
+      "id": 8,
+      "name": "John Michael El Mapache Rodriguez Uhweta",
+      "photo_url": "https://i.imgur.com/vuhvBXu.jpg"
+    },
+    "result": "a_win",
+    "method": "Reverse Triangle Cutting Armbar",
+    "duration_seconds": 180,
+    "synced_to_rankade": null
+  }
+]

@@ -2,5 +2,71 @@
   "event_id": 2,
   "event_name": "VGL 2 - Lightweight",
   "event_date": "2025-11-14T19:00:00",
-  "standings": []
+  "standings": [
+    {
+      "rank": 1,
+      "player_id": 2,
+      "player_name": "Alex Stewart",
+      "photo_url": "https://i.imgur.com/xzfxRkA.jpg",
+      "belt_rank": "Purple",
+      "wins": 1,
+      "losses": 0,
+      "draws": 1,
+      "win_rate": 0.5,
+      "elo_rating": 1636.1472324830254,
+      "initial_elo_rating": 1600
+    },
+    {
+      "rank": 2,
+      "player_id": 8,
+      "player_name": "John Michael El Mapache Rodriguez Uhweta",
+      "photo_url": "https://i.imgur.com/vuhvBXu.jpg",
+      "belt_rank": "Purple",
+      "wins": 2,
+      "losses": 0,
+      "draws": 1,
+      "win_rate": 0.6666666666666666,
+      "elo_rating": 1635.1089205686737,
+      "initial_elo_rating": 1600
+    },
+    {
+      "rank": 3,
+      "player_id": 3,
+      "player_name": "Hussain Samir",
+      "photo_url": "https://i.imgur.com/OnbmNBi.jpg",
+      "belt_rank": "Blue",
+      "wins": 2,
+      "losses": 0,
+      "draws": 0,
+      "win_rate": 1,
+      "elo_rating": 1429.34930921836,
+      "initial_elo_rating": 1400
+    },
+    {
+      "rank": 4,
+      "player_id": 18,
+      "player_name": "Jamie Corzo",
+      "photo_url": "https://i.imgur.com/kCFCFpU.png",
+      "belt_rank": "Blue",
+      "wins": 0,
+      "losses": 3,
+      "draws": 0,
+      "win_rate": 0,
+      "elo_rating": 1357.9274294304246,
+      "initial_elo_rating": 1400
+    },
+    {
+      "rank": 5,
+      "player_id": 6,
+      "player_name": "Josh Rivera",
+      "photo_url": "https://i.imgur.com/9SPGfFG.jpg",
+      "belt_rank": "Blue",
+      "wins": 0,
+      "losses": 2,
+      "draws": 0,
+      "win_rate": 0,
+      "elo_rating": 1349.783282186491,
+      "initial_elo_rating": 1400
+    }
+  ]
 }
