@@ -52,6 +52,11 @@ async function exportData() {
   const players = await fetchAndSave('/api/players', 'players.json');
   const overallLadder = await fetchAndSave('/api/ladder/overall', 'ladder-overall.json');
 
+  // Fetch overall weight class ladders (used by homepage)
+  await fetchAndSave('/api/ladder/weight-class/Lightweight', 'ladder-lightweight.json');
+  await fetchAndSave('/api/ladder/weight-class/Middleweight', 'ladder-middleweight.json');
+  await fetchAndSave('/api/ladder/weight-class/Heavyweight', 'ladder-heavyweight.json');
+
   // Fetch individual event data and weight class ladders
   if (events && events.length > 0) {
     for (const event of events) {
