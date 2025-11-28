@@ -57,17 +57,24 @@ interface Academy {
 
 type FetchResult<T> = { data: T | null; error: string | null };
 
-const isStatic = process.env.NEXT_PUBLIC_STATIC_MODE === 'true';
-const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
-const staticBase = process.env.NEXT_PUBLIC_SITE_URL || null;
+const envApiUrl = process.env.NEXT_PUBLIC_API_URL;
+const isStatic = process.env.NEXT_PUBLIC_STATIC_MODE === 'true' || !envApiUrl;
+const apiUrl = envApiUrl || (process.env.NODE_ENV === 'development' ? 'http://localhost:8000' : null);
+
+const vercelUrl =
+  process.env.NEXT_PUBLIC_SITE_URL ||
+  process.env.NEXT_PUBLIC_VERCEL_URL ||
+  process.env.VERCEL_URL ||
+  null;
+
+const staticBase = vercelUrl
+  ? vercelUrl.startsWith('http') ? vercelUrl : `https://${vercelUrl}`
+  : 'http://localhost:3000';
 const readOnly = config.readOnly;
 
 const buildEndpoint = (path: string, staticPath: string) => {
-  if (!isStatic) return `${apiUrl}${path}`;
-
-  // When running in static mode on Vercel we may not have NEXT_PUBLIC_SITE_URL set.
-  // Fall back to a relative path so assets resolve correctly on the deployed domain.
-  if (!staticBase) return staticPath;
+  // Use live API when configured, otherwise fall back to static assets.
+  if (!isStatic && apiUrl) return `${apiUrl}${path}`;
 
   return new URL(staticPath, staticBase).toString();
 };
