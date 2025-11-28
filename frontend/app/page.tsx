@@ -59,11 +59,18 @@ type FetchResult<T> = { data: T | null; error: string | null };
 
 const isStatic = process.env.NEXT_PUBLIC_STATIC_MODE === 'true';
 const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
-const staticBase = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
+const staticBase = process.env.NEXT_PUBLIC_SITE_URL || null;
 const readOnly = config.readOnly;
 
-const buildEndpoint = (path: string, staticPath: string) =>
-  isStatic ? new URL(staticPath, staticBase).toString() : `${apiUrl}${path}`;
+const buildEndpoint = (path: string, staticPath: string) => {
+  if (!isStatic) return `${apiUrl}${path}`;
+
+  // When running in static mode on Vercel we may not have NEXT_PUBLIC_SITE_URL set.
+  // Fall back to a relative path so assets resolve correctly on the deployed domain.
+  if (!staticBase) return staticPath;
+
+  return new URL(staticPath, staticBase).toString();
+};
 
 async function fetchJson<T>(url: string, label: string): Promise<FetchResult<T>> {
   try {
