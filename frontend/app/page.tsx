@@ -67,6 +67,7 @@ const vercelUrl =
   process.env.VERCEL_URL ||
   null;
 
+// For Vercel, use the deployment URL; for local dev, use localhost
 const staticBase = vercelUrl
   ? vercelUrl.startsWith('http') ? vercelUrl : `https://${vercelUrl}`
   : 'http://localhost:3000';
@@ -76,7 +77,14 @@ const buildEndpoint = (path: string, staticPath: string) => {
   // Use live API when configured, otherwise fall back to static assets.
   if (!isStatic && apiUrl) return `${apiUrl}${path}`;
 
-  return new URL(staticPath, staticBase).toString();
+  // On Vercel, use absolute URL with the deployment domain
+  if (vercelUrl) {
+    const base = vercelUrl.startsWith('http') ? vercelUrl : `https://${vercelUrl}`;
+    return `${base}${staticPath}`;
+  }
+
+  // Local development fallback
+  return `http://localhost:3000${staticPath}`;
 };
 
 async function fetchJson<T>(url: string, label: string): Promise<FetchResult<T>> {
