@@ -61,30 +61,37 @@ const envApiUrl = process.env.NEXT_PUBLIC_API_URL;
 const isStatic = process.env.NEXT_PUBLIC_STATIC_MODE === 'true' || !envApiUrl;
 const apiUrl = envApiUrl || (process.env.NODE_ENV === 'development' ? 'http://localhost:8000' : null);
 
-const vercelUrl =
-  process.env.NEXT_PUBLIC_SITE_URL ||
-  process.env.NEXT_PUBLIC_VERCEL_URL ||
-  process.env.VERCEL_URL ||
-  null;
+// Determine the base URL for static assets
+const getStaticBase = () => {
+  // Explicit site URL takes priority
+  if (process.env.NEXT_PUBLIC_SITE_URL) {
+    const url = process.env.NEXT_PUBLIC_SITE_URL;
+    return url.startsWith('http') ? url : `https://${url}`;
+  }
+  // Vercel environment variables
+  if (process.env.NEXT_PUBLIC_VERCEL_URL) {
+    return `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`;
+  }
+  if (process.env.VERCEL_URL) {
+    return `https://${process.env.VERCEL_URL}`;
+  }
+  // Production fallback for Vercel deployments
+  if (process.env.VERCEL) {
+    return 'https://vanguard-league.vercel.app';
+  }
+  // Local development
+  return 'http://localhost:3000';
+};
 
-// For Vercel, use the deployment URL; for local dev, use localhost
-const staticBase = vercelUrl
-  ? vercelUrl.startsWith('http') ? vercelUrl : `https://${vercelUrl}`
-  : 'http://localhost:3000';
+const staticBase = getStaticBase();
 const readOnly = config.readOnly;
 
 const buildEndpoint = (path: string, staticPath: string) => {
-  // Use live API when configured, otherwise fall back to static assets.
+  // Use live API when configured
   if (!isStatic && apiUrl) return `${apiUrl}${path}`;
 
-  // On Vercel, use absolute URL with the deployment domain
-  if (vercelUrl) {
-    const base = vercelUrl.startsWith('http') ? vercelUrl : `https://${vercelUrl}`;
-    return `${base}${staticPath}`;
-  }
-
-  // Local development fallback
-  return `http://localhost:3000${staticPath}`;
+  // Static mode: use base URL for static files
+  return `${staticBase}${staticPath}`;
 };
 
 async function fetchJson<T>(url: string, label: string): Promise<FetchResult<T>> {
