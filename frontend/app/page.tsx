@@ -1,7 +1,11 @@
 import Image from 'next/image';
 import { config } from '@/lib/config';
+import { promises as fs } from 'fs';
+import path from 'path';
 
-export const dynamic = 'force-dynamic';
+// Use static generation - data is baked in at build time
+export const dynamic = 'force-static';
+export const revalidate = false;
 
 interface Player {
   id: number;
@@ -55,99 +59,48 @@ interface Academy {
   website: string | null;
 }
 
-type FetchResult<T> = { data: T | null; error: string | null };
-
-const envApiUrl = process.env.NEXT_PUBLIC_API_URL;
-const isStatic = process.env.NEXT_PUBLIC_STATIC_MODE === 'true' || !envApiUrl;
-const apiUrl = envApiUrl || (process.env.NODE_ENV === 'development' ? 'http://localhost:8000' : null);
-
-// Determine the base URL for static assets
-const getStaticBase = () => {
-  // Explicit site URL takes priority
-  if (process.env.NEXT_PUBLIC_SITE_URL) {
-    const url = process.env.NEXT_PUBLIC_SITE_URL;
-    return url.startsWith('http') ? url : `https://${url}`;
-  }
-  // Vercel environment variables
-  if (process.env.NEXT_PUBLIC_VERCEL_URL) {
-    return `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`;
-  }
-  if (process.env.VERCEL_URL) {
-    return `https://${process.env.VERCEL_URL}`;
-  }
-  // Production fallback for Vercel deployments
-  if (process.env.VERCEL) {
-    return 'https://vanguard-league.vercel.app';
-  }
-  // Local development
-  return 'http://localhost:3000';
-};
-
-const staticBase = getStaticBase();
 const readOnly = config.readOnly;
 
-const buildEndpoint = (path: string, staticPath: string) => {
-  // Use live API when configured
-  if (!isStatic && apiUrl) return `${apiUrl}${path}`;
-
-  // Static mode: use base URL for static files
-  return `${staticBase}${staticPath}`;
-};
-
-async function fetchJson<T>(url: string, label: string): Promise<FetchResult<T>> {
+// Read JSON file from public/data directory at build time
+async function readJsonFile<T>(filename: string): Promise<T | null> {
   try {
-    const res = await fetch(url, { cache: 'no-store' });
-    if (!res.ok) {
-      return { data: null, error: label };
-    }
-    return { data: (await res.json()) as T, error: null };
+    const filePath = path.join(process.cwd(), 'public', 'data', filename);
+    const content = await fs.readFile(filePath, 'utf-8');
+    return JSON.parse(content) as T;
   } catch {
-    return { data: null, error: label };
+    return null;
   }
 }
 
 async function loadData() {
   const errors: string[] = [];
 
-  const eventsEndpoint = buildEndpoint('/api/events', '/data/events.json');
-  const playersEndpoint = buildEndpoint('/api/players', '/data/players.json');
-  const lwEndpoint = buildEndpoint('/api/ladder/weight-class/Lightweight', '/data/ladder-lightweight.json');
-  const mwEndpoint = buildEndpoint('/api/ladder/weight-class/Middleweight', '/data/ladder-middleweight.json');
-  const hwEndpoint = buildEndpoint('/api/ladder/weight-class/Heavyweight', '/data/ladder-heavyweight.json');
-  const overallEndpoint = buildEndpoint('/api/ladder/overall', '/data/ladder-overall.json');
-  const academiesEndpoint = buildEndpoint('/api/academies/rankings', '/data/academy-rankings.json');
-
-  const [eventsRes, lwRes, mwRes, hwRes, overallRes, academiesRes, playersRes] = await Promise.all([
-    fetchJson<Event[]>(eventsEndpoint, 'Events'),
-    fetchJson<any>(lwEndpoint, 'Lightweight ladder'),
-    fetchJson<any>(mwEndpoint, 'Middleweight ladder'),
-    fetchJson<any>(hwEndpoint, 'Heavyweight ladder'),
-    fetchJson<any>(overallEndpoint, 'Overall ladder'),
-    fetchJson<{ academies: Academy[] }>(academiesEndpoint, 'Academies'),
-    fetchJson<any[]>(playersEndpoint, 'Players'),
+  // Read all data files at build time
+  const [events, players, lwData, mwData, hwData, overallData, academiesData] = await Promise.all([
+    readJsonFile<Event[]>('events.json'),
+    readJsonFile<any[]>('players.json'),
+    readJsonFile<any>('ladder-lightweight.json'),
+    readJsonFile<any>('ladder-middleweight.json'),
+    readJsonFile<any>('ladder-heavyweight.json'),
+    readJsonFile<any[]>('ladder-overall.json'),
+    readJsonFile<{ academies: Academy[] }>('academy-rankings.json'),
   ]);
 
-  if (eventsRes.error) errors.push(eventsRes.error);
-  if (lwRes.error) errors.push(lwRes.error);
-  if (mwRes.error) errors.push(mwRes.error);
-  if (hwRes.error) errors.push(hwRes.error);
-  if (overallRes.error) errors.push(overallRes.error);
-  if (academiesRes.error) errors.push(academiesRes.error);
-  if (playersRes.error) errors.push(playersRes.error);
-
-  const events = eventsRes.data || [];
+  if (!events) errors.push('Events');
+  if (!lwData) errors.push('Lightweight ladder');
+  if (!mwData) errors.push('Middleweight ladder');
+  if (!hwData) errors.push('Heavyweight ladder');
+  if (!overallData) errors.push('Overall ladder');
+  if (!academiesData) errors.push('Academies');
+  if (!players) errors.push('Players');
 
   // Calculate total matches across events
   let totalMatches = 0;
-  if (events.length > 0) {
+  if (events && events.length > 0) {
     const matchCounts = await Promise.all(
       events.map(async (event) => {
-        const matchEndpoint = buildEndpoint(`/api/events/${event.id}/matches`, `/data/matches-event-${event.id}.json`);
-        const res = await fetchJson<any[]>(matchEndpoint, `Event ${event.id} matches`);
-        if (res.error) {
-          errors.push(res.error);
-        }
-        return Array.isArray(res.data) ? res.data.length : 0;
+        const matches = await readJsonFile<any[]>(`matches-event-${event.id}.json`);
+        return Array.isArray(matches) ? matches.length : 0;
       })
     );
     totalMatches = matchCounts.reduce((sum, count) => sum + count, 0);
@@ -177,32 +130,32 @@ async function loadData() {
     heavyweight: [],
   };
 
-  if (lwRes.data) {
-    const standings = isStatic ? lwRes.data.standings : lwRes.data.standings || [];
+  if (lwData) {
+    const standings = lwData.standings || [];
     ladderData.lightweight.push(...standings.map(convertLadderEntry));
   }
 
-  if (mwRes.data) {
-    const standings = isStatic ? mwRes.data.standings : mwRes.data.standings || [];
+  if (mwData) {
+    const standings = mwData.standings || [];
     ladderData.middleweight.push(...standings.map(convertLadderEntry));
   }
 
-  if (hwRes.data) {
-    const standings = isStatic ? hwRes.data.standings : hwRes.data.standings || [];
+  if (hwData) {
+    const standings = hwData.standings || [];
     ladderData.heavyweight.push(...standings.map(convertLadderEntry));
   }
 
-  if (overallRes.data && Array.isArray(overallRes.data)) {
-    ladderData.overall.push(...overallRes.data.map(convertLadderEntry));
+  if (overallData && Array.isArray(overallData)) {
+    ladderData.overall.push(...overallData.map(convertLadderEntry));
   }
 
   const stats = {
-    players: Array.isArray(playersRes.data) ? playersRes.data.length : 0,
+    players: Array.isArray(players) ? players.length : 0,
     matches: totalMatches,
   };
 
-  const academies = academiesRes.data?.academies && Array.isArray(academiesRes.data.academies)
-    ? academiesRes.data.academies
+  const academies = academiesData?.academies && Array.isArray(academiesData.academies)
+    ? academiesData.academies
     : [];
 
   return { ladderData, stats, academies, errors };
