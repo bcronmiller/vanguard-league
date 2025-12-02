@@ -226,6 +226,34 @@ export default function PlayerProfilePage({ params }: { params: { id: string } }
     return `${mins}:${secs.toString().padStart(2, '0')}`;
   };
 
+  // Ensure prize pool badge appears when eligibility is met even if exports missed it
+  useEffect(() => {
+    if (!matches.length) return;
+
+    setBadges((currentBadges) => {
+      const hasPrizeBadge = currentBadges.some((badge) => badge.name === 'Prize Pool');
+      if (hasPrizeBadge) return currentBadges;
+
+      const eventIds = matches
+        .map((match) => match.event_id)
+        .filter((id): id is number => id !== null && id !== undefined);
+      const eventsAttended = new Set(eventIds).size;
+
+      if (matches.length >= 6 && eventsAttended >= 3) {
+        return [
+          ...currentBadges,
+          {
+            name: 'Prize Pool',
+            description: `Eligible for season prize pool (${eventsAttended} events, ${matches.length} matches)`,
+            icon: '💰'
+          }
+        ];
+      }
+
+      return currentBadges;
+    });
+  }, [matches]);
+
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
     return date.toLocaleDateString('en-US', {
