@@ -318,7 +318,7 @@ export default async function Home() {
                   SEASON PRIZE POOL ELIGIBILITY
                 </h3>
                 <p className="text-gray-700 dark:text-gray-300 text-lg mb-4">
-                  Each season runs for <strong>6 events over 3 months</strong>. To be eligible for prize pool payouts, fighters must meet BOTH requirements:
+                  Each season runs for <strong>5 events</strong>. To be eligible for prize pool payouts, fighters must meet BOTH requirements:
                 </p>
 
                 <div className="grid md:grid-cols-2 gap-4 mb-6">
@@ -328,24 +328,24 @@ export default async function Home() {
                       <h4 className="font-heading font-bold text-lg">Attend 3+ Events</h4>
                     </div>
                     <p className="text-sm text-gray-600 dark:text-gray-400">
-                      Compete in at least 3 of 6 events
+                      Compete in at least 3 of 5 events
                     </p>
                   </div>
 
                   <div className="bg-white dark:bg-gray-800 rounded-lg p-4 border-l-4 border-mbjj-red">
                     <div className="flex items-center gap-2 mb-2">
                       <span className="text-2xl">🥊</span>
-                      <h4 className="font-heading font-bold text-lg">8+ Matches</h4>
+                      <h4 className="font-heading font-bold text-lg">6+ Matches</h4>
                     </div>
                     <p className="text-sm text-gray-600 dark:text-gray-400">
-                      Complete at least 8 total matches
+                      Complete at least 6 total matches
                     </p>
                   </div>
                 </div>
 
                 <div className="bg-white/50 dark:bg-gray-800/50 rounded-lg p-4 mb-4">
                   <p className="text-gray-700 dark:text-gray-300 text-sm mb-2">
-                    <strong>Weight Class Prizes:</strong> To be eligible for a specific division's prize, you must have at least 4 matches in that division and more matches there than any other division.
+                    <strong>Weight Class Prizes:</strong> To be eligible for a specific division's prize, you must have at least 6 matches in that division and more matches there than any other division.
                   </p>
                   <p className="text-gray-700 dark:text-gray-300 text-sm">
                     <strong>Not eligible?</strong> You can still compete! Late joiners and those building their record are welcome to compete for experience, skill development, and exposure. Joining late is valuable for gaining mat time and preparing for future seasons.

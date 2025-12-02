@@ -65,7 +65,7 @@ export default function SeasonRulesPage() {
             SEASON STRUCTURE
           </h2>
           <p className="text-lg text-gray-700 dark:text-gray-300 mb-4">
-            The Vanguard League operates on a seasonal format where fighters compete across multiple events to earn prize pool payouts. Each season consists of <strong>6 events</strong> held over approximately <strong>3 months</strong> (schedule may vary due to holidays and facility availability).
+            The Vanguard League operates on a seasonal format where fighters compete across multiple events to earn prize pool payouts. Each season consists of <strong>5 events</strong> held over approximately <strong>3 months</strong> (schedule may vary due to holidays and facility availability).
           </p>
           <p className="text-lg text-gray-700 dark:text-gray-300">
             At the end of each season, prize pool awards are distributed to top-performing fighters based on ladder rankings in each weight class. The seasonal format emphasizes <strong>regular participation and consistency</strong> over individual match outcomes.
@@ -94,7 +94,7 @@ export default function SeasonRulesPage() {
                     Minimum Event Attendance
                   </h3>
                   <p className="text-xl text-gray-800 dark:text-gray-200 font-bold mb-2">
-                    Compete in at least <span className="text-mbjj-red">3 of 6 events</span> (50%)
+                    Compete in at least <span className="text-mbjj-red">3 of 5 events</span> (60%)
                   </p>
                   <p className="text-gray-700 dark:text-gray-300">
                     Fighters must attend and compete in at least 3 events during the season to qualify for prize pool consideration. This ensures fairness to those who participate consistently throughout the season.
@@ -112,13 +112,13 @@ export default function SeasonRulesPage() {
                     Minimum Match Count
                   </h3>
                   <p className="text-xl text-gray-800 dark:text-gray-200 font-bold mb-2">
-                    Complete at least <span className="text-mbjj-red">8 total matches</span>
+                    Complete at least <span className="text-mbjj-red">6 total matches</span>
                   </p>
                   <p className="text-gray-700 dark:text-gray-300 mb-2">
-                    Fighters must complete at least 8 matches across the season (wins, losses, and draws all count). This establishes a sufficient sample size to accurately reflect true skill level and prevents gaming the ranking system.
+                    Fighters must complete at least 6 matches across the season (wins, losses, and draws all count). This establishes a sufficient sample size to accurately reflect true skill level and prevents gaming the ranking system.
                   </p>
                   <p className="text-sm text-gray-600 dark:text-gray-400 italic">
-                    Note: This typically averages 2-3 matches per event attended.
+                    Note: This typically averages ~2 matches per event attended.
                   </p>
                 </div>
               </div>
@@ -162,7 +162,7 @@ export default function SeasonRulesPage() {
                     Minimum Matches in Division
                   </h3>
                   <p className="text-xl text-gray-800 dark:text-gray-200 font-bold mb-2">
-                    At least <span className="text-mbjj-red">4 matches</span> in that specific weight class
+                    At least <span className="text-mbjj-red">6 matches</span> in that specific weight class
                   </p>
                   <p className="text-gray-700 dark:text-gray-300">
                     This ensures meaningful participation in a division before competing for its prizes. You can't win a weight class prize with just 1-2 matches.
@@ -258,7 +258,7 @@ export default function SeasonRulesPage() {
 
           <div className="mt-6 bg-blue-50 dark:bg-blue-900/20 rounded-lg p-6 border-l-4 border-mbjj-blue">
             <p className="text-gray-700 dark:text-gray-300">
-              <strong>💡 Go-Getter Friendly:</strong> This system encourages you to compete as much as possible! Bonus fights, superfights, and cross-division matches all count toward your overall season participation (12-match requirement), while your primary competitive division naturally emerges based on where you focus your efforts.
+              <strong>💡 Go-Getter Friendly:</strong> This system encourages you to compete as much as possible! Bonus fights, superfights, and cross-division matches all count toward your overall season participation (6-match requirement), while your primary competitive division naturally emerges based on where you focus your efforts.
             </p>
           </div>
         </div>
@@ -324,10 +324,10 @@ export default function SeasonRulesPage() {
               Example: Season Cut Short After 4 Events
             </h3>
             <div className="space-y-2 text-gray-700 dark:text-gray-300">
-              <p><strong>Original Requirements:</strong> 3 of 6 events (50%) + 8 matches</p>
-              <p><strong>Prorated Requirements:</strong> 2 of 4 events (50%) + 5 matches</p>
+              <p><strong>Original Requirements:</strong> 3 of 5 events (60%) + 6 matches</p>
+              <p><strong>Prorated Requirements:</strong> 2 of 3 events (~60%) + 4 matches</p>
               <p className="text-sm text-gray-600 dark:text-gray-400 italic mt-3">
-                * Prorated match count = (8 ÷ 6) × actual events held, rounded to nearest whole number
+                * Prorated match count = (6 ÷ 5) × actual events held, rounded to nearest whole number
               </p>
             </div>
           </div>
@@ -376,7 +376,7 @@ export default function SeasonRulesPage() {
                 Q: Can I compete in multiple weight classes?
               </h3>
               <p className="text-gray-700 dark:text-gray-300 mb-2">
-                <strong>A:</strong> Absolutely! You can compete in any weight class at any event, including bonus fights and superfights. All matches count toward your overall 8-match minimum.
+                <strong>A:</strong> Absolutely! You can compete in any weight class at any event, including bonus fights and superfights. All matches count toward your overall 6-match minimum.
               </p>
               <p className="text-gray-700 dark:text-gray-300 mb-2">
                 However, to be eligible for a <strong>specific weight class prize</strong>, you must have:
@@ -401,10 +401,10 @@ export default function SeasonRulesPage() {
 
             <div>
               <h3 className="text-xl font-heading font-bold text-mbjj-blue mb-2">
-                Q: What if I miss exactly 3 events?
+                Q: What if I miss exactly 2 events?
               </h3>
               <p className="text-gray-700 dark:text-gray-300">
-                <strong>A:</strong> If you miss 3 events, you attended 3 events (6 - 3 = 3). That meets the minimum requirement! As long as you also have 12+ total matches, you're eligible for the prize pool.
+                <strong>A:</strong> If you miss 2 events, you attended 3 events (5 - 2 = 3). That meets the minimum requirement! As long as you also have 6+ total matches, you're eligible for the prize pool.
               </p>
             </div>
           </div>

@@ -275,8 +275,8 @@ async def get_prize_eligibility(player_id: int, db: Session = Depends(get_db)):
     - If tied for most matches, eligible for all tied divisions
 
     Overall Prize Pool Rules:
-    - Must have attended 5+ events
-    - Must have completed 12+ total matches
+    - Must have attended 3+ events
+    - Must have completed 6+ total matches
     """
     from collections import defaultdict
     from app.models.event import Event
@@ -324,7 +324,7 @@ async def get_prize_eligibility(player_id: int, db: Session = Depends(get_db)):
     # Check overall prize pool eligibility (using valid matches only)
     total_matches = len(valid_matches)
     events_attended = set(match.event_id for match in valid_matches)
-    overall_eligible = total_matches >= 12 and len(events_attended) >= 5
+    overall_eligible = total_matches >= 6 and len(events_attended) >= 3
 
     return {
         "player_id": player_id,
@@ -363,7 +363,7 @@ async def get_badges_endpoint(player_id: int, db: Session = Depends(get_db)):
     - Multi-Division ⚖️ - Competed in multiple weight classes
     - The Spoiler 🤯 - Beat someone 2+ belt ranks above you
     - Warrior Spirit ❤️‍🔥 - Most matches in a single event (minimum 3, no ties)
-    - Prize Pool 💰 - Eligible for season prize pool (5+ events, 12+ matches)
+    - Prize Pool 💰 - Eligible for season prize pool (3+ events, 6+ matches)
     """
     from app.services.badges import get_player_badges
 

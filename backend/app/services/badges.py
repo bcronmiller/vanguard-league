@@ -322,14 +322,14 @@ def get_player_badges(player_id: int, db: Session) -> List[Dict]:
         })
 
     # PRIZE POOL ELIGIBILITY - Season prize pool participation
-    # Requirements: 3+ events attended AND 12+ total matches
-    if len(results) >= 12:  # At least 12 matches
+    # Requirements: 3+ events attended AND 6+ total matches
+    if len(results) >= 6:  # At least 6 matches
         # Count unique events
         events_attended = set()
         for result, match in results:
             events_attended.add(match.event_id)
 
-        if len(events_attended) >= 3:  # At least 3 events (out of 6 season total)
+        if len(events_attended) >= 3:  # At least 3 events (out of 5 season total)
             badges.append({
                 "name": "Prize Pool",
                 "description": f"Eligible for season prize pool ({len(events_attended)} events, {len(results)} matches)",

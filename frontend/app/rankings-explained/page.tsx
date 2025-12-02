@@ -351,7 +351,7 @@ export default function RankingsExplainedPage() {
               <div className="bg-white/10 backdrop-blur rounded-lg p-4">
                 <div className="text-3xl mb-2">💰</div>
                 <div className="text-xl font-heading font-bold mb-1">PRIZE POOL</div>
-                <p className="text-white/90">Eligible for season prize pool (3+ events attended, 12+ total matches). You're in it for the long haul!</p>
+                <p className="text-white/90">Eligible for season prize pool (3+ events attended, 6+ total matches). You're in it for the long haul!</p>
               </div>
             </div>
             <div className="mt-4 bg-white/10 backdrop-blur rounded-lg p-4">
