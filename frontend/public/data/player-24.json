@@ -1,0 +1,84 @@
+{
+  "name": "Euan Graham",
+  "belt": null,
+  "team": null,
+  "academy": "VanGuard Gym",
+  "photo_url": null,
+  "age": null,
+  "bjj_belt_rank": "White",
+  "weight": 161.1,
+  "weight_class_id": 1,
+  "elo_rating": 1205.5810776857015,
+  "rankade_ree_score": null,
+  "id": 24,
+  "rankade_id": null,
+  "active": true,
+  "created_at": "2025-12-06T17:03:05.543588",
+  "updated_at": "2025-12-06T20:12:42.208080",
+  "weight_class_name": "Lightweight",
+  "badges": [],
+  "manual_badges": [],
+  "matches": [
+    {
+      "match_id": 963,
+      "event_id": 15,
+      "event_name": "VGL 4",
+      "event_date": "2025-12-06T12:00:00",
+      "opponent": {
+        "id": 25,
+        "name": "Michael Nguyen",
+        "photo_url": null
+      },
+      "result": "draw",
+      "method": "Triangle",
+      "duration_seconds": 469,
+      "match_number": 963,
+      "belt_rank": "White",
+      "weight": 161.1,
+      "weight_class": "Lightweight",
+      "elo_change": null
+    },
+    {
+      "match_id": 970,
+      "event_id": 15,
+      "event_name": "VGL 4",
+      "event_date": "2025-12-06T12:00:00",
+      "opponent": {
+        "id": 8,
+        "name": "John Michael El Mapache Rodriguez Uhweta",
+        "photo_url": "https://i.imgur.com/vuhvBXu.jpg"
+      },
+      "result": "loss",
+      "method": "Darce",
+      "duration_seconds": 70,
+      "match_number": 970,
+      "belt_rank": "White",
+      "weight": 161.1,
+      "weight_class": "Lightweight",
+      "elo_change": null
+    }
+  ],
+  "divisions": {
+    "player_id": 24,
+    "player_name": "Euan Graham",
+    "overall": {
+      "wins": 0,
+      "losses": 1,
+      "draws": 1,
+      "elo_rating": 1205.5810776857015,
+      "elo_change": 5.58107768570153
+    },
+    "divisions": [
+      {
+        "weight_class_id": 1,
+        "weight_class_name": "Lightweight",
+        "wins": 0,
+        "losses": 1,
+        "draws": 1,
+        "elo_rating": 1205.5637469270623,
+        "initial_elo_rating": 1200.0,
+        "elo_change": 5.563746927062311
+      }
+    ]
+  }
+}

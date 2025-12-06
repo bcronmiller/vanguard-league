@@ -6,46 +6,46 @@
   "photo_url": "https://i.imgur.com/xzfxRkA.jpg",
   "age": null,
   "bjj_belt_rank": "Purple",
-  "weight": 148,
+  "weight": 148.0,
   "weight_class_id": 1,
-  "elo_rating": 1650.2514100360218,
+  "elo_rating": 1631.5106904133409,
   "rankade_ree_score": null,
   "id": 2,
   "rankade_id": "5K10Z3DljGp",
   "active": true,
   "created_at": "2025-11-09T18:57:19.336246",
-  "updated_at": "2025-11-23T03:20:59.021667",
+  "updated_at": "2025-12-06T20:12:42.205559",
   "weight_class_name": "Lightweight",
   "badges": [
     {
-      "icon": "🛡️",
+      "icon": "\ud83d\udee1\ufe0f",
       "name": "Undefeated",
       "description": "Maintained undefeated record"
     },
     {
       "name": "Footsie",
       "description": "Leg lock submission earned",
-      "icon": "🦶"
+      "icon": "\ud83e\uddb6"
     },
     {
       "name": "Triangle",
       "description": "Triangle submission earned",
-      "icon": "🔺"
+      "icon": "\ud83d\udd3a"
     },
     {
       "name": "Armbar",
       "description": "Armbar submission earned",
-      "icon": "🦴"
+      "icon": "\ud83e\uddb4"
     },
     {
       "name": "Multi-Division",
       "description": "Competed in 2 weight classes",
-      "icon": "⚖️"
+      "icon": "\u2696\ufe0f"
     }
   ],
   "manual_badges": [
     {
-      "icon": "🛡️",
+      "icon": "\ud83d\udee1\ufe0f",
       "name": "Undefeated",
       "description": "Maintained undefeated record"
     }
@@ -109,23 +109,23 @@
       "elo_change": 16
     },
     {
-      "match_id": 740,
+      "match_id": 733,
       "event_id": 2,
       "event_name": "VGL 2",
       "event_date": "2025-11-14T19:00:00",
       "opponent": {
-        "id": 15,
-        "name": "George Battistelli",
-        "photo_url": "https://i.imgur.com/w6vvxqV.jpg"
+        "id": 18,
+        "name": "Jamie Corzo",
+        "photo_url": "https://i.imgur.com/kCFCFpU.png"
       },
       "result": "win",
-      "method": "Triangle",
-      "duration_seconds": 120,
-      "match_number": 629,
+      "method": "Ankle Lock",
+      "duration_seconds": 90,
+      "match_number": 645,
       "belt_rank": "Purple",
       "weight": 149.7,
-      "weight_class": "Middleweight",
-      "elo_change": 15
+      "weight_class": "Lightweight",
+      "elo_change": 7
     },
     {
       "match_id": 735,
@@ -147,45 +147,102 @@
       "elo_change": -1
     },
     {
-      "match_id": 733,
+      "match_id": 740,
       "event_id": 2,
       "event_name": "VGL 2",
       "event_date": "2025-11-14T19:00:00",
       "opponent": {
-        "id": 18,
-        "name": "Jamie Corzo",
-        "photo_url": "https://i.imgur.com/kCFCFpU.png"
+        "id": 15,
+        "name": "George Battistelli",
+        "photo_url": "https://i.imgur.com/w6vvxqV.jpg"
       },
       "result": "win",
-      "method": "Ankle Lock",
-      "duration_seconds": 90,
-      "match_number": 645,
+      "method": "Triangle",
+      "duration_seconds": 120,
+      "match_number": 629,
       "belt_rank": "Purple",
       "weight": 149.7,
+      "weight_class": "Middleweight",
+      "elo_change": 15
+    },
+    {
+      "match_id": 964,
+      "event_id": 15,
+      "event_name": "VGL 4",
+      "event_date": "2025-12-06T12:00:00",
+      "opponent": {
+        "id": 8,
+        "name": "John Michael El Mapache Rodriguez Uhweta",
+        "photo_url": "https://i.imgur.com/vuhvBXu.jpg"
+      },
+      "result": "win",
+      "method": "Triangle",
+      "duration_seconds": 469,
+      "match_number": 964,
+      "belt_rank": "Purple",
+      "weight": 148.0,
       "weight_class": "Lightweight",
-      "elo_change": 7
+      "elo_change": null
+    },
+    {
+      "match_id": 969,
+      "event_id": 15,
+      "event_name": "VGL 4",
+      "event_date": "2025-12-06T12:00:00",
+      "opponent": {
+        "id": 3,
+        "name": "Hussain Samir",
+        "photo_url": "https://i.imgur.com/OnbmNBi.jpg"
+      },
+      "result": "loss",
+      "method": "heel hook",
+      "duration_seconds": 30,
+      "match_number": 969,
+      "belt_rank": "Purple",
+      "weight": 148.0,
+      "weight_class": "Lightweight",
+      "elo_change": null
+    },
+    {
+      "match_id": 978,
+      "event_id": 15,
+      "event_name": "VGL 4",
+      "event_date": "2025-12-06T12:00:00",
+      "opponent": {
+        "id": 25,
+        "name": "Michael Nguyen",
+        "photo_url": null
+      },
+      "result": "draw",
+      "method": null,
+      "duration_seconds": null,
+      "match_number": 978,
+      "belt_rank": "Purple",
+      "weight": 148.0,
+      "weight_class": "Lightweight",
+      "elo_change": null
     }
   ],
   "divisions": {
     "player_id": 2,
     "player_name": "Alex Stewart",
     "overall": {
-      "wins": 5,
-      "losses": 0,
-      "draws": 1,
-      "elo_rating": 1650.2514100360218,
-      "elo_change": 50.25141003602175
+      "wins": 6,
+      "losses": 1,
+      "draws": 2,
+      "elo_rating": 1631.5106904133409,
+      "elo_change": 31.510690413340853
     },
     "divisions": [
       {
         "weight_class_id": 1,
         "weight_class_name": "Lightweight",
-        "wins": 4,
-        "losses": 0,
-        "draws": 1,
-        "elo_rating": 1636.1472324830254,
-        "initial_elo_rating": 1600,
-        "elo_change": 36.14723248302539
+        "wins": 5,
+        "losses": 1,
+        "draws": 2,
+        "elo_rating": 1617.6113023877629,
+        "initial_elo_rating": 1600.0,
+        "elo_change": 17.611302387762862
       },
       {
         "weight_class_id": 2,
@@ -194,7 +251,7 @@
         "losses": 0,
         "draws": 0,
         "elo_rating": 1615.2739436808304,
-        "initial_elo_rating": 1600,
+        "initial_elo_rating": 1600.0,
         "elo_change": 15.27394368083037
       }
     ]

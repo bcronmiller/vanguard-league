@@ -1,0 +1,84 @@
+{
+  "name": "Michael Nguyen",
+  "belt": null,
+  "team": null,
+  "academy": "VanGuard Gym",
+  "photo_url": null,
+  "age": null,
+  "bjj_belt_rank": "Blue",
+  "weight": 156.7,
+  "weight_class_id": 1,
+  "elo_rating": 1401.5451143491075,
+  "rankade_ree_score": null,
+  "id": 25,
+  "rankade_id": null,
+  "active": true,
+  "created_at": "2025-12-06T17:03:05.546932",
+  "updated_at": "2025-12-06T20:12:42.208081",
+  "weight_class_name": "Lightweight",
+  "badges": [],
+  "manual_badges": [],
+  "matches": [
+    {
+      "match_id": 963,
+      "event_id": 15,
+      "event_name": "VGL 4",
+      "event_date": "2025-12-06T12:00:00",
+      "opponent": {
+        "id": 24,
+        "name": "Euan Graham",
+        "photo_url": null
+      },
+      "result": "draw",
+      "method": "Triangle",
+      "duration_seconds": 469,
+      "match_number": 963,
+      "belt_rank": "Blue",
+      "weight": 156.7,
+      "weight_class": "Lightweight",
+      "elo_change": null
+    },
+    {
+      "match_id": 978,
+      "event_id": 15,
+      "event_name": "VGL 4",
+      "event_date": "2025-12-06T12:00:00",
+      "opponent": {
+        "id": 2,
+        "name": "Alex Stewart",
+        "photo_url": "https://i.imgur.com/xzfxRkA.jpg"
+      },
+      "result": "draw",
+      "method": null,
+      "duration_seconds": null,
+      "match_number": 978,
+      "belt_rank": "Blue",
+      "weight": 156.7,
+      "weight_class": "Lightweight",
+      "elo_change": null
+    }
+  ],
+  "divisions": {
+    "player_id": 25,
+    "player_name": "Michael Nguyen",
+    "overall": {
+      "wins": 0,
+      "losses": 0,
+      "draws": 2,
+      "elo_rating": 1401.5451143491075,
+      "elo_change": 1.5451143491075072
+    },
+    "divisions": [
+      {
+        "weight_class_id": 1,
+        "weight_class_name": "Lightweight",
+        "wins": 0,
+        "losses": 0,
+        "draws": 2,
+        "elo_rating": 1401.1255568610486,
+        "initial_elo_rating": 1400.0,
+        "elo_change": 1.125556861048608
+      }
+    ]
+  }
+}

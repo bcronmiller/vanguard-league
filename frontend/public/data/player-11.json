@@ -6,56 +6,56 @@
   "photo_url": "https://marketmusclescdn.nyc3.digitaloceanspaces.com/wp-content/uploads/sites/265/2021/07/28171628/christiansmall.jpg",
   "age": null,
   "bjj_belt_rank": "Black",
-  "weight": 203,
+  "weight": 203.0,
   "weight_class_id": 3,
-  "elo_rating": 2028.2666365763462,
+  "elo_rating": 2019.0111692384337,
   "rankade_ree_score": null,
   "id": 11,
   "rankade_id": "Y3gzKEr31a9",
   "active": true,
   "created_at": "2025-11-09T18:57:19.336262",
-  "updated_at": "2025-11-23T03:20:59.025374",
+  "updated_at": "2025-12-06T20:12:42.206915",
   "weight_class_name": "Heavyweight",
   "badges": [
     {
-      "icon": "🛡️",
+      "icon": "\ud83d\udee1\ufe0f",
       "name": "Undefeated",
       "description": "Maintained undefeated record"
     },
     {
       "name": "On Fire",
       "description": "7 wins in a row",
-      "icon": "🔥"
+      "icon": "\ud83d\udd25"
     },
     {
       "name": "Footsie",
       "description": "Leg lock submission earned",
-      "icon": "🦶"
+      "icon": "\ud83e\uddb6"
     },
     {
       "name": "Triangle",
       "description": "Triangle submission earned",
-      "icon": "🔺"
+      "icon": "\ud83d\udd3a"
     },
     {
       "name": "Darce Knight",
       "description": "Darce choke submission earned",
-      "icon": "🥷"
+      "icon": "\ud83e\udd77"
     },
     {
       "name": "Guillotine",
       "description": "Guillotine submission earned",
-      "icon": "⚔️"
+      "icon": "\u2694\ufe0f"
     },
     {
       "name": "Armbar",
       "description": "Armbar submission earned",
-      "icon": "🦴"
+      "icon": "\ud83e\uddb4"
     }
   ],
   "manual_badges": [
     {
-      "icon": "🛡️",
+      "icon": "\ud83d\udee1\ufe0f",
       "name": "Undefeated",
       "description": "Maintained undefeated record"
     }
@@ -81,23 +81,23 @@
       "elo_change": 1
     },
     {
-      "match_id": 16,
+      "match_id": 9,
       "event_id": 1,
       "event_name": "VGL 1",
       "event_date": "2025-11-07T19:00:00",
       "opponent": {
-        "id": 10,
-        "name": "Troy Wittman",
-        "photo_url": "https://i.imgur.com/C1nGrWd.png"
+        "id": 9,
+        "name": "Edrees Saifi",
+        "photo_url": "https://i.imgur.com/TziWaNR.png"
       },
       "result": "win",
-      "method": "Arm Triangle",
-      "duration_seconds": 450,
+      "method": "Guillotine",
+      "duration_seconds": 200,
       "match_number": null,
       "belt_rank": "Black",
       "weight": 203,
       "weight_class": "Heavyweight",
-      "elo_change": 17
+      "elo_change": 1
     },
     {
       "match_id": 13,
@@ -119,21 +119,97 @@
       "elo_change": -9
     },
     {
-      "match_id": 9,
+      "match_id": 16,
       "event_id": 1,
       "event_name": "VGL 1",
       "event_date": "2025-11-07T19:00:00",
       "opponent": {
-        "id": 9,
-        "name": "Edrees Saifi",
-        "photo_url": "https://i.imgur.com/TziWaNR.png"
+        "id": 10,
+        "name": "Troy Wittman",
+        "photo_url": "https://i.imgur.com/C1nGrWd.png"
       },
       "result": "win",
-      "method": "Guillotine",
-      "duration_seconds": 200,
+      "method": "Arm Triangle",
+      "duration_seconds": 450,
       "match_number": null,
       "belt_rank": "Black",
       "weight": 203,
+      "weight_class": "Heavyweight",
+      "elo_change": 17
+    },
+    {
+      "match_id": 728,
+      "event_id": 2,
+      "event_name": "VGL 2",
+      "event_date": "2025-11-14T19:00:00",
+      "opponent": {
+        "id": 17,
+        "name": "Dustin Montano",
+        "photo_url": "https://i.imgur.com/DAVmsTy.png"
+      },
+      "result": "win",
+      "method": "Darce",
+      "duration_seconds": 360,
+      "match_number": 637,
+      "belt_rank": "Black",
+      "weight": 203,
+      "weight_class": "Heavyweight",
+      "elo_change": 1
+    },
+    {
+      "match_id": 729,
+      "event_id": 2,
+      "event_name": "VGL 2",
+      "event_date": "2025-11-14T19:00:00",
+      "opponent": {
+        "id": 16,
+        "name": "Marcus Harness",
+        "photo_url": "https://i.imgur.com/OlkIMNF.png"
+      },
+      "result": "win",
+      "method": "Arm Triangle",
+      "duration_seconds": 390,
+      "match_number": 639,
+      "belt_rank": "Black",
+      "weight": 203,
+      "weight_class": "Heavyweight",
+      "elo_change": 7
+    },
+    {
+      "match_id": 730,
+      "event_id": 2,
+      "event_name": "VGL 2",
+      "event_date": "2025-11-14T19:00:00",
+      "opponent": {
+        "id": 7,
+        "name": "Matt Crawford",
+        "photo_url": "https://i.imgur.com/GeVieX2.png"
+      },
+      "result": "win",
+      "method": "Head and Arm Choke",
+      "duration_seconds": 450,
+      "match_number": 640,
+      "belt_rank": "Black",
+      "weight": 203,
+      "weight_class": "Heavyweight",
+      "elo_change": 7
+    },
+    {
+      "match_id": 751,
+      "event_id": 3,
+      "event_name": "VGL 3",
+      "event_date": "2025-11-22T17:00:00",
+      "opponent": {
+        "id": 5,
+        "name": "Nick Newbold",
+        "photo_url": "https://i.imgur.com/RXmwkBZ.jpg"
+      },
+      "result": "win",
+      "method": "arm bar",
+      "duration_seconds": 360,
+      "match_number": 1,
+      "belt_rank": "Black",
+      "weight": 204,
       "weight_class": "Heavyweight",
       "elo_change": 1
     },
@@ -150,25 +226,6 @@
       "result": "win",
       "method": "Head and arm choke",
       "duration_seconds": 480,
-      "match_number": 1,
-      "belt_rank": "Black",
-      "weight": 204,
-      "weight_class": "Heavyweight",
-      "elo_change": 1
-    },
-    {
-      "match_id": 751,
-      "event_id": 3,
-      "event_name": "VGL 3",
-      "event_date": "2025-11-22T17:00:00",
-      "opponent": {
-        "id": 5,
-        "name": "Nick Newbold",
-        "photo_url": "https://i.imgur.com/RXmwkBZ.jpg"
-      },
-      "result": "win",
-      "method": "arm bar",
-      "duration_seconds": 360,
       "match_number": 1,
       "belt_rank": "Black",
       "weight": 204,
@@ -195,83 +252,74 @@
       "elo_change": 3
     },
     {
-      "match_id": 730,
-      "event_id": 2,
-      "event_name": "VGL 2",
-      "event_date": "2025-11-14T19:00:00",
+      "match_id": 967,
+      "event_id": 15,
+      "event_name": "VGL 4",
+      "event_date": "2025-12-06T12:00:00",
       "opponent": {
-        "id": 7,
-        "name": "Matt Crawford",
-        "photo_url": "https://i.imgur.com/GeVieX2.png"
+        "id": 22,
+        "name": "Sean Halse",
+        "photo_url": null
       },
       "result": "win",
-      "method": "Head and Arm Choke",
-      "duration_seconds": 450,
-      "match_number": 640,
+      "method": "Triangle",
+      "duration_seconds": 469,
+      "match_number": 967,
       "belt_rank": "Black",
-      "weight": 203,
+      "weight": 203.0,
       "weight_class": "Heavyweight",
-      "elo_change": 7
+      "elo_change": null
     },
     {
-      "match_id": 729,
-      "event_id": 2,
-      "event_name": "VGL 2",
-      "event_date": "2025-11-14T19:00:00",
+      "match_id": 979,
+      "event_id": 15,
+      "event_name": "VGL 4",
+      "event_date": "2025-12-06T12:00:00",
       "opponent": {
-        "id": 16,
-        "name": "Marcus Harness",
-        "photo_url": "https://i.imgur.com/OlkIMNF.png"
+        "id": 8,
+        "name": "John Michael El Mapache Rodriguez Uhweta",
+        "photo_url": "https://i.imgur.com/vuhvBXu.jpg"
       },
-      "result": "win",
-      "method": "Arm Triangle",
-      "duration_seconds": 390,
-      "match_number": 639,
+      "result": "draw",
+      "method": null,
+      "duration_seconds": null,
+      "match_number": 979,
       "belt_rank": "Black",
-      "weight": 203,
+      "weight": 203.0,
       "weight_class": "Heavyweight",
-      "elo_change": 7
-    },
-    {
-      "match_id": 728,
-      "event_id": 2,
-      "event_name": "VGL 2",
-      "event_date": "2025-11-14T19:00:00",
-      "opponent": {
-        "id": 17,
-        "name": "Dustin Montano",
-        "photo_url": "https://i.imgur.com/DAVmsTy.png"
-      },
-      "result": "win",
-      "method": "Darce",
-      "duration_seconds": 360,
-      "match_number": 637,
-      "belt_rank": "Black",
-      "weight": 203,
-      "weight_class": "Heavyweight",
-      "elo_change": 1
+      "elo_change": null
     }
   ],
   "divisions": {
     "player_id": 11,
     "player_name": "Christian Banghart",
     "overall": {
-      "wins": 9,
+      "wins": 10,
       "losses": 0,
-      "draws": 1,
-      "elo_rating": 2028.2666365763462,
-      "elo_change": 28.266636576346173
+      "draws": 2,
+      "elo_rating": 2019.0111692384337,
+      "elo_change": 19.011169238433695
     },
     "divisions": [
       {
-        "weight_class_id": 3,
-        "weight_class_name": "Heavyweight",
-        "wins": 9,
+        "weight_class_id": 2,
+        "weight_class_name": "Middleweight",
+        "wins": 0,
         "losses": 0,
         "draws": 1,
-        "elo_rating": 2028.3752871629888,
-        "initial_elo_rating": 2000,
-        "elo_change": 28.375287162988798
+        "elo_rating": 1986.909090909091,
+        "initial_elo_rating": 2000.0,
+        "elo_change": -13.090909090909008
+      },
+      {
+        "weight_class_id": 3,
+        "weight_class_name": "Heavyweight",
+        "wins": 10,
+        "losses": 0,
+        "draws": 1,
+        "elo_rating": 2029.0030027946464,
+        "initial_elo_rating": 2000.0,
+        "elo_change": 29.003002794646363
       }
     ]
   }

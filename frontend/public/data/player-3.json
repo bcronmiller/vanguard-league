@@ -6,51 +6,51 @@
   "photo_url": "https://i.imgur.com/OnbmNBi.jpg",
   "age": null,
   "bjj_belt_rank": "Blue",
-  "weight": 166,
+  "weight": 166.0,
   "weight_class_id": 1,
-  "elo_rating": 1463.7552435139814,
+  "elo_rating": 1492.7101673231236,
   "rankade_ree_score": null,
   "id": 3,
   "rankade_id": "6dgROEGO1vG",
   "active": true,
   "created_at": "2025-11-09T18:57:19.336248",
-  "updated_at": "2025-11-23T03:20:59.022883",
+  "updated_at": "2025-12-06T20:12:42.205835",
   "weight_class_name": "Lightweight",
   "badges": [
     {
-      "icon": "🍑",
+      "icon": "\ud83c\udf51",
       "name": "Buttscooter",
       "description": "Master of the legendary butt scoot technique"
     },
     {
       "name": "On Fire",
       "description": "3 wins in a row",
-      "icon": "🔥"
+      "icon": "\ud83d\udd25"
     },
     {
       "name": "Comeback Kid",
       "description": "Won after losing 2+ matches",
-      "icon": "💪"
+      "icon": "\ud83d\udcaa"
     },
     {
       "name": "Footsie",
       "description": "Leg lock submission earned",
-      "icon": "🦶"
+      "icon": "\ud83e\uddb6"
     },
     {
       "name": "Darce Knight",
       "description": "Darce choke submission earned",
-      "icon": "🥷"
+      "icon": "\ud83e\udd77"
     },
     {
       "name": "Multi-Division",
       "description": "Competed in 3 weight classes",
-      "icon": "⚖️"
+      "icon": "\u2696\ufe0f"
     }
   ],
   "manual_badges": [
     {
-      "icon": "🍑",
+      "icon": "\ud83c\udf51",
       "name": "Buttscooter",
       "description": "Master of the legendary butt scoot technique"
     }
@@ -133,23 +133,23 @@
       "elo_change": -8
     },
     {
-      "match_id": 739,
+      "match_id": 732,
       "event_id": 2,
       "event_name": "VGL 2",
       "event_date": "2025-11-14T19:00:00",
       "opponent": {
-        "id": 6,
-        "name": "Josh Rivera",
-        "photo_url": "https://i.imgur.com/9SPGfFG.jpg"
+        "id": 15,
+        "name": "George Battistelli",
+        "photo_url": "https://i.imgur.com/w6vvxqV.jpg"
       },
       "result": "win",
       "method": "Heel Hook",
-      "duration_seconds": 40,
-      "match_number": 628,
+      "duration_seconds": 180,
+      "match_number": 643,
       "belt_rank": "Blue",
       "weight": 167.8,
-      "weight_class": "Lightweight",
-      "elo_change": 14
+      "weight_class": "Middleweight",
+      "elo_change": 24
     },
     {
       "match_id": 737,
@@ -171,55 +171,93 @@
       "elo_change": 16
     },
     {
-      "match_id": 732,
+      "match_id": 739,
       "event_id": 2,
       "event_name": "VGL 2",
       "event_date": "2025-11-14T19:00:00",
+      "opponent": {
+        "id": 6,
+        "name": "Josh Rivera",
+        "photo_url": "https://i.imgur.com/9SPGfFG.jpg"
+      },
+      "result": "win",
+      "method": "Heel Hook",
+      "duration_seconds": 40,
+      "match_number": 628,
+      "belt_rank": "Blue",
+      "weight": 167.8,
+      "weight_class": "Lightweight",
+      "elo_change": 14
+    },
+    {
+      "match_id": 965,
+      "event_id": 15,
+      "event_name": "VGL 4",
+      "event_date": "2025-12-06T12:00:00",
       "opponent": {
         "id": 15,
         "name": "George Battistelli",
         "photo_url": "https://i.imgur.com/w6vvxqV.jpg"
       },
+      "result": "draw",
+      "method": "Triangle",
+      "duration_seconds": 469,
+      "match_number": 965,
+      "belt_rank": "Blue",
+      "weight": 166,
+      "weight_class": "Middleweight",
+      "elo_change": null
+    },
+    {
+      "match_id": 969,
+      "event_id": 15,
+      "event_name": "VGL 4",
+      "event_date": "2025-12-06T12:00:00",
+      "opponent": {
+        "id": 2,
+        "name": "Alex Stewart",
+        "photo_url": "https://i.imgur.com/xzfxRkA.jpg"
+      },
       "result": "win",
       "method": "Heel Hook",
-      "duration_seconds": 180,
-      "match_number": 643,
+      "duration_seconds": 30,
+      "match_number": 969,
       "belt_rank": "Blue",
-      "weight": 167.8,
-      "weight_class": "Middleweight",
-      "elo_change": 24
+      "weight": 166,
+      "weight_class": "Lightweight",
+      "elo_change": null
     }
   ],
   "divisions": {
     "player_id": 3,
     "player_name": "Hussain Samir",
     "overall": {
-      "wins": 5,
+      "wins": 6,
       "losses": 2,
-      "draws": 0,
-      "elo_rating": 1463.7552435139814,
-      "elo_change": 63.75524351398144
+      "draws": 1,
+      "elo_rating": 1492.7101673231236,
+      "elo_change": 92.71016732312364
     },
     "divisions": [
       {
         "weight_class_id": 1,
         "weight_class_name": "Lightweight",
-        "wins": 3,
+        "wins": 4,
         "losses": 2,
         "draws": 0,
-        "elo_rating": 1429.34930921836,
-        "initial_elo_rating": 1400,
-        "elo_change": 29.349309218360077
+        "elo_rating": 1454.3999649114721,
+        "initial_elo_rating": 1400.0,
+        "elo_change": 54.399964911472125
       },
       {
         "weight_class_id": 2,
         "weight_class_name": "Middleweight",
         "wins": 1,
         "losses": 0,
-        "draws": 0,
-        "elo_rating": 1424.3119016527346,
-        "initial_elo_rating": 1400,
-        "elo_change": 24.311901652734605
+        "draws": 1,
+        "elo_rating": 1430.6128337696023,
+        "initial_elo_rating": 1400.0,
+        "elo_change": 30.612833769602275
       },
       {
         "weight_class_id": 3,
@@ -227,9 +265,9 @@
         "wins": 1,
         "losses": 0,
         "draws": 0,
-        "elo_rating": 1416,
-        "initial_elo_rating": 1400,
-        "elo_change": 16
+        "elo_rating": 1416.0,
+        "initial_elo_rating": 1400.0,
+        "elo_change": 16.0
       }
     ]
   }

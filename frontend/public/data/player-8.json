@@ -6,54 +6,35 @@
   "photo_url": "https://i.imgur.com/vuhvBXu.jpg",
   "age": null,
   "bjj_belt_rank": "Purple",
-  "weight": 157,
+  "weight": 165.0,
   "weight_class_id": 1,
-  "elo_rating": 1635.6883571114633,
+  "elo_rating": 1632.9730073753628,
   "rankade_ree_score": null,
   "id": 8,
   "rankade_id": "5lW7md3XgaZ",
   "active": true,
   "created_at": "2025-11-09T18:57:19.336257",
-  "updated_at": "2025-11-23T03:20:59.025025",
+  "updated_at": "2025-12-06T20:12:42.206642",
   "weight_class_name": "Lightweight",
   "badges": [
     {
       "name": "On Fire",
       "description": "3 wins in a row",
-      "icon": "🔥"
+      "icon": "\ud83d\udd25"
     },
     {
       "name": "Guillotine",
       "description": "Guillotine submission earned",
-      "icon": "⚔️"
+      "icon": "\u2694\ufe0f"
     },
     {
       "name": "Armbar",
       "description": "Armbar submission earned",
-      "icon": "🦴"
+      "icon": "\ud83e\uddb4"
     }
   ],
   "manual_badges": [],
   "matches": [
-    {
-      "match_id": 75,
-      "event_id": 1,
-      "event_name": "VGL 1",
-      "event_date": "2025-11-07T19:00:00",
-      "opponent": {
-        "id": 2,
-        "name": "Alex Stewart",
-        "photo_url": "https://i.imgur.com/xzfxRkA.jpg"
-      },
-      "result": "loss",
-      "method": "Reverse Triangle Cutting Armbar",
-      "duration_seconds": 180,
-      "match_number": null,
-      "belt_rank": "Blue",
-      "weight": 156,
-      "weight_class": "Lightweight",
-      "elo_change": -16
-    },
     {
       "match_id": 10,
       "event_id": 1,
@@ -93,57 +74,38 @@
       "elo_change": 8
     },
     {
-      "match_id": 756,
-      "event_id": 3,
-      "event_name": "VGL 3",
-      "event_date": "2025-11-22T17:00:00",
+      "match_id": 75,
+      "event_id": 1,
+      "event_name": "VGL 1",
+      "event_date": "2025-11-07T19:00:00",
       "opponent": {
-        "id": 18,
-        "name": "Jamie Corzo",
-        "photo_url": "https://i.imgur.com/kCFCFpU.png"
+        "id": 2,
+        "name": "Alex Stewart",
+        "photo_url": "https://i.imgur.com/xzfxRkA.jpg"
       },
-      "result": "win",
-      "method": "guillionet ",
-      "duration_seconds": 480,
-      "match_number": 2,
-      "belt_rank": "Purple",
-      "weight": 158,
+      "result": "loss",
+      "method": "Reverse Triangle Cutting Armbar",
+      "duration_seconds": 180,
+      "match_number": null,
+      "belt_rank": "Blue",
+      "weight": 156,
       "weight_class": "Lightweight",
-      "elo_change": 6
+      "elo_change": -16
     },
     {
-      "match_id": 752,
-      "event_id": 3,
-      "event_name": "VGL 3",
-      "event_date": "2025-11-22T17:00:00",
-      "opponent": {
-        "id": 14,
-        "name": "Jack Sudduth",
-        "photo_url": "https://i.imgur.com/CPK4ZYk.png"
-      },
-      "result": "win",
-      "method": "h",
-      "duration_seconds": 600,
-      "match_number": 2,
-      "belt_rank": "Purple",
-      "weight": 158,
-      "weight_class": "Lightweight",
-      "elo_change": 15
-    },
-    {
-      "match_id": 738,
+      "match_id": 734,
       "event_id": 2,
       "event_name": "VGL 2",
       "event_date": "2025-11-14T19:00:00",
       "opponent": {
-        "id": 18,
-        "name": "Jamie Corzo",
-        "photo_url": "https://i.imgur.com/kCFCFpU.png"
+        "id": 6,
+        "name": "Josh Rivera",
+        "photo_url": "https://i.imgur.com/9SPGfFG.jpg"
       },
       "result": "win",
-      "method": "Guillotine",
-      "duration_seconds": 370,
-      "match_number": 627,
+      "method": "Armbar",
+      "duration_seconds": 270,
+      "match_number": 644,
       "belt_rank": "Purple",
       "weight": 156,
       "weight_class": "Lightweight",
@@ -169,45 +131,150 @@
       "elo_change": 1
     },
     {
-      "match_id": 734,
+      "match_id": 738,
       "event_id": 2,
       "event_name": "VGL 2",
       "event_date": "2025-11-14T19:00:00",
       "opponent": {
-        "id": 6,
-        "name": "Josh Rivera",
-        "photo_url": "https://i.imgur.com/9SPGfFG.jpg"
+        "id": 18,
+        "name": "Jamie Corzo",
+        "photo_url": "https://i.imgur.com/kCFCFpU.png"
       },
       "result": "win",
-      "method": "Armbar",
-      "duration_seconds": 270,
-      "match_number": 644,
+      "method": "Guillotine",
+      "duration_seconds": 370,
+      "match_number": 627,
       "belt_rank": "Purple",
       "weight": 156,
       "weight_class": "Lightweight",
       "elo_change": 7
+    },
+    {
+      "match_id": 752,
+      "event_id": 3,
+      "event_name": "VGL 3",
+      "event_date": "2025-11-22T17:00:00",
+      "opponent": {
+        "id": 14,
+        "name": "Jack Sudduth",
+        "photo_url": "https://i.imgur.com/CPK4ZYk.png"
+      },
+      "result": "win",
+      "method": "h",
+      "duration_seconds": 600,
+      "match_number": 2,
+      "belt_rank": "Purple",
+      "weight": 158,
+      "weight_class": "Lightweight",
+      "elo_change": 15
+    },
+    {
+      "match_id": 756,
+      "event_id": 3,
+      "event_name": "VGL 3",
+      "event_date": "2025-11-22T17:00:00",
+      "opponent": {
+        "id": 18,
+        "name": "Jamie Corzo",
+        "photo_url": "https://i.imgur.com/kCFCFpU.png"
+      },
+      "result": "win",
+      "method": "guillionet ",
+      "duration_seconds": 480,
+      "match_number": 2,
+      "belt_rank": "Purple",
+      "weight": 158,
+      "weight_class": "Lightweight",
+      "elo_change": 6
+    },
+    {
+      "match_id": 964,
+      "event_id": 15,
+      "event_name": "VGL 4",
+      "event_date": "2025-12-06T12:00:00",
+      "opponent": {
+        "id": 2,
+        "name": "Alex Stewart",
+        "photo_url": "https://i.imgur.com/xzfxRkA.jpg"
+      },
+      "result": "loss",
+      "method": "Triangle",
+      "duration_seconds": 469,
+      "match_number": 964,
+      "belt_rank": "Purple",
+      "weight": 165.0,
+      "weight_class": "Lightweight",
+      "elo_change": null
+    },
+    {
+      "match_id": 970,
+      "event_id": 15,
+      "event_name": "VGL 4",
+      "event_date": "2025-12-06T12:00:00",
+      "opponent": {
+        "id": 24,
+        "name": "Euan Graham",
+        "photo_url": null
+      },
+      "result": "win",
+      "method": "Darce",
+      "duration_seconds": 70,
+      "match_number": 970,
+      "belt_rank": "Purple",
+      "weight": 165.0,
+      "weight_class": "Lightweight",
+      "elo_change": null
+    },
+    {
+      "match_id": 979,
+      "event_id": 15,
+      "event_name": "VGL 4",
+      "event_date": "2025-12-06T12:00:00",
+      "opponent": {
+        "id": 11,
+        "name": "Christian Banghart",
+        "photo_url": "https://marketmusclescdn.nyc3.digitaloceanspaces.com/wp-content/uploads/sites/265/2021/07/28171628/christiansmall.jpg"
+      },
+      "result": "draw",
+      "method": null,
+      "duration_seconds": null,
+      "match_number": 979,
+      "belt_rank": "Purple",
+      "weight": 165.0,
+      "weight_class": "Lightweight",
+      "elo_change": null
     }
   ],
   "divisions": {
     "player_id": 8,
     "player_name": "John Michael El Mapache Rodriguez Uhweta",
     "overall": {
-      "wins": 6,
-      "losses": 1,
-      "draws": 1,
-      "elo_rating": 1635.6883571114633,
-      "elo_change": 35.68835711146335
+      "wins": 7,
+      "losses": 2,
+      "draws": 2,
+      "elo_rating": 1632.9730073753628,
+      "elo_change": 32.97300737536284
     },
     "divisions": [
       {
         "weight_class_id": 1,
         "weight_class_name": "Lightweight",
-        "wins": 6,
-        "losses": 1,
+        "wins": 7,
+        "losses": 2,
         "draws": 1,
-        "elo_rating": 1635.1089205686737,
-        "initial_elo_rating": 1600,
-        "elo_change": 35.10892056867374
+        "elo_rating": 1621.9048911827133,
+        "initial_elo_rating": 1600.0,
+        "elo_change": 21.9048911827133
+      },
+      {
+        "weight_class_id": 2,
+        "weight_class_name": "Middleweight",
+        "wins": 0,
+        "losses": 0,
+        "draws": 1,
+        "elo_rating": 1613.090909090909,
+        "initial_elo_rating": 1600.0,
+        "elo_change": 13.090909090909008
       }
     ]
   }
