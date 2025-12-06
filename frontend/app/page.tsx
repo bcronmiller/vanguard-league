@@ -442,19 +442,6 @@ export default async function Home() {
                   </p>
                 </a>
 
-                {/* Quick Access */}
-                <a
-                  href="/events/2/checkin"
-                  className="bg-white/10 hover:bg-white/20 border-2 border-mbjj-red rounded-lg p-8 text-center transition group focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mbjj-accent-light"
-                >
-                  <div className="text-5xl mb-4">⚡</div>
-                  <h3 className="text-2xl font-heading font-bold mb-2 group-hover:text-mbjj-accent-light">
-                    VGL 2
-                  </h3>
-                  <p className="text-gray-300 text-sm">
-                    Quick access to Friday's event
-                  </p>
-                </a>
               </div>
 
               <div className="mt-8 text-center">

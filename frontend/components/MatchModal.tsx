@@ -322,6 +322,15 @@ export default function MatchModal({ matchId, isOpen, onClose, onResultSubmitted
               ×
             </button>
           </div>
+
+          <div className="mt-4">
+            <button
+              onClick={() => window.open(`/tape/${matchId}`, '_blank', 'noopener,noreferrer')}
+              className="px-4 py-2 bg-green-600 hover:bg-green-500 text-white text-sm font-heading font-bold rounded-lg transition"
+            >
+              Open Chroma Overlay
+            </button>
+          </div>
         </div>
 
         <div className="p-6">

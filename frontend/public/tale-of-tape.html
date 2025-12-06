@@ -113,12 +113,69 @@
             font-size: 0.9em;
             margin-top: 10px;
         }
+
+        /* Chroma key mode */
+        body.chroma,
+        body.transparent {
+            color: #000;
+        }
+        body.chroma {
+            background: #00ff00;
+        }
+        body.transparent {
+            background: transparent;
+            color: #fff;
+        }
+        body.chroma .header,
+        body.chroma .match-card,
+        body.chroma .match-header,
+        body.chroma .fighter-stats,
+        body.transparent .header,
+        body.transparent .match-card,
+        body.transparent .match-header,
+        body.transparent .fighter-stats {
+            background: transparent;
+            box-shadow: none;
+            border: none;
+        }
+        body.chroma .match-card,
+        body.transparent .match-card {
+            border: none;
+        }
+        body.chroma .match-header,
+        body.transparent .match-header {
+            color: inherit;
+        }
+        body.chroma .vs-text,
+        body.transparent .vs-text {
+            color: inherit;
+        }
+        body.chroma .fighter-name,
+        body.transparent .fighter-name {
+            color: inherit;
+        }
+        body.chroma .result-badge,
+        body.transparent .result-badge {
+            background: #000;
+            color: #fff;
+        }
     </style>
 </head>
 <body>
     <div class="header">
         <h1>VANGUARD LEAGUE 2</h1>
         <h2>TALE OF THE TAPE</h2>
+        <div style="margin-top: 10px; display: flex; gap: 10px; justify-content: center;">
+            <button id="refresh-btn" style="padding: 8px 14px; font-weight: bold; border: none; background: #FFD700; color: #000; cursor: pointer; border-radius: 6px;">
+                ↻ Refresh Now
+            </button>
+            <button id="chroma-btn" style="padding: 8px 14px; font-weight: bold; border: 2px solid #FFD700; background: transparent; color: #FFD700; cursor: pointer; border-radius: 6px;">
+                Open Chroma Key View
+            </button>
+            <button id="transparent-btn" style="padding: 8px 14px; font-weight: bold; border: 2px solid #FFD700; background: transparent; color: #FFD700; cursor: pointer; border-radius: 6px;">
+                Open Transparent View
+            </button>
+        </div>
     </div>
 
     <div id="matches" class="matches-grid">
@@ -128,6 +185,9 @@
     <script>
         const API_URL = 'http://localhost:8000';
         const EVENT_ID = 2;
+        const params = new URLSearchParams(window.location.search);
+        const isChroma = params.get('chroma') === '1' || params.get('mode') === 'chroma';
+        const isTransparent = params.get('mode') === 'transparent' || params.get('transparent') === '1';
 
         async function loadMatches() {
             try {
@@ -243,6 +303,29 @@
 
         // Auto-refresh every 30 seconds
         setInterval(loadMatches, 30000);
+
+        // Manual refresh and chroma view
+        document.getElementById('refresh-btn').addEventListener('click', loadMatches);
+        document.getElementById('chroma-btn').addEventListener('click', () => {
+            const url = new URL(window.location.href);
+            url.searchParams.set('mode', 'chroma');
+            url.searchParams.delete('transparent');
+            window.open(url.toString(), '_blank', 'noopener,noreferrer');
+        });
+        document.getElementById('transparent-btn').addEventListener('click', () => {
+            const url = new URL(window.location.href);
+            url.searchParams.set('mode', 'transparent');
+            url.searchParams.delete('chroma');
+            url.searchParams.delete('transparent');
+            window.open(url.toString(), '_blank', 'noopener,noreferrer');
+        });
+
+        if (isChroma) {
+            document.body.classList.add('chroma');
+        }
+        if (isTransparent) {
+            document.body.classList.add('transparent');
+        }
     </script>
 </body>
 </html>

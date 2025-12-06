@@ -1,6 +1,1 @@
-{
-  "event_id": 15,
-  "event_name": "VGL 4 - Middleweight",
-  "event_date": "2025-12-06T17:00:00",
-  "standings": []
-}
+{"event_id":15,"event_name":"VGL 4 - Middleweight","event_date":"2025-12-06T12:00:00","standings":[{"rank":1,"player_id":3,"player_name":"Hussain Samir","photo_url":"https://i.imgur.com/OnbmNBi.jpg","belt_rank":"Blue","wins":0,"losses":0,"draws":1,"win_rate":0.0,"elo_rating":1430.6128337696023,"initial_elo_rating":1400.0},{"rank":2,"player_id":8,"player_name":"John Michael El Mapache Rodriguez Uhweta","photo_url":"https://i.imgur.com/vuhvBXu.jpg","belt_rank":"Purple","wins":0,"losses":0,"draws":1,"win_rate":0.0,"elo_rating":1613.090909090909,"initial_elo_rating":1600.0},{"rank":3,"player_id":11,"player_name":"Christian Banghart","photo_url":"https://marketmusclescdn.nyc3.digitaloceanspaces.com/wp-content/uploads/sites/265/2021/07/28171628/christiansmall.jpg","belt_rank":"Black","wins":0,"losses":0,"draws":1,"win_rate":0.0,"elo_rating":1986.909090909091,"initial_elo_rating":2000.0},{"rank":4,"player_id":15,"player_name":"George Battistelli","photo_url":"https://i.imgur.com/w6vvxqV.jpg","belt_rank":"Purple","wins":0,"losses":0,"draws":1,"win_rate":0.0,"elo_rating":1562.648176250874,"initial_elo_rating":1600.0}]}
