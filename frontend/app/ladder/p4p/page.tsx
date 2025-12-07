@@ -5,8 +5,10 @@ import { config } from '@/lib/config';
 import { Fighter } from '@/lib/types';
 import Link from 'next/link';
 
+type P4PFighter = Fighter & { prizeEligible?: boolean };
+
 export default function PoundForPoundPage() {
-  const [fighters, setFighters] = useState<Fighter[]>([]);
+  const [fighters, setFighters] = useState<P4PFighter[]>([]);
   const [loading, setLoading] = useState(true);
   const readOnly = config.readOnly;
   const apiUrl = config.apiUrl;
@@ -34,7 +36,41 @@ export default function PoundForPoundPage() {
           return bGain - aGain; // Descending order (highest gain first)
         });
 
-        setFighters(sorted);
+        const fightersWithEligibility = await Promise.all(
+          sorted.map(async (fighter: Fighter) => {
+            try {
+              // Static mode: derive eligibility from player JSON; Dynamic: rely on badge API
+              if (isStatic) {
+                const res = await fetch(`/data/player-${fighter.player.id}.json`);
+                if (res.ok) {
+                  const playerData = await res.json();
+                  const matches = Array.isArray(playerData.matches) ? playerData.matches : [];
+                  const eventsAttended = new Set(
+                    matches
+                      .map((m: any) => m?.event_id)
+                      .filter((id: any) => id !== null && id !== undefined)
+                  );
+                  const eligible = matches.length >= 6 && eventsAttended.size >= 3;
+                  return { ...fighter, prizeEligible: eligible };
+                }
+              } else {
+                const res = await fetch(`${apiUrl}/api/players/${fighter.player.id}/badges`);
+                if (res.ok) {
+                  const badges = await res.json();
+                  const eligible = Array.isArray(badges)
+                    ? badges.some((b: any) => b?.name === 'Prize Pool')
+                    : false;
+                  return { ...fighter, prizeEligible: eligible };
+                }
+              }
+            } catch (error) {
+              console.error('Failed to load prize eligibility', error);
+            }
+            return { ...fighter, prizeEligible: false };
+          })
+        );
+
+        setFighters(fightersWithEligibility);
       }
     } catch (error) {
       console.error('Failed to load ladder:', error);
@@ -177,8 +213,17 @@ export default function PoundForPoundPage() {
                           />
                         )}
                         <div className="flex flex-col">
-                          <span className="font-heading font-bold text-lg text-gray-900 dark:text-white">
+                          <span className="font-heading font-bold text-lg text-gray-900 dark:text-white flex items-center gap-2">
                             {fighter.player.name.replace('*', '')}
+                            {fighter.prizeEligible && (
+                              <span
+                                title="Prize Pool eligible (3+ events, 6+ matches)"
+                                className="text-amber-500 text-xl"
+                                aria-label="Prize Pool eligible"
+                              >
+                                💰
+                              </span>
+                            )}
                           </span>
                           {fighter.player.academy && (
                             <span className="text-xs text-gray-500 dark:text-gray-500 mt-0.5">
