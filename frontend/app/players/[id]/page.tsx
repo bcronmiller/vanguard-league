@@ -73,6 +73,11 @@ export default function PlayerProfilePage({ params }: { params: { id: string } }
   const [player, setPlayer] = useState<Player | null>(null);
   const [matches, setMatches] = useState<MatchHistory[]>([]);
   const [ranking, setRanking] = useState<{ rank: number; total: number; weightClass: string } | null>(null);
+  const [p4pRanking, setP4pRanking] = useState<{
+    rank: number;
+    total: number;
+    record: { wins: number; losses: number; draws: number };
+  } | null>(null);
   const [badges, setBadges] = useState<Badge[]>([]);
   const [divisions, setDivisions] = useState<DivisionData | null>(null);
   const [loading, setLoading] = useState(true);
@@ -136,6 +141,12 @@ export default function PlayerProfilePage({ params }: { params: { id: string } }
   };
 
   const loadRanking = async () => {
+    const eloGain = (standing: any) => {
+      const initial = standing?.player?.initial_elo_rating ?? 0;
+      const current = standing?.player?.elo_rating ?? 0;
+      return initial ? current - initial : 0;
+    };
+
     try {
       const isStatic = process.env.NEXT_PUBLIC_STATIC_MODE === 'true';
       const endpoint = isStatic ? '/data/ladder-overall.json' : `${config.apiUrl}/api/ladder`;
@@ -146,6 +157,22 @@ export default function PlayerProfilePage({ params }: { params: { id: string } }
         // Filter out any invalid entries and find player's ranking
         const validLadder = ladder.filter((s: any) => s && s.player && s.player.id);
         const playerStanding = validLadder.find((s: any) => s.player.id === parseInt(playerId));
+
+        // Pound-for-pound ranking (overall ladder, sorted by ELO gain)
+        const overallLadder = [...validLadder].sort((a: any, b: any) => eloGain(b) - eloGain(a));
+        const overallIndex = overallLadder.findIndex((s: any) => s.player.id === parseInt(playerId));
+        if (overallIndex >= 0) {
+          const entry = overallLadder[overallIndex];
+          setP4pRanking({
+            rank: overallIndex + 1,
+            total: overallLadder.length,
+            record: {
+              wins: entry.wins ?? 0,
+              losses: entry.losses ?? 0,
+              draws: entry.draws ?? 0
+            }
+          });
+        }
 
         if (playerStanding && playerStanding.player.weight) {
           const weight = playerStanding.player.weight;
@@ -164,15 +191,7 @@ export default function PlayerProfilePage({ params }: { params: { id: string } }
           }
 
           // Sort by ELO gain (performance vs expectations)
-          classLadder.sort((a: any, b: any) => {
-            const aGain = a.player.initial_elo_rating
-              ? a.player.elo_rating - a.player.initial_elo_rating
-              : 0;
-            const bGain = b.player.initial_elo_rating
-              ? b.player.elo_rating - b.player.initial_elo_rating
-              : 0;
-            return bGain - aGain; // Descending (highest gain first)
-          });
+          classLadder.sort((a: any, b: any) => eloGain(b) - eloGain(a));
 
           const rank = classLadder.findIndex((s: any) => s.player.id === parseInt(playerId)) + 1;
           setRanking({ rank, total: classLadder.length, weightClass });
@@ -330,6 +349,36 @@ export default function PlayerProfilePage({ params }: { params: { id: string } }
                       <span>{badge.name}</span>
                     </div>
                   ))}
+                </div>
+              )}
+
+              {(ranking || p4pRanking) && (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                  {ranking && (
+                    <div className="bg-gray-50 dark:bg-gray-700 rounded-lg p-4 border-l-4 border-mbjj-blue">
+                      <div className="text-sm text-gray-600 dark:text-gray-400 mb-1">
+                        {ranking.weightClass.toUpperCase()} RANK
+                      </div>
+                      <div className="text-3xl font-heading font-bold text-mbjj-blue">
+                        #{ranking.rank} <span className="text-lg text-gray-500">of {ranking.total}</span>
+                      </div>
+                    </div>
+                  )}
+
+                  {p4pRanking && (
+                    <div className="bg-yellow-50 dark:bg-gray-700 rounded-lg p-4 border-l-4 border-yellow-500">
+                      <div className="text-sm text-gray-700 dark:text-gray-300 mb-1">POUND-FOR-POUND RANK</div>
+                      <div className="text-3xl font-heading font-bold text-yellow-600">
+                        #{p4pRanking.rank} <span className="text-lg text-gray-600 dark:text-gray-400">of {p4pRanking.total}</span>
+                      </div>
+                      <div className="text-sm text-gray-700 dark:text-gray-300 mt-1">
+                        Record:{' '}
+                        <span className="font-heading font-bold text-gray-900 dark:text-white">
+                          {p4pRanking.record.wins}-{p4pRanking.record.losses}-{p4pRanking.record.draws}
+                        </span>
+                      </div>
+                    </div>
+                  )}
                 </div>
               )}
 
