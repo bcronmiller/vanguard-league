@@ -1,210 +1,6 @@
 [
   {
     "player": {
-      "id": 11,
-      "name": "Christian Banghart",
-      "bjj_belt_rank": "Black",
-      "weight": 202.0,
-      "weight_class_name": "Heavyweight",
-      "weight_class_id": 3,
-      "elo_rating": 2025.8202,
-      "initial_elo_rating": 2000,
-      "photo_url": "https://marketmusclescdn.nyc3.digitaloceanspaces.com/wp-content/uploads/sites/265/2021/07/28171628/christiansmall.jpg",
-      "academy": "VanGuard Gym"
-    },
-    "wins": 13,
-    "losses": 0,
-    "draws": 2
-  },
-  {
-    "player": {
-      "id": 1,
-      "name": "Brian Cronmiller",
-      "bjj_belt_rank": "Black",
-      "weight": 250.0,
-      "weight_class_name": "Heavyweight",
-      "weight_class_id": 3,
-      "elo_rating": 2000,
-      "initial_elo_rating": 2000,
-      "photo_url": "https://i.imgur.com/4Byp9fT.jpg",
-      "academy": "VanGuard Gym"
-    },
-    "wins": 0,
-    "losses": 0,
-    "draws": 0
-  },
-  {
-    "player": {
-      "id": 10,
-      "name": "Troy Wittman",
-      "bjj_belt_rank": "Black",
-      "weight": 215.0,
-      "weight_class_name": "Heavyweight",
-      "weight_class_id": 3,
-      "elo_rating": 1993.091529,
-      "initial_elo_rating": 2000,
-      "photo_url": "https://i.imgur.com/C1nGrWd.png",
-      "academy": "Leo Dalla BJJ"
-    },
-    "wins": 3,
-    "losses": 1,
-    "draws": 0
-  },
-  {
-    "player": {
-      "id": 19,
-      "name": "Will Bullock",
-      "bjj_belt_rank": "Brown",
-      "weight": 220.0,
-      "weight_class_name": "Heavyweight",
-      "weight_class_id": 3,
-      "elo_rating": 1800,
-      "initial_elo_rating": 1800,
-      "photo_url": "https://i.imgur.com/T9WGdOy.png",
-      "academy": "Leo Dalla BJJ"
-    },
-    "wins": 0,
-    "losses": 0,
-    "draws": 0
-  },
-  {
-    "player": {
-      "id": 28,
-      "name": "Wyatt Carroll",
-      "bjj_belt_rank": "Brown",
-      "weight": 227.0,
-      "weight_class_name": "Heavyweight",
-      "weight_class_id": 3,
-      "elo_rating": 1795.532604,
-      "initial_elo_rating": 1800,
-      "photo_url": null,
-      "academy": "Vanguard Culpepper BJJ"
-    },
-    "wins": 1,
-    "losses": 1,
-    "draws": 0
-  },
-  {
-    "player": {
-      "id": 16,
-      "name": "Marcus Harness",
-      "bjj_belt_rank": "Brown",
-      "weight": 286.0,
-      "weight_class_name": "Heavyweight",
-      "weight_class_id": 3,
-      "elo_rating": 1776.075941,
-      "initial_elo_rating": 1800,
-      "photo_url": "https://i.imgur.com/OlkIMNF.png",
-      "academy": "VanGuard Gym"
-    },
-    "wins": 0,
-    "losses": 2,
-    "draws": 0
-  },
-  {
-    "player": {
-      "id": 7,
-      "name": "Matt Crawford",
-      "bjj_belt_rank": "Brown",
-      "weight": 262.0,
-      "weight_class_name": "Heavyweight",
-      "weight_class_id": 3,
-      "elo_rating": 1773.109615,
-      "initial_elo_rating": 1800,
-      "photo_url": "https://i.imgur.com/GeVieX2.png",
-      "academy": "Kaizen MMA"
-    },
-    "wins": 2,
-    "losses": 3,
-    "draws": 2
-  },
-  {
-    "player": {
-      "id": 8,
-      "name": "John Michael El Mapache Rodriguez Uhweta",
-      "bjj_belt_rank": "Purple",
-      "weight": 165.0,
-      "weight_class_name": "Lightweight",
-      "weight_class_id": 1,
-      "elo_rating": 1632.973007,
-      "initial_elo_rating": 1600,
-      "photo_url": "https://i.imgur.com/vuhvBXu.jpg",
-      "academy": "Kaizen MMA"
-    },
-    "wins": 7,
-    "losses": 2,
-    "draws": 2
-  },
-  {
-    "player": {
-      "id": 2,
-      "name": "Alex Stewart",
-      "bjj_belt_rank": "Purple",
-      "weight": 148.0,
-      "weight_class_name": "Lightweight",
-      "weight_class_id": 1,
-      "elo_rating": 1631.51069,
-      "initial_elo_rating": 1600,
-      "photo_url": "https://i.imgur.com/xzfxRkA.jpg",
-      "academy": "VanGuard Gym"
-    },
-    "wins": 6,
-    "losses": 1,
-    "draws": 2
-  },
-  {
-    "player": {
-      "id": 14,
-      "name": "Jack Sudduth",
-      "bjj_belt_rank": "Purple",
-      "weight": 155.4,
-      "weight_class_name": "Lightweight",
-      "weight_class_id": 1,
-      "elo_rating": 1589.332508,
-      "initial_elo_rating": 1600,
-      "photo_url": "https://i.imgur.com/CPK4ZYk.png",
-      "academy": "Calvert MMA"
-    },
-    "wins": 1,
-    "losses": 2,
-    "draws": 0
-  },
-  {
-    "player": {
-      "id": 23,
-      "name": "Anderson De Castro",
-      "bjj_belt_rank": "Purple",
-      "weight": 219.0,
-      "weight_class_name": "Heavyweight",
-      "weight_class_id": 3,
-      "elo_rating": 1584.078668,
-      "initial_elo_rating": 1600,
-      "photo_url": null,
-      "academy": "VanGuard Gym"
-    },
-    "wins": 1,
-    "losses": 1,
-    "draws": 0
-  },
-  {
-    "player": {
-      "id": 15,
-      "name": "George Battistelli",
-      "bjj_belt_rank": "Purple",
-      "weight": 187.0,
-      "weight_class_name": "Middleweight",
-      "weight_class_id": 2,
-      "elo_rating": 1553.317992,
-      "initial_elo_rating": 1600,
-      "photo_url": "https://i.imgur.com/w6vvxqV.jpg",
-      "academy": "VanGuard Gym"
-    },
-    "wins": 3,
-    "losses": 3,
-    "draws": 1
-  },
-  {
-    "player": {
       "id": 3,
       "name": "Hussain Samir",
       "bjj_belt_rank": "Blue",
@@ -214,7 +10,8 @@
       "elo_rating": 1511.113305,
       "initial_elo_rating": 1400,
       "photo_url": "https://i.imgur.com/wZdB0zW.png",
-      "academy": "VanGuard Gym"
+      "academy": "VanGuard Gym",
+      "elo_delta": 111.11330500000008
     },
     "wins": 8,
     "losses": 2,
@@ -231,7 +28,8 @@
       "elo_rating": 1452.856132,
       "initial_elo_rating": 1400,
       "photo_url": "https://i.imgur.com/RXmwkBZ.jpg",
-      "academy": "VanGuard Gym"
+      "academy": "VanGuard Gym",
+      "elo_delta": 52.85613199999989
     },
     "wins": 3,
     "losses": 2,
@@ -248,7 +46,8 @@
       "elo_rating": 1437.039919,
       "initial_elo_rating": 1400,
       "photo_url": "https://i.imgur.com/IgoHxYt.jpg",
-      "academy": "VanGuard Gym"
+      "academy": "VanGuard Gym",
+      "elo_delta": 37.039919000000054
     },
     "wins": 2,
     "losses": 2,
@@ -265,11 +64,66 @@
       "elo_rating": 1436.826272,
       "initial_elo_rating": 1400,
       "photo_url": null,
-      "academy": "Vanguard Culpepper BJJ"
+      "academy": "Vanguard Culpepper BJJ",
+      "elo_delta": 36.82627200000002
     },
     "wins": 2,
     "losses": 0,
     "draws": 0
+  },
+  {
+    "player": {
+      "id": 8,
+      "name": "John Michael El Mapache Rodriguez Uhweta",
+      "bjj_belt_rank": "Purple",
+      "weight": 165.0,
+      "weight_class_name": "Lightweight",
+      "weight_class_id": 1,
+      "elo_rating": 1632.973007,
+      "initial_elo_rating": 1600,
+      "photo_url": "https://i.imgur.com/vuhvBXu.jpg",
+      "academy": "Kaizen MMA",
+      "elo_delta": 32.97300700000005
+    },
+    "wins": 7,
+    "losses": 2,
+    "draws": 2
+  },
+  {
+    "player": {
+      "id": 2,
+      "name": "Alex Stewart",
+      "bjj_belt_rank": "Purple",
+      "weight": 148.0,
+      "weight_class_name": "Lightweight",
+      "weight_class_id": 1,
+      "elo_rating": 1631.51069,
+      "initial_elo_rating": 1600,
+      "photo_url": "https://i.imgur.com/xzfxRkA.jpg",
+      "academy": "VanGuard Gym",
+      "elo_delta": 31.510690000000068
+    },
+    "wins": 6,
+    "losses": 1,
+    "draws": 2
+  },
+  {
+    "player": {
+      "id": 11,
+      "name": "Christian Banghart",
+      "bjj_belt_rank": "Black",
+      "weight": 202.0,
+      "weight_class_name": "Heavyweight",
+      "weight_class_id": 3,
+      "elo_rating": 2025.8202,
+      "initial_elo_rating": 2000,
+      "photo_url": "https://marketmusclescdn.nyc3.digitaloceanspaces.com/wp-content/uploads/sites/265/2021/07/28171628/christiansmall.jpg",
+      "academy": "VanGuard Gym",
+      "elo_delta": 25.820200000000114
+    },
+    "wins": 13,
+    "losses": 0,
+    "draws": 2
   },
   {
     "player": {
@@ -282,130 +136,12 @@
       "elo_rating": 1411.953639,
       "initial_elo_rating": 1400,
       "photo_url": "https://i.imgur.com/DAVmsTy.png",
-      "academy": "Battlefield BJJ"
+      "academy": "Battlefield BJJ",
+      "elo_delta": 11.953639000000067
     },
     "wins": 0,
     "losses": 1,
     "draws": 1
-  },
-  {
-    "player": {
-      "id": 29,
-      "name": "Angel Jimenez",
-      "bjj_belt_rank": null,
-      "weight": 228.0,
-      "weight_class_name": "Heavyweight",
-      "weight_class_id": 3,
-      "elo_rating": 1400.940321,
-      "initial_elo_rating": 1400,
-      "photo_url": null,
-      "academy": "Vanguard Gym"
-    },
-    "wins": 0,
-    "losses": 1,
-    "draws": 1
-  },
-  {
-    "player": {
-      "id": 25,
-      "name": "Michael Nguyen",
-      "bjj_belt_rank": "Blue",
-      "weight": 154.0,
-      "weight_class_name": "Lightweight",
-      "weight_class_id": 1,
-      "elo_rating": 1381.823809,
-      "initial_elo_rating": 1400,
-      "photo_url": null,
-      "academy": "VanGuard Gym"
-    },
-    "wins": 0,
-    "losses": 1,
-    "draws": 3
-  },
-  {
-    "player": {
-      "id": 4,
-      "name": "Josue Chevaz",
-      "bjj_belt_rank": "Blue",
-      "weight": 194.9,
-      "weight_class_name": "Middleweight",
-      "weight_class_id": 2,
-      "elo_rating": 1380.189162,
-      "initial_elo_rating": 1400,
-      "photo_url": "https://i.imgur.com/f28PYFd.png",
-      "academy": "VanGuard Gym"
-    },
-    "wins": 0,
-    "losses": 4,
-    "draws": 1
-  },
-  {
-    "player": {
-      "id": 9,
-      "name": "Edrees Saifi",
-      "bjj_belt_rank": "Blue",
-      "weight": 207.0,
-      "weight_class_name": "Heavyweight",
-      "weight_class_id": 3,
-      "elo_rating": 1379.382882,
-      "initial_elo_rating": 1400,
-      "photo_url": "https://i.imgur.com/TziWaNR.png",
-      "academy": "VanGuard Gym"
-    },
-    "wins": 1,
-    "losses": 3,
-    "draws": 2
-  },
-  {
-    "player": {
-      "id": 22,
-      "name": "Sean Halse",
-      "bjj_belt_rank": "Blue",
-      "weight": 227.0,
-      "weight_class_name": "Heavyweight",
-      "weight_class_id": 3,
-      "elo_rating": 1372.714204,
-      "initial_elo_rating": 1400,
-      "photo_url": null,
-      "academy": "VanGuard Gym"
-    },
-    "wins": 0,
-    "losses": 4,
-    "draws": 0
-  },
-  {
-    "player": {
-      "id": 18,
-      "name": "Jamie Corzo",
-      "bjj_belt_rank": "Blue",
-      "weight": 178.0,
-      "weight_class_name": "Middleweight",
-      "weight_class_id": 2,
-      "elo_rating": 1345.414902,
-      "initial_elo_rating": 1400,
-      "photo_url": "https://i.imgur.com/kCFCFpU.png",
-      "academy": "VanGuard Gym"
-    },
-    "wins": 0,
-    "losses": 6,
-    "draws": 0
-  },
-  {
-    "player": {
-      "id": 6,
-      "name": "Josh Rivera",
-      "bjj_belt_rank": "Blue",
-      "weight": 157.0,
-      "weight_class_name": "Lightweight",
-      "weight_class_id": 1,
-      "elo_rating": 1339.479909,
-      "initial_elo_rating": 1400,
-      "photo_url": "https://i.imgur.com/9SPGfFG.jpg",
-      "academy": "VanGuard Gym"
-    },
-    "wins": 1,
-    "losses": 8,
-    "draws": 0
   },
   {
     "player": {
@@ -418,11 +154,48 @@
       "elo_rating": 1202.859957,
       "initial_elo_rating": 1200,
       "photo_url": null,
-      "academy": "VanGuard Gym"
+      "academy": "VanGuard Gym",
+      "elo_delta": 2.859956999999895
     },
     "wins": 0,
     "losses": 2,
     "draws": 2
+  },
+  {
+    "player": {
+      "id": 29,
+      "name": "Angel Jimenez",
+      "bjj_belt_rank": null,
+      "weight": 228.0,
+      "weight_class_name": "Heavyweight",
+      "weight_class_id": 3,
+      "elo_rating": 1400.940321,
+      "initial_elo_rating": 1400,
+      "photo_url": null,
+      "academy": "Vanguard Gym",
+      "elo_delta": 0.9403210000000399
+    },
+    "wins": 0,
+    "losses": 1,
+    "draws": 1
+  },
+  {
+    "player": {
+      "id": 1,
+      "name": "Brian Cronmiller",
+      "bjj_belt_rank": "Black",
+      "weight": 250.0,
+      "weight_class_name": "Heavyweight",
+      "weight_class_id": 3,
+      "elo_rating": 2000,
+      "initial_elo_rating": 2000,
+      "photo_url": "https://i.imgur.com/4Byp9fT.jpg",
+      "academy": "VanGuard Gym",
+      "elo_delta": 0
+    },
+    "wins": 0,
+    "losses": 0,
+    "draws": 0
   },
   {
     "player": {
@@ -435,7 +208,26 @@
       "elo_rating": 1200,
       "initial_elo_rating": 1200,
       "photo_url": "https://i.imgur.com/Ypkd9nh.png",
-      "academy": "Vanguard Gym"
+      "academy": "Vanguard Gym",
+      "elo_delta": 0
+    },
+    "wins": 0,
+    "losses": 0,
+    "draws": 0
+  },
+  {
+    "player": {
+      "id": 19,
+      "name": "Will Bullock",
+      "bjj_belt_rank": "Brown",
+      "weight": 220.0,
+      "weight_class_name": "Heavyweight",
+      "weight_class_id": 3,
+      "elo_rating": 1800,
+      "initial_elo_rating": 1800,
+      "photo_url": "https://i.imgur.com/T9WGdOy.png",
+      "academy": "Leo Dalla BJJ",
+      "elo_delta": 0
     },
     "wins": 0,
     "losses": 0,
@@ -452,11 +244,48 @@
       "elo_rating": 1196.51516,
       "initial_elo_rating": 1200,
       "photo_url": null,
-      "academy": "VanGuard Gym"
+      "academy": "VanGuard Gym",
+      "elo_delta": -3.4848400000000765
     },
     "wins": 0,
     "losses": 1,
     "draws": 1
+  },
+  {
+    "player": {
+      "id": 28,
+      "name": "Wyatt Carroll",
+      "bjj_belt_rank": "Brown",
+      "weight": 227.0,
+      "weight_class_name": "Heavyweight",
+      "weight_class_id": 3,
+      "elo_rating": 1795.532604,
+      "initial_elo_rating": 1800,
+      "photo_url": null,
+      "academy": "Vanguard Culpepper BJJ",
+      "elo_delta": -4.467396000000008
+    },
+    "wins": 1,
+    "losses": 1,
+    "draws": 0
+  },
+  {
+    "player": {
+      "id": 10,
+      "name": "Troy Wittman",
+      "bjj_belt_rank": "Black",
+      "weight": 215.0,
+      "weight_class_name": "Heavyweight",
+      "weight_class_id": 3,
+      "elo_rating": 1993.091529,
+      "initial_elo_rating": 2000,
+      "photo_url": "https://i.imgur.com/C1nGrWd.png",
+      "academy": "Leo Dalla BJJ",
+      "elo_delta": -6.908470999999963
+    },
+    "wins": 3,
+    "losses": 1,
+    "draws": 0
   },
   {
     "player": {
@@ -469,10 +298,209 @@
       "elo_rating": 1191.282891,
       "initial_elo_rating": 1200,
       "photo_url": null,
-      "academy": "VanGuard Gym"
+      "academy": "VanGuard Gym",
+      "elo_delta": -8.717108999999937
     },
     "wins": 0,
     "losses": 1,
     "draws": 1
+  },
+  {
+    "player": {
+      "id": 14,
+      "name": "Jack Sudduth",
+      "bjj_belt_rank": "Purple",
+      "weight": 155.4,
+      "weight_class_name": "Lightweight",
+      "weight_class_id": 1,
+      "elo_rating": 1589.332508,
+      "initial_elo_rating": 1600,
+      "photo_url": "https://i.imgur.com/CPK4ZYk.png",
+      "academy": "Calvert MMA",
+      "elo_delta": -10.667492000000038
+    },
+    "wins": 1,
+    "losses": 2,
+    "draws": 0
+  },
+  {
+    "player": {
+      "id": 23,
+      "name": "Anderson De Castro",
+      "bjj_belt_rank": "Purple",
+      "weight": 219.0,
+      "weight_class_name": "Heavyweight",
+      "weight_class_id": 3,
+      "elo_rating": 1584.078668,
+      "initial_elo_rating": 1600,
+      "photo_url": null,
+      "academy": "VanGuard Gym",
+      "elo_delta": -15.921331999999893
+    },
+    "wins": 1,
+    "losses": 1,
+    "draws": 0
+  },
+  {
+    "player": {
+      "id": 25,
+      "name": "Michael Nguyen",
+      "bjj_belt_rank": "Blue",
+      "weight": 154.0,
+      "weight_class_name": "Lightweight",
+      "weight_class_id": 1,
+      "elo_rating": 1381.823809,
+      "initial_elo_rating": 1400,
+      "photo_url": null,
+      "academy": "VanGuard Gym",
+      "elo_delta": -18.176191000000017
+    },
+    "wins": 0,
+    "losses": 1,
+    "draws": 3
+  },
+  {
+    "player": {
+      "id": 4,
+      "name": "Josue Chevaz",
+      "bjj_belt_rank": "Blue",
+      "weight": 194.9,
+      "weight_class_name": "Middleweight",
+      "weight_class_id": 2,
+      "elo_rating": 1380.189162,
+      "initial_elo_rating": 1400,
+      "photo_url": "https://i.imgur.com/f28PYFd.png",
+      "academy": "VanGuard Gym",
+      "elo_delta": -19.810838000000103
+    },
+    "wins": 0,
+    "losses": 4,
+    "draws": 1
+  },
+  {
+    "player": {
+      "id": 9,
+      "name": "Edrees Saifi",
+      "bjj_belt_rank": "Blue",
+      "weight": 207.0,
+      "weight_class_name": "Heavyweight",
+      "weight_class_id": 3,
+      "elo_rating": 1379.382882,
+      "initial_elo_rating": 1400,
+      "photo_url": "https://i.imgur.com/TziWaNR.png",
+      "academy": "VanGuard Gym",
+      "elo_delta": -20.61711799999989
+    },
+    "wins": 1,
+    "losses": 3,
+    "draws": 2
+  },
+  {
+    "player": {
+      "id": 16,
+      "name": "Marcus Harness",
+      "bjj_belt_rank": "Brown",
+      "weight": 286.0,
+      "weight_class_name": "Heavyweight",
+      "weight_class_id": 3,
+      "elo_rating": 1776.075941,
+      "initial_elo_rating": 1800,
+      "photo_url": "https://i.imgur.com/OlkIMNF.png",
+      "academy": "VanGuard Gym",
+      "elo_delta": -23.924058999999943
+    },
+    "wins": 0,
+    "losses": 2,
+    "draws": 0
+  },
+  {
+    "player": {
+      "id": 7,
+      "name": "Matt Crawford",
+      "bjj_belt_rank": "Brown",
+      "weight": 262.0,
+      "weight_class_name": "Heavyweight",
+      "weight_class_id": 3,
+      "elo_rating": 1773.109615,
+      "initial_elo_rating": 1800,
+      "photo_url": "https://i.imgur.com/GeVieX2.png",
+      "academy": "Kaizen MMA",
+      "elo_delta": -26.890384999999924
+    },
+    "wins": 2,
+    "losses": 3,
+    "draws": 2
+  },
+  {
+    "player": {
+      "id": 22,
+      "name": "Sean Halse",
+      "bjj_belt_rank": "Blue",
+      "weight": 227.0,
+      "weight_class_name": "Heavyweight",
+      "weight_class_id": 3,
+      "elo_rating": 1372.714204,
+      "initial_elo_rating": 1400,
+      "photo_url": null,
+      "academy": "VanGuard Gym",
+      "elo_delta": -27.28579599999989
+    },
+    "wins": 0,
+    "losses": 4,
+    "draws": 0
+  },
+  {
+    "player": {
+      "id": 15,
+      "name": "George Battistelli",
+      "bjj_belt_rank": "Purple",
+      "weight": 187.0,
+      "weight_class_name": "Middleweight",
+      "weight_class_id": 2,
+      "elo_rating": 1553.317992,
+      "initial_elo_rating": 1600,
+      "photo_url": "https://i.imgur.com/w6vvxqV.jpg",
+      "academy": "VanGuard Gym",
+      "elo_delta": -46.682007999999996
+    },
+    "wins": 3,
+    "losses": 3,
+    "draws": 1
+  },
+  {
+    "player": {
+      "id": 18,
+      "name": "Jamie Corzo",
+      "bjj_belt_rank": "Blue",
+      "weight": 178.0,
+      "weight_class_name": "Middleweight",
+      "weight_class_id": 2,
+      "elo_rating": 1345.414902,
+      "initial_elo_rating": 1400,
+      "photo_url": "https://i.imgur.com/kCFCFpU.png",
+      "academy": "VanGuard Gym",
+      "elo_delta": -54.585098000000016
+    },
+    "wins": 0,
+    "losses": 6,
+    "draws": 0
+  },
+  {
+    "player": {
+      "id": 6,
+      "name": "Josh Rivera",
+      "bjj_belt_rank": "Blue",
+      "weight": 157.0,
+      "weight_class_name": "Lightweight",
+      "weight_class_id": 1,
+      "elo_rating": 1339.479909,
+      "initial_elo_rating": 1400,
+      "photo_url": "https://i.imgur.com/9SPGfFG.jpg",
+      "academy": "VanGuard Gym",
+      "elo_delta": -60.52009100000009
+    },
+    "wins": 1,
+    "losses": 8,
+    "draws": 0
   }
 ]

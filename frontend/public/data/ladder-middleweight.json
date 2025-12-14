@@ -5,23 +5,6 @@
   "standings": [
     {
       "player": {
-        "id": 15,
-        "name": "George Battistelli",
-        "bjj_belt_rank": "Purple",
-        "weight": 187.0,
-        "weight_class_name": "Middleweight",
-        "weight_class_id": 2,
-        "elo_rating": 1553.317992,
-        "initial_elo_rating": 1600,
-        "photo_url": "https://i.imgur.com/w6vvxqV.jpg",
-        "academy": "VanGuard Gym"
-      },
-      "wins": 3,
-      "losses": 3,
-      "draws": 1
-    },
-    {
-      "player": {
         "id": 30,
         "name": "Skylar Fincham",
         "bjj_belt_rank": "Blue",
@@ -31,44 +14,11 @@
         "elo_rating": 1436.826272,
         "initial_elo_rating": 1400,
         "photo_url": null,
-        "academy": "Vanguard Culpepper BJJ"
+        "academy": "Vanguard Culpepper BJJ",
+        "elo_delta": 36.82627200000002
       },
       "wins": 2,
       "losses": 0,
-      "draws": 0
-    },
-    {
-      "player": {
-        "id": 4,
-        "name": "Josue Chevaz",
-        "bjj_belt_rank": "Blue",
-        "weight": 194.9,
-        "weight_class_name": "Middleweight",
-        "weight_class_id": 2,
-        "elo_rating": 1380.189162,
-        "initial_elo_rating": 1400,
-        "photo_url": "https://i.imgur.com/f28PYFd.png",
-        "academy": "VanGuard Gym"
-      },
-      "wins": 0,
-      "losses": 4,
-      "draws": 1
-    },
-    {
-      "player": {
-        "id": 18,
-        "name": "Jamie Corzo",
-        "bjj_belt_rank": "Blue",
-        "weight": 178.0,
-        "weight_class_name": "Middleweight",
-        "weight_class_id": 2,
-        "elo_rating": 1345.414902,
-        "initial_elo_rating": 1400,
-        "photo_url": "https://i.imgur.com/kCFCFpU.png",
-        "academy": "VanGuard Gym"
-      },
-      "wins": 0,
-      "losses": 6,
       "draws": 0
     },
     {
@@ -82,11 +32,66 @@
         "elo_rating": 1191.282891,
         "initial_elo_rating": 1200,
         "photo_url": null,
-        "academy": "VanGuard Gym"
+        "academy": "VanGuard Gym",
+        "elo_delta": -8.717108999999937
       },
       "wins": 0,
       "losses": 1,
       "draws": 1
+    },
+    {
+      "player": {
+        "id": 4,
+        "name": "Josue Chevaz",
+        "bjj_belt_rank": "Blue",
+        "weight": 194.9,
+        "weight_class_name": "Middleweight",
+        "weight_class_id": 2,
+        "elo_rating": 1380.189162,
+        "initial_elo_rating": 1400,
+        "photo_url": "https://i.imgur.com/f28PYFd.png",
+        "academy": "VanGuard Gym",
+        "elo_delta": -19.810838000000103
+      },
+      "wins": 0,
+      "losses": 4,
+      "draws": 1
+    },
+    {
+      "player": {
+        "id": 15,
+        "name": "George Battistelli",
+        "bjj_belt_rank": "Purple",
+        "weight": 187.0,
+        "weight_class_name": "Middleweight",
+        "weight_class_id": 2,
+        "elo_rating": 1553.317992,
+        "initial_elo_rating": 1600,
+        "photo_url": "https://i.imgur.com/w6vvxqV.jpg",
+        "academy": "VanGuard Gym",
+        "elo_delta": -46.682007999999996
+      },
+      "wins": 3,
+      "losses": 3,
+      "draws": 1
+    },
+    {
+      "player": {
+        "id": 18,
+        "name": "Jamie Corzo",
+        "bjj_belt_rank": "Blue",
+        "weight": 178.0,
+        "weight_class_name": "Middleweight",
+        "weight_class_id": 2,
+        "elo_rating": 1345.414902,
+        "initial_elo_rating": 1400,
+        "photo_url": "https://i.imgur.com/kCFCFpU.png",
+        "academy": "VanGuard Gym",
+        "elo_delta": -54.585098000000016
+      },
+      "wins": 0,
+      "losses": 6,
+      "draws": 0
     }
   ]
 }

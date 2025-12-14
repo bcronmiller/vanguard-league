@@ -5,6 +5,24 @@
   "standings": [
     {
       "player": {
+        "id": 3,
+        "name": "Hussain Samir",
+        "bjj_belt_rank": "Blue",
+        "weight": 161.0,
+        "weight_class_name": "Lightweight",
+        "weight_class_id": 1,
+        "elo_rating": 1511.113305,
+        "initial_elo_rating": 1400,
+        "photo_url": "https://i.imgur.com/wZdB0zW.png",
+        "academy": "VanGuard Gym",
+        "elo_delta": 111.11330500000008
+      },
+      "wins": 8,
+      "losses": 2,
+      "draws": 1
+    },
+    {
+      "player": {
         "id": 8,
         "name": "John Michael El Mapache Rodriguez Uhweta",
         "bjj_belt_rank": "Purple",
@@ -14,7 +32,8 @@
         "elo_rating": 1632.973007,
         "initial_elo_rating": 1600,
         "photo_url": "https://i.imgur.com/vuhvBXu.jpg",
-        "academy": "Kaizen MMA"
+        "academy": "Kaizen MMA",
+        "elo_delta": 32.97300700000005
       },
       "wins": 7,
       "losses": 2,
@@ -31,10 +50,29 @@
         "elo_rating": 1631.51069,
         "initial_elo_rating": 1600,
         "photo_url": "https://i.imgur.com/xzfxRkA.jpg",
-        "academy": "VanGuard Gym"
+        "academy": "VanGuard Gym",
+        "elo_delta": 31.510690000000068
       },
       "wins": 6,
       "losses": 1,
+      "draws": 2
+    },
+    {
+      "player": {
+        "id": 24,
+        "name": "Euan Graham",
+        "bjj_belt_rank": "White",
+        "weight": 158.0,
+        "weight_class_name": "Lightweight",
+        "weight_class_id": 1,
+        "elo_rating": 1202.859957,
+        "initial_elo_rating": 1200,
+        "photo_url": null,
+        "academy": "VanGuard Gym",
+        "elo_delta": 2.859956999999895
+      },
+      "wins": 0,
+      "losses": 2,
       "draws": 2
     },
     {
@@ -48,28 +86,12 @@
         "elo_rating": 1589.332508,
         "initial_elo_rating": 1600,
         "photo_url": "https://i.imgur.com/CPK4ZYk.png",
-        "academy": "Calvert MMA"
+        "academy": "Calvert MMA",
+        "elo_delta": -10.667492000000038
       },
       "wins": 1,
       "losses": 2,
       "draws": 0
-    },
-    {
-      "player": {
-        "id": 3,
-        "name": "Hussain Samir",
-        "bjj_belt_rank": "Blue",
-        "weight": 161.0,
-        "weight_class_name": "Lightweight",
-        "weight_class_id": 1,
-        "elo_rating": 1511.113305,
-        "initial_elo_rating": 1400,
-        "photo_url": "https://i.imgur.com/wZdB0zW.png",
-        "academy": "VanGuard Gym"
-      },
-      "wins": 8,
-      "losses": 2,
-      "draws": 1
     },
     {
       "player": {
@@ -82,7 +104,8 @@
         "elo_rating": 1381.823809,
         "initial_elo_rating": 1400,
         "photo_url": null,
-        "academy": "VanGuard Gym"
+        "academy": "VanGuard Gym",
+        "elo_delta": -18.176191000000017
       },
       "wins": 0,
       "losses": 1,
@@ -99,28 +122,12 @@
         "elo_rating": 1339.479909,
         "initial_elo_rating": 1400,
         "photo_url": "https://i.imgur.com/9SPGfFG.jpg",
-        "academy": "VanGuard Gym"
+        "academy": "VanGuard Gym",
+        "elo_delta": -60.52009100000009
       },
       "wins": 1,
       "losses": 8,
       "draws": 0
-    },
-    {
-      "player": {
-        "id": 24,
-        "name": "Euan Graham",
-        "bjj_belt_rank": "White",
-        "weight": 158.0,
-        "weight_class_name": "Lightweight",
-        "weight_class_id": 1,
-        "elo_rating": 1202.859957,
-        "initial_elo_rating": 1200,
-        "photo_url": null,
-        "academy": "VanGuard Gym"
-      },
-      "wins": 0,
-      "losses": 2,
-      "draws": 2
     }
   ]
 }
