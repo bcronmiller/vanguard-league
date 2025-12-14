@@ -315,14 +315,14 @@
         "duration_seconds": 600,
         "method": "h"
       },
-  "15": {
-    "event_id": 15,
-    "player_id": 2,
-    "player_name": "Alex Stewart",
-    "opponent": "Michael Nguyen",
-    "duration_seconds": 0,
-    "method": null
-  },
+      "15": {
+        "event_id": 15,
+        "player_id": 2,
+        "player_name": "Alex Stewart",
+        "opponent": "Michael Nguyen",
+        "duration_seconds": 0,
+        "method": null
+      },
       "16": {
         "event_id": 16,
         "player_id": 3,
