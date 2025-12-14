@@ -125,6 +125,11 @@ export default async function SeasonOnePage() {
 
   const totalSubmissions = Object.values(data.submission_counts).reduce((sum, count) => sum + count, 0);
 
+  const getEventName = (eventId: number) => {
+    const ev = events.find((e) => e.id === eventId);
+    return ev ? ev.name : `Event #${eventId}`;
+  };
+
   return (
     <div className="min-h-screen bg-white dark:bg-mbjj-dark">
       <header className="bg-mbjj-dark text-white py-6">
@@ -264,27 +269,25 @@ export default async function SeasonOnePage() {
 
         {/* Awards */}
         {data.awards && (
-          <section>
-            <h2 className="text-xl font-heading font-bold mb-3 text-gray-900 dark:text-white">Season Awards</h2>
-            <div className="grid gap-3 md:grid-cols-2">
-              {/* Fastest submission */}
+          <section className="space-y-4">
+            <h2 className="text-xl font-heading font-bold text-gray-900 dark:text-white">Season Awards</h2>
+            <div className="grid gap-3 md:grid-cols-4">
               {data.awards.fastest_submission_overall && (
                 <div className="p-3 rounded-lg bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
-                  <p className="text-xs text-gray-500 dark:text-gray-400 mb-1">Fastest Submission</p>
+                  <p className="text-xs text-gray-500 dark:text-gray-400 mb-1">⏱️ Fastest Submission</p>
                   <p className="text-sm font-heading font-bold text-gray-900 dark:text-white">
                     {data.awards.fastest_submission_overall.player_name}
                   </p>
                   <p className="text-xs text-gray-600 dark:text-gray-400">
                     {data.awards.fastest_submission_overall.method || 'Submission'} in {data.awards.fastest_submission_overall.duration_seconds}s
-                    {data.awards.fastest_submission_overall.opponent ? ` vs ${data.awards.fastest_submission_overall.opponent}` : ''}
+                    {data.awards.fastest_submission_overall.opponent ? ` vs ${data.awards.fastest_submission_overall.opponent}` : ''} @ {getEventName(data.awards.fastest_submission_overall.event_id)}
                   </p>
                 </div>
               )}
 
-              {/* Longest win streak */}
               {data.awards.longest_win_streak && data.awards.longest_win_streak.player_id && (
                 <div className="p-3 rounded-lg bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
-                  <p className="text-xs text-gray-500 dark:text-gray-400 mb-1">Longest Win Streak</p>
+                  <p className="text-xs text-gray-500 dark:text-gray-400 mb-1">🔥 Longest Win Streak</p>
                   <p className="text-sm font-heading font-bold text-gray-900 dark:text-white">
                     {data.awards.longest_win_streak.player_name}
                   </p>
@@ -294,23 +297,21 @@ export default async function SeasonOnePage() {
                 </div>
               )}
 
-              {/* Most submissions */}
               {data.awards.most_submissions && data.awards.most_submissions.player_id && (
                 <div className="p-3 rounded-lg bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
-                  <p className="text-xs text-gray-500 dark:text-gray-400 mb-1">Most Submission Wins</p>
+                  <p className="text-xs text-gray-500 dark:text-gray-400 mb-1">🥋 Most Submission Wins</p>
                   <p className="text-sm font-heading font-bold text-gray-900 dark:text-white">
                     {data.awards.most_submissions.player_name}
                   </p>
                   <p className="text-xs text-gray-600 dark:text-gray-400">
-                    {data.awards.most_submissions.count} submission wins
+                    {data.awards.most_submissions.count} submissions
                   </p>
                 </div>
               )}
 
-              {/* Most draws */}
               {data.awards.most_draws && data.awards.most_draws.player_id && (
                 <div className="p-3 rounded-lg bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
-                  <p className="text-xs text-gray-500 dark:text-gray-400 mb-1">Most Draws</p>
+                  <p className="text-xs text-gray-500 dark:text-gray-400 mb-1">🧱 Most Draws</p>
                   <p className="text-sm font-heading font-bold text-gray-900 dark:text-white">
                     {data.awards.most_draws.player_name}
                   </p>
@@ -320,6 +321,25 @@ export default async function SeasonOnePage() {
                 </div>
               )}
             </div>
+
+            {data.awards.fight_of_the_night && (
+              <div className="space-y-2">
+                <p className="text-sm font-heading font-bold text-gray-900 dark:text-white">Fight of the Night (by event)</p>
+                <div className="grid gap-3 md:grid-cols-3">
+                  {Object.values(data.awards.fight_of_the_night).map((award) => (
+                    <div key={award.event_id} className="p-3 rounded-lg bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
+                      <p className="text-xs text-gray-500 dark:text-gray-400 mb-1">⚔️ {getEventName(award.event_id)}</p>
+                      <p className="text-sm font-heading font-bold text-gray-900 dark:text-white">
+                        {award.player_name} vs {award.opponent || '—'}
+                      </p>
+                      <p className="text-xs text-gray-600 dark:text-gray-400">
+                        {award.method || 'Fight'} · {award.duration_seconds ?? 0}s
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
           </section>
         )}
 
