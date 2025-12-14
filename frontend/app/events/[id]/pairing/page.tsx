@@ -59,6 +59,43 @@ interface Match {
   result: string | null;
 }
 
+const OFFLINE_EVENT_ID = '16';
+const OFFLINE_EVENT_NAME = 'VGL Season 1 Finale (Ep 5)';
+const OFFLINE_FIGHTERS: Fighter[] = [
+  { id: 28, name: 'Wyatt Carroll', weight: 227, weight_class_id: 3, belt_rank: 'Brown', match_count: 0, match_ids: [], needs_more_matches: true },
+  { id: 22, name: 'Sean Halse', weight: 227, weight_class_id: 3, belt_rank: 'Blue', match_count: 0, match_ids: [], needs_more_matches: true },
+  { id: 29, name: 'Angel Jimenez', weight: 228, weight_class_id: 3, belt_rank: 'Unspecified', match_count: 0, match_ids: [], needs_more_matches: true },
+  { id: 11, name: 'Christian Banghart', weight: 202, weight_class_id: 3, belt_rank: 'Black', match_count: 0, match_ids: [], needs_more_matches: true },
+  { id: 23, name: 'Anderson De Castro', weight: 219, weight_class_id: 3, belt_rank: 'Purple', match_count: 0, match_ids: [], needs_more_matches: true },
+  { id: 21, name: 'Josue Gaines', weight: 269, weight_class_id: 3, belt_rank: 'Blue', match_count: 0, match_ids: [], needs_more_matches: true },
+  { id: 18, name: 'Jamie Corzo', weight: 178, weight_class_id: 2, belt_rank: 'Blue', match_count: 0, match_ids: [], needs_more_matches: true },
+  { id: 30, name: 'Skylar Fincham', weight: 183, weight_class_id: 2, belt_rank: 'Blue', match_count: 0, match_ids: [], needs_more_matches: true },
+  { id: 15, name: 'George Battistelli', weight: 187, weight_class_id: 2, belt_rank: 'Purple', match_count: 0, match_ids: [], needs_more_matches: true },
+  { id: 24, name: 'Euan Graham', weight: 158, weight_class_id: 1, belt_rank: 'White', match_count: 0, match_ids: [], needs_more_matches: true },
+  { id: 3, name: 'Hussain Samir', weight: 161, weight_class_id: 1, belt_rank: 'Blue', match_count: 0, match_ids: [], needs_more_matches: true },
+  { id: 25, name: 'Michael Nguyen', weight: 154, weight_class_id: 1, belt_rank: 'Blue', match_count: 0, match_ids: [], needs_more_matches: true },
+  { id: 6, name: 'Josh Rivera', weight: 157, weight_class_id: 1, belt_rank: 'Blue', match_count: 0, match_ids: [], needs_more_matches: true }
+];
+
+const OFFLINE_MATCHES: Match[] = [
+  { id: 1601, match_number: 1, player_a: { id: 28, name: 'Wyatt Carroll' }, player_b: { id: 22, name: 'Sean Halse' }, weight_class_id: 3, result: null },
+  { id: 1602, match_number: 2, player_a: { id: 29, name: 'Angel Jimenez' }, player_b: { id: 11, name: 'Christian Banghart' }, weight_class_id: 3, result: null },
+  { id: 1603, match_number: 3, player_a: { id: 23, name: 'Anderson De Castro' }, player_b: { id: 21, name: 'Josue Gaines' }, weight_class_id: 3, result: null },
+  { id: 1604, match_number: 4, player_a: { id: 28, name: 'Wyatt Carroll' }, player_b: { id: 29, name: 'Angel Jimenez' }, weight_class_id: 3, result: null },
+  { id: 1605, match_number: 5, player_a: { id: 22, name: 'Sean Halse' }, player_b: { id: 23, name: 'Anderson De Castro' }, weight_class_id: 3, result: 'b_win' },
+  { id: 1606, match_number: 6, player_a: { id: 11, name: 'Christian Banghart' }, player_b: { id: 21, name: 'Josue Gaines' }, weight_class_id: 3, result: null },
+  { id: 1607, match_number: 7, player_a: { id: 18, name: 'Jamie Corzo' }, player_b: { id: 30, name: 'Skylar Fincham' }, weight_class_id: 2, result: null },
+  { id: 1608, match_number: 8, player_a: { id: 18, name: 'Jamie Corzo' }, player_b: { id: 15, name: 'George Battistelli' }, weight_class_id: 2, result: null },
+  { id: 1609, match_number: 9, player_a: { id: 30, name: 'Skylar Fincham' }, player_b: { id: 15, name: 'George Battistelli' }, weight_class_id: 2, result: null },
+  { id: 1610, match_number: 10, player_a: { id: 24, name: 'Euan Graham' }, player_b: { id: 3, name: 'Hussain Samir' }, weight_class_id: 1, result: null },
+  { id: 1611, match_number: 11, player_a: { id: 24, name: 'Euan Graham' }, player_b: { id: 25, name: 'Michael Nguyen' }, weight_class_id: 1, result: null },
+  { id: 1612, match_number: 12, player_a: { id: 3, name: 'Hussain Samir' }, player_b: { id: 25, name: 'Michael Nguyen' }, weight_class_id: 1, result: null },
+  { id: 1613, match_number: 13, player_a: { id: 3, name: 'Hussain Samir' }, player_b: { id: 6, name: 'Josh Rivera' }, weight_class_id: 1, result: 'a_win' },
+  { id: 1614, match_number: 14, player_a: { id: 15, name: 'George Battistelli' }, player_b: { id: 6, name: 'Josh Rivera' }, weight_class_id: 2, result: 'a_win' },
+  { id: 1615, match_number: 15, player_a: { id: 21, name: 'Josue Gaines' }, player_b: { id: 29, name: 'Angel Jimenez' }, weight_class_id: 3, result: 'draw' },
+  { id: 1616, match_number: 16, player_a: { id: 6, name: 'Josh Rivera' }, player_b: { id: 24, name: 'Euan Graham' }, weight_class_id: 1, result: 'a_win' }
+];
+
 export default function EventPairingPage({
   params,
 }: {
@@ -76,20 +113,134 @@ export default function EventPairingPage({
   const [selectedFighter2, setSelectedFighter2] = useState<number | null>(null);
   const [creating, setCreating] = useState(false);
   const [validationError, setValidationError] = useState<string | null>(null);
+  const [offlineMode, setOfflineMode] = useState(false);
 
   const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+
+  const getWeightClassName = (weightClassId: number) => {
+    if (weightClassId === 1) return 'Lightweight';
+    if (weightClassId === 2) return 'Middleweight';
+    return 'Heavyweight';
+  };
+
+  const buildOfflineStats = (fighters: Fighter[], currentMatches: Match[]): PairingStats => {
+    const counts: Record<number, { matchCount: number; matchIds: number[] }> = {};
+    fighters.forEach((f) => {
+      counts[f.id] = { matchCount: 0, matchIds: [] };
+    });
+
+    currentMatches.forEach((match) => {
+      if (match.player_a?.id && counts[match.player_a.id]) {
+        counts[match.player_a.id].matchCount += 1;
+        counts[match.player_a.id].matchIds.push(match.id);
+      }
+      if (match.player_b?.id && counts[match.player_b.id]) {
+        counts[match.player_b.id].matchCount += 1;
+        counts[match.player_b.id].matchIds.push(match.id);
+      }
+    });
+
+    const enriched = fighters.map((f) => {
+      const playerCounts = counts[f.id] || { matchCount: 0, matchIds: [] };
+      return {
+        ...f,
+        match_count: playerCounts.matchCount,
+        match_ids: playerCounts.matchIds,
+        needs_more_matches: playerCounts.matchCount < 2
+      };
+    });
+
+    const totalMatches = currentMatches.length;
+    const totalFighters = enriched.length;
+    const fightersAtGoal = enriched.filter((f) => f.match_count >= 2).length;
+    const zeroMatches = enriched.filter((f) => f.match_count === 0);
+    const oneMatch = enriched.filter((f) => f.match_count === 1);
+    const twoMatches = enriched.filter((f) => f.match_count === 2);
+    const threePlus = enriched.filter((f) => f.match_count >= 3);
+    const goalPercentage = totalFighters > 0 ? Math.round((fightersAtGoal / totalFighters) * 1000) / 10 : 0;
+
+    const weightClassDistribution: WeightClass[] = [];
+    enriched.forEach((f) => {
+      let wc = weightClassDistribution.find((w) => w.weight_class_id === f.weight_class_id);
+      if (!wc) {
+        wc = { weight_class_id: f.weight_class_id, weight_class_name: getWeightClassName(f.weight_class_id), fighter_count: 0, fighters: [] };
+        weightClassDistribution.push(wc);
+      }
+      wc.fighter_count += 1;
+      wc.fighters.push({ id: f.id, name: f.name, weight: f.weight, match_count: f.match_count });
+    });
+
+    const suggestions: PairingStats['suggestions'] = [];
+    if (zeroMatches.length >= 2) {
+      suggestions.push({
+        priority: 'high',
+        message: `${zeroMatches.length} fighters have no matches yet`,
+        action: 'Pair fighters with 0 matches first'
+      });
+    }
+    if (oneMatch.length >= 2) {
+      suggestions.push({
+        priority: 'medium',
+        message: `${oneMatch.length} fighters have only 1 match`,
+        action: 'Pair fighters with 1 match to reach the 2-3 goal'
+      });
+    }
+    if (goalPercentage >= 100) {
+      suggestions.push({
+        priority: 'success',
+        message: 'All fighters have 2+ matches!',
+        action: 'Pairing goal achieved'
+      });
+    }
+
+    return {
+      event_id: Number(eventId),
+      event_name: OFFLINE_EVENT_NAME,
+      total_fighters: totalFighters,
+      total_matches: totalMatches,
+      fighters_at_goal: fightersAtGoal,
+      goal_percentage: goalPercentage,
+      estimated_duration_minutes: totalMatches * 10,
+      estimated_duration_formatted: `${Math.floor((totalMatches * 10) / 60)}h ${(totalMatches * 10) % 60}m`,
+      fighter_breakdown: {
+        zero_matches: { count: zeroMatches.length, fighters: zeroMatches.sort((a, b) => a.name.localeCompare(b.name)) },
+        one_match: { count: oneMatch.length, fighters: oneMatch.sort((a, b) => a.name.localeCompare(b.name)) },
+        two_matches: { count: twoMatches.length, fighters: twoMatches.sort((a, b) => a.name.localeCompare(b.name)) },
+        three_plus_matches: { count: threePlus.length, fighters: threePlus.sort((a, b) => a.name.localeCompare(b.name)) }
+      },
+      weight_class_distribution: weightClassDistribution,
+      suggestions,
+      all_fighters: enriched.sort((a, b) => (a.match_count - b.match_count) || a.name.localeCompare(b.name))
+    };
+  };
+
+  const useOfflineData = () => {
+    const offlineStats = buildOfflineStats(OFFLINE_FIGHTERS, OFFLINE_MATCHES);
+    setStats(offlineStats);
+    setMatches(OFFLINE_MATCHES);
+    setOfflineMode(true);
+    setError(null);
+  };
 
   const fetchData = async () => {
     try {
       setLoading(true);
+      setOfflineMode(false);
 
       // Fetch pairing stats
       const statsRes = await fetch(`${API_URL}/api/tournaments/events/${eventId}/pairing-stats`);
       if (!statsRes.ok) throw new Error('Failed to fetch pairing stats');
       const statsData = await statsRes.json();
+
+      // If the API is empty or offline, pre-load VGL5 with 12 checked-in fighters and 2 matches each
+      if (eventId === OFFLINE_EVENT_ID && (!statsData || statsData.total_fighters === 0)) {
+        useOfflineData();
+        setLoading(false);
+        return;
+      }
+
       setStats(statsData);
 
-      // Fetch existing matches
       const matchesRes = await fetch(`${API_URL}/api/events/${eventId}/matches`);
       if (matchesRes.ok) {
         const matchesData = await matchesRes.json();
@@ -98,7 +249,11 @@ export default function EventPairingPage({
 
       setError(null);
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Unknown error');
+      if (eventId === OFFLINE_EVENT_ID) {
+        useOfflineData();
+      } else {
+        setError(err instanceof Error ? err.message : 'Unknown error');
+      }
     } finally {
       setLoading(false);
     }
@@ -144,6 +299,25 @@ export default function EventPairingPage({
     setValidationError(null);
 
     try {
+      if (offlineMode && stats) {
+        const nextMatchNumber = matches.length > 0 ? Math.max(...matches.map((m) => m.match_number)) + 1 : 1;
+        const newMatch: Match = {
+          id: Date.now(),
+          match_number: nextMatchNumber,
+          player_a: { id: selectedFighter1, name: fighter1.name },
+          player_b: { id: selectedFighter2, name: fighter2.name },
+          weight_class_id: fighter1.weight_class_id === fighter2.weight_class_id ? fighter1.weight_class_id : Math.max(fighter1.weight_class_id, fighter2.weight_class_id),
+          result: null
+        };
+        const nextMatches = [...matches, newMatch];
+        setMatches(nextMatches);
+        setStats(buildOfflineStats(OFFLINE_FIGHTERS, nextMatches));
+        setSelectedFighter1(null);
+        setSelectedFighter2(null);
+        setCreating(false);
+        return;
+      }
+
       const res = await fetch(`${API_URL}/api/tournaments/events/${eventId}/matches`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -175,6 +349,13 @@ export default function EventPairingPage({
     if (!confirm('Delete this match?')) return;
 
     try {
+      if (offlineMode && stats) {
+        const nextMatches = matches.filter((m) => m.id !== matchId);
+        setMatches(nextMatches);
+        setStats(buildOfflineStats(OFFLINE_FIGHTERS, nextMatches));
+        return;
+      }
+
       const res = await fetch(`${API_URL}/api/tournaments/matches/${matchId}`, {
         method: 'DELETE',
       });
@@ -194,6 +375,12 @@ export default function EventPairingPage({
 
     try {
       setLoading(true);
+      if (offlineMode) {
+        setMatches([]);
+        setStats(buildOfflineStats(OFFLINE_FIGHTERS, []));
+        setLoading(false);
+        return;
+      }
       const res = await fetch(`${API_URL}/api/tournaments/events/${eventId}/matches/clear-all`, {
         method: 'DELETE',
       });
@@ -268,6 +455,12 @@ export default function EventPairingPage({
           </button>
         </div>
       </div>
+
+      {offlineMode && (
+        <div className="bg-yellow-50 border border-yellow-300 text-yellow-800 px-4 py-3 rounded">
+          Offline fallback active: VGL5 is preloaded with 12 checked-in fighters and two matches each. Pairing changes stay local until the API comes back.
+        </div>
+      )}
 
       {/* Summary Stats */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">

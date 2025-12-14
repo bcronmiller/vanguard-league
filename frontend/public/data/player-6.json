@@ -18,23 +18,17 @@
   "weight_class_name": "Lightweight",
   "badges": [
     {
-      "icon": "🦁",
+      "icon": "\ud83e\udd81",
       "name": "Iron Will",
       "description": "Competed in all VGL events"
     },
     {
       "name": "Multi-Division",
       "description": "Competed in 2 weight classes",
-      "icon": "⚖️"
+      "icon": "\u2696\ufe0f"
     }
   ],
-  "manual_badges": [
-    {
-      "icon": "🦁",
-      "name": "Iron Will",
-      "description": "Competed in all VGL events"
-    }
-  ],
+  "manual_badges": [],
   "matches": [
     {
       "match_id": 6,

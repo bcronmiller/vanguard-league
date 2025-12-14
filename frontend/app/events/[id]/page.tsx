@@ -38,13 +38,13 @@ const EVENT_VIDEOS: { [key: number]: string } = {
   1: 'ieFtMnoWqZk', // VGL 1
   2: '9I3AHqRVlvg', // VGL 2
   3: 'FOtQciuEWgU', // VGL 3
+  16: '-dAHuGrY5vQ', // VGL 5 (Season 1 Finale)
   15: '6LwzKNUJsrA', // VGL 4
   // Add more events and their YouTube video IDs here
 };
 
 // Map event IDs to Google Form URLs (for registration)
 const EVENT_FORMS: { [key: number]: string } = {
-  16: 'https://forms.gle/2HzZfk8VuGBVNfnx5', // VGL 5
   17: 'https://forms.gle/2HzZfk8VuGBVNfnx5', // VGL 6
   // Add event registration forms here
 };

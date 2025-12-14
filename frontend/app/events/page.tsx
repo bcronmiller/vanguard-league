@@ -12,6 +12,16 @@ interface Event {
   status: string;
 }
 
+const FALLBACK_EVENTS: Event[] = [
+  {
+    id: 16,
+    name: 'VGL Season 1 Finale (Ep 5)',
+    date: '2025-12-13T12:00:00',
+    venue: '9414 Center Point Ln, Manassas, VA 20110',
+    status: 'completed'
+  }
+];
+
 export default function EventsPage() {
   const router = useRouter();
   const [events, setEvents] = useState<Event[]>([]);
@@ -31,18 +41,39 @@ export default function EventsPage() {
     loadEvents();
   }, []);
 
+  const fetchApiEvents = async (): Promise<Event[]> => {
+    const res = await fetch(`${config.apiUrl}/api/events`);
+    if (!res.ok) throw new Error(`API ${res.status}`);
+    return res.json();
+  };
+
+  const fetchStaticEvents = async (): Promise<Event[]> => {
+    const res = await fetch('/data/events.json');
+    if (!res.ok) throw new Error(`Static ${res.status}`);
+    return res.json();
+  };
+
   const loadEvents = async () => {
+    let data: Event[] = [];
     try {
-      const res = await fetch(`${config.apiUrl}/api/events`);
-      if (res.ok) {
-        const data = await res.json();
-        setEvents(data);
-      }
+      data = await fetchApiEvents();
     } catch (error) {
-      console.error('Failed to load events:', error);
-    } finally {
-      setLoading(false);
+      console.warn('API events fetch failed; trying static data', error);
+      try {
+        data = await fetchStaticEvents();
+      } catch (staticErr) {
+        console.warn('Static events fetch failed; using fallback', staticErr);
+      }
     }
+
+    if (!Array.isArray(data) || data.length === 0) {
+      data = FALLBACK_EVENTS;
+    } else if (!data.some((ev) => ev.id === 16)) {
+      data = [...data, ...FALLBACK_EVENTS];
+    }
+
+    setEvents(data);
+    setLoading(false);
   };
 
   const formatDate = (dateString: string) => {

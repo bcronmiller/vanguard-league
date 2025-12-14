@@ -53,6 +53,21 @@
       "icon": "\ud83c\udf51",
       "name": "Buttscooter",
       "description": "Master of the legendary butt scoot technique"
+    },
+    {
+      "name": "Season 1 P4P Champion",
+      "description": "Best overall ELO improvement in Season 1",
+      "icon": "\ud83d\udc51"
+    },
+    {
+      "name": "Season 1 Lightweight Champion",
+      "description": "Winner of Season 1 - Lightweight",
+      "icon": "\ud83c\udfc6"
+    },
+    {
+      "name": "Season 1 Middleweight Champion",
+      "description": "Winner of Season 1 - Middleweight",
+      "icon": "\ud83c\udfc6"
     }
   ],
   "matches": [

@@ -43,13 +43,7 @@
       "icon": "\u2696\ufe0f"
     }
   ],
-  "manual_badges": [
-    {
-      "icon": "\ud83d\udee1\ufe0f",
-      "name": "Undefeated",
-      "description": "Maintained undefeated record"
-    }
-  ],
+  "manual_badges": [],
   "matches": [
     {
       "match_id": 11,

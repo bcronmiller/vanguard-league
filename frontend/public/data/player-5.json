@@ -20,15 +20,21 @@
     {
       "name": "Footsie",
       "description": "Leg lock submission earned",
-      "icon": "🦶"
+      "icon": "\ud83e\uddb6"
     },
     {
       "name": "The Spoiler",
       "description": "Defeated an opponent two or more belt ranks above you",
-      "icon": "🤯"
+      "icon": "\ud83e\udd2f"
     }
   ],
-  "manual_badges": [],
+  "manual_badges": [
+    {
+      "name": "Season 1 Heavyweight Champion",
+      "description": "Winner of Season 1 - Heavyweight",
+      "icon": "\ud83c\udfc6"
+    }
+  ],
   "matches": [
     {
       "match_id": 3,

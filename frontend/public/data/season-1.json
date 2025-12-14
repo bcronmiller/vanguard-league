@@ -1,0 +1,189 @@
+{
+  "season": 1,
+  "title": "Vanguard League Season 1",
+  "event_ids": [
+    1,
+    2,
+    3,
+    15,
+    16
+  ],
+  "totals": {
+    "matches": 67,
+    "competitors": 25
+  },
+  "submission_counts": {
+    "Heel Hook": 8,
+    "Darce": 6,
+    "Guillotine": 5,
+    "Ankle Lock": 4,
+    "Head and Arm Choke": 4,
+    "Armbar": 3,
+    "Ezekiel Choke": 3,
+    "Kneebar": 3,
+    "Triangle": 3,
+    "Americana": 2,
+    "Arm Triangle": 2,
+    "Rear Naked Choke": 2,
+    "Submission": 2,
+    "Americana Armbar": 1,
+    "Arm Bar": 1,
+    "Kimura": 1,
+    "Reverse Triangle Cutting Armbar": 1,
+    "Toehold": 1
+  },
+  "champions": [
+    {
+      "weight_class_id": 1,
+      "weight_class_name": "Lightweight",
+      "player_id": 3,
+      "player_name": "Hussain Samir",
+      "photo_url": "https://i.imgur.com/wZdB0zW.png",
+      "belt_rank": "Blue",
+      "record": "4-2-0",
+      "elo_delta": 54.399964911472125
+    },
+    {
+      "weight_class_id": 2,
+      "weight_class_name": "Middleweight",
+      "player_id": 3,
+      "player_name": "Hussain Samir",
+      "photo_url": "https://i.imgur.com/wZdB0zW.png",
+      "belt_rank": "Blue",
+      "record": "1-0-1",
+      "elo_delta": 30.612833769602275
+    },
+    {
+      "weight_class_id": 3,
+      "weight_class_name": "Heavyweight",
+      "player_id": 5,
+      "player_name": "Nick Newbold",
+      "photo_url": "https://i.imgur.com/RXmwkBZ.jpg",
+      "belt_rank": "Blue",
+      "record": "3-2-1",
+      "elo_delta": 52.85613276232607
+    }
+  ],
+  "p4p_champion": {
+    "player_id": 3,
+    "player_name": "Hussain Samir",
+    "photo_url": "https://i.imgur.com/wZdB0zW.png",
+    "belt_rank": "Blue",
+    "record": "6-2-1",
+    "elo_delta": 92.71016732312364
+  },
+  "leaderboard_top10": [
+    {
+      "player_id": 3,
+      "player_name": "Hussain Samir",
+      "photo_url": "https://i.imgur.com/wZdB0zW.png",
+      "belt_rank": "Blue",
+      "weight_class_id": 1,
+      "weight_class_name": "Lightweight",
+      "elo_delta": 92.71016732312364,
+      "wins": 6,
+      "losses": 2,
+      "draws": 1,
+      "events": 4,
+      "matches": 11
+    },
+    {
+      "player_id": 8,
+      "player_name": "John Michael El Mapache Rodriguez Uhweta",
+      "photo_url": "https://i.imgur.com/vuhvBXu.jpg",
+      "belt_rank": "Purple",
+      "weight_class_id": 1,
+      "weight_class_name": "Lightweight",
+      "elo_delta": 32.97300737536284,
+      "wins": 7,
+      "losses": 2,
+      "draws": 2,
+      "events": 4,
+      "matches": 11
+    },
+    {
+      "player_id": 2,
+      "player_name": "Alex Stewart",
+      "photo_url": "https://i.imgur.com/xzfxRkA.jpg",
+      "belt_rank": "Purple",
+      "weight_class_id": 1,
+      "weight_class_name": "Lightweight",
+      "elo_delta": 31.510690413340853,
+      "wins": 6,
+      "losses": 1,
+      "draws": 2,
+      "events": 3,
+      "matches": 9
+    },
+    {
+      "player_id": 11,
+      "player_name": "Christian Banghart",
+      "photo_url": "https://marketmusclescdn.nyc3.digitaloceanspaces.com/wp-content/uploads/sites/265/2021/07/28171628/christiansmall.jpg",
+      "belt_rank": "Black",
+      "weight_class_id": 3,
+      "weight_class_name": "Heavyweight",
+      "elo_delta": 19.011169238433695,
+      "wins": 10,
+      "losses": 0,
+      "draws": 2,
+      "events": 5,
+      "matches": 15
+    },
+    {
+      "player_id": 21,
+      "player_name": "Josue Gaines",
+      "photo_url": "https://i.imgur.com/IgoHxYt.jpg",
+      "belt_rank": "Blue",
+      "weight_class_id": 3,
+      "weight_class_name": "Heavyweight",
+      "elo_delta": 16.17310505974592,
+      "wins": 1,
+      "losses": 1,
+      "draws": 2,
+      "events": 3,
+      "matches": 7
+    },
+    {
+      "player_id": 15,
+      "player_name": "George Battistelli",
+      "photo_url": "https://i.imgur.com/w6vvxqV.jpg",
+      "belt_rank": "Purple",
+      "weight_class_id": 2,
+      "weight_class_name": "Middleweight",
+      "elo_delta": -31.35799627216761,
+      "wins": 2,
+      "losses": 2,
+      "draws": 1,
+      "events": 3,
+      "matches": 7
+    },
+    {
+      "player_id": 18,
+      "player_name": "Jamie Corzo",
+      "photo_url": "https://i.imgur.com/kCFCFpU.png",
+      "belt_rank": "Blue",
+      "weight_class_id": 1,
+      "weight_class_name": "Lightweight",
+      "elo_delta": -40.43901897549972,
+      "wins": 0,
+      "losses": 5,
+      "draws": 0,
+      "events": 3,
+      "matches": 6
+    },
+    {
+      "player_id": 6,
+      "player_name": "Josh Rivera",
+      "photo_url": "https://i.imgur.com/9SPGfFG.jpg",
+      "belt_rank": "Blue",
+      "weight_class_id": 1,
+      "weight_class_name": "Lightweight",
+      "elo_delta": -54.91746071570287,
+      "wins": 0,
+      "losses": 6,
+      "draws": 0,
+      "events": 3,
+      "matches": 9
+    }
+  ]
+}

@@ -198,6 +198,14 @@ export default async function Home() {
                 <span>📍</span> at VanGuard Gym
               </a>
             </p>
+            <div className="mt-6 flex justify-center">
+              <a
+                href="/season/1"
+                className="px-6 py-3 bg-mbjj-red hover:bg-mbjj-accent-hover text-white font-heading font-bold rounded-lg transition shadow"
+              >
+                View Season 1 Recap
+              </a>
+            </div>
           </div>
         </div>
       </header>

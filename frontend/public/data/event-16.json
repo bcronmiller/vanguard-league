@@ -1,10 +1,10 @@
 {
   "id": 16,
-  "name": "VGL 5",
-  "date": "2025-12-13T17:00:00",
+  "name": "VGL Season 1 Finale (Ep 5)",
+  "date": "2025-12-13T12:00:00",
   "venue": "9414 Center Point Ln, Manassas, VA 20110",
-  "status": "registration_open",
-  "fighter_arrival_time": "16:00:00",
-  "event_start_time": "17:00:00",
+  "status": "completed",
+  "fighter_arrival_time": "11:30:00",
+  "event_start_time": "12:00:00",
   "created_at": "2025-11-16T13:08:19.199690"
 }
