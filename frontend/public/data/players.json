@@ -225,18 +225,8 @@
         "description": "Master of the legendary butt scoot technique"
       },
       {
-        "name": "Season 1 P4P Champion",
-        "description": "Best overall ELO improvement in Season 1",
-        "icon": "\ud83d\udc51"
-      },
-      {
         "name": "Season 1 Lightweight Champion",
         "description": "Winner of Season 1 - Lightweight",
-        "icon": "\ud83c\udfc6"
-      },
-      {
-        "name": "Season 1 Middleweight Champion",
-        "description": "Winner of Season 1 - Middleweight",
         "icon": "\ud83c\udfc6"
       }
     ],
@@ -732,7 +722,13 @@
     "updated_at": "2025-12-13T00:00:00",
     "weight_class_name": "Middleweight",
     "badges": null,
-    "manual_badges": [],
+    "manual_badges": [
+      {
+        "name": "Season 1 Middleweight Champion",
+        "description": "Winner of Season 1 - Middleweight",
+        "icon": "\ud83c\udfc6"
+      }
+    ],
     "initial_elo_rating": 1400,
     "wins": 2,
     "losses": 0,
