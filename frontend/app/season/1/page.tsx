@@ -49,7 +49,8 @@ interface EventSummary {
 
 async function loadSeason(): Promise<SeasonData | null> {
   try {
-    const filePath = path.join(process.cwd(), 'public', 'data', 'season-1.json');
+    // Freeze Season 1 to a static snapshot so future data changes don’t alter this recap.
+    const filePath = path.join(process.cwd(), 'public', 'data', 'season-1-final.json');
     const content = await fs.readFile(filePath, 'utf-8');
     return JSON.parse(content) as SeasonData;
   } catch (err) {
