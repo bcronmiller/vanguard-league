@@ -13,24 +13,34 @@
     "competitors": 25
   },
   "submission_counts": {
-    "Heel Hook": 8,
     "Darce": 6,
-    "Guillotine": 5,
-    "Ankle Lock": 4,
-    "Head and Arm Choke": 4,
+    "Guillotine": 4,
+    "Heel Hook": 4,
+    "Ankle Lock": 3,
     "Armbar": 3,
-    "Ezekiel Choke": 3,
-    "Kneebar": 3,
+    "Head and Arm Choke": 3,
     "Triangle": 3,
     "Americana": 2,
     "Arm Triangle": 2,
-    "Rear Naked Choke": 2,
+    "Kneebar": 2,
+    "Rear naked choke": 2,
     "Submission": 2,
-    "Americana Armbar": 1,
-    "Arm Bar": 1,
+    "Americana armbar": 1,
+    "Ankle lock": 1,
+    "Ezekiel": 1,
+    "Ezekiel choke": 1,
+    "Eziekel": 1,
+    "Head and arm choke": 1,
+    "Heel hook": 1,
+    "Heelhook": 1,
     "Kimura": 1,
+    "Knee Bar": 1,
     "Reverse Triangle Cutting Armbar": 1,
-    "Toehold": 1
+    "Toehold": 1,
+    "arm bar": 1,
+    "guillionet ": 1,
+    "h": 1,
+    "heel hook": 1
   },
   "champions": [
     {
@@ -40,18 +50,18 @@
       "player_name": "Hussain Samir",
       "photo_url": "https://i.imgur.com/wZdB0zW.png",
       "belt_rank": "Blue",
-      "record": "4-2-0",
-      "elo_delta": 54.399964911472125
+      "record": "8-2-1",
+      "elo_delta": 111.11330500000008
     },
     {
       "weight_class_id": 2,
       "weight_class_name": "Middleweight",
-      "player_id": 3,
-      "player_name": "Hussain Samir",
-      "photo_url": "https://i.imgur.com/wZdB0zW.png",
+      "player_id": 30,
+      "player_name": "Skylar Fincham",
+      "photo_url": null,
       "belt_rank": "Blue",
-      "record": "1-0-1",
-      "elo_delta": 30.612833769602275
+      "record": "2-0-0",
+      "elo_delta": 36.82627200000002
     },
     {
       "weight_class_id": 3,
@@ -61,7 +71,7 @@
       "photo_url": "https://i.imgur.com/RXmwkBZ.jpg",
       "belt_rank": "Blue",
       "record": "3-2-1",
-      "elo_delta": 52.85613276232607
+      "elo_delta": 52.85613199999989
     }
   ],
   "p4p_champion": {
@@ -69,8 +79,8 @@
     "player_name": "Hussain Samir",
     "photo_url": "https://i.imgur.com/wZdB0zW.png",
     "belt_rank": "Blue",
-    "record": "6-2-1",
-    "elo_delta": 92.71016732312364
+    "record": "8-2-1",
+    "elo_delta": 111.11330500000008
   },
   "leaderboard_top10": [
     {
@@ -80,12 +90,26 @@
       "belt_rank": "Blue",
       "weight_class_id": 1,
       "weight_class_name": "Lightweight",
-      "elo_delta": 92.71016732312364,
-      "wins": 6,
+      "elo_delta": 111.11330500000008,
+      "wins": 8,
       "losses": 2,
       "draws": 1,
       "events": 4,
       "matches": 11
+    },
+    {
+      "player_id": 21,
+      "player_name": "Josue Gaines",
+      "photo_url": "https://i.imgur.com/IgoHxYt.jpg",
+      "belt_rank": "Blue",
+      "weight_class_id": 3,
+      "weight_class_name": "Heavyweight",
+      "elo_delta": 37.039919000000054,
+      "wins": 2,
+      "losses": 2,
+      "draws": 3,
+      "events": 3,
+      "matches": 7
     },
     {
       "player_id": 8,
@@ -94,7 +118,7 @@
       "belt_rank": "Purple",
       "weight_class_id": 1,
       "weight_class_name": "Lightweight",
-      "elo_delta": 32.97300737536284,
+      "elo_delta": 32.97300700000005,
       "wins": 7,
       "losses": 2,
       "draws": 2,
@@ -108,7 +132,7 @@
       "belt_rank": "Purple",
       "weight_class_id": 1,
       "weight_class_name": "Lightweight",
-      "elo_delta": 31.510690413340853,
+      "elo_delta": 31.510690000000068,
       "wins": 6,
       "losses": 1,
       "draws": 2,
@@ -122,26 +146,12 @@
       "belt_rank": "Black",
       "weight_class_id": 3,
       "weight_class_name": "Heavyweight",
-      "elo_delta": 19.011169238433695,
-      "wins": 10,
+      "elo_delta": 25.820200000000114,
+      "wins": 13,
       "losses": 0,
       "draws": 2,
       "events": 5,
       "matches": 15
-    },
-    {
-      "player_id": 21,
-      "player_name": "Josue Gaines",
-      "photo_url": "https://i.imgur.com/IgoHxYt.jpg",
-      "belt_rank": "Blue",
-      "weight_class_id": 3,
-      "weight_class_name": "Heavyweight",
-      "elo_delta": 16.17310505974592,
-      "wins": 1,
-      "losses": 1,
-      "draws": 2,
-      "events": 3,
-      "matches": 7
     },
     {
       "player_id": 15,
@@ -150,9 +160,9 @@
       "belt_rank": "Purple",
       "weight_class_id": 2,
       "weight_class_name": "Middleweight",
-      "elo_delta": -31.35799627216761,
-      "wins": 2,
-      "losses": 2,
+      "elo_delta": -46.682007999999996,
+      "wins": 3,
+      "losses": 3,
       "draws": 1,
       "events": 3,
       "matches": 7
@@ -162,11 +172,11 @@
       "player_name": "Jamie Corzo",
       "photo_url": "https://i.imgur.com/kCFCFpU.png",
       "belt_rank": "Blue",
-      "weight_class_id": 1,
-      "weight_class_name": "Lightweight",
-      "elo_delta": -40.43901897549972,
+      "weight_class_id": 2,
+      "weight_class_name": "Middleweight",
+      "elo_delta": -54.585098000000016,
       "wins": 0,
-      "losses": 5,
+      "losses": 6,
       "draws": 0,
       "events": 3,
       "matches": 6
@@ -178,9 +188,9 @@
       "belt_rank": "Blue",
       "weight_class_id": 1,
       "weight_class_name": "Lightweight",
-      "elo_delta": -54.91746071570287,
-      "wins": 0,
-      "losses": 6,
+      "elo_delta": -60.52009100000009,
+      "wins": 1,
+      "losses": 8,
       "draws": 0,
       "events": 3,
       "matches": 9
