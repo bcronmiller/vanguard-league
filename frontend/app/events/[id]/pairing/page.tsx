@@ -304,9 +304,14 @@ export default function EventPairingPage({
         const newMatch: Match = {
           id: Date.now(),
           match_number: nextMatchNumber,
-          player_a: { id: selectedFighter1, name: fighter1.name },
-          player_b: { id: selectedFighter2, name: fighter2.name },
-          weight_class_id: fighter1.weight_class_id === fighter2.weight_class_id ? fighter1.weight_class_id : Math.max(fighter1.weight_class_id, fighter2.weight_class_id),
+          player_a: fighter1 ? { id: selectedFighter1, name: fighter1.name } : null,
+          player_b: fighter2 ? { id: selectedFighter2, name: fighter2.name } : null,
+          weight_class_id:
+            fighter1 && fighter2
+              ? fighter1.weight_class_id === fighter2.weight_class_id
+                ? fighter1.weight_class_id
+                : Math.max(fighter1.weight_class_id, fighter2.weight_class_id)
+              : null,
           result: null
         };
         const nextMatches = [...matches, newMatch];
