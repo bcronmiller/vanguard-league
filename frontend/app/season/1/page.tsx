@@ -37,7 +37,7 @@ interface SeasonData {
   totals: { matches: number; competitors: number };
   submission_counts: Record<string, number>;
   champions: Champion[];
-  p4p_champion: Champion & { belt_rank: string | null };
+  p4p_champion: (Champion & { belt_rank: string | null }) | null;
   leaderboard_top10: LeaderboardRow[];
   awards?: Awards;
 }

@@ -74,7 +74,14 @@
       "elo_delta": 52.85613199999989
     }
   ],
-  "p4p_champion": null,
+  "p4p_champion": {
+    "player_id": 3,
+    "player_name": "Hussain Samir",
+    "photo_url": "https://i.imgur.com/wZdB0zW.png",
+    "belt_rank": "Blue",
+    "record": "8-2-1",
+    "elo_delta": 111.11330500000008
+  },
   "leaderboard_top10": [
     {
       "player_id": 3,
