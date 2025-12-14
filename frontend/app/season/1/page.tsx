@@ -13,6 +13,7 @@ interface Champion {
   photo_url: string | null;
   belt_rank: string | null;
   record: string;
+  elo_delta?: number;
 }
 
 interface LeaderboardRow {
@@ -25,6 +26,7 @@ interface LeaderboardRow {
   losses: number;
   draws: number;
   elo_rating: number;
+  elo_delta?: number;
   rank: number;
 }
 
@@ -176,7 +178,7 @@ export default async function SeasonOnePage() {
                   <span role="img" aria-label="trophy">🏆</span> {champ.player_name}
                 </h3>
                 <p className="text-xs text-gray-600 dark:text-gray-400">
-                  {champ.record} · <span className="font-semibold">ΔELO {Math.round(champ.elo_delta)}</span>
+                  {champ.record} · <span className="font-semibold">ΔELO {Math.round(champ.elo_delta ?? 0)}</span>
                 </p>
                 {champ.photo_url && (
                   <div className="mt-1">
@@ -195,7 +197,7 @@ export default async function SeasonOnePage() {
                 <span role="img" aria-label="crown">👑</span> {data.p4p_champion.player_name}
               </h3>
               <p className="text-xs text-gray-200">
-                {data.p4p_champion.record} · <span className="font-semibold">ΔELO {Math.round(data.p4p_champion.elo_delta)}</span>
+                {data.p4p_champion.record} · <span className="font-semibold">ΔELO {Math.round(data.p4p_champion.elo_delta ?? 0)}</span>
               </p>
             </div>
           </div>
@@ -243,7 +245,7 @@ export default async function SeasonOnePage() {
                 <div className="flex-1">
                   <p className="font-heading font-bold text-base text-gray-900 dark:text-white">{row.player_name}</p>
                   <p className="text-sm text-gray-600 dark:text-gray-400">
-                    {row.wins}-{row.losses}-{row.draws} · ΔELO {Math.round(row.elo_delta || 0)} · WC #{row.weight_class_id}
+                    {row.wins}-{row.losses}-{row.draws} · ΔELO {Math.round(row.elo_delta ?? 0)} · WC #{row.weight_class_id}
                   </p>
                 </div>
               </div>

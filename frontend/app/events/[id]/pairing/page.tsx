@@ -295,6 +295,13 @@ export default function EventPairingPage({
       return;
     }
 
+    const fighter1Obj = stats?.all_fighters.find((p) => p.id === selectedFighter1);
+    const fighter2Obj = stats?.all_fighters.find((p) => p.id === selectedFighter2);
+    if (!fighter1Obj || !fighter2Obj) {
+      setValidationError('Please select two fighters');
+      return;
+    }
+
     setCreating(true);
     setValidationError(null);
 
@@ -304,14 +311,12 @@ export default function EventPairingPage({
         const newMatch: Match = {
           id: Date.now(),
           match_number: nextMatchNumber,
-          player_a: fighter1 ? { id: selectedFighter1, name: fighter1.name } : null,
-          player_b: fighter2 ? { id: selectedFighter2, name: fighter2.name } : null,
+          player_a: { id: selectedFighter1, name: fighter1Obj.name },
+          player_b: { id: selectedFighter2, name: fighter2Obj.name },
           weight_class_id:
-            fighter1 && fighter2
-              ? fighter1.weight_class_id === fighter2.weight_class_id
-                ? fighter1.weight_class_id
-                : Math.max(fighter1.weight_class_id, fighter2.weight_class_id)
-              : null,
+            fighter1Obj.weight_class_id === fighter2Obj.weight_class_id
+              ? fighter1Obj.weight_class_id
+              : Math.max(fighter1Obj.weight_class_id, fighter2Obj.weight_class_id),
           result: null
         };
         const nextMatches = [...matches, newMatch];
