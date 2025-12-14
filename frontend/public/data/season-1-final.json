@@ -216,5 +216,114 @@
       "events": 1,
       "matches": 2
     }
-  ]
+  ],
+  "awards": {
+    "fastest_submission_overall": {
+      "event_id": 1,
+      "player_id": 3,
+      "player_name": "Hussain Samir",
+      "duration_seconds": 15,
+      "method": "Ankle Lock",
+      "opponent": "Edrees Saifi"
+    },
+    "fastest_submission_by_event": {
+      "16": {
+        "event_id": 16,
+        "player_id": 28,
+        "player_name": "Wyatt Carroll",
+        "duration_seconds": 75,
+        "method": "Guillotine",
+        "opponent": "Sean Halse"
+      },
+      "1": {
+        "event_id": 1,
+        "player_id": 3,
+        "player_name": "Hussain Samir",
+        "duration_seconds": 15,
+        "method": "Ankle Lock",
+        "opponent": "Edrees Saifi"
+      },
+      "3": {
+        "event_id": 3,
+        "player_id": 11,
+        "player_name": "Christian Banghart",
+        "duration_seconds": 360,
+        "method": "arm bar",
+        "opponent": "Nick Newbold"
+      },
+      "2": {
+        "event_id": 2,
+        "player_id": 3,
+        "player_name": "Hussain Samir",
+        "duration_seconds": 40,
+        "method": "Heel Hook",
+        "opponent": "Josh Rivera"
+      },
+      "15": {
+        "event_id": 15,
+        "player_id": 3,
+        "player_name": "Hussain Samir",
+        "duration_seconds": 30,
+        "method": "heel hook",
+        "opponent": "Alex Stewart"
+      }
+    },
+    "most_submissions": {
+      "player_id": 11,
+      "player_name": "Christian Banghart",
+      "count": 12
+    },
+    "most_draws": {
+      "player_id": 21,
+      "player_name": "Josue Gaines",
+      "count": 3
+    },
+    "longest_win_streak": {
+      "player_id": 11,
+      "player_name": "Christian Banghart",
+      "streak": 8
+    },
+    "fight_of_the_night": {
+      "1": {
+        "event_id": 1,
+        "player_id": 11,
+        "player_name": "Christian Banghart",
+        "opponent": "Troy Wittman",
+        "duration_seconds": 450,
+        "method": "Arm Triangle"
+      },
+      "2": {
+        "event_id": 2,
+        "player_id": 15,
+        "player_name": "George Battistelli",
+        "opponent": "Josh Rivera",
+        "duration_seconds": 600,
+        "method": "Ankle Lock"
+      },
+      "3": {
+        "event_id": 3,
+        "player_id": 8,
+        "player_name": "John Michael El Mapache Rodriguez Uhweta",
+        "opponent": "Jack Sudduth",
+        "duration_seconds": 600,
+        "method": "h"
+      },
+      "15": {
+        "event_id": 15,
+        "player_id": 21,
+        "player_name": "Josue Gaines",
+        "opponent": "Sean Halse",
+        "duration_seconds": 500,
+        "method": "Head and Arm Choke"
+      },
+      "16": {
+        "event_id": 16,
+        "player_id": 3,
+        "player_name": "Hussain Samir",
+        "opponent": "Michael Nguyen",
+        "duration_seconds": 390,
+        "method": "Toehold"
+      }
+    }
+  }
 }

@@ -39,12 +39,47 @@ interface SeasonData {
   champions: Champion[];
   p4p_champion: Champion & { belt_rank: string | null };
   leaderboard_top10: LeaderboardRow[];
+  awards?: Awards;
 }
 
 interface EventSummary {
   id: number;
   name: string;
   date?: string;
+}
+
+interface Awards {
+  fastest_submission_overall?: SubmissionAward | null;
+  fastest_submission_by_event?: Record<string, SubmissionAward>;
+  most_submissions?: CountAward | null;
+  most_draws?: CountAward | null;
+  longest_win_streak?: CountAward | null;
+  fight_of_the_night?: Record<string, FightAward>;
+}
+
+interface SubmissionAward {
+  event_id: number;
+  player_id: number;
+  player_name: string;
+  duration_seconds: number;
+  method: string | null;
+  opponent?: string | null;
+}
+
+interface CountAward {
+  player_id: number | null;
+  player_name: string | null;
+  count: number;
+  streak?: number;
+}
+
+interface FightAward {
+  event_id: number;
+  player_id: number;
+  player_name: string;
+  opponent: string | null;
+  duration_seconds: number;
+  method: string | null;
 }
 
 async function loadSeason(): Promise<SeasonData | null> {
@@ -226,6 +261,67 @@ export default async function SeasonOnePage() {
             </div>
           </div>
         </section>
+
+        {/* Awards */}
+        {data.awards && (
+          <section>
+            <h2 className="text-xl font-heading font-bold mb-3 text-gray-900 dark:text-white">Season Awards</h2>
+            <div className="grid gap-3 md:grid-cols-2">
+              {/* Fastest submission */}
+              {data.awards.fastest_submission_overall && (
+                <div className="p-3 rounded-lg bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
+                  <p className="text-xs text-gray-500 dark:text-gray-400 mb-1">Fastest Submission</p>
+                  <p className="text-sm font-heading font-bold text-gray-900 dark:text-white">
+                    {data.awards.fastest_submission_overall.player_name}
+                  </p>
+                  <p className="text-xs text-gray-600 dark:text-gray-400">
+                    {data.awards.fastest_submission_overall.method || 'Submission'} in {data.awards.fastest_submission_overall.duration_seconds}s
+                    {data.awards.fastest_submission_overall.opponent ? ` vs ${data.awards.fastest_submission_overall.opponent}` : ''}
+                  </p>
+                </div>
+              )}
+
+              {/* Longest win streak */}
+              {data.awards.longest_win_streak && data.awards.longest_win_streak.player_id && (
+                <div className="p-3 rounded-lg bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
+                  <p className="text-xs text-gray-500 dark:text-gray-400 mb-1">Longest Win Streak</p>
+                  <p className="text-sm font-heading font-bold text-gray-900 dark:text-white">
+                    {data.awards.longest_win_streak.player_name}
+                  </p>
+                  <p className="text-xs text-gray-600 dark:text-gray-400">
+                    {data.awards.longest_win_streak.streak} wins
+                  </p>
+                </div>
+              )}
+
+              {/* Most submissions */}
+              {data.awards.most_submissions && data.awards.most_submissions.player_id && (
+                <div className="p-3 rounded-lg bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
+                  <p className="text-xs text-gray-500 dark:text-gray-400 mb-1">Most Submission Wins</p>
+                  <p className="text-sm font-heading font-bold text-gray-900 dark:text-white">
+                    {data.awards.most_submissions.player_name}
+                  </p>
+                  <p className="text-xs text-gray-600 dark:text-gray-400">
+                    {data.awards.most_submissions.count} submission wins
+                  </p>
+                </div>
+              )}
+
+              {/* Most draws */}
+              {data.awards.most_draws && data.awards.most_draws.player_id && (
+                <div className="p-3 rounded-lg bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
+                  <p className="text-xs text-gray-500 dark:text-gray-400 mb-1">Most Draws</p>
+                  <p className="text-sm font-heading font-bold text-gray-900 dark:text-white">
+                    {data.awards.most_draws.player_name}
+                  </p>
+                  <p className="text-xs text-gray-600 dark:text-gray-400">
+                    {data.awards.most_draws.count} draws
+                  </p>
+                </div>
+              )}
+            </div>
+          </section>
+        )}
 
         {/* Leaderboard */}
         <section>
