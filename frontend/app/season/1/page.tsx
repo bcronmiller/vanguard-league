@@ -191,15 +191,17 @@ export default async function SeasonOnePage() {
                 )}
               </div>
             ))}
-            <div className="p-3 rounded-lg bg-mbjj-dark text-white border border-gray-700 shadow-sm flex flex-col gap-2">
-              <p className="text-xs text-gray-300">Pound-for-Pound</p>
-              <h3 className="text-sm font-heading font-bold flex items-center gap-1.5">
-                <span role="img" aria-label="crown">👑</span> {data.p4p_champion.player_name}
-              </h3>
-              <p className="text-xs text-gray-200">
-                {data.p4p_champion.record} · <span className="font-semibold">ΔELO {Math.round(data.p4p_champion.elo_delta ?? 0)}</span>
-              </p>
-            </div>
+            {data.p4p_champion && (
+              <div className="p-3 rounded-lg bg-mbjj-dark text-white border border-gray-700 shadow-sm flex flex-col gap-2">
+                <p className="text-xs text-gray-300">Pound-for-Pound</p>
+                <h3 className="text-sm font-heading font-bold flex items-center gap-1.5">
+                  <span role="img" aria-label="crown">👑</span> {data.p4p_champion.player_name}
+                </h3>
+                <p className="text-xs text-gray-200">
+                  {data.p4p_champion.record} · <span className="font-semibold">ΔELO {Math.round(data.p4p_champion.elo_delta ?? 0)}</span>
+                </p>
+              </div>
+            )}
           </div>
         </section>
 
